@@ -1,0 +1,19 @@
+Compiling
+================
+
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+
+Installing
+================
+
+TODO
+
+Documentation
+================
+
+In your build directory, the following instruction enable to generate a Doxygen documentation of the libausbee library:
+
+$ make doc
