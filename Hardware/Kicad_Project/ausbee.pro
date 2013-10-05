@@ -1,4 +1,4 @@
-update=mar. 06 août 2013 00:41:39 CEST
+update=sam. 05 oct. 2013 20:38:53 CEST
 version=1
 last_client=eeschema
 [cvpcb]
@@ -101,3 +101,4 @@ LibName28=atmel
 LibName29=contrib
 LibName30=valves
 LibName31=stm32f407zg
+LibName32=sn65hvd232d
