@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date dim. 06 oct. 2013 15:54:58 CEST
+EESchema Schematic File Version 2  date dim. 06 oct. 2013 18:59:37 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -92,5 +92,9 @@ F8 "enc2_B" I L 4250 3600 60
 F9 "enc2_A" I L 4250 3500 60 
 F10 "enc1_B" I L 4250 3350 60 
 F11 "enc1_A" I L 4250 3250 60 
+F12 "PWM4" I L 4250 4600 60 
+F13 "PWM3" I L 4250 4500 60 
+F14 "PWM2" I L 4250 4400 60 
+F15 "PWM1" I L 4250 4300 60 
 $EndSheet
 $EndSCHEMATC

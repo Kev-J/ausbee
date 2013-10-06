@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date dim. 06 oct. 2013 15:54:58 CEST
+EESchema Schematic File Version 2  date dim. 06 oct. 2013 18:59:37 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -48,6 +48,14 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Text HLabel 2950 5400 0    60   Input ~ 0
+UART_AX12_RX
+Text HLabel 2950 5300 0    60   Input ~ 0
+UART_AX12_TX
+Wire Wire Line
+	7500 5300 7550 5300
+Wire Wire Line
+	2950 2300 3000 2300
 Wire Wire Line
 	7550 4600 7500 4600
 Wire Wire Line
@@ -376,6 +384,18 @@ Wire Wire Line
 	4000 6050 4000 6000
 Wire Wire Line
 	7550 4700 7500 4700
+Wire Wire Line
+	3000 2400 2950 2400
+Wire Wire Line
+	7550 5200 7500 5200
+Text HLabel 7550 5200 2    60   Input ~ 0
+PWM4
+Text HLabel 7550 5300 2    60   Input ~ 0
+PWM3
+Text HLabel 2950 2400 0    60   Input ~ 0
+PWM2
+Text HLabel 2950 2300 0    60   Input ~ 0
+PWM1
 Text HLabel 7550 4600 2    60   Input ~ 0
 enc4_B
 Text HLabel 7550 4700 2    60   Input ~ 0
