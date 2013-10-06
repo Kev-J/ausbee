@@ -1,4 +1,4 @@
-update=sam. 05 oct. 2013 20:38:53 CEST
+update=dim. 06 oct. 2013 12:55:23 CEST
 version=1
 last_client=eeschema
 [cvpcb]
@@ -102,3 +102,4 @@ LibName29=contrib
 LibName30=valves
 LibName31=stm32f407zg
 LibName32=sn65hvd232d
+LibName33=sd_holder
