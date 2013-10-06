@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date dim. 06 oct. 2013 19:01:54 CEST
+EESchema Schematic File Version 2  date dim. 06 oct. 2013 19:05:47 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -96,5 +96,6 @@ F12 "PWM4" I L 4250 4600 60
 F13 "PWM3" I L 4250 4500 60 
 F14 "PWM2" I L 4250 4400 60 
 F15 "PWM1" I L 4250 4300 60 
+F16 "UART_AX12_TX" I L 4250 2350 60 
 $EndSheet
 $EndSCHEMATC

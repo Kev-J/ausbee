@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date dim. 06 oct. 2013 19:04:08 CEST
+EESchema Schematic File Version 2  date dim. 06 oct. 2013 19:08:01 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -48,8 +48,10 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text Notes 3900 2500 0    60   ~ 0
-3.3V regulator
+Text Notes 2550 4650 0    60   ~ 0
+AX12 Power supply connector
+Wire Wire Line
+	3150 4800 3100 4800
 Wire Wire Line
 	3500 2850 3500 2800
 Wire Wire Line
@@ -65,6 +67,32 @@ Wire Wire Line
 Wire Wire Line
 	3500 3300 3500 3250
 Connection ~ 4100 3300
+Wire Wire Line
+	3150 5050 3150 5000
+Wire Wire Line
+	3150 5000 3100 5000
+Text HLabel 3150 4800 2    60   Input ~ 0
+AX12_POWER
+$Comp
+L GND #PWR?
+U 1 1 525198A8
+P 3150 5050
+F 0 "#PWR?" H 3150 5050 30  0001 C CNN
+F 1 "GND" H 3150 4980 30  0001 C CNN
+	1    3150 5050
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_2 P?
+U 1 1 5251989A
+P 2750 4900
+F 0 "P?" V 2700 4900 40  0000 C CNN
+F 1 "CONN_2" V 2800 4900 40  0000 C CNN
+	1    2750 4900
+	-1   0    0    1   
+$EndComp
+Text Notes 3900 2500 0    60   ~ 0
+3.3V regulator
 $Comp
 L C C?
 U 1 1 52516B00

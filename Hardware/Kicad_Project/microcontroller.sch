@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date dim. 06 oct. 2013 19:04:08 CEST
+EESchema Schematic File Version 2  date dim. 06 oct. 2013 19:08:01 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -48,6 +48,14 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Text Label 9150 3100 2    60   ~ 0
+UART_AX12_RX
+Text Label 9150 3200 2    60   ~ 0
+UART_AX12_TX
+Text Label 2950 5400 2    60   ~ 0
+UART_AX12_RX
+Text Label 2950 5300 2    60   ~ 0
+UART_AX12_TX
 Wire Wire Line
 	9200 3200 9150 3200
 Wire Wire Line
@@ -394,10 +402,6 @@ Wire Wire Line
 	9200 3000 9150 3000
 Wire Wire Line
 	9200 3100 9150 3100
-Text HLabel 9150 3200 0    60   Input ~ 0
-UART_AX12_TX
-Text HLabel 9150 3100 0    60   Input ~ 0
-UART_AX12_RX
 Text HLabel 9150 3000 0    60   Input ~ 0
 AX12_POWER
 $Comp
@@ -418,10 +422,6 @@ F 1 "CONN_4" V 9600 3150 50  0000 C CNN
 	1    9550 3150
 	1    0    0    -1  
 $EndComp
-Text HLabel 2950 5400 0    60   Input ~ 0
-UART_AX12_RX
-Text HLabel 2950 5300 0    60   Input ~ 0
-UART_AX12_TX
 Text HLabel 7550 5200 2    60   Input ~ 0
 PWM4
 Text HLabel 7550 5300 2    60   Input ~ 0
