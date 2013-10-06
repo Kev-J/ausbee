@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date dim. 06 oct. 2013 18:59:37 CEST
+EESchema Schematic File Version 2  date dim. 06 oct. 2013 19:04:08 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -48,10 +48,12 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
-Text HLabel 2950 5400 0    60   Input ~ 0
-UART_AX12_RX
-Text HLabel 2950 5300 0    60   Input ~ 0
-UART_AX12_TX
+Wire Wire Line
+	9200 3200 9150 3200
+Wire Wire Line
+	9200 3300 9150 3300
+Wire Wire Line
+	9150 3300 9150 3350
 Wire Wire Line
 	7500 5300 7550 5300
 Wire Wire Line
@@ -388,6 +390,38 @@ Wire Wire Line
 	3000 2400 2950 2400
 Wire Wire Line
 	7550 5200 7500 5200
+Wire Wire Line
+	9200 3000 9150 3000
+Wire Wire Line
+	9200 3100 9150 3100
+Text HLabel 9150 3200 0    60   Input ~ 0
+UART_AX12_TX
+Text HLabel 9150 3100 0    60   Input ~ 0
+UART_AX12_RX
+Text HLabel 9150 3000 0    60   Input ~ 0
+AX12_POWER
+$Comp
+L GND #PWR?
+U 1 1 5251972C
+P 9150 3350
+F 0 "#PWR?" H 9150 3350 30  0001 C CNN
+F 1 "GND" H 9150 3280 30  0001 C CNN
+	1    9150 3350
+	1    0    0    -1  
+$EndComp
+$Comp
+L CONN_4 P?
+U 1 1 52519729
+P 9550 3150
+F 0 "P?" V 9500 3150 50  0000 C CNN
+F 1 "CONN_4" V 9600 3150 50  0000 C CNN
+	1    9550 3150
+	1    0    0    -1  
+$EndComp
+Text HLabel 2950 5400 0    60   Input ~ 0
+UART_AX12_RX
+Text HLabel 2950 5300 0    60   Input ~ 0
+UART_AX12_TX
 Text HLabel 7550 5200 2    60   Input ~ 0
 PWM4
 Text HLabel 7550 5300 2    60   Input ~ 0
