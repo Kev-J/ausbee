@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date dim. 06 oct. 2013 19:08:01 CEST
+EESchema Schematic File Version 2  date dim. 06 oct. 2013 19:15:49 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -49,15 +49,21 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 Wire Wire Line
-	4250 2350 4150 2350
+	6050 3600 5800 3600
 Wire Wire Line
-	4150 2350 4150 1850
+	6050 3400 5800 3400
 Wire Wire Line
-	4150 1850 4300 1850
+	6050 2350 5800 2350
 Wire Wire Line
 	6050 2550 5800 2550
 Wire Wire Line
-	6050 2350 5800 2350
+	4300 1850 4150 1850
+Wire Wire Line
+	4150 1850 4150 2350
+Wire Wire Line
+	4150 2350 4250 2350
+Wire Wire Line
+	5800 3500 6050 3500
 $Sheet
 S 4300 850  1400 1100
 U 525169A8
@@ -104,5 +110,8 @@ F13 "PWM3" I L 4250 4500 60
 F14 "PWM2" I L 4250 4400 60 
 F15 "PWM1" I L 4250 4300 60 
 F16 "AX12_POWER" I L 4250 2350 60 
+F17 "SCK_SD" I R 5800 3400 60 
+F18 "MOSI_SD" I R 5800 3600 60 
+F19 "MISO_SD" I R 5800 3500 60 
 $EndSheet
 $EndSCHEMATC

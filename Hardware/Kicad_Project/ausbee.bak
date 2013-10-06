@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date dim. 06 oct. 2013 19:05:47 CEST
+EESchema Schematic File Version 2  date dim. 06 oct. 2013 19:15:46 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -48,27 +48,40 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Wire Wire Line
+	6050 3600 5800 3600
+Wire Wire Line
+	6050 3400 5800 3400
+Wire Wire Line
+	6050 2350 5800 2350
+Wire Wire Line
+	6050 2550 5800 2550
+Wire Wire Line
+	4300 1850 4150 1850
+Wire Wire Line
+	4150 1850 4150 2350
+Wire Wire Line
+	4150 2350 4250 2350
+Wire Wire Line
+	5800 3500 6050 3500
 $Sheet
 S 4300 850  1400 1100
 U 525169A8
 F0 "Power" 60
 F1 "power.sch" 60
+F2 "AX12_POWER" I L 4300 1850 60 
 $EndSheet
 $Sheet
-S 3100 2150 900  700 
+S 6050 3050 900  700 
 U 52514074
 F0 "SD_Storage" 60
 F1 "SD_Storage.sch" 60
-F2 "Card_Detect" I R 4000 2750 60 
-F3 "MISO" I R 4000 2400 60 
-F4 "SCK" I R 4000 2500 60 
-F5 "MOSI" I R 4000 2300 60 
-F6 "SS" I R 4000 2600 60 
+F2 "Card_Detect" I L 6050 3150 60 
+F3 "MISO" I L 6050 3500 60 
+F4 "SCK" I L 6050 3400 60 
+F5 "MOSI" I L 6050 3600 60 
+F6 "SS" I L 6050 3300 60 
 $EndSheet
-Wire Wire Line
-	6050 2350 5800 2350
-Wire Wire Line
-	6050 2550 5800 2550
 $Sheet
 S 6050 2150 550  650 
 U 52505041
@@ -96,6 +109,9 @@ F12 "PWM4" I L 4250 4600 60
 F13 "PWM3" I L 4250 4500 60 
 F14 "PWM2" I L 4250 4400 60 
 F15 "PWM1" I L 4250 4300 60 
-F16 "UART_AX12_TX" I L 4250 2350 60 
+F16 "AX12_POWER" I L 4250 2350 60 
+F17 "SCK_SD" I R 5800 3400 60 
+F18 "MOSI_SD" I R 5800 3600 60 
+F19 "MISO_SD" I R 5800 3500 60 
 $EndSheet
 $EndSCHEMATC
