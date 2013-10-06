@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date dim. 06 oct. 2013 12:43:52 CEST
+EESchema Schematic File Version 2  date dim. 06 oct. 2013 15:30:09 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -31,12 +31,13 @@ LIBS:contrib
 LIBS:valves
 LIBS:stm32f407zg
 LIBS:sn65hvd232d
+LIBS:sd_holder
 LIBS:ausbee-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
-Sheet 3 3
+Sheet 4 4
 Title ""
 Date "6 oct 2013"
 Rev ""
@@ -46,6 +47,12 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Wire Wire Line
+	3000 5300 2950 5300
+Wire Wire Line
+	7650 3100 7500 3100
+Wire Wire Line
+	6200 6050 6200 6000
 Wire Wire Line
 	6800 6350 6800 6000
 Wire Wire Line
@@ -354,6 +361,24 @@ Wire Wire Line
 	9150 2500 9200 2500
 Wire Wire Line
 	6700 6050 6700 6000
+Wire Wire Line
+	5800 6050 5800 6000
+Wire Wire Line
+	7650 3200 7500 3200
+Wire Wire Line
+	2950 5400 3000 5400
+Text HLabel 2950 5400 0    60   Input ~ 0
+enc3_B
+Text HLabel 2950 5300 0    60   Input ~ 0
+enc3_A
+Text HLabel 7650 3100 2    60   Input ~ 0
+enc2_B
+Text HLabel 7650 3200 2    60   Input ~ 0
+enc2_A
+Text HLabel 6200 6050 3    60   Input ~ 0
+enc1_B
+Text HLabel 5800 6050 3    60   Input ~ 0
+enc1_A
 Text Label 6800 6350 3    60   ~ 0
 USART3_RX
 Text Label 6700 6050 3    60   ~ 0

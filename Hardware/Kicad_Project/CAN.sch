@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date dim. 06 oct. 2013 13:32:42 CEST
+EESchema Schematic File Version 2  date dim. 06 oct. 2013 15:54:58 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -32,12 +32,13 @@ LIBS:valves
 LIBS:stm32f407zg
 LIBS:sn65hvd232d
 LIBS:sd_holder
+LIBS:ap1117
 LIBS:ausbee-cache
 EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
-Sheet 2 4
+Sheet 2 5
 Title ""
 Date "6 oct 2013"
 Rev ""
