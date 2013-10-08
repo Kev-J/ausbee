@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date mar. 08 oct. 2013 19:30:07 CEST
+EESchema Schematic File Version 2  date mar. 08 oct. 2013 19:33:19 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -48,6 +48,13 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Wire Wire Line
+	9150 1500 9200 1500
+Connection ~ 9100 1800
+Wire Wire Line
+	9100 1800 9200 1800
+Wire Wire Line
+	3900 6050 3900 6000
 Connection ~ 10500 2000
 Wire Wire Line
 	10550 2000 10500 2000
@@ -531,6 +538,40 @@ Wire Wire Line
 	10500 2050 10500 1900
 Wire Wire Line
 	10500 1900 10550 1900
+Wire Wire Line
+	3800 6050 3800 6000
+Wire Wire Line
+	9100 1850 9100 1700
+Wire Wire Line
+	9100 1700 9200 1700
+Wire Wire Line
+	9150 1600 9200 1600
+$Comp
+L GND #PWR?
+U 1 1 525441BE
+P 9100 1850
+F 0 "#PWR?" H 9100 1850 30  0001 C CNN
+F 1 "GND" H 9100 1780 30  0001 C CNN
+	1    9100 1850
+	1    0    0    -1  
+$EndComp
+Text Label 9150 1600 2    60   ~ 0
+DAC2
+Text Label 9150 1500 2    60   ~ 0
+DAC1
+$Comp
+L CONN_4 P?
+U 1 1 525441AE
+P 9550 1650
+F 0 "P?" V 9500 1650 50  0000 C CNN
+F 1 "CONN_4" V 9600 1650 50  0000 C CNN
+	1    9550 1650
+	1    0    0    -1  
+$EndComp
+Text Label 3900 6050 3    60   ~ 0
+DAC2
+Text Label 3800 6050 3    60   ~ 0
+DAC1
 $Comp
 L GND #PWR?
 U 1 1 52544113
