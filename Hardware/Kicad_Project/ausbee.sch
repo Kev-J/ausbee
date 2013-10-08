@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date mar. 08 oct. 2013 19:41:25 CEST
+EESchema Schematic File Version 2  date mar. 08 oct. 2013 19:56:47 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -48,6 +48,32 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Wire Wire Line
+	6050 3300 5800 3300
+Wire Wire Line
+	4250 2450 4050 2450
+Wire Wire Line
+	4050 2450 4050 1750
+Wire Wire Line
+	4050 1750 4300 1750
+Wire Wire Line
+	5800 3500 6050 3500
+Wire Wire Line
+	4250 2350 4150 2350
+Wire Wire Line
+	4150 2350 4150 1850
+Wire Wire Line
+	4150 1850 4300 1850
+Wire Wire Line
+	6050 2550 5800 2550
+Wire Wire Line
+	6050 2350 5800 2350
+Wire Wire Line
+	6050 3400 5800 3400
+Wire Wire Line
+	6050 3600 5800 3600
+Wire Wire Line
+	5800 3150 6050 3150
 $Sheet
 S 4250 2150 1550 4150
 U 52002A3D
@@ -80,29 +106,9 @@ F25 "MOTOR_EN2" I L 4250 5300 60
 F26 "MOTOR_EN1" I L 4250 5200 60 
 F27 "DIR2" I L 4250 4850 60 
 F28 "DIR1" I L 4250 4750 60 
+F29 "CARD_DETECT" I R 5800 3150 60 
+F30 "SD_SS" I R 5800 3300 60 
 $EndSheet
-Wire Wire Line
-	4250 2450 4050 2450
-Wire Wire Line
-	4050 2450 4050 1750
-Wire Wire Line
-	4050 1750 4300 1750
-Wire Wire Line
-	5800 3500 6050 3500
-Wire Wire Line
-	4250 2350 4150 2350
-Wire Wire Line
-	4150 2350 4150 1850
-Wire Wire Line
-	4150 1850 4300 1850
-Wire Wire Line
-	6050 2550 5800 2550
-Wire Wire Line
-	6050 2350 5800 2350
-Wire Wire Line
-	6050 3400 5800 3400
-Wire Wire Line
-	6050 3600 5800 3600
 $Sheet
 S 4300 850  1400 1100
 U 525169A8
