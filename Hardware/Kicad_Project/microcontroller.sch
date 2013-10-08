@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date mar. 08 oct. 2013 19:33:19 CEST
+EESchema Schematic File Version 2  date mar. 08 oct. 2013 19:41:25 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -38,7 +38,7 @@ EELAYER 25  0
 EELAYER END
 $Descr A4 11700 8267
 encoding utf-8
-Sheet 5 5
+Sheet 2 5
 Title ""
 Date "8 oct 2013"
 Rev ""
@@ -48,6 +48,14 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+Wire Wire Line
+	7500 5100 7550 5100
+Wire Wire Line
+	7500 4900 7550 4900
+Wire Wire Line
+	3700 1400 3700 1450
+Wire Wire Line
+	2950 2100 3000 2100
 Wire Wire Line
 	9150 1500 9200 1500
 Connection ~ 9100 1800
@@ -546,6 +554,30 @@ Wire Wire Line
 	9100 1700 9200 1700
 Wire Wire Line
 	9150 1600 9200 1600
+Wire Wire Line
+	3000 2000 2950 2000
+Wire Wire Line
+	3800 1400 3800 1450
+Wire Wire Line
+	7550 4800 7500 4800
+Wire Wire Line
+	7550 5000 7500 5000
+Text HLabel 7550 4800 2    60   Input ~ 0
+MOTOR_EN4
+Text HLabel 7550 4900 2    60   Input ~ 0
+MOTOR_EN3
+Text HLabel 7550 5000 2    60   Input ~ 0
+DIR4
+Text HLabel 7550 5100 2    60   Input ~ 0
+DIR3
+Text HLabel 3700 1400 1    60   Input ~ 0
+MOTOR_EN2
+Text HLabel 3800 1400 1    60   Input ~ 0
+MOTOR_EN1
+Text HLabel 2950 2100 0    60   Input ~ 0
+DIR2
+Text HLabel 2950 2000 0    60   Input ~ 0
+DIR1
 $Comp
 L GND #PWR?
 U 1 1 525441BE
