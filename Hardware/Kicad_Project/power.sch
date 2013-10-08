@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date dim. 06 oct. 2013 19:54:20 CEST
+EESchema Schematic File Version 2  date mar. 08 oct. 2013 19:30:07 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -40,7 +40,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 2 5
 Title ""
-Date "6 oct 2013"
+Date "8 oct 2013"
 Rev ""
 Comp ""
 Comment1 ""
@@ -48,6 +48,34 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+$Comp
+L CONN_2 P?
+U 1 1 52543C3C
+P 4450 4900
+F 0 "P?" V 4400 4900 40  0000 C CNN
+F 1 "CONN_2" V 4500 4900 40  0000 C CNN
+	1    4450 4900
+	-1   0    0    1   
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 52543C3B
+P 4850 5050
+F 0 "#PWR?" H 4850 5050 30  0001 C CNN
+F 1 "GND" H 4850 4980 30  0001 C CNN
+	1    4850 5050
+	1    0    0    -1  
+$EndComp
+Text HLabel 4850 4800 2    60   Input ~ 0
+SERVO_POWER
+Wire Wire Line
+	4850 5000 4800 5000
+Wire Wire Line
+	4850 5050 4850 5000
+Wire Wire Line
+	4850 4800 4800 4800
+Text Notes 4250 4650 0    60   ~ 0
+Servo power supply connector
 Text Notes 2550 4650 0    60   ~ 0
 AX12 Power supply connector
 Wire Wire Line

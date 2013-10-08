@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date dim. 06 oct. 2013 19:54:20 CEST
+EESchema Schematic File Version 2  date mar. 08 oct. 2013 19:30:07 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -40,7 +40,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 1 5
 Title ""
-Date "6 oct 2013"
+Date "8 oct 2013"
 Rev ""
 Comp ""
 Comment1 ""
@@ -49,27 +49,34 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 Wire Wire Line
-	6050 3600 5800 3600
+	4250 2450 4050 2450
 Wire Wire Line
-	6050 3400 5800 3400
+	4050 2450 4050 1750
 Wire Wire Line
-	6050 2350 5800 2350
+	4050 1750 4300 1750
+Wire Wire Line
+	5800 3500 6050 3500
+Wire Wire Line
+	4250 2350 4150 2350
+Wire Wire Line
+	4150 2350 4150 1850
+Wire Wire Line
+	4150 1850 4300 1850
 Wire Wire Line
 	6050 2550 5800 2550
 Wire Wire Line
-	4300 1850 4150 1850
+	6050 2350 5800 2350
 Wire Wire Line
-	4150 1850 4150 2350
+	6050 3400 5800 3400
 Wire Wire Line
-	4150 2350 4250 2350
-Wire Wire Line
-	5800 3500 6050 3500
+	6050 3600 5800 3600
 $Sheet
 S 4300 850  1400 1100
 U 525169A8
 F0 "Power" 60
 F1 "power.sch" 60
 F2 "AX12_POWER" I L 4300 1850 60 
+F3 "SERVO_POWER" I L 4300 1750 60 
 $EndSheet
 $Sheet
 S 6050 3050 900  700 
@@ -113,5 +120,6 @@ F16 "AX12_POWER" I L 4250 2350 60
 F17 "SCK_SD" I R 5800 3400 60 
 F18 "MOSI_SD" I R 5800 3600 60 
 F19 "MISO_SD" I R 5800 3500 60 
+F20 "SERVO_POWER" I L 4250 2450 60 
 $EndSheet
 $EndSCHEMATC
