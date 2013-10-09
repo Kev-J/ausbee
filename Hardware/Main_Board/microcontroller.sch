@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date mer. 09 oct. 2013 08:38:21 CEST
+EESchema Schematic File Version 2  date mer. 09 oct. 2013 08:43:14 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -48,6 +48,51 @@ Comment2 ""
 Comment3 ""
 Comment4 ""
 $EndDescr
+$Comp
+L CONN_4 P?
+U 1 1 5254FAAB
+P 9650 3950
+F 0 "P?" V 9600 3950 50  0000 C CNN
+F 1 "CONN_4" V 9700 3950 50  0000 C CNN
+	1    9650 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 5254FAAA
+P 9250 4150
+F 0 "#PWR?" H 9250 4150 30  0001 C CNN
+F 1 "GND" H 9250 4080 30  0001 C CNN
+	1    9250 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L +3.3V #PWR?
+U 1 1 5254FAA9
+P 9250 3750
+F 0 "#PWR?" H 9250 3710 30  0001 C CNN
+F 1 "+3.3V" H 9250 3860 30  0000 C CNN
+	1    9250 3750
+	1    0    0    -1  
+$EndComp
+Text Label 9250 3900 2    60   ~ 0
+I2C1_SDA
+Text Label 9250 4000 2    60   ~ 0
+I2C1_SCL
+Wire Wire Line
+	9300 4000 9250 4000
+Wire Wire Line
+	9250 4100 9300 4100
+Wire Wire Line
+	9250 4150 9250 4100
+Wire Wire Line
+	9250 3800 9250 3750
+Wire Wire Line
+	9300 3800 9250 3800
+Wire Wire Line
+	9250 3900 9300 3900
+Wire Wire Line
+	7550 2800 7500 2800
 Wire Wire Line
 	9050 6650 9000 6650
 Wire Wire Line
@@ -171,9 +216,9 @@ Wire Wire Line
 Wire Wire Line
 	3000 3000 2950 3000
 Wire Wire Line
-	9200 4000 9250 4000
+	10350 3200 10400 3200
 Wire Wire Line
-	9200 3800 9250 3800
+	10350 3000 10400 3000
 Wire Wire Line
 	6600 1400 6600 1450
 Wire Wire Line
@@ -525,11 +570,11 @@ Wire Wire Line
 Wire Wire Line
 	6800 1400 6800 1450
 Wire Wire Line
-	9200 4150 9200 4100
+	10350 3350 10350 3300
 Wire Wire Line
-	9200 4100 9250 4100
+	10350 3300 10400 3300
 Wire Wire Line
-	9250 3900 9200 3900
+	10400 3100 10350 3100
 Wire Wire Line
 	2950 2900 3000 2900
 Wire Wire Line
@@ -642,6 +687,12 @@ Wire Wire Line
 	9000 6350 9050 6350
 Wire Wire Line
 	9000 6550 9050 6550
+Wire Wire Line
+	7550 2900 7500 2900
+Text Label 7550 2800 0    60   ~ 0
+I2C2_SCL
+Text Label 7550 2900 0    60   ~ 0
+I2C2_SDA
 Text Label 9000 6150 2    60   ~ 0
 GPIO10
 Text Label 9000 6250 2    60   ~ 0
@@ -1057,9 +1108,9 @@ PWM_SERVO2
 Text Label 2950 3700 2    60   ~ 0
 PWM_SERVO1
 Text Label 10550 4000 2    60   ~ 0
-I2C_SCL
+I2C2_SCL
 Text Label 10550 3900 2    60   ~ 0
-I2C_SDA
+I2C2_SDA
 $Comp
 L +3.3V #PWR?
 U 1 1 52519F64
@@ -1088,31 +1139,31 @@ F 1 "CONN_4" V 11000 3950 50  0000 C CNN
 	1    0    0    -1  
 $EndComp
 Text Label 2950 3000 2    60   ~ 0
-I2C_SCL
+I2C1_SCL
 Text Label 2950 2900 2    60   ~ 0
-I2C_SDA
-Text Label 9200 3900 2    60   ~ 0
+I2C1_SDA
+Text Label 10350 3100 2    60   ~ 0
 SPI_MISO
-Text Label 9200 3800 2    60   ~ 0
+Text Label 10350 3000 2    60   ~ 0
 SPI_MOSI
-Text Label 9200 4000 2    60   ~ 0
+Text Label 10350 3200 2    60   ~ 0
 SPI_SCK
 $Comp
 L GND #PWR?
 U 1 1 52519BF1
-P 9200 4150
-F 0 "#PWR?" H 9200 4150 30  0001 C CNN
-F 1 "GND" H 9200 4080 30  0001 C CNN
-	1    9200 4150
+P 10350 3350
+F 0 "#PWR?" H 10350 3350 30  0001 C CNN
+F 1 "GND" H 10350 3280 30  0001 C CNN
+	1    10350 3350
 	1    0    0    -1  
 $EndComp
 $Comp
 L CONN_4 P?
 U 1 1 52519BEA
-P 9600 3950
-F 0 "P?" V 9550 3950 50  0000 C CNN
-F 1 "CONN_4" V 9650 3950 50  0000 C CNN
-	1    9600 3950
+P 10750 3150
+F 0 "P?" V 10700 3150 50  0000 C CNN
+F 1 "CONN_4" V 10800 3150 50  0000 C CNN
+	1    10750 3150
 	1    0    0    -1  
 $EndComp
 Text Label 6600 1400 1    60   ~ 0

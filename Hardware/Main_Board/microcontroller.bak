@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date mer. 09 oct. 2013 08:35:58 CEST
+EESchema Schematic File Version 2  date mer. 09 oct. 2013 08:38:21 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -1360,7 +1360,7 @@ F 1 "VDD" H 950 910 30  0000 C CNN
 	1    950  800 
 	1    0    0    -1  
 $EndComp
-Text Notes 550  3400 0    60   ~ 0
+Text Notes 550  3600 0    60   ~ 0
 UART1 is selected as bootloader
 Text Label 7550 2500 0    60   ~ 0
 PA11
