@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date mer. 09 oct. 2013 08:43:14 CEST
+EESchema Schematic File Version 2  date mer. 09 oct. 2013 08:53:10 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -49,46 +49,84 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Comp
-L CONN_4 P?
-U 1 1 5254FAAB
-P 9650 3950
-F 0 "P?" V 9600 3950 50  0000 C CNN
-F 1 "CONN_4" V 9700 3950 50  0000 C CNN
-	1    9650 3950
+L CONN_8 P?
+U 1 1 5254FBB7
+P 9900 1650
+F 0 "P?" V 9850 1650 60  0000 C CNN
+F 1 "CONN_8" V 9950 1650 60  0000 C CNN
+	1    9900 1650
 	1    0    0    -1  
 $EndComp
+Text Label 9500 1500 2    60   ~ 0
+ADC9
+Text Label 9500 1600 2    60   ~ 0
+ADC10
+Text Label 9500 1700 2    60   ~ 0
+ADC11
+Text Label 9500 1800 2    60   ~ 0
+ADC12
 $Comp
-L GND #PWR?
-U 1 1 5254FAAA
-P 9250 4150
-F 0 "#PWR?" H 9250 4150 30  0001 C CNN
-F 1 "GND" H 9250 4080 30  0001 C CNN
-	1    9250 4150
+L +5V #PWR?
+U 1 1 5254FBB6
+P 9500 1300
+F 0 "#PWR?" H 9500 1390 20  0001 C CNN
+F 1 "+5V" H 9500 1390 30  0000 C CNN
+	1    9500 1300
 	1    0    0    -1  
 $EndComp
 $Comp
 L +3.3V #PWR?
-U 1 1 5254FAA9
-P 9250 3750
-F 0 "#PWR?" H 9250 3710 30  0001 C CNN
-F 1 "+3.3V" H 9250 3860 30  0000 C CNN
-	1    9250 3750
+U 1 1 5254FBB5
+P 9400 1300
+F 0 "#PWR?" H 9400 1260 30  0001 C CNN
+F 1 "+3.3V" H 9400 1410 30  0000 C CNN
+	1    9400 1300
 	1    0    0    -1  
 $EndComp
-Text Label 9250 3900 2    60   ~ 0
-I2C1_SDA
-Text Label 9250 4000 2    60   ~ 0
-I2C1_SCL
+$Comp
+L GND #PWR?
+U 1 1 5254FBB4
+P 9500 2050
+F 0 "#PWR?" H 9500 2050 30  0001 C CNN
+F 1 "GND" H 9500 1980 30  0001 C CNN
+	1    9500 2050
+	1    0    0    -1  
+$EndComp
+Connection ~ 9500 2000
+Wire Wire Line
+	9550 2000 9500 2000
+Wire Wire Line
+	9400 1400 9400 1300
+Wire Wire Line
+	9550 1400 9400 1400
+Wire Wire Line
+	9550 1800 9500 1800
+Wire Wire Line
+	9550 1600 9500 1600
+Wire Wire Line
+	9500 1500 9550 1500
+Wire Wire Line
+	9500 1700 9550 1700
+Wire Wire Line
+	9550 1300 9500 1300
+Wire Wire Line
+	9500 1900 9500 2050
+Wire Wire Line
+	9550 1900 9500 1900
+Wire Wire Line
+	3000 4800 2950 4800
+Wire Wire Line
+	3000 4600 2950 4600
 Wire Wire Line
 	9300 4000 9250 4000
 Wire Wire Line
-	9250 4100 9300 4100
+	9300 4100 9250 4100
 Wire Wire Line
-	9250 4150 9250 4100
+	9250 4100 9250 4150
 Wire Wire Line
-	9250 3800 9250 3750
+	9250 3750 9250 3800
 Wire Wire Line
-	9300 3800 9250 3800
+	9250 3800 9300 3800
 Wire Wire Line
 	9250 3900 9300 3900
 Wire Wire Line
@@ -146,11 +184,11 @@ Wire Wire Line
 Wire Wire Line
 	3000 2000 2950 2000
 Wire Wire Line
-	9150 1600 9200 1600
+	8450 1600 8500 1600
 Wire Wire Line
-	9200 1700 9100 1700
+	8500 1700 8400 1700
 Wire Wire Line
-	9100 1700 9100 1850
+	8400 1700 8400 1850
 Wire Wire Line
 	3800 6050 3800 6000
 Wire Wire Line
@@ -633,10 +671,10 @@ Connection ~ 10500 2000
 Wire Wire Line
 	3900 6050 3900 6000
 Wire Wire Line
-	9100 1800 9200 1800
-Connection ~ 9100 1800
+	8400 1800 8500 1800
+Connection ~ 8400 1800
 Wire Wire Line
-	9150 1500 9200 1500
+	8450 1500 8500 1500
 Wire Wire Line
 	2950 2100 3000 2100
 Wire Wire Line
@@ -689,6 +727,49 @@ Wire Wire Line
 	9000 6550 9050 6550
 Wire Wire Line
 	7550 2900 7500 2900
+Wire Wire Line
+	2950 4500 3000 4500
+Wire Wire Line
+	2950 4700 3000 4700
+Text Label 2950 4800 2    60   ~ 0
+ADC12
+Text Label 2950 4700 2    60   ~ 0
+ADC11
+Text Label 2950 4600 2    60   ~ 0
+ADC10
+Text Label 2950 4500 2    60   ~ 0
+ADC9
+$Comp
+L CONN_4 P?
+U 1 1 5254FAAB
+P 9650 3950
+F 0 "P?" V 9600 3950 50  0000 C CNN
+F 1 "CONN_4" V 9700 3950 50  0000 C CNN
+	1    9650 3950
+	1    0    0    -1  
+$EndComp
+$Comp
+L GND #PWR?
+U 1 1 5254FAAA
+P 9250 4150
+F 0 "#PWR?" H 9250 4150 30  0001 C CNN
+F 1 "GND" H 9250 4080 30  0001 C CNN
+	1    9250 4150
+	1    0    0    -1  
+$EndComp
+$Comp
+L +3.3V #PWR?
+U 1 1 5254FAA9
+P 9250 3750
+F 0 "#PWR?" H 9250 3710 30  0001 C CNN
+F 1 "+3.3V" H 9250 3860 30  0000 C CNN
+	1    9250 3750
+	1    0    0    -1  
+$EndComp
+Text Label 9250 3900 2    60   ~ 0
+I2C1_SDA
+Text Label 9250 4000 2    60   ~ 0
+I2C1_SCL
 Text Label 7550 2800 0    60   ~ 0
 I2C2_SCL
 Text Label 7550 2900 0    60   ~ 0
@@ -812,23 +893,23 @@ DIR1
 $Comp
 L GND #PWR?
 U 1 1 525441BE
-P 9100 1850
-F 0 "#PWR?" H 9100 1850 30  0001 C CNN
-F 1 "GND" H 9100 1780 30  0001 C CNN
-	1    9100 1850
+P 8400 1850
+F 0 "#PWR?" H 8400 1850 30  0001 C CNN
+F 1 "GND" H 8400 1780 30  0001 C CNN
+	1    8400 1850
 	1    0    0    -1  
 $EndComp
-Text Label 9150 1600 2    60   ~ 0
+Text Label 8450 1600 2    60   ~ 0
 DAC2
-Text Label 9150 1500 2    60   ~ 0
+Text Label 8450 1500 2    60   ~ 0
 DAC1
 $Comp
 L CONN_4 P?
 U 1 1 525441AE
-P 9550 1650
-F 0 "P?" V 9500 1650 50  0000 C CNN
-F 1 "CONN_4" V 9600 1650 50  0000 C CNN
-	1    9550 1650
+P 8850 1650
+F 0 "P?" V 8800 1650 50  0000 C CNN
+F 1 "CONN_4" V 8900 1650 50  0000 C CNN
+	1    8850 1650
 	1    0    0    -1  
 $EndComp
 Text Label 3900 6050 3    60   ~ 0
