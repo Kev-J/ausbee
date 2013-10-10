@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date mer. 09 oct. 2013 21:00:58 CEST
+EESchema Schematic File Version 2  date jeu. 10 oct. 2013 13:51:25 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -41,7 +41,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 2 6
 Title ""
-Date "9 oct 2013"
+Date "10 oct 2013"
 Rev ""
 Comp ""
 Comment1 ""
@@ -50,9 +50,9 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 Wire Wire Line
-	8500 6000 8450 6000
+	8600 4900 8550 4900
 Wire Wire Line
-	8500 5600 8450 5600
+	8600 4500 8550 4500
 Wire Wire Line
 	9750 2850 9700 2850
 Wire Wire Line
@@ -141,38 +141,6 @@ Wire Wire Line
 Wire Wire Line
 	2400 2150 2400 2100
 Wire Wire Line
-	7850 4600 7700 4600
-Wire Wire Line
-	7850 4400 7700 4400
-Wire Wire Line
-	7800 4150 7800 4200
-Wire Wire Line
-	7800 4200 7850 4200
-Wire Wire Line
-	4300 5500 4250 5500
-Wire Wire Line
-	4300 5700 4250 5700
-Wire Wire Line
-	4250 5700 4250 5750
-Wire Wire Line
-	4250 5350 4250 5400
-Wire Wire Line
-	4250 5400 4300 5400
-Wire Wire Line
-	4250 5600 4300 5600
-Wire Wire Line
-	5350 5600 5400 5600
-Wire Wire Line
-	5400 5400 5350 5400
-Wire Wire Line
-	5350 5400 5350 5350
-Wire Wire Line
-	5350 5750 5350 5700
-Wire Wire Line
-	5350 5700 5400 5700
-Wire Wire Line
-	5400 5500 5350 5500
-Wire Wire Line
 	5400 4750 5350 4750
 Wire Wire Line
 	5400 4950 5350 4950
@@ -196,34 +164,6 @@ Wire Wire Line
 	4250 4950 4300 4950
 Wire Wire Line
 	4300 4750 4250 4750
-Wire Wire Line
-	7850 4300 7650 4300
-Wire Wire Line
-	7650 4300 7650 4150
-Wire Wire Line
-	7850 4500 7700 4500
-Wire Wire Line
-	7850 4700 7800 4700
-Wire Wire Line
-	7800 4700 7800 4750
-Wire Wire Line
-	9250 4750 9250 4700
-Wire Wire Line
-	9250 4700 9300 4700
-Wire Wire Line
-	9300 4500 9150 4500
-Wire Wire Line
-	9100 4150 9100 4300
-Wire Wire Line
-	9100 4300 9300 4300
-Wire Wire Line
-	9300 4200 9250 4200
-Wire Wire Line
-	9250 4200 9250 4150
-Wire Wire Line
-	9300 4400 9150 4400
-Wire Wire Line
-	9300 4600 9150 4600
 Wire Wire Line
 	5000 2150 5000 2100
 Wire Wire Line
@@ -294,33 +234,33 @@ Wire Wire Line
 Wire Wire Line
 	7550 2850 7600 2850
 Wire Wire Line
-	8450 5400 8500 5400
+	8550 4300 8600 4300
 Wire Wire Line
-	8450 5800 8500 5800
-Text Label 8450 6000 2    60   ~ 0
+	8550 4700 8600 4700
+Text Label 8550 4900 2    60   ~ 0
 MOTOR2_OUT2
-Text Label 8450 5800 2    60   ~ 0
+Text Label 8550 4700 2    60   ~ 0
 MOTOR2_OUT1
 $Comp
 L CONN_2 P?
 U 1 1 52553CE9
-P 8850 5900
-F 0 "P?" V 8800 5900 40  0000 C CNN
-F 1 "CONN_2" V 8900 5900 40  0000 C CNN
-	1    8850 5900
+P 8950 4800
+F 0 "P?" V 8900 4800 40  0000 C CNN
+F 1 "CONN_2" V 9000 4800 40  0000 C CNN
+	1    8950 4800
 	1    0    0    -1  
 $EndComp
-Text Label 8450 5600 2    60   ~ 0
+Text Label 8550 4500 2    60   ~ 0
 MOTOR1_OUT2
-Text Label 8450 5400 2    60   ~ 0
+Text Label 8550 4300 2    60   ~ 0
 MOTOR1_OUT1
 $Comp
 L CONN_2 P?
 U 1 1 52553CD6
-P 8850 5500
-F 0 "P?" V 8800 5500 40  0000 C CNN
-F 1 "CONN_2" V 8900 5500 40  0000 C CNN
-	1    8850 5500
+P 8950 4400
+F 0 "P?" V 8900 4400 40  0000 C CNN
+F 1 "CONN_2" V 9000 4400 40  0000 C CNN
+	1    8950 4400
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -577,152 +517,6 @@ P 4900 2100
 F 0 "#PWR?" H 4900 2190 20  0001 C CNN
 F 1 "+5V" H 4900 2190 30  0000 C CNN
 	1    4900 2100
-	1    0    0    -1  
-$EndComp
-Text HLabel 9150 4400 0    60   Input ~ 0
-PWM4
-Text HLabel 9150 4500 0    60   Input ~ 0
-DIR4
-Text HLabel 9150 4600 0    60   Input ~ 0
-MOTOR_EN4
-$Comp
-L CONN_6 P?
-U 1 1 525500F4
-P 9650 4450
-F 0 "P?" V 9600 4450 60  0000 C CNN
-F 1 "CONN_6" V 9700 4450 60  0000 C CNN
-	1    9650 4450
-	1    0    0    -1  
-$EndComp
-$Comp
-L GND #PWR?
-U 1 1 525500F3
-P 9250 4750
-F 0 "#PWR?" H 9250 4750 30  0001 C CNN
-F 1 "GND" H 9250 4680 30  0001 C CNN
-	1    9250 4750
-	1    0    0    -1  
-$EndComp
-$Comp
-L +5V #PWR?
-U 1 1 525500F2
-P 9250 4150
-F 0 "#PWR?" H 9250 4240 20  0001 C CNN
-F 1 "+5V" H 9250 4240 30  0000 C CNN
-	1    9250 4150
-	1    0    0    -1  
-$EndComp
-$Comp
-L +3.3V #PWR?
-U 1 1 525500F1
-P 9100 4150
-F 0 "#PWR?" H 9100 4110 30  0001 C CNN
-F 1 "+3.3V" H 9100 4260 30  0000 C CNN
-	1    9100 4150
-	1    0    0    -1  
-$EndComp
-$Comp
-L +3.3V #PWR?
-U 1 1 525500DC
-P 7650 4150
-F 0 "#PWR?" H 7650 4110 30  0001 C CNN
-F 1 "+3.3V" H 7650 4260 30  0000 C CNN
-	1    7650 4150
-	1    0    0    -1  
-$EndComp
-$Comp
-L +5V #PWR?
-U 1 1 525500D8
-P 7800 4150
-F 0 "#PWR?" H 7800 4240 20  0001 C CNN
-F 1 "+5V" H 7800 4240 30  0000 C CNN
-	1    7800 4150
-	1    0    0    -1  
-$EndComp
-$Comp
-L GND #PWR?
-U 1 1 525500D0
-P 7800 4750
-F 0 "#PWR?" H 7800 4750 30  0001 C CNN
-F 1 "GND" H 7800 4680 30  0001 C CNN
-	1    7800 4750
-	1    0    0    -1  
-$EndComp
-$Comp
-L CONN_6 P?
-U 1 1 525500C8
-P 8200 4450
-F 0 "P?" V 8150 4450 60  0000 C CNN
-F 1 "CONN_6" V 8250 4450 60  0000 C CNN
-	1    8200 4450
-	1    0    0    -1  
-$EndComp
-Text HLabel 7700 4600 0    60   Input ~ 0
-MOTOR_EN3
-Text HLabel 7700 4500 0    60   Input ~ 0
-DIR3
-Text HLabel 7700 4400 0    60   Input ~ 0
-PWM3
-$Comp
-L CONN_4 P?
-U 1 1 52550052
-P 4650 5550
-F 0 "P?" V 4600 5550 50  0000 C CNN
-F 1 "CONN_4" V 4700 5550 50  0000 C CNN
-	1    4650 5550
-	1    0    0    -1  
-$EndComp
-$Comp
-L GND #PWR?
-U 1 1 52550051
-P 4250 5750
-F 0 "#PWR?" H 4250 5750 30  0001 C CNN
-F 1 "GND" H 4250 5680 30  0001 C CNN
-	1    4250 5750
-	1    0    0    -1  
-$EndComp
-$Comp
-L +3.3V #PWR?
-U 1 1 52550050
-P 4250 5350
-F 0 "#PWR?" H 4250 5310 30  0001 C CNN
-F 1 "+3.3V" H 4250 5460 30  0000 C CNN
-	1    4250 5350
-	1    0    0    -1  
-$EndComp
-Text HLabel 4250 5500 0    60   Input ~ 0
-enc3_A
-Text HLabel 4250 5600 0    60   Input ~ 0
-enc3_B
-Text HLabel 5350 5600 0    60   Input ~ 0
-enc4_B
-Text HLabel 5350 5500 0    60   Input ~ 0
-enc4_A
-$Comp
-L +3.3V #PWR?
-U 1 1 5255004F
-P 5350 5350
-F 0 "#PWR?" H 5350 5310 30  0001 C CNN
-F 1 "+3.3V" H 5350 5460 30  0000 C CNN
-	1    5350 5350
-	1    0    0    -1  
-$EndComp
-$Comp
-L GND #PWR?
-U 1 1 5255004E
-P 5350 5750
-F 0 "#PWR?" H 5350 5750 30  0001 C CNN
-F 1 "GND" H 5350 5680 30  0001 C CNN
-	1    5350 5750
-	1    0    0    -1  
-$EndComp
-$Comp
-L CONN_4 P?
-U 1 1 5255004D
-P 5750 5550
-F 0 "P?" V 5700 5550 50  0000 C CNN
-F 1 "CONN_4" V 5800 5550 50  0000 C CNN
-	1    5750 5550
 	1    0    0    -1  
 $EndComp
 $Comp
