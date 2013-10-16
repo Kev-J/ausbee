@@ -1,0 +1,17 @@
+EESchema-LIBRARY Version 2.3  Date: mar. 15 oct. 2013 22:13:25 CEST
+#encoding utf-8
+#
+# CONN_2_JST
+#
+DEF CONN_2_JST P 0 40 Y N 1 F N
+F0 "P" -50 0 40 V V C CNN
+F1 "CONN_2_JST" 50 0 40 V V C CNN
+DRAW
+S -100 150 100 -150 0 1 0 N
+X P1 1 -350 100 250 R 60 60 1 1 P I
+X PM 2 -350 -100 250 R 60 60 1 1 P I
+X ~ 3 0 -200 50 U 50 50 1 1 I
+ENDDRAW
+ENDDEF
+#
+#End Library

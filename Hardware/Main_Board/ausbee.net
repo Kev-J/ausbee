@@ -1,0 +1,916 @@
+# EESchema Netlist Version 1.1 created  mer. 16 oct. 2013 19:38:31 CEST
+(
+ ( /5254FD6F/52553B25 SM0603_Capa C1 100n
+  ( 1 +5V )
+  ( 2 GND )
+ )
+ ( /5254FD6F/52553B29 SM0603_Capa C2 100n
+  ( 1 +5V )
+  ( 2 GND )
+ )
+ ( /5254FD6F/52553B2C SM0603_Capa C3 100n
+  ( 1 /Power/MOTOR_POWER )
+  ( 2 GND )
+ )
+ ( /5254FD6F/52553B31 SM0603_Capa C4 100n
+  ( 1 /Power/MOTOR_POWER )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A4935 SM0603_Capa C5 100n
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A4C69 SM0805 C6 2.2u
+  ( 1 /microcontroller/vcap_1 )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A4A0F SM0603_Capa C7 100n
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A4C79 SM0805 C8 2.2u
+  ( 1 /microcontroller/vcap_2 )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A4A18 SM0603_Capa C9 100n
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A5813 SM0603_Capa C10 20p
+  ( 1 /microcontroller/OSC_1 )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A4A21 SM0603_Capa C11 100n
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A4A37 SM0603_Capa C12 100n
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A5815 SM0603_Capa C13 20p
+  ( 1 /microcontroller/OSC_2 )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A4A40 SM0603_Capa C14 100n
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A4A4D SM0603_Capa C15 100n
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A5346 SM0603_Capa C16 100n
+  ( 1 /microcontroller/NRST )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A4A4E SM0603_Capa C17 100n
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A4A65 SM0603_Capa C18 100n
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A4A66 SM0603_Capa C19 100n
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A4B0A SM0603_Capa C20 100n
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A4B0D SM0603_Capa C21 100n
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A4B10 SM0603_Capa C22 100n
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A4B13 SM0603_Capa C23 100n
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A4B15 SM0603_Capa C24 100n
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A4C2D SM0805 C25 4.7u
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A5236 SM0603_Capa C26 100n
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A5235 SM0805 C27 1u
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A4D79 SM0603_Capa C28 100n
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /52002A3D/522A4D7E SM0805 C29 1u
+  ( 1 VDD )
+  ( 2 GND )
+ )
+ ( /525169A8/525AC95F CP_D4_S15 C30 10u
+  ( 1 N-000135 )
+  ( 2 GND )
+ )
+ ( /525169A8/525AC973 CP_D4_S15 C31 22u
+  ( 1 +5V )
+  ( 2 GND )
+ )
+ ( /525169A8/525AC981 CP_D4_S15 C32 10u
+  ( 1 +5V )
+  ( 2 GND )
+ )
+ ( /525169A8/525AC994 CP_D4_S15 C33 22u
+  ( 1 +3.3V )
+  ( 2 GND )
+ )
+ ( /52514074/525142CB SM0603_Capa C34 100n
+  ( 1 +3.3V )
+  ( 2 GND )
+ )
+ ( /52505041/52505E43 SM0603_Capa C35 100n
+  ( 1 +3.3V )
+  ( 2 GND )
+ )
+ ( /5254FD6F/52553C5E DO214 D1 DIODE
+  ( 1 /motor_control/MOTOR1_OUT1 )
+  ( 2 /Power/MOTOR_POWER )
+ )
+ ( /5254FD6F/52553C61 DO214 D2 DIODE
+  ( 1 GND )
+  ( 2 /motor_control/MOTOR1_OUT1 )
+ )
+ ( /5254FD6F/52553C69 DO214 D3 DIODE
+  ( 1 /motor_control/MOTOR1_OUT2 )
+  ( 2 /Power/MOTOR_POWER )
+ )
+ ( /5254FD6F/52553C66 DO214 D4 DIODE
+  ( 1 GND )
+  ( 2 /motor_control/MOTOR1_OUT2 )
+ )
+ ( /5254FD6F/52553CAB DO214 D5 DIODE
+  ( 1 /motor_control/MOTOR2_OUT1 )
+  ( 2 /Power/MOTOR_POWER )
+ )
+ ( /5254FD6F/52553CAA DO214 D6 DIODE
+  ( 1 GND )
+  ( 2 /motor_control/MOTOR2_OUT1 )
+ )
+ ( /5254FD6F/52553CA8 DO214 D7 DIODE
+  ( 1 /motor_control/MOTOR2_OUT2 )
+  ( 2 /Power/MOTOR_POWER )
+ )
+ ( /5254FD6F/52553CA9 DO214 D8 DIODE
+  ( 1 GND )
+  ( 2 /motor_control/MOTOR2_OUT2 )
+ )
+ ( /52002A3D/522A5F6D SIL-2 JP1 JUMPER
+  ( 1 GND )
+  ( 2 /microcontroller/BOOT0 )
+ )
+ ( /52002A3D/522A5FD5 SIL-2 JP2 JUMPER
+  ( 1 GND )
+  ( 2 /microcontroller/BOOT1 )
+ )
+ ( /52505041/52569CCD SIL-2 JP3 JUMPER
+  ( 1 N-000128 )
+  ( 2 N-000127 )
+ )
+ ( /52002A3D/52543FF4 SIL-3 K1 CONN_3
+  ( 1 /microcontroller/ADC1 )
+  ( 2 +5V )
+  ( 3 GND )
+ )
+ ( /52002A3D/5251A36C SIL-3 K2 CONN_3
+  ( 1 /microcontroller/PWM_SERVO1 )
+  ( 2 /Power/SERVO_POWER )
+  ( 3 GND )
+ )
+ ( /52002A3D/5251A3AB SIL-3 K3 CONN_3
+  ( 1 /microcontroller/PWM_SERVO3 )
+  ( 2 /Power/SERVO_POWER )
+  ( 3 GND )
+ )
+ ( /52002A3D/52543FE8 SIL-3 K4 CONN_3
+  ( 1 /microcontroller/ADC3 )
+  ( 2 +5V )
+  ( 3 GND )
+ )
+ ( /52002A3D/52543E2B SIL-3 K5 CONN_3
+  ( 1 /microcontroller/ADC2 )
+  ( 2 +5V )
+  ( 3 GND )
+ )
+ ( /52002A3D/5251A39E SIL-3 K6 CONN_3
+  ( 1 /microcontroller/PWM_SERVO2 )
+  ( 2 /Power/SERVO_POWER )
+  ( 3 GND )
+ )
+ ( /52002A3D/5251A3A8 SIL-3 K7 CONN_3
+  ( 1 /microcontroller/PWM_SERVO4 )
+  ( 2 /Power/SERVO_POWER )
+  ( 3 GND )
+ )
+ ( /52002A3D/52543FEF SIL-3 K8 CONN_3
+  ( 1 /microcontroller/ADC4 )
+  ( 2 +5V )
+  ( 3 GND )
+ )
+ ( /5254FD6F/525D7E83 Phoenix_MCV_CON_3 K9 CONN_3
+  ( 1 GND )
+  ( 2 /motor_control/MOTOR1_OUT1 )
+  ( 3 /motor_control/MOTOR1_OUT2 )
+ )
+ ( /5254FD6F/525D7E7E Phoenix_MCV_CON_3 K10 CONN_3
+  ( 1 GND )
+  ( 2 /motor_control/MOTOR2_OUT1 )
+  ( 3 /motor_control/MOTOR2_OUT2 )
+ )
+ ( /52002A3D/525EB3E7 SIL-3 K11 CONN_3
+  ( 1 /Power/AX12_POWER )
+  ( 2 /microcontroller/UART_AX12_RX )
+  ( 3 GND )
+ )
+ ( /5254FD6F/525DA05D JST_S4B_PH P1 CONN_4_JST
+  ( 1 +3.3V )
+  ( 2 /microcontroller/enc1_A )
+  ( 3 /microcontroller/enc1_B )
+  ( 4 GND )
+  ( 5 ? )
+ )
+ ( /5254FD6F/525DA05F JST_S4B_PH P2 CONN_4_JST
+  ( 1 +3.3V )
+  ( 2 /microcontroller/enc2_A )
+  ( 3 /microcontroller/enc2_B )
+  ( 4 GND )
+  ( 5 ? )
+ )
+ ( /52002A3D/525D9FF3 JST_S4B_PH P3 CONN_4_JST
+  ( 1 +3.3V )
+  ( 2 /microcontroller/USART2_RX )
+  ( 3 /microcontroller/USART2_TX )
+  ( 4 GND )
+  ( 5 GND )
+ )
+ ( /52002A3D/525DA035 JST_S4B_PH P4 CONN_4_JST
+  ( 1 +3.3V )
+  ( 2 /microcontroller/PB11 )
+  ( 3 /microcontroller/USART3_TX )
+  ( 4 GND )
+  ( 5 GND )
+ )
+ ( /52002A3D/525DA319 JST_S4B_PH P5 CONN_4_JST
+  ( 1 +3.3V )
+  ( 2 /microcontroller/USART_PROG_RX )
+  ( 3 /microcontroller/USART_PROG_TX )
+  ( 4 GND )
+  ( 5 GND )
+ )
+ ( /52002A3D/525441AE SIL-4 P6 CONN_4
+  ( 1 /microcontroller/DAC1 )
+  ( 2 /microcontroller/DAC2 )
+  ( 3 GND )
+  ( 4 GND )
+ )
+ ( /52002A3D/52558E69 HE10_straight P7 HE10-10
+  ( 1 +3.3V )
+  ( 2 /microcontroller/SWDIO )
+  ( 3 GND )
+  ( 4 /microcontroller/SWCLK )
+  ( 5 GND )
+  ( 6 /microcontroller/SWO )
+  ( 7 ? )
+  ( 8 ? )
+  ( 9 GND )
+  ( 10 /microcontroller/NRST )
+ )
+ ( /52505041/525DA201 JST_S2B_PH P8 CONN_2_JST
+  ( 1 N-000127 )
+  ( 2 N-000132 )
+  ( 3 ? )
+ )
+ ( /52002A3D/5254FAAB SIL-4 P10 CONN_4
+  ( 1 +3.3V )
+  ( 2 /microcontroller/I2C1_SDA )
+  ( 3 /microcontroller/I2C1_SCL )
+  ( 4 GND )
+ )
+ ( /52002A3D/5254FBB7 SIL-8 P11 CONN_8
+  ( 1 +5V )
+  ( 2 +3.3V )
+  ( 3 /microcontroller/ADC9 )
+  ( 4 /microcontroller/ADC10 )
+  ( 5 /microcontroller/ADC11 )
+  ( 6 /microcontroller/ADC12 )
+  ( 7 GND )
+  ( 8 GND )
+ )
+ ( /52002A3D/52519BEA SIL-4 P12 CONN_4
+  ( 1 /microcontroller/SPI_MOSI )
+  ( 2 /microcontroller/PC11 )
+  ( 3 /microcontroller/SPI_SCK )
+  ( 4 GND )
+ )
+ ( /52002A3D/525440D9 SIL-8 P14 CONN_8
+  ( 1 +5V )
+  ( 2 +3.3V )
+  ( 3 /microcontroller/ADC5 )
+  ( 4 /microcontroller/ADC6 )
+  ( 5 /microcontroller/ADC7 )
+  ( 6 /microcontroller/ADC8 )
+  ( 7 GND )
+  ( 8 GND )
+ )
+ ( /52002A3D/5254F8D3 SIL-9 P15 CONN_9
+  ( 1 /microcontroller/GPIO1 )
+  ( 2 /microcontroller/GPIO2 )
+  ( 3 /microcontroller/GPIO3 )
+  ( 4 /microcontroller/GPIO4 )
+  ( 5 /microcontroller/GPIO5 )
+  ( 6 /microcontroller/GPIO6 )
+  ( 7 /microcontroller/GPIO7 )
+  ( 8 /microcontroller/GPIO8 )
+  ( 9 /microcontroller/GPIO9 )
+ )
+ ( /52002A3D/5254F91A SIL-6 P16 CONN_6
+  ( 1 /microcontroller/GPIO10 )
+  ( 2 /microcontroller/GPIO11 )
+  ( 3 /microcontroller/GPIO12 )
+  ( 4 /microcontroller/GPIO13 )
+  ( 5 /microcontroller/GPIO14 )
+  ( 6 /microcontroller/GPIO15 )
+ )
+ ( /525169A8/5251989A Phoenix_MCV_CON_2 P17 CONN_2
+  ( 1 GND )
+  ( 2 /Power/AX12_POWER )
+ )
+ ( /525169A8/5256944A Phoenix_MCV_CON_2 P18 CONN_2
+  ( 1 GND )
+  ( 2 N-000135 )
+ )
+ ( /525169A8/52543C3C Phoenix_MCV_CON_2 P19 CONN_2
+  ( 1 GND )
+  ( 2 /Power/SERVO_POWER )
+ )
+ ( /525169A8/52558D98 Phoenix_MCV_CON_2 P20 CONN_2
+  ( 1 GND )
+  ( 2 /Power/MOTOR_POWER )
+ )
+ ( /52002A3D/522A5FB0 SM0603_Resistor R1 100k
+  ( 1 VDD )
+  ( 2 /microcontroller/BOOT0 )
+ )
+ ( /52002A3D/522A5B77 SM0603_Resistor R2 100k
+  ( 1 VDD )
+  ( 2 /microcontroller/PB11 )
+ )
+ ( /52002A3D/522A5BD8 SM0603_Resistor R3 100k
+  ( 1 VDD )
+  ( 2 /microcontroller/PC11 )
+ )
+ ( /52002A3D/522A5CC2 SM0603_Resistor R4 100k
+  ( 1 VDD )
+  ( 2 /microcontroller/PB5 )
+ )
+ ( /52002A3D/522A5CEA SM0603_Resistor R5 100k
+  ( 1 VDD )
+  ( 2 /microcontroller/CAN1_RX )
+ )
+ ( /52002A3D/522A5CF2 SM0603_Resistor R6 100k
+  ( 1 VDD )
+  ( 2 /microcontroller/CAN1_TX )
+ )
+ ( /52002A3D/522A5FF6 SM0603_Resistor R7 100k
+  ( 1 VDD )
+  ( 2 /microcontroller/BOOT1 )
+ )
+ ( /52002A3D/525592B1 SM0603_Resistor R8 100k
+  ( 1 +3.3V )
+  ( 2 /microcontroller/SWDIO )
+ )
+ ( /52002A3D/525592D5 SM0603_Resistor R9 100k
+  ( 1 /microcontroller/SWCLK )
+  ( 2 GND )
+ )
+ ( /52514074/525142AC SM0603_Resistor R10 10k
+  ( 1 +3.3V )
+  ( 2 /microcontroller/CARD_DETECT )
+ )
+ ( /52505041/52505D04 SM0603_Resistor R11 120
+  ( 1 N-000128 )
+  ( 2 N-000132 )
+ )
+ ( /52002A3D/522A5375 SMD_Push_Button_Schurter_LSH SW1 SW_PUSH
+  ( 1 GND )
+  ( 2 /microcontroller/NRST )
+ )
+ ( /5254FD6F/5254FFE0 L298 U1 L298
+  ( 1 GND )
+  ( 2 /motor_control/MOTOR1_OUT1 )
+  ( 3 /motor_control/MOTOR1_OUT2 )
+  ( 4 /Power/MOTOR_POWER )
+  ( 5 /microcontroller/PWM1 )
+  ( 6 /microcontroller/MOTOR_EN1 )
+  ( 7 /microcontroller/DIR1 )
+  ( 8 GND )
+  ( 9 +5V )
+  ( 10 /microcontroller/DIR1 )
+  ( 11 /microcontroller/MOTOR_EN1 )
+  ( 12 /microcontroller/PWM1 )
+  ( 13 /motor_control/MOTOR1_OUT2 )
+  ( 14 /motor_control/MOTOR1_OUT1 )
+  ( 15 GND )
+ )
+ ( /5254FD6F/5254FFE5 L298 U2 L298
+  ( 1 GND )
+  ( 2 /motor_control/MOTOR2_OUT1 )
+  ( 3 /motor_control/MOTOR2_OUT2 )
+  ( 4 /Power/MOTOR_POWER )
+  ( 5 /microcontroller/PWM2 )
+  ( 6 /microcontroller/MOTOR_EN2 )
+  ( 7 /microcontroller/DIR2 )
+  ( 8 GND )
+  ( 9 +5V )
+  ( 10 /microcontroller/DIR2 )
+  ( 11 /microcontroller/MOTOR_EN2 )
+  ( 12 /microcontroller/PWM2 )
+  ( 13 /motor_control/MOTOR2_OUT2 )
+  ( 14 /motor_control/MOTOR2_OUT1 )
+  ( 15 GND )
+ )
+ ( /52002A3D/52002A60 LQFP144 U3 STM32F407ZG
+  ( 1 /microcontroller/DIR1 )
+  ( 2 /microcontroller/DIR2 )
+  ( 3 ? )
+  ( 4 /microcontroller/PWM1 )
+  ( 5 /microcontroller/PWM2 )
+  ( 6 VDD )
+  ( 7 ? )
+  ( 8 ? )
+  ( 9 ? )
+  ( 10 /microcontroller/I2C1_SDA )
+  ( 11 /microcontroller/I2C1_SCL )
+  ( 12 ? )
+  ( 13 /microcontroller/ADC1 )
+  ( 14 /microcontroller/ADC2 )
+  ( 15 /microcontroller/ADC3 )
+  ( 16 GND )
+  ( 17 VDD )
+  ( 18 /microcontroller/PWM_SERVO1 )
+  ( 19 /microcontroller/PWM_SERVO2 )
+  ( 20 /microcontroller/PWM_SERVO3 )
+  ( 21 /microcontroller/PWM_SERVO4 )
+  ( 22 /microcontroller/ADC4 )
+  ( 23 /microcontroller/OSC_1 )
+  ( 24 /microcontroller/OSC_2 )
+  ( 25 /microcontroller/NRST )
+  ( 26 /microcontroller/ADC9 )
+  ( 27 /microcontroller/ADC10 )
+  ( 28 /microcontroller/ADC11 )
+  ( 29 /microcontroller/ADC12 )
+  ( 30 VDD )
+  ( 31 GND )
+  ( 32 VDD )
+  ( 33 VDD )
+  ( 34 /microcontroller/UART_AX12_RX )
+  ( 35 /microcontroller/UART_AX12_RX )
+  ( 36 /microcontroller/USART2_TX )
+  ( 37 /microcontroller/USART2_RX )
+  ( 38 GND )
+  ( 39 VDD )
+  ( 40 /microcontroller/DAC1 )
+  ( 41 /microcontroller/DAC2 )
+  ( 42 ? )
+  ( 43 ? )
+  ( 44 /microcontroller/ADC5 )
+  ( 45 /microcontroller/ADC6 )
+  ( 46 /microcontroller/ADC7 )
+  ( 47 /microcontroller/ADC8 )
+  ( 48 /microcontroller/BOOT1 )
+  ( 49 ? )
+  ( 50 ? )
+  ( 51 GND )
+  ( 52 VDD )
+  ( 53 ? )
+  ( 54 ? )
+  ( 55 ? )
+  ( 56 ? )
+  ( 57 ? )
+  ( 58 ? )
+  ( 59 ? )
+  ( 60 /microcontroller/enc1_A )
+  ( 61 GND )
+  ( 62 VDD )
+  ( 63 ? )
+  ( 64 /microcontroller/enc1_B )
+  ( 65 ? )
+  ( 66 ? )
+  ( 67 ? )
+  ( 68 ? )
+  ( 69 /microcontroller/USART3_TX )
+  ( 70 /microcontroller/PB11 )
+  ( 71 /microcontroller/vcap_1 )
+  ( 72 VDD )
+  ( 73 /microcontroller/SD_SS )
+  ( 74 /SD_Storage/SCK )
+  ( 75 /SD_Storage/MISO )
+  ( 76 /SD_Storage/MOSI )
+  ( 77 /microcontroller/CARD_DETECT )
+  ( 78 ? )
+  ( 79 ? )
+  ( 80 ? )
+  ( 81 ? )
+  ( 82 ? )
+  ( 83 GND )
+  ( 84 VDD )
+  ( 85 /microcontroller/GPIO1 )
+  ( 86 /microcontroller/GPIO2 )
+  ( 87 /microcontroller/GPIO3 )
+  ( 88 /microcontroller/GPIO4 )
+  ( 89 /microcontroller/GPIO5 )
+  ( 90 /microcontroller/GPIO6 )
+  ( 91 /microcontroller/GPIO7 )
+  ( 92 /microcontroller/GPIO8 )
+  ( 93 /microcontroller/GPIO9 )
+  ( 94 GND )
+  ( 95 VDD )
+  ( 96 /microcontroller/enc2_A )
+  ( 97 /microcontroller/enc2_B )
+  ( 98 ? )
+  ( 99 ? )
+  ( 100 ? )
+  ( 101 ? )
+  ( 102 ? )
+  ( 103 /microcontroller/CAN1_RX )
+  ( 104 /microcontroller/CAN1_TX )
+  ( 105 /microcontroller/SWDIO )
+  ( 106 /microcontroller/vcap_2 )
+  ( 107 GND )
+  ( 108 VDD )
+  ( 109 /microcontroller/SWCLK )
+  ( 110 ? )
+  ( 111 /microcontroller/SPI_SCK )
+  ( 112 /microcontroller/PC11 )
+  ( 113 /microcontroller/SPI_MOSI )
+  ( 114 ? )
+  ( 115 ? )
+  ( 116 ? )
+  ( 117 ? )
+  ( 118 ? )
+  ( 119 ? )
+  ( 120 GND )
+  ( 121 VDD )
+  ( 122 /microcontroller/GPIO10 )
+  ( 123 /microcontroller/GPIO11 )
+  ( 124 /microcontroller/GPIO12 )
+  ( 125 /microcontroller/GPIO13 )
+  ( 126 /microcontroller/GPIO14 )
+  ( 127 /microcontroller/GPIO15 )
+  ( 128 ? )
+  ( 129 ? )
+  ( 130 GND )
+  ( 131 VDD )
+  ( 132 ? )
+  ( 133 /microcontroller/SWO )
+  ( 134 ? )
+  ( 135 /microcontroller/PB5 )
+  ( 136 /microcontroller/USART_PROG_TX )
+  ( 137 /microcontroller/USART_PROG_RX )
+  ( 138 /microcontroller/BOOT0 )
+  ( 139 ? )
+  ( 140 ? )
+  ( 141 /microcontroller/MOTOR_EN1 )
+  ( 142 /microcontroller/MOTOR_EN2 )
+  ( 143 VDD )
+  ( 144 VDD )
+ )
+ ( /525169A8/52553DB6 SOT223 U4 AP1117
+  ( GND GND )
+  ( Vin N-000135 )
+  ( Vout +5V )
+ )
+ ( /525169A8/52516AB1 SOT223 U5 AP1117
+  ( GND GND )
+  ( Vin +5V )
+  ( Vout +3.3V )
+ )
+ ( /52514074/525ECE5E MicroSD_Reverse U6 MICROSD_HOLDER
+  ( 0 GND )
+  ( 1 ? )
+  ( 2 /microcontroller/SD_SS )
+  ( 3 /SD_Storage/MOSI )
+  ( 4 +3.3V )
+  ( 5 /SD_Storage/SCK )
+  ( 6 GND )
+  ( 7 /SD_Storage/MISO )
+  ( 8 ? )
+  ( 9 /microcontroller/CARD_DETECT )
+  ( 10 GND )
+ )
+ ( /52505041/52505CC2 SO8N U7 SN65HVD232D
+  ( 1 /microcontroller/CAN1_TX )
+  ( 2 GND )
+  ( 3 +3.3V )
+  ( 4 /microcontroller/CAN1_RX )
+  ( 5 ? )
+  ( 6 N-000132 )
+  ( 7 N-000127 )
+  ( 8 ? )
+ )
+ ( /52002A3D/522A5831 HC-49LSF X1 CRYSTAL
+  ( 1 /microcontroller/OSC_1 )
+  ( 2 /microcontroller/OSC_2 )
+ )
+)
+*
+{ Allowed footprints by component:
+$component C1
+ SM*
+ C?
+ C1-1
+$endlist
+$component C2
+ SM*
+ C?
+ C1-1
+$endlist
+$component C3
+ SM*
+ C?
+ C1-1
+$endlist
+$component C4
+ SM*
+ C?
+ C1-1
+$endlist
+$component C5
+ SM*
+ C?
+ C1-1
+$endlist
+$component C6
+ SM*
+ C?
+ C1-1
+$endlist
+$component C7
+ SM*
+ C?
+ C1-1
+$endlist
+$component C8
+ SM*
+ C?
+ C1-1
+$endlist
+$component C9
+ SM*
+ C?
+ C1-1
+$endlist
+$component C10
+ SM*
+ C?
+ C1-1
+$endlist
+$component C11
+ SM*
+ C?
+ C1-1
+$endlist
+$component C12
+ SM*
+ C?
+ C1-1
+$endlist
+$component C13
+ SM*
+ C?
+ C1-1
+$endlist
+$component C14
+ SM*
+ C?
+ C1-1
+$endlist
+$component C15
+ SM*
+ C?
+ C1-1
+$endlist
+$component C16
+ SM*
+ C?
+ C1-1
+$endlist
+$component C17
+ SM*
+ C?
+ C1-1
+$endlist
+$component C18
+ SM*
+ C?
+ C1-1
+$endlist
+$component C19
+ SM*
+ C?
+ C1-1
+$endlist
+$component C20
+ SM*
+ C?
+ C1-1
+$endlist
+$component C21
+ SM*
+ C?
+ C1-1
+$endlist
+$component C22
+ SM*
+ C?
+ C1-1
+$endlist
+$component C23
+ SM*
+ C?
+ C1-1
+$endlist
+$component C24
+ SM*
+ C?
+ C1-1
+$endlist
+$component C25
+ SM*
+ C?
+ C1-1
+$endlist
+$component C26
+ SM*
+ C?
+ C1-1
+$endlist
+$component C27
+ SM*
+ C?
+ C1-1
+$endlist
+$component C28
+ SM*
+ C?
+ C1-1
+$endlist
+$component C29
+ SM*
+ C?
+ C1-1
+$endlist
+$component C30
+ CP*
+ SM*
+$endlist
+$component C31
+ CP*
+ SM*
+$endlist
+$component C32
+ CP*
+ SM*
+$endlist
+$component C33
+ CP*
+ SM*
+$endlist
+$component C34
+ SM*
+ C?
+ C1-1
+$endlist
+$component C35
+ SM*
+ C?
+ C1-1
+$endlist
+$component D1
+ D?
+ S*
+$endlist
+$component D2
+ D?
+ S*
+$endlist
+$component D3
+ D?
+ S*
+$endlist
+$component D4
+ D?
+ S*
+$endlist
+$component D5
+ D?
+ S*
+$endlist
+$component D6
+ D?
+ S*
+$endlist
+$component D7
+ D?
+ S*
+$endlist
+$component D8
+ D?
+ S*
+$endlist
+$component R1
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R2
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R3
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R4
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R5
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R6
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R7
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R8
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R9
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R10
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$component R11
+ R?
+ SM0603
+ SM0805
+ R?-*
+ SM1206
+$endlist
+$endfootprintlist
+}
