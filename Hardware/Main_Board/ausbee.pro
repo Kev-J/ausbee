@@ -1,13 +1,8 @@
-update=mer. 16 oct. 2013 19:35:20 CEST
+update=ven. 18 oct. 2013 08:48:18 CEST
 version=1
-last_client=eeschema
+last_client=cvpcb
 [general]
 version=1
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
 [pcbnew]
 version=1
 PadDrlX=0
@@ -26,7 +21,6 @@ TxtLar=120
 MSegLar=150
 LastNetListRead=
 [pcbnew/libraries]
-LibDir=mod_lib
 LibName1=sockets
 LibName2=connect
 LibName3=discret
@@ -49,6 +43,8 @@ LibName19=JST_S4B_PH
 LibName20=HC-49LSF
 LibName21=Phoenix_MCV_CON_3
 LibName22=MicroSD_Reverse
+LibName23=AP1117_SOT223
+LibDir=mod_lib
 [eeschema]
 version=1
 LibDir=sch_lib
@@ -119,3 +115,8 @@ LibName35=l298
 LibName36=conn_4_jst
 LibName37=conn_2_jst
 LibName38=microsd_holder
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
