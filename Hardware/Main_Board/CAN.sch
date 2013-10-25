@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date mar. 22 oct. 2013 20:59:54 CEST
+EESchema Schematic File Version 2  date ven. 25 oct. 2013 10:52:30 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -44,7 +44,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 6 6
 Title ""
-Date "22 oct 2013"
+Date "25 oct 2013"
 Rev ""
 Comp ""
 Comment1 ""
@@ -91,10 +91,10 @@ Connection ~ 6350 2600
 Wire Wire Line
 	6350 3250 6350 3300
 $Comp
-L GND #PWR150
+L GND #PWR152
 U 1 1 52616784
 P 7300 3800
-F 0 "#PWR150" H 7300 3800 30  0001 C CNN
+F 0 "#PWR152" H 7300 3800 30  0001 C CNN
 F 1 "GND" H 7300 3730 30  0001 C CNN
 	1    7300 3800
 	1    0    0    -1  
@@ -118,19 +118,19 @@ F 1 "JUMPER" H 6350 2870 40  0000 C CNN
 	0    -1   -1   0   
 $EndComp
 $Comp
-L GND #PWR149
+L GND #PWR151
 U 1 1 52505E54
 P 5300 4650
-F 0 "#PWR149" H 5300 4650 30  0001 C CNN
+F 0 "#PWR151" H 5300 4650 30  0001 C CNN
 F 1 "GND" H 5300 4580 30  0001 C CNN
 	1    5300 4650
 	1    0    0    -1  
 $EndComp
 $Comp
-L +3.3V #PWR148
+L +3.3V #PWR150
 U 1 1 52505E50
 P 5300 4150
-F 0 "#PWR148" H 5300 4110 30  0001 C CNN
+F 0 "#PWR150" H 5300 4110 30  0001 C CNN
 F 1 "+3.3V" H 5300 4260 30  0000 C CNN
 	1    5300 4150
 	1    0    0    -1  
@@ -149,19 +149,19 @@ R
 Text HLabel 4700 3350 0    60   Input ~ 0
 D
 $Comp
-L +3.3V #PWR146
+L +3.3V #PWR148
 U 1 1 52505D30
 P 4500 3550
-F 0 "#PWR146" H 4500 3510 30  0001 C CNN
+F 0 "#PWR148" H 4500 3510 30  0001 C CNN
 F 1 "+3.3V" H 4500 3660 30  0000 C CNN
 	1    4500 3550
 	1    0    0    -1  
 $EndComp
 $Comp
-L GND #PWR147
+L GND #PWR149
 U 1 1 52505D28
 P 4650 3500
-F 0 "#PWR147" H 4650 3500 30  0001 C CNN
+F 0 "#PWR149" H 4650 3500 30  0001 C CNN
 F 1 "GND" H 4650 3430 30  0001 C CNN
 	1    4650 3500
 	1    0    0    -1  
