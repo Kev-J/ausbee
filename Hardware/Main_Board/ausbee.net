@@ -1,4 +1,4 @@
-# EESchema Netlist Version 1.1 created  mar. 22 oct. 2013 21:00:24 CEST
+# EESchema Netlist Version 1.1 created  ven. 25 oct. 2013 10:52:49 CEST
 (
  ( /5254FD6F/52553B25 SM0603_Capa C1 100n
   ( 1 +5V )
@@ -153,35 +153,35 @@
   ( 2 /motor_control/MOTOR2_OUT2 )
  )
  ( /52002A3D/52613BBE SM0805 D9 LED
-  ( 1 N-000034 )
+  ( 1 N-000035 )
   ( 2 GND )
  )
  ( /52002A3D/52613BE0 SM0805 D10 LED
-  ( 1 N-000126 )
+  ( 1 N-000036 )
   ( 2 GND )
  )
  ( /52002A3D/52613BE9 SM0805 D11 LED
-  ( 1 N-000127 )
-  ( 2 GND )
- )
- ( /52002A3D/52613BE6 SM0805 D12 LED
   ( 1 N-000132 )
   ( 2 GND )
  )
- ( /52002A3D/52613BFC SM0805 D13 LED
-  ( 1 N-000128 )
+ ( /52002A3D/52613BE6 SM0805 D12 LED
+  ( 1 N-000037 )
   ( 2 GND )
  )
- ( /52002A3D/52613BF9 SM0805 D14 LED
+ ( /52002A3D/52613BFC SM0805 D13 LED
   ( 1 N-000131 )
   ( 2 GND )
  )
+ ( /52002A3D/52613BF9 SM0805 D14 LED
+  ( 1 N-000128 )
+  ( 2 GND )
+ )
  ( /52002A3D/52613BF5 SM0805 D15 LED
-  ( 1 N-000129 )
+  ( 1 N-000130 )
   ( 2 GND )
  )
  ( /52002A3D/52613BF8 SM0805 D16 LED
-  ( 1 N-000130 )
+  ( 1 N-000129 )
   ( 2 GND )
  )
  ( /525169A8/52613E43 SM0805 D17 LED
@@ -251,8 +251,13 @@
   ( 3 /motor_control/MOTOR2_OUT2 )
  )
  ( /52002A3D/525EB3E7 SIL-3 K11 CONN_3
-  ( 1 /Power/AX12_POWER )
-  ( 2 /microcontroller/UART_AX12_RX )
+  ( 1 /microcontroller/UART_AX12_RX )
+  ( 2 /Power/AX12_POWER )
+  ( 3 GND )
+ )
+ ( /52002A3D/526A313C SIL-3 K12 CONN_3
+  ( 1 +3.3V )
+  ( 2 GND )
   ( 3 GND )
  )
  ( /5254FD6F/525DA05D JST_S4B_PH P1 CONN_4_JST
@@ -291,9 +296,9 @@
   ( 5 GND )
  )
  ( /52002A3D/525441AE SIL-4 P6 CONN_4
-  ( 1 /microcontroller/DAC1 )
-  ( 2 /microcontroller/DAC2 )
-  ( 3 GND )
+  ( 1 GND )
+  ( 2 /microcontroller/DAC1 )
+  ( 3 /microcontroller/DAC2 )
   ( 4 GND )
  )
  ( /52002A3D/52558E69 HE10_straight P7 HE10-10
@@ -408,35 +413,35 @@
  )
  ( /52002A3D/52613BCA SM0603_Resistor R12 390
   ( 1 /microcontroller/LED1 )
-  ( 2 N-000034 )
+  ( 2 N-000035 )
  )
  ( /52002A3D/52613BDF SM0603_Resistor R13 390
   ( 1 /microcontroller/LED2 )
-  ( 2 N-000126 )
+  ( 2 N-000036 )
  )
  ( /52002A3D/52613BE8 SM0603_Resistor R14 390
   ( 1 /microcontroller/LED3 )
-  ( 2 N-000127 )
+  ( 2 N-000132 )
  )
  ( /52002A3D/52613BE7 SM0603_Resistor R15 390
   ( 1 /microcontroller/LED4 )
-  ( 2 N-000132 )
+  ( 2 N-000037 )
  )
  ( /52002A3D/52613BFB SM0603_Resistor R16 390
   ( 1 /microcontroller/LED5 )
-  ( 2 N-000128 )
+  ( 2 N-000131 )
  )
  ( /52002A3D/52613BFA SM0603_Resistor R17 390
   ( 1 /microcontroller/LED6 )
-  ( 2 N-000131 )
+  ( 2 N-000128 )
  )
  ( /52002A3D/52613BF6 SM0603_Resistor R18 390
   ( 1 /microcontroller/LED7 )
-  ( 2 N-000129 )
+  ( 2 N-000130 )
  )
  ( /52002A3D/52613BF7 SM0603_Resistor R19 390
   ( 1 /microcontroller/LED8 )
-  ( 2 N-000130 )
+  ( 2 N-000129 )
  )
  ( /525169A8/52613E38 SM0603_Resistor R20 820
   ( 1 +5V )
@@ -864,6 +869,7 @@ $component D9
  LED-0805
  LED-1206
  LEDV
+ LED*
 $endlist
 $component D10
  LED-3MM
@@ -873,6 +879,7 @@ $component D10
  LED-0805
  LED-1206
  LEDV
+ LED*
 $endlist
 $component D11
  LED-3MM
@@ -882,6 +889,7 @@ $component D11
  LED-0805
  LED-1206
  LEDV
+ LED*
 $endlist
 $component D12
  LED-3MM
@@ -891,6 +899,7 @@ $component D12
  LED-0805
  LED-1206
  LEDV
+ LED*
 $endlist
 $component D13
  LED-3MM
@@ -900,6 +909,7 @@ $component D13
  LED-0805
  LED-1206
  LEDV
+ LED*
 $endlist
 $component D14
  LED-3MM
@@ -909,6 +919,7 @@ $component D14
  LED-0805
  LED-1206
  LEDV
+ LED*
 $endlist
 $component D15
  LED-3MM
@@ -918,6 +929,7 @@ $component D15
  LED-0805
  LED-1206
  LEDV
+ LED*
 $endlist
 $component D16
  LED-3MM
@@ -927,6 +939,7 @@ $component D16
  LED-0805
  LED-1206
  LEDV
+ LED*
 $endlist
 $component D17
  LED-3MM
@@ -936,6 +949,7 @@ $component D17
  LED-0805
  LED-1206
  LEDV
+ LED*
 $endlist
 $component R1
  R?
