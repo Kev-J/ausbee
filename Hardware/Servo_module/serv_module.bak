@@ -81,4 +81,10 @@ Wire Wire Line
 	4650 4200 5250 4200
 Wire Wire Line
 	4150 3400 5250 3400
+Wire Wire Line
+	4150 4700 4800 4700
+Wire Wire Line
+	4800 4700 4800 4400
+Wire Wire Line
+	4800 4400 5250 4400
 $EndSCHEMATC
