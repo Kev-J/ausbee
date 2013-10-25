@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date Fri 18 Oct 2013 03:55:12 PM CEST
+EESchema Schematic File Version 2
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -33,13 +33,15 @@ LIBS:stm32f103c4
 LIBS:ap1117
 LIBS:conn_2_jst
 LIBS:conn_4_jst
+LIBS:sn65hvd232d
 LIBS:serv_module-cache
-EELAYER 24  0
+EELAYER 27 0
 EELAYER END
-$Descr A4 11700 8267
+$Descr A4 11693 8268
+encoding utf-8
 Sheet 1 4
 Title ""
-Date "18 oct 2013"
+Date "25 oct 2013"
 Rev ""
 Comp ""
 Comment1 ""
@@ -48,16 +50,19 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Sheet
-S 3450 2700 700  1100
+S 3150 2800 1000 1150
 U 526133C4
 F0 "power" 60
 F1 "power.sch" 60
+F2 "SERVO_POWER" I R 4150 3400 60 
 $EndSheet
 $Sheet
 S 3450 4300 700  650 
 U 52612DF7
 F0 "CAN" 60
 F1 "CAN.sch" 60
+F2 "TX" I R 4150 4700 60 
+F3 "RX" I R 4150 4500 60 
 $EndSheet
 $Sheet
 S 5250 3050 1750 1600
@@ -68,4 +73,12 @@ F2 "SERVO_POWER" I L 5250 3400 60
 F3 "CAN_RX" B L 5250 4200 60 
 F4 "CAN_TX" B L 5250 4400 60 
 $EndSheet
+Wire Wire Line
+	4150 4500 4650 4500
+Wire Wire Line
+	4650 4500 4650 4200
+Wire Wire Line
+	4650 4200 5250 4200
+Wire Wire Line
+	4150 3400 5250 3400
 $EndSCHEMATC
