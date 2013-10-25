@@ -1,0 +1,58 @@
+eeschema (2013-07-07 BZR 4022)-stable  >> Creation date: 25/10/2013 09:36:55
+#Cmp ( ordre = Référence )
+| C1         C_0.1uF     
+| C2         C_0.1uF     
+| C3         C_0.1uF     
+| C4         C_0.1uF     
+| C_Crystal1 C_27pF      
+| C_Crystal2 C_27pF      
+| C_VBUS1    C_10nF      
+| C_VCCA1    C_0.1uF     
+| C_VCORE1   C_0.1uF     
+| CP1        C_4.7uF     
+| CP2        C_4.7uF     
+| CP3        C_4.7uF     
+| CP4        C_4.7uF     
+| FT232H1    FT232H      
+| LED1       LED_Board_3V3
+| LED2       LED_USB_5V  
+| P2         JUMPER      
+| P3         CONN_JTAGSWD
+| Pinout_3V3 CONN_1      
+| R_LED1     R           
+| R_LED2     R           
+| R_REF1     R           
+| R_Reset1   R           
+| USB_CONN1  USB         
+| Xtal1      Xtal_12MHz  
+#End Cmp
+
+#Cmp ( ordre = Valeur )
+| C_0.1uF      C1        
+| C_0.1uF      C2        
+| C_0.1uF      C3        
+| C_0.1uF      C4        
+| C_4.7uF      CP4       
+| USB          USB_CONN1 
+| R            R_Reset1  
+| R            R_REF1    
+| R            R_LED2    
+| R            R_LED1    
+| C_4.7uF      CP1       
+| C_4.7uF      CP2       
+| C_4.7uF      CP3       
+| CONN_1       Pinout_3V3
+| FT232H       FT232H1   
+| LED_Board_3V3 LED1      
+| LED_USB_5V   LED2      
+| JUMPER       P2        
+| CONN_JTAGSWD P3        
+| C_0.1uF      C_VCORE1  
+| C_0.1uF      C_VCCA1   
+| C_10nF       C_VBUS1   
+| C_27pF       C_Crystal2
+| C_27pF       C_Crystal1
+| Xtal_12MHz   Xtal1     
+#End Cmp
+
+#End List
