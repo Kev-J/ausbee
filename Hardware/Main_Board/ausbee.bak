@@ -1,4 +1,4 @@
-EESchema Schematic File Version 2  date mer. 16 oct. 2013 17:43:06 CEST
+EESchema Schematic File Version 2  date mar. 22 oct. 2013 20:59:46 CEST
 LIBS:power
 LIBS:device
 LIBS:transistors
@@ -36,6 +36,7 @@ LIBS:ap1117
 LIBS:l298
 LIBS:conn_4_jst
 LIBS:conn_2_jst
+LIBS:microsd_holder
 LIBS:ausbee-cache
 EELAYER 25  0
 EELAYER END
@@ -43,7 +44,7 @@ $Descr A4 11700 8267
 encoding utf-8
 Sheet 1 6
 Title ""
-Date "16 oct 2013"
+Date "22 oct 2013"
 Rev ""
 Comp ""
 Comment1 ""
