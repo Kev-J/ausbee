@@ -29,11 +29,11 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
-LIBS:stm32f103c4
 LIBS:ap1117
 LIBS:conn_2_jst
 LIBS:conn_4_jst
 LIBS:sn65hvd232d
+LIBS:stm32f103c4
 LIBS:serv_module-cache
 EELAYER 27 0
 EELAYER END
@@ -50,14 +50,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 $Sheet
-S 3150 2800 1000 1150
-U 526133C4
-F0 "power" 60
-F1 "power.sch" 60
-F2 "SERVO_POWER" I R 4150 3400 60 
-$EndSheet
-$Sheet
-S 3450 4300 700  650 
+S 3350 4300 800  650 
 U 52612DF7
 F0 "CAN" 60
 F1 "CAN.sch" 60
@@ -87,4 +80,11 @@ Wire Wire Line
 	4800 4700 4800 4400
 Wire Wire Line
 	4800 4400 5250 4400
+$Sheet
+S 3350 2800 800  1200
+U 526133C4
+F0 "power" 60
+F1 "power.sch" 60
+F2 "SERVO_POWER" I R 4150 3400 60 
+$EndSheet
 $EndSCHEMATC
