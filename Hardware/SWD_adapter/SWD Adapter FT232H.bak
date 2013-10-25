@@ -30,6 +30,7 @@ LIBS:atmel
 LIBS:contrib
 LIBS:valves
 LIBS:ftdi
+LIBS:esdsuppressor
 LIBS:SWD Adapter FT232H-cache
 EELAYER 27 0
 EELAYER END
@@ -37,7 +38,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "22 oct 2013"
+Date "25 oct 2013"
 Rev ""
 Comp ""
 Comment1 ""
@@ -740,7 +741,40 @@ Wire Wire Line
 Wire Wire Line
 	2300 3000 2300 3850
 Wire Wire Line
-	2000 3750 2300 3750
+	2000 3750 2800 3750
 Connection ~ 2100 3750
 Connection ~ 2300 3750
+$Comp
+L ESDSUPPRESSOR D1
+U 1 1 526A5557
+P 2500 3050
+F 0 "D1" H 2500 3150 40  0000 C CNN
+F 1 "ESDSUPPRESSOR" H 2500 2950 40  0000 C CNN
+F 2 "~" H 2500 3050 60  0000 C CNN
+F 3 "~" H 2500 3050 60  0000 C CNN
+	1    2500 3050
+	0    1    1    0   
+$EndComp
+$Comp
+L ESDSUPPRESSOR D2
+U 1 1 526A5575
+P 2800 3250
+F 0 "D2" H 2800 3350 40  0000 C CNN
+F 1 "ESDSUPPRESSOR" H 2800 3150 40  0000 C CNN
+F 2 "~" H 2800 3250 60  0000 C CNN
+F 3 "~" H 2800 3250 60  0000 C CNN
+	1    2800 3250
+	0    -1   -1   0   
+$EndComp
+Wire Wire Line
+	2500 2800 2500 2850
+Connection ~ 2500 2800
+Wire Wire Line
+	2500 3750 2500 3350
+Wire Wire Line
+	2800 3750 2800 3450
+Connection ~ 2500 3750
+Wire Wire Line
+	2800 2900 2800 2950
+Connection ~ 2800 2900
 $EndSCHEMATC

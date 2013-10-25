@@ -1,4 +1,4 @@
-eeschema (2013-07-07 BZR 4022)-stable  >> Creation date: 25/10/2013 09:36:55
+eeschema (2013-07-07 BZR 4022)-stable  >> Creation date: 25/10/2013 13:21:01
 #Cmp ( ordre = Référence )
 | C1         C_0.1uF     
 | C2         C_0.1uF     
@@ -13,6 +13,8 @@ eeschema (2013-07-07 BZR 4022)-stable  >> Creation date: 25/10/2013 09:36:55
 | CP2        C_4.7uF     
 | CP3        C_4.7uF     
 | CP4        C_4.7uF     
+| D1         ESDSUPPRESSOR
+| D2         ESDSUPPRESSOR
 | FT232H1    FT232H      
 | LED1       LED_Board_3V3
 | LED2       LED_USB_5V  
@@ -32,7 +34,7 @@ eeschema (2013-07-07 BZR 4022)-stable  >> Creation date: 25/10/2013 09:36:55
 | C_0.1uF      C2        
 | C_0.1uF      C3        
 | C_0.1uF      C4        
-| C_4.7uF      CP4       
+| ESDSUPPRESSOR D1        
 | USB          USB_CONN1 
 | R            R_Reset1  
 | R            R_REF1    
@@ -41,7 +43,9 @@ eeschema (2013-07-07 BZR 4022)-stable  >> Creation date: 25/10/2013 09:36:55
 | C_4.7uF      CP1       
 | C_4.7uF      CP2       
 | C_4.7uF      CP3       
+| C_4.7uF      CP4       
 | CONN_1       Pinout_3V3
+| ESDSUPPRESSOR D2        
 | FT232H       FT232H1   
 | LED_Board_3V3 LED1      
 | LED_USB_5V   LED2      

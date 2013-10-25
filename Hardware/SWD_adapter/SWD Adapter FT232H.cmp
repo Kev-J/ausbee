@@ -1,31 +1,31 @@
-Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 22/10/2013 19:15:55
+Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 25/10/2013 17:24:51
 
 BeginCmp
 TimeStamp = /52611B5D;
 Reference = C1;
 ValeurCmp = C_0.1uF;
-IdModule  = SM0805;
+IdModule  = SM0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /52611BC4;
 Reference = C2;
 ValeurCmp = C_0.1uF;
-IdModule  = SM0805;
+IdModule  = SM0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /526106F6;
 Reference = C3;
 ValeurCmp = C_0.1uF;
-IdModule  = SM0805;
+IdModule  = SM0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /52611925;
 Reference = C4;
 ValeurCmp = C_0.1uF;
-IdModule  = SM0805;
+IdModule  = SM0603;
 EndCmp
 
 BeginCmp
@@ -60,35 +60,49 @@ BeginCmp
 TimeStamp = /526102F7;
 Reference = C_Crystal1;
 ValeurCmp = C_27pF;
-IdModule  = SM0805;
+IdModule  = SM0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /526102FE;
 Reference = C_Crystal2;
 ValeurCmp = C_27pF;
-IdModule  = SM0805;
+IdModule  = SM0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /5261282B;
 Reference = C_VBUS1;
 ValeurCmp = C_10nF;
-IdModule  = SM0805;
+IdModule  = SM0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /52611805;
 Reference = C_VCCA1;
 ValeurCmp = C_0.1uF;
-IdModule  = SM0805;
+IdModule  = SM0603;
 EndCmp
 
 BeginCmp
 TimeStamp = /52611812;
 Reference = C_VCORE1;
 ValeurCmp = C_0.1uF;
-IdModule  = SM0805;
+IdModule  = SM0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /526A5557;
+Reference = D1;
+ValeurCmp = ESDSUPPRESSOR;
+IdModule  = LED-0603;
+EndCmp
+
+BeginCmp
+TimeStamp = /526A5575;
+Reference = D2;
+ValeurCmp = ESDSUPPRESSOR;
+IdModule  = LED-0603;
 EndCmp
 
 BeginCmp

@@ -1,4 +1,4 @@
-EESchema-LIBRARY Version 2.3  Date: 25/10/2013 10:10:13
+EESchema-LIBRARY Version 2.3  Date: 25/10/2013 16:36:07
 #encoding utf-8
 #
 # C
@@ -100,6 +100,28 @@ P 2 0 1 16  100 100  100 -100 N
 P 5 0 1 12  -50 50  50 50  50 -50  -50 -50  -50 50 f
 X 1 1 -300 0 200 R 40 40 1 1 P
 X 2 2 300 0 200 L 40 40 1 1 P
+ENDDRAW
+ENDDEF
+#
+# ESDsuppressor
+#
+DEF ESDsuppressor D 0 40 N N 1 F N
+F0 "D" 0 100 40 H V C CNN
+F1 "ESDsuppressor" 0 -100 40 H V C CNN
+F2 "~" 0 0 60 H V C CNN
+F3 "~" 0 0 60 H V C CNN
+$FPLIST
+ D?
+ S*
+$ENDFPLIST
+DRAW
+P 2 0 1 0  50 -50  0 -100 N
+P 2 0 1 6  50 50  50 -50 N
+P 2 0 1 0  50 50  100 100 N
+P 3 0 1 0  -50 50  50 0  -50 -50 F
+P 4 0 1 0  50 0  150 50  150 -50  50 0 F
+X A 1 -200 0 150 R 40 40 1 1 P
+X K 2 300 0 150 L 40 40 1 1 P
 ENDDRAW
 ENDDEF
 #
