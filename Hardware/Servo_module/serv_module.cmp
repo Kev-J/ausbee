@@ -1,9 +1,9 @@
-Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 25/10/2013 19:38:41
+Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 27/10/2013 13:36:26
 
 BeginCmp
 TimeStamp = /5260F9FB/526121D2;
 Reference = C1;
-ValeurCmp = 100n;
+ValeurCmp = 10n;
 IdModule  = SM0603_Capa;
 EndCmp
 
@@ -61,6 +61,13 @@ TimeStamp = /52612DF7/526A2B6A;
 Reference = C9;
 ValeurCmp = 100n;
 IdModule  = SM0603_Capa;
+EndCmp
+
+BeginCmp
+TimeStamp = /5260F9FB/526CFDEE;
+Reference = C10;
+ValeurCmp = 1u;
+IdModule  = SM0805;
 EndCmp
 
 BeginCmp
@@ -164,6 +171,13 @@ EndCmp
 BeginCmp
 TimeStamp = /52612DF7/52612EF3;
 Reference = JP2;
+ValeurCmp = JUMPER;
+IdModule  = SIL-2;
+EndCmp
+
+BeginCmp
+TimeStamp = /5260F9FB/526CFFD9;
+Reference = JP3;
 ValeurCmp = JUMPER;
 IdModule  = SIL-2;
 EndCmp
@@ -344,15 +358,8 @@ IdModule  = SM0603_Resistor;
 EndCmp
 
 BeginCmp
-TimeStamp = /5260F9FB/526AABD8;
+TimeStamp = /5260F9FB/526CFFE5;
 Reference = R14;
-ValeurCmp = 100k;
-IdModule  = SM0603_Resistor;
-EndCmp
-
-BeginCmp
-TimeStamp = /5260F9FB/526AABE4;
-Reference = R15;
 ValeurCmp = 100k;
 IdModule  = SM0603_Resistor;
 EndCmp

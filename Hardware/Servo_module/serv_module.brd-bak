@@ -1,4 +1,4 @@
-PCBNEW-BOARD Version 2 date 27/10/2013 13:35:51
+PCBNEW-BOARD Version 2 date 27/10/2013 13:34:21
 
 # Created by Pcbnew(2013-07-07 BZR 4022)-stable
 
@@ -10,7 +10,7 @@ EnabledLayers 1FFF8001
 Links 125
 NoConn 0
 Di 154.560001 97.231999 236.9566 138.336
-Ndraw 23
+Ndraw 21
 Ntrack 485
 Nzone 0
 BoardThickness 1.6
@@ -60,7 +60,7 @@ PadDrill 0.6
 Pad2MaskClearance 0
 SolderMaskMinWidth 0
 AuxiliaryAxisOrg 0 0
-VisibleElements 7FFF7FFF
+VisibleElements 7FFFFFFF
 PcbPlotParams (pcbplotparams (layerselection 3178497) (usegerberextensions true) (excludeedgelayer true) (linewidth 0.150000) (plotframeref false) (viasonmask false) (mode 1) (useauxorigin false) (hpglpennumber 1) (hpglpenspeed 20) (hpglpendiameter 15) (hpglpenoverlay 2) (psnegative false) (psa4output false) (plotreference true) (plotvalue true) (plotothertext true) (plotinvisibletext false) (padsonsilk false) (subtractmaskfromsilk false) (outputformat 1) (mirror false) (drillshape 1) (scaleselection 1) (outputdirectory ""))
 $EndSETUP
 
@@ -2729,16 +2729,6 @@ Ne 3 "/microcontroller/BOOT1"
 Po 1.27 0
 $EndPAD
 $EndMODULE SIL-2
-$TEXTPCB
-Te "B1"
-Po 174.752 100.584 0.8 0.8 0.2 0
-De 15 1 0 Normal
-$EndTEXTPCB
-$TEXTPCB
-Te "B0"
-Po 210.566 132.588 0.8 0.8 0.2 0
-De 15 1 0 Normal
-$EndTEXTPCB
 $DRAWSEGMENT
 Po 0 165.1 97.282 165.1 133.604 0.1
 De 28 0 900 0 0
