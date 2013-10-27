@@ -1,4 +1,4 @@
-EESchema-LIBRARY Version 2.3  Date: ven. 25 oct. 2013 10:52:30 CEST
+EESchema-LIBRARY Version 2.3  Date: dim. 27 oct. 2013 09:44:46 CET
 #encoding utf-8
 #
 # +3.3V
@@ -295,7 +295,6 @@ $FPLIST
  LED-0805
  LED-1206
  LEDV
- LED*
 $ENDFPLIST
 DRAW
 P 2 0 1 0  50 50  50 -50 N
