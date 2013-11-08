@@ -1,0 +1,38 @@
+#
+
+mainmenu "AUSBEE Configuration"
+
+menu BUILD_OPTIONS
+
+config DOWNLOADS_DIR
+    string "Downloads directory"
+    default "$(CURDIR)/downloads"
+    help
+        TODO
+
+endmenu
+
+menu "FreeRTOS Configuration"
+
+config FREERTOS_DOWNLOAD
+    bool "Download FreeRTOS"
+    default y
+    help
+        TODO
+
+
+config FREERTOS_VERSION_DOWNLOAD
+    depends on FREERTOS_DOWNLOAD
+    string "FreeRTOS version for automatic download"
+    default "7.5.3"
+    help
+        TODO
+
+config FREERTOS_URL_DOWNLOAD
+    depends on FREERTOS_DOWNLOAD
+    string "FreeRTOS package to download"
+    default "http://sourceforge.net/projects/freertos/files/FreeRTOS/V7.5.3/FreeRTOSV$(CONFIG_FREERTOS_VERSION_DOWNLOAD).zip"
+    help
+        TODO
+
+endmenu
