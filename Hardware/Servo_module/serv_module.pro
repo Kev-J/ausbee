@@ -1,10 +1,5 @@
-update=08/11/2013 09:46:46
+update=08/11/2013 12:37:21
 last_client=kicad
-[cvpcb]
-version=1
-NetIExt=net
-[cvpcb/libraries]
-EquName1=devcms
 [eeschema]
 version=1
 LibDir=sch_lib
@@ -69,7 +64,6 @@ DrawSegmentWidth=0.200000000000
 BoardOutlineThickness=0.100000000000
 ModuleOutlineThickness=0.150000000000
 [pcbnew/libraries]
-LibDir=mod_lib
 LibName1=sockets
 LibName2=connect
 LibName3=discret
@@ -94,5 +88,12 @@ LibName21=JST_S4B_PH
 LibName22=LQFP48
 LibName23=Phoenix_MCV_CON_2
 LibName24=SMD_Push_Button_Schurter_LSH
+LibName25=CP_D2_S15
+LibDir=mod_lib
+[cvpcb]
+version=1
+NetIExt=net
+[cvpcb/libraries]
+EquName1=devcms
 [general]
 version=1
