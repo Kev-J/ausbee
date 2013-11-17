@@ -1,0 +1,14 @@
+AC_INIT(libausbee,0.1)
+
+
+AM_INIT_AUTOMAKE(-Wall foreign subdir-objects)
+
+LT_INIT
+
+AC_PROG_CXX
+AM_PROG_AR
+AC_PROG_RANLIB
+
+AC_CONFIG_FILES(Makefile)
+
+AC_OUTPUT

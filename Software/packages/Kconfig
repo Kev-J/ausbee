@@ -1,0 +1,2 @@
+source packages/FreeRTOS/Kconfig
+source packages/libausbee/Kconfig

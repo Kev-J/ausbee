@@ -7,32 +7,9 @@
 #                                                         #
 ###########################################################
 
-# If we are not configuring, include the configuration file
-noconfig_goals= %-defconfig config menuconfig nconfig xconfig gconfig alldefconfig clean dirclean
-ifeq ($(filter $(noconfig_goals),$(MAKECMDGOALS)),)
-include .config
-endif
+include config.mk
 
-######################################################################
-# Shell commands
-MKDIR_P=mkdir -p
-CD=cd
-RM_RF=rm -rf
-WGET=wget
-UNZIP=unzip
-TOUCH=touch
-
-######################################################################
-# Path variables
-CONFIGS_PATH=$(CURDIR)/configs
-BUILD_PATH=$(CURDIR)/build
-
-######################################################################
-# Filename variables
-DQUOTE="
-# Remove highlighting problem"
-ARCHIVE_FREERTOS=$(subst $(DQUOTE),,$(CONFIG_DOWNLOADS_DIR)/FreeRTOSV$(CONFIG_FREERTOS_VERSION_DOWNLOAD).zip)
-
+include packages/config.mk
 
 ######################################################################
 # KCONFIG variables
@@ -46,17 +23,10 @@ GCONF=$(KCONFIG_BUILD_PATH)/frontends/gconf/gconf
 
 ######################################################################
 # Build target
-all:$(FREERTOS_PATH)/.extracted
+all: $(PACKAGES_TARGET) $(OUTPUT_TARGET_HEX)
 
-# Extract files
-$(FREERTOS_PATH)/.extracted:$(ARCHIVE_FREERTOS)
-	$(UNZIP) -d $(BUILD_PATH) $<
-	$(TOUCH) $@
-
-# Download requested files
-$(ARCHIVE_FREERTOS):
-	$(MKDIR_P) $(CONFIG_DOWNLOADS_DIR)
-	$(WGET) -O $@ $(CONFIG_FREERTOS_URL_DOWNLOAD)
+include project/project.mk
+include packages/packages.mk
 
 ######################################################################
 # Configuration tool
@@ -108,7 +78,7 @@ $(KCONFIG_BUILD_PATH)/Makefile:
 ######################################################################
 # Clean, and other stuffs
 .PHONY: clean
-clean:
+clean: project-clean
 
 .PHONY: dirclean
 dirclean:

@@ -22,7 +22,7 @@
 #ifndef PICCOLO_H
 #define PICCOLO_H
 
-#include "lidar/lidar.h"
+#include "lidar.h"
 
 namespace AUSBEE {
     class PiccoloLidar : public Lidar {

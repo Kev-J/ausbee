@@ -2,7 +2,50 @@
 
 mainmenu "AUSBEE Configuration"
 
-menu BUILD_OPTIONS
+# Build options menu
+menu "Build options"
+
+config PROJECT_NAME
+	string "Project name"
+	default "project"
+	help
+		TODO
+
+config DEVICE_NAME
+	string "Device name"
+	help
+		TODO
+
+config TOOLCHAIN_TARGET_NAME
+	string "Target name"
+	default "arm-none-eabi"
+	help
+		TODO
+
+#TODO ask user for using summon-arm
+config TOOLCHAIN_PATH
+	string "Toolchain path"
+	help
+		TODO
+
+config OPTIMISATION
+    string "Optimisation"
+    default "s"
+    help
+        TODO
+
+# The default value tell to gcc that the target may not use std system
+config TOOLCHAIN_CFLAGS
+    string "Toolchain cflags"
+    default "-mthumb -mcpu=cortex-m3 -Wall -Wextra -mfix-cortex-m3-ldrd -ffunction-sections -fdata-sections -nostdlib -nostartfiles -nodefaultlibs -ffreestanding"
+    help
+        TODO
+
+config TOOLCHAIN_LDFLAGS
+    string "Toolchain ldflags"
+    default "-mthumb -mcpu=cortex-m3 -Wall -Wextra -mfix-cortex-m3-ldrd -ffunction-sections -fdata-sections -Wl,--gc-sections -T$(LINKER_SCRIPT)"
+    help
+        TODO
 
 config DOWNLOADS_DIR
     string "Downloads directory"
@@ -12,27 +55,7 @@ config DOWNLOADS_DIR
 
 endmenu
 
-menu "FreeRTOS Configuration"
-
-config FREERTOS_DOWNLOAD
-    bool "Download FreeRTOS"
-    default y
-    help
-        TODO
-
-
-config FREERTOS_VERSION_DOWNLOAD
-    depends on FREERTOS_DOWNLOAD
-    string "FreeRTOS version for automatic download"
-    default "7.5.3"
-    help
-        TODO
-
-config FREERTOS_URL_DOWNLOAD
-    depends on FREERTOS_DOWNLOAD
-    string "FreeRTOS package to download"
-    default "http://sourceforge.net/projects/freertos/files/FreeRTOS/V7.5.3/FreeRTOSV$(CONFIG_FREERTOS_VERSION_DOWNLOAD).zip"
-    help
-        TODO
-
+# Packages menu
+menu "Packages"
+source "packages/Kconfig"
 endmenu

@@ -1,0 +1,16 @@
+#
+menu "libausbee"
+
+config LIBAUSBEE_SRC_DIR
+	string "libausbee source directory"
+	default "$(CURDIR)/libausbee"
+	help
+		TODO
+
+config LIBAUSBEE_BUILD_LIDAR
+    bool "Build libausbee-lidar"
+    default n
+    help
+        TODO
+
+endmenu
