@@ -1,9 +1,15 @@
-
 # If we are not configuring, include the configuration file
 noconfig_goals= %-defconfig config menuconfig nconfig xconfig gconfig alldefconfig
 ifeq ($(filter $(noconfig_goals),$(MAKECMDGOALS)),)
-include .config #TODO check the existence of .config file
+ifneq ("$(wildcard .config)", "")
+include .config
+else #If the configuration file is not found and no config goals is provided, print error
+$(error Please run an configuration command (your_board-defconfig, alldefconfig, menuconfig, config, ...))
 endif
+endif
+
+#TODO print error when:
+# - No device has been provided
 
 ######################################################################
 # Shell commands
@@ -20,14 +26,14 @@ DQUOTE="
 # Remove highlighting problem"
 
 CONFIGS_PATH=$(CURDIR)/configs
-BUILD_PATH=$(CURDIR)/build
-PACKAGES_PATH=$(CURDIR)/packages
+# Project output files
 OUTPUT_PATH=$(CURDIR)/output
-OUTPUT_TARGET_PATH=$(OUTPUT_PATH)/target
-OUTPUT_TARGET_BIN_PATH=$(OUTPUT_TARGET_PATH)/bin
-OUTPUT_TARGET_HEX=$(subst $(DQUOTE),,$(OUTPUT_TARGET_BIN_PATH)/$(CONFIG_PROJECT_NAME).hex)
-OUTPUT_TARGET_ELF=$(subst $(DQUOTE),,$(OUTPUT_TARGET_BIN_PATH)/$(CONFIG_PROJECT_NAME).elf)
-ARCHIVE_FREERTOS_PATH=$(subst $(DQUOTE),,$(CONFIG_DOWNLOADS_DIR)/FreeRTOSV$(CONFIG_FREERTOS_VERSION_DOWNLOAD).zip)
+OUTPUT_TARGET_HEX=$(subst $(DQUOTE),,$(OUTPUT_PATH)/$(CONFIG_PROJECT_NAME).hex)
+OUTPUT_TARGET_ELF=$(subst $(DQUOTE),,$(OUTPUT_PATH)/$(CONFIG_PROJECT_NAME).elf)
+# System
+SYSTEM_PATH=$(CURDIR)/System
+# FreeRTOS
+FREERTOS_PATH=$(CURDIR)/FreeRTOS
 
 ######################################################################
 # Build variables
@@ -40,3 +46,10 @@ HOST_SIZE=$(subst $(DQUOTE),,$(CONFIG_TOOLCHAIN_PATH)/$(CONFIG_TOOLCHAIN_TARGET_
 HOST_OPTIMISATION=$(subst $(DQUOTE),,-O$(CONFIG_OPTIMISATION))
 HOST_CFLAGS=$(subst $(DQUOTE),,$(CONFIG_TOOLCHAIN_CFLAGS) -D$(CONFIG_DEVICE_NAME))
 HOST_LDFLAGS=$(subst $(DQUOTE),,$(CONFIG_TOOLCHAIN_LDFLAGS))
+
+######################################################################
+# Project configuration
+
+# Conditions for starting to build project
+PROJECT_BUILD_PATH=$(BUILD_PATH)/project
+PROJECT_DEPENDENCIES = $(FREERTOS_TOP_PATH)/.extracted # Need includes files of FreeRTOS

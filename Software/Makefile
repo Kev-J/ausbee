@@ -9,8 +9,6 @@
 
 include config.mk
 
-include packages/config.mk
-
 ######################################################################
 # KCONFIG variables
 KCONFIG_SOURCES_PATH=$(CURDIR)/kconfig-frontends
@@ -23,10 +21,11 @@ GCONF=$(KCONFIG_BUILD_PATH)/frontends/gconf/gconf
 
 ######################################################################
 # Build target
-all: $(PACKAGES_TARGET) $(OUTPUT_TARGET_HEX)
+all: $(OUTPUT_TARGET_HEX)
 
+include $(SYSTEM_PATH)/system.mk
+include $(FREERTOS_PATH)/freertos.mk
 include project/project.mk
-include packages/packages.mk
 
 ######################################################################
 # Configuration tool
@@ -77,9 +76,9 @@ $(KCONFIG_BUILD_PATH)/Makefile:
 
 ######################################################################
 # Clean, and other stuffs
-.PHONY: clean
-clean: project-clean
-
-.PHONY: dirclean
-dirclean:
+.PHONY: dirclean 
+dirclean: freertos-dirclean clean
 	$(RM_RF) .config .config.old $(KCONFIG_BUILD_PATH) $(BUILD_PATH)
+
+.PHONY: clean
+clean: system-clean project-clean freertos-clean
