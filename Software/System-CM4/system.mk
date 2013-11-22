@@ -1,0 +1,32 @@
+CMSIS_DEVICE_SUPPORT_PATH=$(SYSTEM_PATH)/CMSIS/Device/ST/STM32F4xx
+CMSIS_CORE_SUPPORT_PATH=$(SYSTEM_PATH)/CMSIS/Include
+
+LINKER_SCRIPT_PATH=$(SYSTEM_PATH)/link.ld
+
+SYSTEM_INCLUDES_DIR=-I"$(CMSIS_DEVICE_SUPPORT_PATH)/Include"
+SYSTEM_INCLUDES_DIR+=-I"$(CMSIS_CORE_SUPPORT_PATH)"
+
+SYSTEM_SRC_C_FILES+=$(CMSIS_DEVICE_SUPPORT_PATH)/Source/Templates/system_stm32f4xx.c
+SYSTEM_SRC_C_FILES+=$(SYSTEM_PATH)/syscalls.c
+
+# TODO: Let the user choose the startup script
+# TODO: Or rewrite all the startup scripts
+SYSTEM_SRC_S_FILES=$(CMSIS_DEVICE_SUPPORT_PATH)/Source/Templates/arm/startup_stm32f40xx.s
+
+# Object files list
+SYSTEM_OBJ_C_FILES=$(SYSTEM_SRC_C_FILES:.c=.o)
+SYSTEM_OBJ_S_FILES=$(SYSTEM_SRC_S_FILES:.s=.o)
+
+SYSTEM_OBJ_FILES=$(SYSTEM_OBJ_C_FILES) $(SYSTEM_SRC_S_FILES)
+
+# Build objects
+$(SYSTEM_OBJ_S_FILES): %.o :%.s
+	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(SYSTEM_INCLUDES_DIR) -c $<
+
+$(SYSTEM_OBJ_C_FILES): %.o :%.c
+	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(SYSTEM_INCLUDES_DIR) -c $<
+
+.PHONY: system-clean
+system-clean:
+	$(RM_RF) $(SYSTEM_OBJ_FILES)
+

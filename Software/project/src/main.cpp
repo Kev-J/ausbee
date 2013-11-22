@@ -1,4 +1,4 @@
-#include <stm32f10x.h>
+#include <stm32f4xx.h> //TODO stm32f1xx.h if f1 serie
 #include <FreeRTOS.h>
 #include <task.h>
 

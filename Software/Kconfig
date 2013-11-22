@@ -11,7 +11,17 @@ config PROJECT_NAME
 	help
 		TODO
 
-config DEVICE_NAME
+choice
+	prompt "Select ARM core"
+config ARM_CORE_CORTEX_M4
+	bool "ARM Cortex-M4 core"
+
+config ARM_CORE_CORTEX_M3
+	bool "ARM Cortex-M3 core"
+endchoice
+
+
+config DEVICE_NAME # TODO Choice
 	string "Device name"
 	help
 		TODO

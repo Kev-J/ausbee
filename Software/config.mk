@@ -1,15 +1,19 @@
 # If we are not configuring, include the configuration file
 noconfig_goals= %-defconfig config menuconfig nconfig xconfig gconfig alldefconfig
 ifeq ($(filter $(noconfig_goals),$(MAKECMDGOALS)),)
+
 ifneq ("$(wildcard .config)", "")
 include .config
 else #If the configuration file is not found and no config goals is provided, print error
 $(error Please run an configuration command (your_board-defconfig, alldefconfig, menuconfig, config, ...))
 endif
-endif
 
+else
 #TODO print error when:
 # - No device has been provided
+# - No core selected
+endif
+
 
 ######################################################################
 # Shell commands
@@ -31,7 +35,11 @@ OUTPUT_PATH=$(CURDIR)/output
 OUTPUT_TARGET_HEX=$(subst $(DQUOTE),,$(OUTPUT_PATH)/$(CONFIG_PROJECT_NAME).hex)
 OUTPUT_TARGET_ELF=$(subst $(DQUOTE),,$(OUTPUT_PATH)/$(CONFIG_PROJECT_NAME).elf)
 # System
-SYSTEM_PATH=$(CURDIR)/System
+ifeq ($(CONFIG_ARM_CORE_CORTEX_M4),y)
+SYSTEM_PATH=$(CURDIR)/System-CM4
+else ifeq ($(CONFIG_ARM_CORE_CORTEX_M3),y)
+SYSTEM_PATH=$(CURDIR)/System-CM3
+endif
 # FreeRTOS
 FREERTOS_PATH=$(CURDIR)/FreeRTOS
 

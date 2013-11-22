@@ -23,10 +23,11 @@ GCONF=$(KCONFIG_BUILD_PATH)/frontends/gconf/gconf
 # Build target
 all: $(OUTPUT_TARGET_HEX)
 
+ifneq ($(SYSTEM_PATH),)
 include $(SYSTEM_PATH)/system.mk
+endif
 include $(FREERTOS_PATH)/freertos.mk
 include project/project.mk
-
 ######################################################################
 # Configuration tool
 
