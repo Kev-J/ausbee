@@ -11,19 +11,19 @@ SYSTEM_SRC_C_FILES+=$(SYSTEM_PATH)/syscalls.c
 
 # TODO: Let the user choose the startup script
 # TODO: Or rewrite all the startup scripts
-SYSTEM_SRC_S_FILES=$(CMSIS_DEVICE_SUPPORT_PATH)/Source/Templates/arm/startup_stm32f40xx.s
+SYSTEM_SRC_S_FILES=$(CMSIS_DEVICE_SUPPORT_PATH)/Source/Templates/arm/startup_stm32f4xx.s
 
 # Object files list
 SYSTEM_OBJ_C_FILES=$(SYSTEM_SRC_C_FILES:.c=.o)
 SYSTEM_OBJ_S_FILES=$(SYSTEM_SRC_S_FILES:.s=.o)
 
-SYSTEM_OBJ_FILES=$(SYSTEM_OBJ_C_FILES) $(SYSTEM_SRC_S_FILES)
+SYSTEM_OBJ_FILES=$(SYSTEM_OBJ_C_FILES) $(SYSTEM_OBJ_S_FILES)
 
 # Build objects
-$(SYSTEM_OBJ_S_FILES): %.o :%.s
+$(SYSTEM_OBJ_S_FILES): %.o :%.s $(TOOLCHAIN_EXTRACTED)
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(SYSTEM_INCLUDES_DIR) -c $<
 
-$(SYSTEM_OBJ_C_FILES): %.o :%.c
+$(SYSTEM_OBJ_C_FILES): %.o :%.c $(TOOLCHAIN_EXTRACTED)
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(SYSTEM_INCLUDES_DIR) -c $<
 
 .PHONY: system-clean

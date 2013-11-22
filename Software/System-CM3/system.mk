@@ -15,7 +15,7 @@ SYSTEM_SRC_FILES+=$(SYSTEM_PATH)/syscalls.c
 SYSTEM_OBJ_FILES=$(SYSTEM_SRC_FILES:.c=.o)
 
 # Build objects
-$(SYSTEM_OBJ_FILES): %.o :%.c
+$(SYSTEM_OBJ_FILES): %.o :%.c $(TOOLCHAIN_EXTRACTED)
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(SYSTEM_INCLUDES_DIR) -c $<
 
 .PHONY: system-clean

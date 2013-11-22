@@ -1,0 +1,43 @@
+config TOOLCHAIN_TARGET_NAME
+	string "Target name"
+	default "arm-none-eabi"
+	help
+		TODO
+
+config DOWNLOAD_TOOLCHAIN
+    bool "Download GCC ARM embedded toolchain"
+    default y
+    help
+        TODO
+
+config TOOLCHAIN_MIRROR
+    string "Toolchain mirror URL"
+    default "https://launchpad.net/gcc-arm-embedded/4.7/4.7-2013-q3-update/+download/gcc-arm-none-eabi-4_7-2013q3-20130916-linux.tar.bz2"
+    help
+        TODO
+
+config TOOLCHAIN_BIN_PATH
+	string "Toolchain /bin path"
+	help
+		TODO
+        depends on !DOWNLOAD_TOOLCHAIN
+
+config OPTIMISATION
+    string "Optimisation"
+    default "s"
+    help
+        TODO
+
+# The default value tell to gcc that the target may not use std system
+config TOOLCHAIN_CFLAGS
+    string "Toolchain cflags"
+    default "-mthumb -mcpu=cortex-m3 -Wall -Wextra -mfix-cortex-m3-ldrd -ffunction-sections -fdata-sections -nostdlib -nostartfiles -nodefaultlibs -ffreestanding"
+    help
+        TODO
+
+config TOOLCHAIN_LDFLAGS
+    string "Toolchain ldflags"
+    default "-mthumb -mcpu=cortex-m3 -Wall -Wextra -mfix-cortex-m3-ldrd -ffunction-sections -fdata-sections -Wl,--gc-sections"
+    help
+        TODO
+

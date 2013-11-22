@@ -1,4 +1,4 @@
-ENTRY( handler_reset )
+ENTRY( Reset_Handler )
 
 _Min_Heap_Size = 0;
 _Min_Stack_Size = 0x200;

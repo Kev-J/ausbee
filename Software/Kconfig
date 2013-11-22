@@ -26,43 +26,17 @@ config DEVICE_NAME # TODO Choice
 	help
 		TODO
 
-config TOOLCHAIN_TARGET_NAME
-	string "Target name"
-	default "arm-none-eabi"
-	help
-		TODO
-
-#TODO ask user for using summon-arm
-config TOOLCHAIN_PATH
-	string "Toolchain path"
-	help
-		TODO
-
-config OPTIMISATION
-    string "Optimisation"
-    default "s"
-    help
-        TODO
-
-# The default value tell to gcc that the target may not use std system
-config TOOLCHAIN_CFLAGS
-    string "Toolchain cflags"
-    default "-mthumb -mcpu=cortex-m3 -Wall -Wextra -mfix-cortex-m3-ldrd -ffunction-sections -fdata-sections -nostdlib -nostartfiles -nodefaultlibs -ffreestanding"
-    help
-        TODO
-
-config TOOLCHAIN_LDFLAGS
-    string "Toolchain ldflags"
-    default "-mthumb -mcpu=cortex-m3 -Wall -Wextra -mfix-cortex-m3-ldrd -ffunction-sections -fdata-sections -Wl,--gc-sections"
-    help
-        TODO
-
 config DOWNLOADS_DIR
     string "Downloads directory"
     default "$(CURDIR)/downloads"
     help
         TODO
 
+endmenu
+
+# Toolchain menu
+menu "Toolchain"
+source "Toolchain/Kconfig"
 endmenu
 
 # Packages menu

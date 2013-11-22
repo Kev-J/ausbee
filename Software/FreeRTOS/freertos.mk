@@ -24,7 +24,7 @@ FREERTOS_SRC_FILES+=$(FREERTOS_SRC_PORT_PATH)/port.c
 FREERTOS_OBJ_FILES=$(FREERTOS_SRC_FILES:.c=.o)
 
 # Build objects
-$(FREERTOS_OBJ_FILES): %.o :%.c
+$(FREERTOS_OBJ_FILES): %.o :%.c $(TOOLCHAIN_EXTRACTED)
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(FREERTOS_INCLUDES_DIR) $(HOST_OPTIMISATION) -c $<
 
 # Make sure that the archive has been extracted

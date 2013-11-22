@@ -23,11 +23,12 @@ GCONF=$(KCONFIG_BUILD_PATH)/frontends/gconf/gconf
 # Build target
 all: $(OUTPUT_TARGET_HEX)
 
+include $(TOOLCHAIN_PATH)/toolchain.mk
 ifneq ($(SYSTEM_PATH),)
 include $(SYSTEM_PATH)/system.mk
 endif
 include $(FREERTOS_PATH)/freertos.mk
-include project/project.mk
+include $(PROJECT_PATH)/project.mk
 ######################################################################
 # Configuration tool
 
@@ -78,7 +79,7 @@ $(KCONFIG_BUILD_PATH)/Makefile:
 ######################################################################
 # Clean, and other stuffs
 .PHONY: dirclean 
-dirclean: freertos-dirclean clean
+dirclean: toolchain-dirclean freertos-dirclean clean
 	$(RM_RF) .config .config.old $(KCONFIG_BUILD_PATH) $(BUILD_PATH)
 
 .PHONY: clean
