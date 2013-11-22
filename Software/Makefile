@@ -23,7 +23,8 @@ GCONF=$(KCONFIG_BUILD_PATH)/frontends/gconf/gconf
 # Build target
 all: $(OUTPUT_TARGET_HEX)
 
-include FreeRTOS/FreeRTOS.mk
+include $(SYSTEM_PATH)/system.mk
+include $(FREERTOS_PATH)/freertos.mk
 include project/project.mk
 
 ######################################################################
@@ -75,9 +76,9 @@ $(KCONFIG_BUILD_PATH)/Makefile:
 
 ######################################################################
 # Clean, and other stuffs
-.PHONY: clean
-clean: project-clean
+.PHONY: dirclean 
+dirclean: freertos-dirclean clean
+	$(RM_RF) .config .config.old $(KCONFIG_BUILD_PATH) $(BUILD_PATH)
 
-.PHONY: dirclean
-dirclean:
-	$(RM_RF) .config .config.old $(KCONFIG_BUILD_PATH) $(SRC_PATH)
+.PHONY: clean
+clean: system-clean project-clean freertos-clean

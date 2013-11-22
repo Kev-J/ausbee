@@ -2,6 +2,7 @@
 #include <FreeRTOS.h>
 #include <task.h>
 
+extern "C" {
 void xPortPendSVHandler();
 void xPortSysTickHandler();
 void vPortSVCHandler();
@@ -49,6 +50,7 @@ void vApplicationIdleHook(void)
 {
 //    while(1)
 //        set_led(LED2);
+}
 }
 
 void initTsk(void)

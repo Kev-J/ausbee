@@ -43,7 +43,7 @@ config TOOLCHAIN_CFLAGS
 
 config TOOLCHAIN_LDFLAGS
     string "Toolchain ldflags"
-    default "-mthumb -mcpu=cortex-m3 -Wall -Wextra -mfix-cortex-m3-ldrd -ffunction-sections -fdata-sections -Wl,--gc-sections -T$(LINKER_SCRIPT)"
+    default "-mthumb -mcpu=cortex-m3 -Wall -Wextra -mfix-cortex-m3-ldrd -ffunction-sections -fdata-sections -Wl,--gc-sections"
     help
         TODO
 

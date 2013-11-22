@@ -8,6 +8,9 @@ $(error Please run an configuration command (your_board-defconfig, alldefconfig,
 endif
 endif
 
+#TODO print error when:
+# - No device has been provided
+
 ######################################################################
 # Shell commands
 MKDIR_P=mkdir -p
@@ -23,13 +26,12 @@ DQUOTE="
 # Remove highlighting problem"
 
 CONFIGS_PATH=$(CURDIR)/configs
-SRC_PATH=$(CURDIR)/src
 # Project output files
 OUTPUT_PATH=$(CURDIR)/output
-OUTPUT_TARGET_PATH=$(OUTPUT_PATH)/target
-OUTPUT_TARGET_BIN_PATH=$(OUTPUT_TARGET_PATH)/bin
-OUTPUT_TARGET_HEX=$(subst $(DQUOTE),,$(OUTPUT_TARGET_BIN_PATH)/$(CONFIG_PROJECT_NAME).hex)
-OUTPUT_TARGET_ELF=$(subst $(DQUOTE),,$(OUTPUT_TARGET_BIN_PATH)/$(CONFIG_PROJECT_NAME).elf)
+OUTPUT_TARGET_HEX=$(subst $(DQUOTE),,$(OUTPUT_PATH)/$(CONFIG_PROJECT_NAME).hex)
+OUTPUT_TARGET_ELF=$(subst $(DQUOTE),,$(OUTPUT_PATH)/$(CONFIG_PROJECT_NAME).elf)
+# System
+SYSTEM_PATH=$(CURDIR)/System
 # FreeRTOS
 FREERTOS_PATH=$(CURDIR)/FreeRTOS
 
@@ -45,6 +47,9 @@ HOST_OPTIMISATION=$(subst $(DQUOTE),,-O$(CONFIG_OPTIMISATION))
 HOST_CFLAGS=$(subst $(DQUOTE),,$(CONFIG_TOOLCHAIN_CFLAGS) -D$(CONFIG_DEVICE_NAME))
 HOST_LDFLAGS=$(subst $(DQUOTE),,$(CONFIG_TOOLCHAIN_LDFLAGS))
 
+######################################################################
 # Project configuration
-#TODO check if FreeRTOS is used by the project
-PROJECT_DEPENDENCIES += $(FREERTOS_SRC_PATH)/.extracted
+
+# Conditions for starting to build project
+PROJECT_BUILD_PATH=$(BUILD_PATH)/project
+PROJECT_DEPENDENCIES = $(FREERTOS_TOP_PATH)/.extracted # Need includes files of FreeRTOS
