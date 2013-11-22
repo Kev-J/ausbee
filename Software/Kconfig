@@ -56,6 +56,6 @@ config DOWNLOADS_DIR
 endmenu
 
 # Packages menu
-menu "Packages"
-source "packages/Kconfig"
+menu "FreeRTOS"
+source "FreeRTOS/Kconfig"
 endmenu

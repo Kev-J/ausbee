@@ -9,6 +9,7 @@ PROJECT_INCLUDES_DIR += -I"$(CURDIR)/project/src"
 
 LINKER_SCRIPT=$(CURDIR)/project/link.ld
 
+
 PROJECT_SRC=$(wildcard $(CURDIR)/project/src/*.cpp)
 
 FREERTOS_SRC=$(wildcard $(FREERTOS_PATH)/FreeRTOS/Source/*.c)
@@ -44,10 +45,10 @@ $(CURDIR)/project/startup.o: project/startup.c
 $(CURDIR)/project/syscalls.o: project/syscalls.c
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) -I"$(DEVICE_SUPPORT_PATH)" -I"$(CORE_SUPPORT_PATH)" -c $<
 
-%.cpp.o: %.cpp
+%.cpp.o: %.cpp $(PROJECT_DEPENDENCIES)
 	$(HOST_CXX) -o $@ $(HOST_CFLAGS) $(PROJECT_INCLUDES_DIR) $(HOST_OPTIMISATION) -c $<
 
-%.c.o: %.c
+%.c.o: %.c $(PROJECT_DEPENDENCIES)
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(PROJECT_INCLUDES_DIR) $(HOST_OPTIMISATION) -c $<
 
 project-clean:
