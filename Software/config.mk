@@ -1,8 +1,11 @@
-
 # If we are not configuring, include the configuration file
 noconfig_goals= %-defconfig config menuconfig nconfig xconfig gconfig alldefconfig
 ifeq ($(filter $(noconfig_goals),$(MAKECMDGOALS)),)
-include .config #TODO check the existence of .config file
+ifneq ("$(wildcard .config)", "")
+include .config
+else #If the configuration file is not found and no config goals is provided, print error
+$(error Please run an configuration command (your_board-defconfig, alldefconfig, menuconfig, config, ...))
+endif
 endif
 
 ######################################################################
