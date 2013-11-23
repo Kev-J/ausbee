@@ -55,6 +55,7 @@ endif
 FREERTOS_PATH=$(CURDIR)/FreeRTOS
 # Project
 PROJECT_PATH=$(CURDIR)/Project
+
 ######################################################################
 # Build variables
 HOST_AS=$(subst $(DQUOTE),,$(TOOLCHAIN_BIN_PATH)/$(CONFIG_TOOLCHAIN_TARGET_NAME)-as)
@@ -64,10 +65,18 @@ HOST_LD=$(subst $(DQUOTE),,$(TOOLCHAIN_BIN_PATH)/$(CONFIG_TOOLCHAIN_TARGET_NAME)
 HOST_OBJCPY=$(subst $(DQUOTE),,$(TOOLCHAIN_BIN_PATH)/$(CONFIG_TOOLCHAIN_TARGET_NAME)-objcopy)
 HOST_SIZE=$(subst $(DQUOTE),,$(TOOLCHAIN_BIN_PATH)/$(CONFIG_TOOLCHAIN_TARGET_NAME)-size)
 
-HOST_OPTIMISATION=$(subst $(DQUOTE),,-O$(CONFIG_OPTIMISATION))
-HOST_CFLAGS=$(subst $(DQUOTE),,$(CONFIG_TOOLCHAIN_CFLAGS) -D$(CONFIG_DEVICE_NAME))
-HOST_LDFLAGS=$(subst $(DQUOTE),,$(CONFIG_TOOLCHAIN_LDFLAGS))
+ifeq ($(CONFIG_ARM_CORE_CORTEX_M4),y)
+HOST_COMMON_FLAGS=-mthumb -mcpu=cortex-m4
+else ifeq ($(CONFIG_ARM_CORE_CORTEX_M3),y)
+HOST_COMMON_FLAGS=-mthumb -mcpu=cortex-m3 -mfix-cortex-m3-ldrd
+endif
 
+# get DEVICE_NAME variable
+include config-devices.mk
+
+HOST_OPTIMISATION=$(subst $(DQUOTE),,-O$(CONFIG_OPTIMISATION))
+HOST_CFLAGS=$(HOST_COMMON_FLAGS) $(subst $(DQUOTE),,$(CONFIG_TOOLCHAIN_CFLAGS) -D$(DEVICE_NAME))
+HOST_LDFLAGS=$(HOST_COMMON_FLAGS) $(subst $(DQUOTE),,$(CONFIG_TOOLCHAIN_LDFLAGS))
 
 ######################################################################
 # Project configuration
