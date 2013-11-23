@@ -13,7 +13,6 @@ source Libraries/STM32F10x_StdPeriph_Driver/Kconfig
 config LIBAUSBEE
 	bool "libausbee"
 	default n
-	depends on USE_FREERTOS
 	help
 		libausbee by EIRBOT
 		TODO
