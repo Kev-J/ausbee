@@ -10,7 +10,7 @@ config PROJECT_NAME
 	default "project"
 	help
 		TODO
-
+# Select CORE
 choice
 	prompt "Select ARM core"
 config ARM_CORE_CORTEX_M4
@@ -20,10 +20,52 @@ config ARM_CORE_CORTEX_M3
 	bool "ARM Cortex-M3 core"
 endchoice
 
-config DEVICE_NAME # TODO Choice
-	string "Device name"
-	help
-		TODO
+# Select Device Cortex-M4
+choice
+	prompt "Device name Cortex-M4"
+	depends on ARM_CORE_CORTEX_M4
+
+config DEVICE_STM32F40_41xxx 
+	bool "STM32F40_41xxx"
+
+config DEVICE_STM32F427_437xx
+	bool "STM32F427_437xx"
+
+config DEVICE_STM32F429_439xx
+	bool "STM32F429_439xx"
+
+config DEVICE_STM32F401xx
+	bool "STM32F40_41xx"
+endchoice
+
+# Select Device Cortex-M3
+choice
+	prompt "Device name Cortex-M3"
+	depends on ARM_CORE_CORTEX_M3
+config DEVICE_STM32F10X_LD
+	bool "STM32F10X_LD"
+
+config DEVICE_STM32F10X_LD_VL
+	bool "STM32F10X_LD_VL"
+
+config DEVICE_STM32F10X_MD
+	bool "STM32F10X_MD"
+
+config DEVICE_STM32F10X_MD_VL
+	bool "STM32F10X_MD_VL"
+
+config DEVICE_STM32F10X_HD
+	bool "STM32F10X_HD"
+
+config DEVICE_STM32F10X_HD_VL
+	bool "STM32F10X_HD_VL"
+
+config DEVICE_STM32F10X_XL
+	bool "STM32F10X_XL"
+
+config DEVICE_STM32F10X_CL
+	bool "STM32F10X_CL"
+endchoice
 
 config DOWNLOADS_DIR
     string "Downloads directory"

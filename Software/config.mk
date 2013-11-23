@@ -55,6 +55,7 @@ endif
 FREERTOS_PATH=$(CURDIR)/FreeRTOS
 # Project
 PROJECT_PATH=$(CURDIR)/Project
+
 ######################################################################
 # Build variables
 HOST_AS=$(subst $(DQUOTE),,$(TOOLCHAIN_BIN_PATH)/$(CONFIG_TOOLCHAIN_TARGET_NAME)-as)
@@ -70,10 +71,12 @@ else ifeq ($(CONFIG_ARM_CORE_CORTEX_M3),y)
 HOST_COMMON_FLAGS=-mthumb -mcpu=cortex-m3 -mfix-cortex-m3-ldrd
 endif
 
-HOST_OPTIMISATION=$(subst $(DQUOTE),,-O$(CONFIG_OPTIMISATION))
-HOST_CFLAGS=$(HOST_COMMON_FLAGS) $(subst $(DQUOTE),,$(CONFIG_TOOLCHAIN_CFLAGS) -D$(CONFIG_DEVICE_NAME))
-HOST_LDFLAGS=$(HOST_COMMON_FLAGS) $(subst $(DQUOTE),,$(CONFIG_TOOLCHAIN_LDFLAGS))
+# get DEVICE_NAME variable
+include config-devices.mk
 
+HOST_OPTIMISATION=$(subst $(DQUOTE),,-O$(CONFIG_OPTIMISATION))
+HOST_CFLAGS=$(HOST_COMMON_FLAGS) $(subst $(DQUOTE),,$(CONFIG_TOOLCHAIN_CFLAGS) -D$(DEVICE_NAME))
+HOST_LDFLAGS=$(HOST_COMMON_FLAGS) $(subst $(DQUOTE),,$(CONFIG_TOOLCHAIN_LDFLAGS))
 
 ######################################################################
 # Project configuration
