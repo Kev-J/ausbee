@@ -1,0 +1,1 @@
+LIBAUSBEE_PATH=$(LIBRARIES_PATH)/libausbee
