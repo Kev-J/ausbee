@@ -28,6 +28,7 @@ ifneq ($(SYSTEM_PATH),)
 include $(SYSTEM_PATH)/system.mk
 endif
 include $(FREERTOS_PATH)/freertos.mk
+include $(LIBRARIES_PATH)/libraries.mk
 include $(PROJECT_PATH)/project.mk
 ######################################################################
 # Configuration tool
@@ -83,4 +84,4 @@ dirclean: toolchain-dirclean freertos-dirclean clean
 	$(RM_RF) .config .config.old $(KCONFIG_BUILD_PATH) $(BUILD_PATH)
 
 .PHONY: clean
-clean: system-clean project-clean freertos-clean
+clean: libraries-clean system-clean project-clean freertos-clean

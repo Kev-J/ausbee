@@ -53,6 +53,8 @@ SYSTEM_PATH=$(CURDIR)/System-CM3
 endif
 # FreeRTOS
 FREERTOS_PATH=$(CURDIR)/FreeRTOS
+# Libraries
+LIBRARIES_PATH=$(CURDIR)/Libraries
 # Project
 PROJECT_PATH=$(CURDIR)/Project
 
@@ -76,6 +78,12 @@ include config-devices.mk
 
 HOST_OPTIMISATION=$(subst $(DQUOTE),,-O$(CONFIG_OPTIMISATION))
 HOST_CFLAGS=$(HOST_COMMON_FLAGS) $(subst $(DQUOTE),,$(CONFIG_TOOLCHAIN_CFLAGS) -D$(DEVICE_NAME))
+ifeq ($(CONFIG_STM32F10X_STDPERIPH_DRIVER),y)
+HOST_CFLAGS+=-DUSE_STDPERIPH_DRIVER
+endif
+ifeq ($(CONFIG_USE_ASSERT_PARAM),y)
+HOST_CFLAGS+=-DUSE_ASSERT_PARAM
+endif
 HOST_LDFLAGS=$(HOST_COMMON_FLAGS) $(subst $(DQUOTE),,$(CONFIG_TOOLCHAIN_LDFLAGS))
 
 ######################################################################

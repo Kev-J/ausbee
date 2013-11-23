@@ -1,0 +1,12 @@
+config STM32F10X_STDPERIPH_DRIVER_CAN
+	bool "+ CAN"
+	depends on STM32F10X_STDPERIPH_DRIVER
+	help
+		TODO
+
+config STM32F10X_STDPERIPH_DRIVER_RCC
+	bool "+ RCC"
+	depends on STM32F10X_STDPERIPH_DRIVER
+	help
+		TODO
+#TODO add others

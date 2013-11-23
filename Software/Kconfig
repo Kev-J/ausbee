@@ -67,6 +67,13 @@ config DEVICE_STM32F10X_CL
 	bool "STM32F10X_CL"
 endchoice
 
+config USE_ASSERT_PARAM
+	bool "Use assert_param()"
+	default n
+	help
+		If enable, do not forget to edit the assert_failed() function
+		in System-CMX/stm32f10x_conf.c.
+
 config DOWNLOADS_DIR
     string "Downloads directory"
     default "$(CURDIR)/downloads"
@@ -80,7 +87,12 @@ menu "Toolchain"
 source "Toolchain/Kconfig"
 endmenu
 
-# Packages menu
+# Libraries menu
+menu "Libraries"
+source "Libraries/Kconfig"
+endmenu
+
+# FreeRTOS menu
 menu "FreeRTOS"
 source "FreeRTOS/Kconfig"
 endmenu
