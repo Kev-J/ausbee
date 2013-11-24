@@ -1,6 +1,6 @@
 config LIBAUSBEE_LIDAR
 	bool "+ LIDAR"
 	default n
+	depends on LIBAUSBEE
 	help
 		TODO
-# TODO add others

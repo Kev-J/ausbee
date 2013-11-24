@@ -22,7 +22,7 @@
  *
  **********************************************************************/
 //TODO cite source
-#include "piccolo-lidar.h"
+#include <AUSBEE/piccolo-lidar.h>
 
 void AUSBEE::PiccoloLidar::parse(unsigned char* frame, struct Lidar::data *data)
 {
