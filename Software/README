@@ -1,0 +1,9 @@
+Dependencies
+=============
+flex
+bison
+libncurses-dev (for menuconfig)
+wget
+unzip
+tar
+stm32flash
