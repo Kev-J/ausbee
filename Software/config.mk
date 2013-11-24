@@ -24,6 +24,7 @@ RM_RF=rm -rf
 WGET=wget
 UNZIP=unzip
 TOUCH=touch
+STM32FLASH=stm32flash
 
 ######################################################################
 # Path variables
@@ -93,3 +94,8 @@ HOST_LDFLAGS=$(HOST_COMMON_FLAGS) $(subst $(DQUOTE),,$(CONFIG_TOOLCHAIN_LDFLAGS)
 # Conditions for starting to build project
 PROJECT_BUILD_PATH=$(BUILD_PATH)/project
 PROJECT_DEPENDENCIES = $(FREERTOS_TOP_PATH)/.extracted # Need includes files of FreeRTOS
+
+# Program device
+BAUDRATE_SERIAL_INTERFACE=$(subst $(DQUOTE),,$(CONFIG_BAUDRATE_SERIAL_INTEFACE))
+PROGRAM_SERIAL_INTERFACE=$(subst $(DQUOTE),,$(CONFIG_PROGRAM_SERIAL_INTERFACE))
+

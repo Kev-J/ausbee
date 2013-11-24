@@ -80,6 +80,18 @@ config DOWNLOADS_DIR
     help
         TODO
 
+config BAUDRATE_SERIAL_INTEFACE
+	string "Baudrate of serial programming interface"
+	default "115200"
+	help
+		TODO
+
+config PROGRAM_SERIAL_INTERFACE
+	string "Serial programming interface"
+	default "/dev/ttyUSB0"
+	help
+		TODO
+
 endmenu
 
 # Toolchain menu

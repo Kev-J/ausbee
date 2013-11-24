@@ -78,6 +78,12 @@ $(KCONFIG_BUILD_PATH)/Makefile:
 	$(CD) $(KCONFIG_BUILD_PATH) ; $(KCONFIG_SOURCES_PATH)/configure
 
 ######################################################################
+# Program and run
+.PHONY: program
+program: $(OUTPUT_TARGET_HEX)
+	$(STM32FLASH) -w $(<) -b $(BAUDRATE_SERIAL_INTERFACE) -v -g 0x0 $(PROGRAM_SERIAL_INTERFACE)
+
+######################################################################
 # Clean, and other stuffs
 .PHONY: dirclean 
 dirclean: toolchain-dirclean freertos-dirclean clean
