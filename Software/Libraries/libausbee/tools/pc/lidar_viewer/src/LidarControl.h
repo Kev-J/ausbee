@@ -25,7 +25,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsEllipseItem>
 #include <QTimer>
-#include <AUSBEE/lidar/piccolo-lidar.h>
+#include <AUSBEE/piccolo-lidar.h>
 #include <QApplication>
 
 class LidarControl : public QObject {
