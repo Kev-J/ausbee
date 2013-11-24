@@ -102,6 +102,8 @@ endif
 doc:
 	$(CD) $(DOCUMENTATION_PATH)/STM32F10x_StdPeriph_Driver ; \
 	$(DOXYGEN) $(DOCUMENTATION_PATH)/STM32F10x_StdPeriph_Driver/Doxyfile
+	$(CD) $(DOCUMENTATION_PATH)/STM32F4xx_StdPeriph_Driver ; \
+	$(DOXYGEN) $(DOCUMENTATION_PATH)/STM32F4xx_StdPeriph_Driver/Doxyfile
 
 ######################################################################
 # Help

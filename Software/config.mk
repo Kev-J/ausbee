@@ -1,7 +1,13 @@
 # If we are not configuring, include the configuration file
 noconfig_goals= %-defconfig config menuconfig nconfig xconfig gconfig alldefconfig
 clean_dirclean_help_doc_goals= %-clean %-dirclean dirclean clean help doc
-ifeq ($(filter $(noconfig_goals)$(clean_dirclean_help_doc_goals),$(MAKECMDGOALS)),)
+ifneq ($(filter $(clean_dirclean_help_doc_goals),$(MAKECMDGOALS)),)
+
+ifneq ("$(wildcard .config)", "")
+include .config
+endif
+
+else ifeq ($(filter $(noconfig_goals),$(MAKECMDGOALS)),)
 
 ifneq ("$(wildcard .config)", "")
 include .config
@@ -10,6 +16,7 @@ $(error Please run an configuration command (your_board-defconfig, alldefconfig,
  before building your project. Please, have a look in "make help".)
 endif
 
+# clean, dirclean ,help ,doc
 else
 #TODO print error when:
 # - No device has been provided
