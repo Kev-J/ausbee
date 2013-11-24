@@ -83,13 +83,19 @@ $(KCONFIG_BUILD_PATH)/Makefile:
 program: $(OUTPUT_TARGET_HEX)
 	$(STM32FLASH) -w $(<) -b $(BAUDRATE_SERIAL_INTERFACE) -v -g 0x0 $(PROGRAM_SERIAL_INTERFACE)
 
+
+######################################################################
+# Documentation
+.PHONY: doc
+doc:
+	$(CD) $(DOCUMENTATION_PATH)/STM32F10x_StdPeriph_Driver ; \
+	$(DOXYGEN) $(DOCUMENTATION_PATH)/STM32F10x_StdPeriph_Driver/Doxyfile
 ######################################################################
 # Clean, and other stuffs
-.PHONY: dirclean 
+.PHONY: dirclean clean
 dirclean: toolchain-dirclean freertos-dirclean clean
 	$(RM_RF) .config .config.old $(KCONFIG_BUILD_PATH) $(BUILD_PATH)
 
-.PHONY: clean
 ifneq ($(SYSTEM_PATH),)
 clean: libraries-clean system-clean project-clean freertos-clean
 else

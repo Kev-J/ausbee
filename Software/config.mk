@@ -24,6 +24,7 @@ RM_RF=rm -rf
 WGET=wget
 UNZIP=unzip
 TOUCH=touch
+DOXYGEN=doxygen
 STM32FLASH=stm32flash
 
 ######################################################################
@@ -36,6 +37,7 @@ CONFIGS_PATH=$(CURDIR)/configs
 OUTPUT_PATH=$(CURDIR)/output
 OUTPUT_TARGET_HEX=$(subst $(DQUOTE),,$(OUTPUT_PATH)/$(CONFIG_PROJECT_NAME).hex)
 OUTPUT_TARGET_ELF=$(subst $(DQUOTE),,$(OUTPUT_PATH)/$(CONFIG_PROJECT_NAME).elf)
+
 # Toolchain
 TOOLCHAIN_PATH=$(CURDIR)/Toolchain
 ifeq ($(CONFIG_DOWNLOAD_TOOLCHAIN),y)
@@ -53,13 +55,18 @@ SYSTEM_PATH=$(CURDIR)/System-CM4
 else ifeq ($(CONFIG_ARM_CORE_CORTEX_M3),y)
 SYSTEM_PATH=$(CURDIR)/System-CM3
 endif
+
 # FreeRTOS
 FREERTOS_PATH=$(CURDIR)/FreeRTOS
+
 # Libraries
 LIBRARIES_PATH=$(CURDIR)/Libraries
+
 # Project
 PROJECT_PATH=$(CURDIR)/Project
 
+# Documentatoin
+DOCUMENTATION_PATH=$(CURDIR)/Documentation
 ######################################################################
 # Build variables
 HOST_AS=$(subst $(DQUOTE),,$(TOOLCHAIN_BIN_PATH)/$(CONFIG_TOOLCHAIN_TARGET_NAME)-as)
