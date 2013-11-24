@@ -1,6 +1,7 @@
 # If we are not configuring, include the configuration file
 noconfig_goals= %-defconfig config menuconfig nconfig xconfig gconfig alldefconfig
-ifeq ($(filter $(noconfig_goals),$(MAKECMDGOALS)),)
+clean_dirclean_goals= %-clean %-dirclean dirclean clean
+ifeq ($(filter $(noconfig_goals)$(clean_dirclean_goals),$(MAKECMDGOALS)),)
 
 ifneq ("$(wildcard .config)", "")
 include .config

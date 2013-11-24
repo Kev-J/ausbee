@@ -84,4 +84,8 @@ dirclean: toolchain-dirclean freertos-dirclean clean
 	$(RM_RF) .config .config.old $(KCONFIG_BUILD_PATH) $(BUILD_PATH)
 
 .PHONY: clean
+ifneq ($(SYSTEM_PATH),)
 clean: libraries-clean system-clean project-clean freertos-clean
+else
+clean: libraries-clean project-clean freertos-clean
+endif
