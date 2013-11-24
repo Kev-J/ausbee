@@ -1,2 +1,3 @@
-- Generate doxygen documentation
+- Fix building for STM32F4
+- Generate doxygen documentation for STM32F4 StdPeriph and libausbee
 - Add syscalls _write and _read for printf and scanf (cout and cin)
