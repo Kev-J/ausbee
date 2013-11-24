@@ -85,12 +85,6 @@ program: $(OUTPUT_TARGET_HEX)
 
 
 ######################################################################
-# Documentation
-.PHONY: doc
-doc:
-	$(CD) $(DOCUMENTATION_PATH)/STM32F10x_StdPeriph_Driver ; \
-	$(DOXYGEN) $(DOCUMENTATION_PATH)/STM32F10x_StdPeriph_Driver/Doxyfile
-######################################################################
 # Clean, and other stuffs
 .PHONY: dirclean clean
 dirclean: toolchain-dirclean freertos-dirclean clean
@@ -101,3 +95,50 @@ clean: libraries-clean system-clean project-clean freertos-clean
 else
 clean: libraries-clean project-clean freertos-clean
 endif
+
+######################################################################
+# Documentation
+.PHONY: doc
+doc:
+	$(CD) $(DOCUMENTATION_PATH)/STM32F10x_StdPeriph_Driver ; \
+	$(DOXYGEN) $(DOCUMENTATION_PATH)/STM32F10x_StdPeriph_Driver/Doxyfile
+
+######################################################################
+# Help
+.PHONY: help
+help:
+	$(ECHO_E) "                ####################"
+	$(ECHO_E) "                # AUSBEE by EIRBOT #"
+	$(ECHO_E) "                ####################"
+	$(ECHO_E)
+	$(ECHO_E) "Authors: Kevin JOLY, Vincent FAURE, Luc PRAMPOLINI, Vincent CESSON, David BITONNEAU, Fabien DEPRAETRE"
+	$(ECHO_E) 
+	$(ECHO_E) "https://github.com/Kev-J/ausbee"
+	$(ECHO_E)
+	$(ECHO_E) "This tool enable the user to build a complete STM32 binary file."
+	$(ECHO_E) "Have a look to the user manual for further informations: \"make doc\"."
+	$(ECHO_E) "You will need pdflatex. The output documentwill be provided in Documentation" #TODO fix the output
+	$(ECHO_E)
+	$(ECHO_E) "  all                - build your project (only after configuring)."
+	$(ECHO_E)
+	$(ECHO_E) "Configuration:"
+	$(ECHO_E) "  BOARD-defconfig    - load the configuration file for your BOARD"
+	$(ECHO_E) "  alldefconfig       - load the default configuration"
+	$(ECHO_E) "  config             - open the config menu in console"
+	$(ECHO_E) "  menuconfig         - open the config menu in ncurses mode"
+	$(ECHO_E) "  nconfig            - open the config menu in ncurses mode (bis)"
+	$(ECHO_E) "  xconfig            - open the config menu in GUI mode (Qt)"
+	$(ECHO_E) "  gconfig            - open the config menu in GUI mode (GTK)"
+	$(ECHO_E)
+	$(ECHO_E) "Programming:"
+	$(ECHO_E) "  program            - load the output .hex file in your stm32"
+	$(ECHO_E)
+	$(ECHO_E) "Cleaning:"
+	$(ECHO_E) "  clean              - remove all object files"
+	$(ECHO_E) "  dirclean           - reset all the project (/!\\ Remove configuration)"
+	$(ECHO_E)
+	$(ECHO_E) "Documentation:"
+	$(ECHO_E) "  doc                - generate manuals and doxygen documentation in the \"Documentation folder\""
+	$(ECHO_E)
+	$(ECHO_E) "Help:"
+	$(ECHO_E) "  help               - Display this help"

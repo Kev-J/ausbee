@@ -1,12 +1,13 @@
 # If we are not configuring, include the configuration file
 noconfig_goals= %-defconfig config menuconfig nconfig xconfig gconfig alldefconfig
-clean_dirclean_goals= %-clean %-dirclean dirclean clean
-ifeq ($(filter $(noconfig_goals)$(clean_dirclean_goals),$(MAKECMDGOALS)),)
+clean_dirclean_help_doc_goals= %-clean %-dirclean dirclean clean help doc
+ifeq ($(filter $(noconfig_goals)$(clean_dirclean_help_doc_goals),$(MAKECMDGOALS)),)
 
 ifneq ("$(wildcard .config)", "")
 include .config
 else #If the configuration file is not found and no config goals is provided, print error
-$(error Please run an configuration command (your_board-defconfig, alldefconfig, menuconfig, config, ...))
+$(error Please run an configuration command (your_board-defconfig, alldefconfig, menuconfig, config, ...) \
+ before building your project. Please, have a look in "make help".)
 endif
 
 else
@@ -24,6 +25,7 @@ RM_RF=rm -rf
 WGET=wget
 UNZIP=unzip
 TOUCH=touch
+ECHO_E=@echo -e
 DOXYGEN=doxygen
 STM32FLASH=stm32flash
 
