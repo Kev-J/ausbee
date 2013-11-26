@@ -10,6 +10,16 @@ config STM32F10X_STDPERIPH_DRIVER
 
 source Libraries/STM32F10x_StdPeriph_Driver/Kconfig
 
+config STM32F4XX_STDPERIPH_DRIVER
+	bool "STM32F10x StdPeriph Driver"
+	default n
+	depends on  DEVICE_STM32F40_41xxx || DEVICE_STM32F427_437xx || \
+                    DEVICE_STM32F429_439xx || DEVICE_STM32F401xx
+	help
+		TODO
+
+source Libraries/STM32F4xx_StdPeriph_Driver/Kconfig
+
 config LIBAUSBEE
 	bool "libausbee"
 	default n

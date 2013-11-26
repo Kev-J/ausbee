@@ -8,6 +8,11 @@ include $(LIBRARIES_PATH)/STM32F10x_StdPeriph_Driver/stm32f10x_stdperiph_driver.
 LIBRARIES_CLEAN_GOALS+=stm32f10x_stdperiph_driver-clean
 endif
 
+ifeq ($(CONFIG_STM32F4XX_STDPERIPH_DRIVER),y)
+include $(LIBRARIES_PATH)/STM32F4xx_StdPeriph_Driver/stm32f4xx_stdperiph_driver.mk
+LIBRARIES_CLEAN_GOALS+=stm32f4xx_stdperiph_driver-clean
+endif
+
 ifeq ($(CONFIG_LIBAUSBEE),y)
 include $(LIBRARIES_PATH)/libausbee/libausbee.mk
 LIBRARIES_CLEAN_GOALS+=libausbee-clean

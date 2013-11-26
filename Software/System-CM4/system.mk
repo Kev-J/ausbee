@@ -6,20 +6,23 @@ LINKER_SCRIPT_INPUT=$(LINKER_SCRIPT).in
 
 SYSTEM_INCLUDES_DIR=-I"$(CMSIS_DEVICE_SUPPORT_PATH)/Include"
 SYSTEM_INCLUDES_DIR+=-I"$(CMSIS_CORE_SUPPORT_PATH)"
+SYSTEM_INCLUDES_DIR+=-I"$(SYSTEM_PATH)/include"
 
 SYSTEM_SRC_C_FILES+=$(CMSIS_DEVICE_SUPPORT_PATH)/Source/Templates/system_stm32f4xx.c
 SYSTEM_SRC_C_FILES+=$(SYSTEM_PATH)/syscalls.c
 
-SYSTEM_S_SRC_FILES+=$(CMSIS_DEVICE_SUPPORT_PATH)/Source/Templates/startup_$(shell echo $(DEVICE_NAME) | tr A-Z a-z).s
+ifeq ($(CONFIG_STM32F4XX_STDPERIPH_DRIVER),y)
+SYSTEM_SRC_C_FILES+=$(SYSTEM_PATH)/stm32f4xx_conf.c
+endif
+
+SYSTEM_SRC_S_FILES+=$(CMSIS_DEVICE_SUPPORT_PATH)/Source/Templates/gcc_ride7/startup_$(shell echo $(DEVICE_NAME) | tr A-Z a-z).s
 
 # Object files list
 SYSTEM_OBJ_C_FILES=$(SYSTEM_SRC_C_FILES:.c=.o)
 SYSTEM_OBJ_S_FILES=$(SYSTEM_SRC_S_FILES:.s=.o)
 
-SYSTEM_OBJ_FILES=$(SYSTEM_OBJ_C_FILES) $(SYSTEM_OBJ_S_FILES)
-
 # Add object files to the global obj files list
-OBJ_FILES+=$(SYSTEM_OBJ_FILES) $(SYSTEM_S_OBJ_FILES)
+OBJ_FILES+=$(SYSTEM_OBJ_C_FILES) $(SYSTEM_OBJ_S_FILES)
 
 # Force to preprocess linker script
 #XXX but tell me if you have a better solution?
@@ -36,4 +39,4 @@ $(SYSTEM_OBJ_C_FILES): %.o :%.c $(TOOLCHAIN_EXTRACTED)
 
 .PHONY: system-clean
 system-clean:
-	$(RM_RF) $(SYSTEM_OBJ_FILES) $(LINKER_SCRIPT)
+	$(RM_RF) $(SYSTEM_OBJ_C_FILES) $(SYSTEM_OBJ_S_FILES) $(LINKER_SCRIPT)
