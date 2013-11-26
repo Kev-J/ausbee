@@ -1,7 +1,8 @@
 CMSIS_DEVICE_SUPPORT_PATH=$(SYSTEM_PATH)/CMSIS/Device/ST/STM32F4xx
 CMSIS_CORE_SUPPORT_PATH=$(SYSTEM_PATH)/CMSIS/Include
 
-LINKER_SCRIPT_PATH=$(SYSTEM_PATH)/link.ld
+LINKER_SCRIPT=$(SYSTEM_PATH)/link.ld
+LINKER_SCRIPT_INPUT=$(LINKER_SCRIPT).in
 
 SYSTEM_INCLUDES_DIR=-I"$(CMSIS_DEVICE_SUPPORT_PATH)/Include"
 SYSTEM_INCLUDES_DIR+=-I"$(CMSIS_CORE_SUPPORT_PATH)"
@@ -9,15 +10,22 @@ SYSTEM_INCLUDES_DIR+=-I"$(CMSIS_CORE_SUPPORT_PATH)"
 SYSTEM_SRC_C_FILES+=$(CMSIS_DEVICE_SUPPORT_PATH)/Source/Templates/system_stm32f4xx.c
 SYSTEM_SRC_C_FILES+=$(SYSTEM_PATH)/syscalls.c
 
-# TODO: Let the user choose the startup script
-# TODO: Or rewrite all the startup scripts
-SYSTEM_SRC_S_FILES=$(CMSIS_DEVICE_SUPPORT_PATH)/Source/Templates/arm/startup_stm32f4xx.s
+SYSTEM_S_SRC_FILES+=$(CMSIS_DEVICE_SUPPORT_PATH)/Source/Templates/startup_$(shell echo $(DEVICE_NAME) | tr A-Z a-z).s
 
 # Object files list
 SYSTEM_OBJ_C_FILES=$(SYSTEM_SRC_C_FILES:.c=.o)
 SYSTEM_OBJ_S_FILES=$(SYSTEM_SRC_S_FILES:.s=.o)
 
 SYSTEM_OBJ_FILES=$(SYSTEM_OBJ_C_FILES) $(SYSTEM_OBJ_S_FILES)
+
+# Add object files to the global obj files list
+OBJ_FILES+=$(SYSTEM_OBJ_FILES) $(SYSTEM_S_OBJ_FILES)
+
+# Force to preprocess linker script
+#XXX but tell me if you have a better solution?
+$(LINKER_SCRIPT): $(LINKER_SCRIPT_INPUT) force
+	$(HOST_CC) -x c -P -C -DRAM_LENGTH=$(RAM_LENGTH) -DFLASH_LENGTH=$(FLASH_LENGTH) -E $< -o $@
+force:
 
 # Build objects
 $(SYSTEM_OBJ_S_FILES): %.o :%.s $(TOOLCHAIN_EXTRACTED)
@@ -28,5 +36,4 @@ $(SYSTEM_OBJ_C_FILES): %.o :%.c $(TOOLCHAIN_EXTRACTED)
 
 .PHONY: system-clean
 system-clean:
-	$(RM_RF) $(SYSTEM_OBJ_FILES)
-
+	$(RM_RF) $(SYSTEM_OBJ_FILES) $(LINKER_SCRIPT)
