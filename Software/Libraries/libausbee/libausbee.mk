@@ -15,8 +15,8 @@ endif
 # Object files list
 LIBAUSBEE_OBJ_FILES=$(LIBAUSBEE_SRC_FILES:.cpp=.o)
 
-# Add the object files to the libraries object files
-LIBRARIES_OBJ_FILES+=$(LIBAUSBEE_OBJ_FILES)
+# Add the object files to the global object files
+OBJ_FILES+=$(LIBAUSBEE_OBJ_FILES)
 
 # Build objects
 $(LIBAUSBEE_OBJ_FILES): %.o :%.cpp $(TOOLCHAIN_EXTRACTED)

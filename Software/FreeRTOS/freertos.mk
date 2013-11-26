@@ -23,6 +23,9 @@ FREERTOS_SRC_FILES+=$(FREERTOS_SRC_PORT_PATH)/port.c
 # Object files list
 FREERTOS_OBJ_FILES=$(FREERTOS_SRC_FILES:.c=.o)
 
+# Add object files to the global object files list
+OBJ_FILES+=$(FREERTOS_OBJ_FILES)
+
 # Build objects
 $(FREERTOS_OBJ_FILES): %.o :%.c $(TOOLCHAIN_EXTRACTED)
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(FREERTOS_INCLUDES_DIR) $(HOST_OPTIMISATION) -c $<

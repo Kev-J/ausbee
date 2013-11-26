@@ -132,7 +132,6 @@ FLASH_LENGTH=$(subst $(DQUOTE),,$(CONFIG_FLASH_LENGTH))
 
 # Conditions for starting to build project
 PROJECT_BUILD_PATH=$(BUILD_PATH)/project
-PROJECT_DEPENDENCIES = $(FREERTOS_TOP_PATH)/.extracted # Need includes files of FreeRTOS
 
 # Program device
 BAUDRATE_SERIAL_INTERFACE=$(subst $(DQUOTE),,$(CONFIG_BAUDRATE_SERIAL_INTEFACE))

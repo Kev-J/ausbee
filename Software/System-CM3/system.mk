@@ -22,6 +22,9 @@ endif
 SYSTEM_OBJ_FILES=$(SYSTEM_SRC_FILES:.c=.o)
 SYSTEM_S_OBJ_FILES=$(SYSTEM_S_SRC_FILES:.s=.o)
 
+# Add object files to the global obj files list
+OBJ_FILES+=$(SYSTEM_OBJ_FILES) $(SYSTEM_S_OBJ_FILES)
+
 # Force to preprocess linker script
 #XXX but tell me if you have a better solution?
 $(LINKER_SCRIPT): $(LINKER_SCRIPT_INPUT) force

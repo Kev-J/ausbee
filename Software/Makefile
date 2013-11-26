@@ -27,7 +27,10 @@ include $(TOOLCHAIN_PATH)/toolchain.mk
 ifneq ($(SYSTEM_PATH),)
 include $(SYSTEM_PATH)/system.mk
 endif
+ifeq ($(CONFIG_USE_FREERTOS),y)
 include $(FREERTOS_PATH)/freertos.mk
+PROJECT_DEPENDENCIES+=$(FREERTOS_TOP_PATH)/.extracted # Need includes files of FreeRTOS
+endif
 include $(LIBRARIES_PATH)/libraries.mk
 include $(PROJECT_PATH)/project.mk
 ######################################################################

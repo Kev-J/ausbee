@@ -25,8 +25,8 @@ endif
 # Object files list
 STM32F10X_STDPERIPH_DRIVER_OBJ_FILES=$(STM32F10X_STDPERIPH_DRIVER_SRC_FILES:.c=.o)
 
-# Add the object files to the libraries object files
-LIBRARIES_OBJ_FILES+=$(STM32F10X_STDPERIPH_DRIVER_OBJ_FILES)
+# Add the object files to the global object files list
+OBJ_FILES+=$(STM32F10X_STDPERIPH_DRIVER_OBJ_FILES)
 
 # Build objects
 $(STM32F10X_STDPERIPH_DRIVER_OBJ_FILES): %.o :%.c $(TOOLCHAIN_EXTRACTED)
