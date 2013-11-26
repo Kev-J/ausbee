@@ -28,7 +28,7 @@ OBJ_FILES+=$(SYSTEM_OBJ_FILES) $(SYSTEM_S_OBJ_FILES)
 # Force to preprocess linker script
 #XXX but tell me if you have a better solution?
 $(LINKER_SCRIPT): $(LINKER_SCRIPT_INPUT) force
-	$(HOST_CC) -x c -P -DRAM_LENGTH=$(RAM_LENGTH) -DFLASH_LENGTH=$(FLASH_LENGTH) -E $< -o $@
+	$(HOST_CC) -x c -P -C -DRAM_LENGTH=$(RAM_LENGTH) -DFLASH_LENGTH=$(FLASH_LENGTH) -E $< -o $@
 force:
 
 # Build objects
