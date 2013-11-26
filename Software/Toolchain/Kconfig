@@ -22,24 +22,46 @@ config TOOLCHAIN_BIN_PATH
 		TODO
         depends on !DOWNLOAD_TOOLCHAIN
 
+comment "GCC/G++ options"
+
+# -ffunction-sections and -fdata-sections will tell to gcc to put functions and data in special .text sections.
+# This enable the linker to optimize unused functions and data thanks to -Wl,-gc-sections flag.
+#
+# Add -mthumb-interwork for enabling ARM and Thumb interwork
+config TOOLCHAIN_COMMON_FLAGS
+    string "Common flags (CFLAGS and LDFLAGS)"
+    default "-Wall -Wextra -ffunction-sections -fdata-sections"
+    help
+        -mthumb -mcpu=cortex-mX and -DDEVICE_NAME will be automatically added according to the selected CPU.
+        -DUSE_STDPERIPH_DRIVER will be automatically added according to your choice of including it or not.
+
+config TOOLCHAIN_CFLAGS
+    string "Toolchain CFLAGS"
+    default ""
+    help
+	TODO
+
+# -fno-rtti disable RunTime Type Informations
+# -fno-exceptions disable exceptions
+# These two C++ particularities include two much functions overhead
+# In a result, you won't be able to use exceptions handling and dynamic casts
+config TOOLCHAIN_CXXFLAGS
+    string "Toolchain CXXFLAGS"
+    default "-fno-rtti -fno-exceptions"
+    help
+	TODO
+
+# -Wl,--gc-sections will remove unused functions and datas thanks to -ffunction-sections and -fdata-sections
+# -nostartfiles do not use standard system startup files when linking
+config TOOLCHAIN_LDFLAGS
+    string "Toolchain LDFLAGS"
+    default "-Wl,--gc-sections -nostartfiles"
+    help
+        TODO
+
 config OPTIMISATION
     string "Optimisation"
     default "s"
     help
-        TODO
-
-# The default value tell to gcc that the target may not use std system
-config TOOLCHAIN_CFLAGS
-    string "Toolchain cflags"
-    default "-Wall -Wextra"
-    help
-        -mthumb and -mcpu=cortex-mX (-mfix-cortex-m3-ldrd) will be automatically added
-	TODO
-
-config TOOLCHAIN_LDFLAGS
-    string "Toolchain ldflags"
-    default "-Wall -Wextra -ffunction-sections -fdata-sections -Wl,--gc-sections"
-    help
-        -mthumb and -mcpu=cortex-mX will be automatically added
         TODO
 
