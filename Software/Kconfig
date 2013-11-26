@@ -35,7 +35,7 @@ config DEVICE_STM32F429_439xx
 	bool "STM32F429_439xx"
 
 config DEVICE_STM32F401xx
-	bool "STM32F40_41xx"
+	bool "STM32F401xx"
 endchoice
 
 # Select Device Cortex-M3

@@ -87,7 +87,7 @@ program: $(OUTPUT_TARGET_HEX)
 ######################################################################
 # Clean, and other stuffs
 .PHONY: dirclean clean
-dirclean: toolchain-dirclean freertos-dirclean clean
+dirclean: toolchain-dirclean operating_systems-dirclean clean
 	$(RM_RF) .config .config.old $(KCONFIG_BUILD_PATH) $(BUILD_PATH)
 
 ifneq ($(SYSTEM_PATH),)
