@@ -113,9 +113,11 @@ help:
 	$(ECHO_E) "                # AUSBEE by EIRBOT #"
 	$(ECHO_E) "                ####################"
 	$(ECHO_E)
-	$(ECHO_E) "Authors: Kevin JOLY, Vincent FAURE, Luc PRAMPOLINI, Vincent CESSON, David BITONNEAU, Fabien DEPRAETRE"
-	$(ECHO_E) 
+	$(ECHO_E) "Authors: Please, have a look to file's headers"
+	$(ECHO_E)
+	$(ECHO_E) "For any bugs, requests, or patch:"
 	$(ECHO_E) "https://github.com/Kev-J/ausbee"
+	$(ECHO_E) "Maintainer: Kevin JOLY <joly.kevin25@gmail.com>"
 	$(ECHO_E)
 	$(ECHO_E) "This tool enable the user to build a complete STM32 binary file."
 	$(ECHO_E) "Have a look to the user manual for further informations: \"make doc\"."
