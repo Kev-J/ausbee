@@ -65,8 +65,8 @@ else ifeq ($(CONFIG_ARM_CORE_CORTEX_M3),y)
 SYSTEM_PATH=$(CURDIR)/System-CM3
 endif
 
-# FreeRTOS
-FREERTOS_PATH=$(CURDIR)/FreeRTOS
+# OS_PATH
+OPERATING_SYSTEMS_PATH=$(CURDIR)/Operating_Systems
 
 # Libraries
 LIBRARIES_PATH=$(CURDIR)/Libraries

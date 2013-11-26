@@ -1,17 +1,8 @@
-#TODO make "choice" Kconfig
-
-config USE_FREERTOS
-    bool "Use FreeRTOS"
-    default y
-    help
-        TODO
-
 config FREERTOS_DOWNLOAD
     bool "Download FreeRTOS"
     default y
     help
         TODO
-    depends on USE_FREERTOS
 
 config FREERTOS_VERSION_DOWNLOAD
     depends on FREERTOS_DOWNLOAD
@@ -19,7 +10,6 @@ config FREERTOS_VERSION_DOWNLOAD
     default "7.5.3"
     help
         TODO
-    depends on USE_FREERTOS
 
 config FREERTOS_URL_DOWNLOAD
     depends on FREERTOS_DOWNLOAD
@@ -27,4 +17,3 @@ config FREERTOS_URL_DOWNLOAD
     default "http://sourceforge.net/projects/freertos/files/FreeRTOS/V7.5.3/FreeRTOSV$(CONFIG_FREERTOS_VERSION_DOWNLOAD).zip"
     help
         TODO
-    depends on USE_FREERTOS

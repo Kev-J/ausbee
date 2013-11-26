@@ -27,10 +27,7 @@ include $(TOOLCHAIN_PATH)/toolchain.mk
 ifneq ($(SYSTEM_PATH),)
 include $(SYSTEM_PATH)/system.mk
 endif
-ifeq ($(CONFIG_USE_FREERTOS),y)
-include $(FREERTOS_PATH)/freertos.mk
-PROJECT_DEPENDENCIES+=$(FREERTOS_TOP_PATH)/.extracted # Need includes files of FreeRTOS
-endif
+include $(OPERATING_SYSTEMS_PATH)/operating_systems.mk
 include $(LIBRARIES_PATH)/libraries.mk
 include $(PROJECT_PATH)/project.mk
 ######################################################################
@@ -94,9 +91,9 @@ dirclean: toolchain-dirclean freertos-dirclean clean
 	$(RM_RF) .config .config.old $(KCONFIG_BUILD_PATH) $(BUILD_PATH)
 
 ifneq ($(SYSTEM_PATH),)
-clean: libraries-clean system-clean project-clean freertos-clean
+clean: libraries-clean system-clean project-clean operating_systems-clean
 else
-clean: libraries-clean project-clean freertos-clean
+clean: libraries-clean project-clean operating_systems-clean
 endif
 
 ######################################################################

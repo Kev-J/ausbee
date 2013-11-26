@@ -125,6 +125,6 @@ source "Libraries/Kconfig"
 endmenu
 
 # FreeRTOS menu
-menu "FreeRTOS"
-source "FreeRTOS/Kconfig"
+menu "Operating System"
+source "Operating_Systems/Kconfig"
 endmenu

@@ -1,0 +1,17 @@
+config USE_OPERATING_SYSTEM
+	bool "Use operating system"
+	default n
+	help
+		TODO
+
+choice
+	prompt "Operating System"
+	depends on USE_OPERATING_SYSTEM
+config OS_USE_FREERTOS
+	bool "FreeRTOS"
+endchoice
+
+menu "Operating System Configuration"
+depends on OS_USE_FREERTOS
+source Operating_Systems/FreeRTOS/Kconfig
+endmenu
