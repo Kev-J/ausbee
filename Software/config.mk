@@ -123,6 +123,10 @@ HOST_LDFLAGS=$(HOST_COMMON_FLAGS) $(subst $(DQUOTE),,$(CONFIG_TOOLCHAIN_LDFLAGS)
 # GCC optimisation
 HOST_OPTIMISATION=$(subst $(DQUOTE),,-O$(CONFIG_OPTIMISATION))
 
+# RAM and FLASH length for linker script preprocessing
+RAM_LENGTH=$(subst $(DQUOTE),,$(CONFIG_RAM_LENGTH)) 
+FLASH_LENGTH=$(subst $(DQUOTE),,$(CONFIG_FLASH_LENGTH)) 
+
 ######################################################################
 # Project configuration
 

@@ -67,6 +67,26 @@ config DEVICE_STM32F10X_CL
 	bool "STM32F10X_CL"
 endchoice
 
+config RAM_LENGTH
+	string "RAM length"
+	default "10K"
+	help
+		Amount of RAM memory available on your device.
+		You can use capital letters like:
+		K for kilobytes
+		M for megabytes
+		G for gigabytes
+
+config FLASH_LENGTH
+	string "FLASH length"
+	default "32K"
+	help
+		Amount of FLASH memory available on your device.
+		You can use capital letters like:
+		K for kilobytes
+		M for megabytes
+		G for gigabytes
+
 config USE_ASSERT_PARAM
 	bool "Use assert_param()"
 	default n
