@@ -8,16 +8,16 @@
 namespace AUSBEE {
   class CAN {
   private:
-    CAN_InitTypeDef canInitTypeDef;
-    CAN_FilterInitTypeDef canFilterInitTypeDef;
-    CanTxMsg canTxMsg;
-    CanRxMsg canRxMsg;
-    CAN_TypeDef* CANx;
-
+    CAN_InitTypeDef *_canInitTypeDef;
+    CAN_FilterInitTypeDef *_canFilterInitTypeDef;
+    CanTxMsg *_TxMsg;
+    CanRxMsg *_RxMsg;
+    CAN_TypeDef* _CANx;
+    
   public:
     CAN(int x); // x must be 1 or 2 (select CAN 1 or CAN 2)
-    void changeCanParameters(CAN_initTypeDef _canInitTypeDef);
-    void changeCanFilterParameters(CAN_FilterInitTypeDef _canFilterInitTypeDef);
+    uint8_t changeCanParameters(CAN_initTypeDef* canInitTypeDef);
+    void changeCanFilterParameters(CAN_FilterInitTypeDef* canFilterInitTypeDef);
     
   };
 }
