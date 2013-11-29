@@ -128,3 +128,7 @@ endmenu
 menu "Operating System"
 source "Operating_Systems/Kconfig"
 endmenu
+
+menu "Platforms"
+source "Platforms/Kconfig"
+endmenu

@@ -1,0 +1,9 @@
+choice
+	prompt "Platform select"
+
+	config PLATFORM_NONE
+		bool "NONE"
+	
+	config PLATFORM_AUSBEE_MAIN_BOARD_V1.0
+		bool "AUSBEE Main Board V1.0"
+endchoice

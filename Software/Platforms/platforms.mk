@@ -1,0 +1,3 @@
+ifeq ($(CONFIG_PLATFORM_AUSBEE_MAIN_BOARD_V1.0),y)
+PLATFORMS_INCLUDES_DIR=-I"$(PLATFORMS_PATH)/ausbee_main_board_v0.1"
+endif

@@ -71,6 +71,9 @@ OPERATING_SYSTEMS_PATH=$(CURDIR)/Operating_Systems
 # Libraries
 LIBRARIES_PATH=$(CURDIR)/Libraries
 
+# Platforms
+PLATFORMS_PATH=$(CURDIR)/Platforms
+
 # Project
 PROJECT_PATH=$(CURDIR)/Project
 
