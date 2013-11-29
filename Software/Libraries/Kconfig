@@ -22,9 +22,12 @@ source Libraries/STM32F4xx_StdPeriph_Driver/Kconfig
 
 config LIBAUSBEE
 	bool "libausbee"
+	depends on STM32F4XX_STDPERIPH_DRIVER || STM32F10X_STDPERIPH_DRIVER
 	default n
 	help
 		libausbee by EIRBOT
 		TODO
+comment "LIBAUSBEE (Select StdPeriph_Driver)"
+depends on !(STM32F4XX_STDPERIPH_DRIVER || STM32F10X_STDPERIPH_DRIVER)
 
 source Libraries/libausbee/Kconfig

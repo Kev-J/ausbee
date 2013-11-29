@@ -1,3 +1,17 @@
+config LIBAUSBEE_INIT
+	bool "+ init"
+	default n
+	depends on LIBAUSBEE
+	help
+		Init functions for clock.
+
+config LIBAUSBEE_LED
+	bool "+ led"
+	default n
+	depends on LIBAUSBEE
+	help
+		TODO
+
 config LIBAUSBEE_LIDAR
 	bool "+ LIDAR"
 	default n
