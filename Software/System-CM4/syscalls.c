@@ -11,7 +11,7 @@
 #include <errno.h>
 #include <time.h>
 #include <sys/stat.h>
-#include <system_stm32f4xx.h>
+#include <stm32f4xx.h>
 
 // Function declaration.
 void _exit(int i);
