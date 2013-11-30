@@ -38,15 +38,14 @@ void ausbeeResetLed(struct ausbeeLeds leds, uint32_t ledNum)
 void ausbeeWriteBytesLed(struct ausbeeLeds leds, uint32_t bytes)
 {
 	uint32_t mask = 0x1;
-	uint32_t index = 0;
+	uint32_t i;
 
-	do {
+	for (i = 0 ; i < leds.count ; i++) {
 		if (bytes & mask) {
-			ausbeeSetLed(leds, index);
+			ausbeeSetLed(leds, i);
 		} else {
-			ausbeeResetLed(leds, index);
+			ausbeeResetLed(leds, i);
 		}
 		mask = mask << 1;
-		index++;
-	} while (!(mask & (0x1 << 31)));
+	}
 }

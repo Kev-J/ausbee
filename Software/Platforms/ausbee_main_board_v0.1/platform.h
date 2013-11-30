@@ -9,6 +9,7 @@
 #define PLATFORM_PLLP 2
 #define PLATFORM_PLLQ 7
 
+/* Leds */
 #define PLATFORM_LED_COUNT 8
 
 struct ausbeeLed leds[PLATFORM_LED_COUNT] =	{{GPIOD,GPIO_Pin_6},
@@ -21,4 +22,5 @@ struct ausbeeLed leds[PLATFORM_LED_COUNT] =	{{GPIOD,GPIO_Pin_6},
 						{GPIOG, GPIO_Pin_14}};
 struct ausbeeLeds platformLeds = {leds,
 		PLATFORM_LED_COUNT};
+
 #endif
