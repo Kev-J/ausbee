@@ -72,6 +72,12 @@ config DEVICE_STM32F10X_CL
 	bool "STM32F10X_CL"
 endchoice
 
+config CRYSTAL_FREQUENCY
+	string "Crystal frenquency"
+	default "8000000"
+	help
+		HSE Crystal frequency in Hz.
+
 # Ram length
 config RAM_LENGTH
 	string "RAM length"
@@ -108,15 +114,6 @@ config DEBUG
 		when you want by surrounding your code with
 		#ifdef DEBUG <CODE> #endif.
 		Note that printf and scanf is available only with that mode.
-
-# Use assertions
-config USE_ASSERT_PARAM
-	bool "Use assert_param()"
-	default n
-	depends on DEBUG
-	help
-		If enable, the assert_param function will print assertion to your
-		debugging USART port.
 
 # Usart debug port on target
 config USART_DEBUG
