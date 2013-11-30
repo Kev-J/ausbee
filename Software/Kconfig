@@ -2,6 +2,7 @@
 
 mainmenu "AUSBEE Configuration"
 
+########################################
 # Build options menu
 menu "Build options"
 
@@ -10,6 +11,10 @@ config PROJECT_NAME
 	default "project"
 	help
 		TODO
+
+## Device options menu
+menu "Device options"
+
 # Select CORE
 choice
 	prompt "Select ARM core"
@@ -67,6 +72,7 @@ config DEVICE_STM32F10X_CL
 	bool "STM32F10X_CL"
 endchoice
 
+# Ram length
 config RAM_LENGTH
 	string "RAM length"
 	default "10K"
@@ -77,6 +83,7 @@ config RAM_LENGTH
 		M for megabytes
 		G for gigabytes
 
+# Flash length
 config FLASH_LENGTH
 	string "FLASH length"
 	default "32K"
@@ -87,25 +94,51 @@ config FLASH_LENGTH
 		M for megabytes
 		G for gigabytes
 
+endmenu
+
+## Debug menu
+menu "Debug options"
+
+# Enable debug mode
+config DEBUG
+	bool "Compile in debug mode"
+	default y
+	help
+		Compile with -DDEBUG. This enable you to disable/enable traces
+		when you want by surrounding your code with
+		#ifdef DEBUG <CODE> #endif.
+		Note that printf and scanf is available only with that mode.
+
+# Use assertions
 config USE_ASSERT_PARAM
 	bool "Use assert_param()"
 	default n
+	depends on DEBUG
 	help
-		If enable, do not forget to edit the assert_failed() function
-		in System-CMX/stm32f10x_conf.c.
+		If enable, the assert_param function will print assertion to your
+		debugging USART port.
 
-config DOWNLOADS_DIR
-    string "Downloads directory"
-    default "$(CURDIR)/downloads"
-    help
-        TODO
+# Usart debug port on target
+config USART_DEBUG
+	string "USART Debug port"
+	default "USART1"
+	depends on DEBUG
+	help
+		Define the port used for print debugging informations. This name should
+		be compliant with USARTx format as in stm32fxxx.h file.
 
+endmenu
+
+## Programming interface menu
+menu "Programming interface"
+
+# Baudrate for flashing device
 config BAUDRATE_SERIAL_INTEFACE
 	string "Baudrate of serial programming interface"
 	default "115200"
 	help
 		TODO
-
+# Serial interface for flashing device
 config PROGRAM_SERIAL_INTERFACE
 	string "Serial programming interface"
 	default "/dev/ttyUSB0"
@@ -114,21 +147,40 @@ config PROGRAM_SERIAL_INTERFACE
 
 endmenu
 
-# Toolchain menu
+## Miscelaneous menu
+menu "Misc"
+
+# Downloads directory
+config DOWNLOADS_DIR
+    string "Downloads directory"
+    default "$(CURDIR)/downloads"
+    help
+        If you have already an AUSBEE downloads directory. Use this one to 
+	not downloading the archives again.
+
+endmenu
+endmenu
+
+########################################
+## Toolchain menu
 menu "Toolchain"
 source "Toolchain/Kconfig"
 endmenu
 
-# Libraries menu
+########################################
+## Libraries menu
 menu "Libraries"
 source "Libraries/Kconfig"
 endmenu
 
-# FreeRTOS menu
+########################################
+## FreeRTOS menu
 menu "Operating System"
 source "Operating_Systems/Kconfig"
 endmenu
 
+########################################
+## Platforms menu
 menu "Platforms"
 source "Platforms/Kconfig"
 endmenu
