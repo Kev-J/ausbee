@@ -27,8 +27,8 @@ include $(TOOLCHAIN_PATH)/toolchain.mk
 ifneq ($(SYSTEM_PATH),)
 include $(SYSTEM_PATH)/system.mk
 endif
-include $(OPERATING_SYSTEMS_PATH)/operating_systems.mk
 include $(LIBRARIES_PATH)/libraries.mk
+include $(OPERATING_SYSTEMS_PATH)/operating_systems.mk
 include $(PLATFORMS_PATH)/platforms.mk
 include $(PROJECT_PATH)/project.mk
 ######################################################################
