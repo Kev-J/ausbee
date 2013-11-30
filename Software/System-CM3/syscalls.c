@@ -1,8 +1,8 @@
 /**
- * @file    stf_syscalls_minimal.c
- * @author  Florian MAZEN
- * @version V1.0
- * @date    06/26/2010
+ * @file    syscalls.c
+ * @author  Florian MAZEN. Modified by Kevin JOLY
+ * @version V1.1
+ * @date    11/29/2013
  * @brief   newlib syscall declaration
  */
 
@@ -50,6 +50,17 @@ void _exit(int i)
 
 int _write(int file, char *buffer, unsigned int count)
 {
+	int i;
+
+#ifdef USART_DEBUG
+	if (file == 1) {
+		for (i = 0 ; i < count ; i++) {
+			while(!(USART_DEBUG->SR & USART_SR_TXE));
+			USART_DEBUG->DR = buffer[i];
+		}
+		return 0;
+	}
+#endif
 	return -1;
 }
 
@@ -76,6 +87,15 @@ int _lseek(int file, int ptr, int dir)
 
 int _read(int file, char *ptr, int len)
 {
+#ifdef USART_DEBUG
+	if (file == 0) {
+		while(!(USART_DEBUG->SR & USART_SR_RXNE))
+			;
+		ptr[0] = (uint8_t)(USART_DEBUG->DR);
+			
+		return 1;
+	}
+#endif
 	return 0;
 }
 

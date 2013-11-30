@@ -1,46 +1,186 @@
-/*********************************************************/
-/* Syscalls implementation for STM32 Low density devices */
-/*                                                       */
-/* Author: Kevin JOLY joly.kevin25@gmail.com             */
-/* Largely inspired by libc doc                          */
-/* "Definitions for OS interface" section                */
-/*                                                       */
-/*********************************************************/
+/**
+ * @file    syscalls.c
+ * @author  Florian MAZEN. Modified by Kevin JOLY
+ * @version V1.1
+ * @date    11/29/2013
+ * @brief   newlib syscall declaration
+ */
+
+#include <stdlib.h>
+#include <stdio.h>
 #include <errno.h>
-#include <sys/types.h>
-int _getpid(void)
+#include <time.h>
+#include <sys/stat.h>
+
+// Function declaration.
+void _exit(int i);
+int _open(const char *name, int flags, int mode);
+int _read(int file, char *ptr, int len);
+int _write(int file, char *buffer, unsigned int count);
+int _lseek(int file, int ptr, int dir);
+int _fstat(int file, struct stat *st);
+int _link(char *old, char *new);
+int _unlink(char *name);
+int _stat(char *file, struct stat *st);
+int _close(int file);
+int _execve(char *name, char **argv, char **env);
+int _fork();
+int _getpid();
+int _isatty(int file);
+int _kill(int pid, int sig);
+caddr_t _sbrk(int incr);
+int times(struct tm *buf);
+int _wait(int *status);
+
+#undef errno
+extern int errno;
+char *__env[1] = {0};
+char **__environ = __env;
+extern unsigned int _sheap;
+extern unsigned int _eheap;
+static caddr_t heap = NULL;
+
+
+// Function definition.
+
+void _exit(int i)
 {
-    return 1;
+	while (1);
 }
 
-void _exit(int status)
+int _write(int file, char *buffer, unsigned int count)
 {
-    while (1)
-        ;
+	int i;
+
+#ifdef USART_DEBUG
+	if (file == 1) {
+		for (i = 0 ; i < count ; i++) {
+			while(!(USART_DEBUG->SR & USART_SR_TXE));
+			USART_DEBUG->DR = buffer[i];
+		}
+		return 0;
+	}
+#endif
+	return -1;
 }
 
-void _kill(int pid, int sig)
+int _close(int file)
 {
-    errno = EINVAL;
-    return (-1);
+	return -1;
+}
+
+int _fstat(int file, struct stat *st)
+{
+	st->st_mode = S_IFCHR;
+	return 0;
+}
+
+int _isatty(int file)
+{
+	return 1;
+}
+
+int _lseek(int file, int ptr, int dir)
+{
+	return 0;
+}
+
+int _read(int file, char *ptr, int len)
+{
+#ifdef USART_DEBUG
+	if (file == 0) {
+		while(!(USART_DEBUG->SR & USART_SR_RXNE))
+			;
+		ptr[0] = (uint8_t)(USART_DEBUG->DR);
+			
+		return 1;
+	}
+#endif
+	return 0;
 }
 
 caddr_t _sbrk(int incr)
 {
-    extern char _bss_end;       /* Defined by the linker */
-    extern char _stack_begin;
-    static char *heap_end;
-    char *prev_heap_end;
+	caddr_t prevHeap;
+	caddr_t nextHeap;
 
-    if (heap_end == 0) {
-        heap_end = &_bss_end;
-    }
-    prev_heap_end = heap_end;
-    if (heap_end + incr > _stack_begin) {
-        //write (1, "Heap and stack collision\n", 25);
-        abort ();
-    }
+	if (heap == NULL)
+	{ // first allocation
+		heap = (caddr_t) & _sheap;
+	}
 
-    heap_end += incr;
-    return (caddr_t) prev_heap_end;
+	prevHeap = heap;
+
+	// Always return data aligned on a 8 byte boundary
+	nextHeap = (caddr_t) (((unsigned int) (heap + incr) + 7) & ~7);
+
+	// Check enough space and there is no collision with stack coming the other way
+	// if stack is above start of heap
+	if (nextHeap >= (caddr_t) & _eheap)
+	{
+		errno = ENOMEM;
+		return NULL; // error - no more memory
+	}
+	else
+	{
+		heap = nextHeap;
+		return (caddr_t) prevHeap;
+	}
+}
+
+int _open(const char *name, int flags, int mode)
+{
+	return -1;
+}
+
+int _link(char *old, char *new)
+{
+	errno = EMLINK;
+	return -1;
+}
+
+int _unlink(char *name)
+{
+	errno = ENOENT;
+	return -1;
+}
+
+int _stat(char *file, struct stat *st)
+{
+	st->st_mode = S_IFCHR;
+	return 0;
+}
+
+int _execve(char *name, char **argv, char **env)
+{
+	errno = ENOMEM;
+	return -1;
+}
+
+int _fork()
+{
+	errno = EAGAIN;
+	return -1;
+}
+
+int _getpid()
+{
+	return 1;
+}
+
+int _kill(int pid, int sig)
+{
+	errno = EINVAL;
+	return (-1);
+}
+
+int times(struct tm *buf)
+{
+	return -1;
+}
+
+int _wait(int *status)
+{
+	errno = ECHILD;
+	return -1;
 }
