@@ -91,11 +91,13 @@ program: $(OUTPUT_TARGET_HEX)
 dirclean: toolchain-dirclean operating_systems-dirclean clean
 	$(RM_RF) .config .config.old $(KCONFIG_BUILD_PATH) $(BUILD_PATH)
 
+CLEAN_GOALS=libraries-clean project-clean operating_systems-clean platforms-clean
 ifneq ($(SYSTEM_PATH),)
-clean: libraries-clean system-clean project-clean operating_systems-clean
-else
-clean: libraries-clean project-clean operating_systems-clean
+CLEAN_GOALS+=system-clean
 endif
+
+.PHONY: $(CLEAN_GOALS)
+clean: $(CLEAN_GOALS)
 
 ######################################################################
 # Documentation
