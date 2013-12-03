@@ -3,5 +3,5 @@ include $(PLATFORMS_PATH)/ausbee_main_board_v0.1/platform.mk
 PLATFORM_CLEAN_GOAL+=platform_ausbee_main_board_v0_1-clean
 endif
 
-.PHONY: platform-clean
-platform-clean: $(PLATFORM_CLEAN_GOAL)
+.PHONY: platforms-clean
+platforms-clean: $(PLATFORM_CLEAN_GOAL)
