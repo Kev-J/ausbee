@@ -28,8 +28,8 @@ ifneq ($(SYSTEM_PATH),)
 include $(SYSTEM_PATH)/system.mk
 endif
 include $(LIBRARIES_PATH)/libraries.mk
-include $(OPERATING_SYSTEMS_PATH)/operating_systems.mk
 include $(PLATFORMS_PATH)/platforms.mk
+include $(OPERATING_SYSTEMS_PATH)/operating_systems.mk
 include $(PROJECT_PATH)/project.mk
 ######################################################################
 # Configuration tool
@@ -39,31 +39,52 @@ include $(PROJECT_PATH)/project.mk
 .PHONY: main_board_v1-defconfig
 main_board_v1-defconfig: $(CONF) 
 	$(CONF) --defconfig=$(CONFIGS_PATH)/main_board_v1.config Kconfig
+	mkdir -p include/
+	mkdir -p include/config include/generated
+	$(CONF) --silentoldconfig Kconfig
 
 # Load default configuration
 .PHONY: alldefconfig
 alldefconfig: $(CONF)
 	$(CONF) --alldefconfig Kconfig
+	mkdir -p include/
+	mkdir -p include/config include/generated
+	$(CONF) --silentoldconfig Kconfig
 
 .PHONY: config
 config: $(CONF)
 	$(CONF) Kconfig
+	mkdir -p include/
+	mkdir -p include/config include/generated
+	$(CONF) --silentoldconfig Kconfig
 
 .PHONY: menuconfig
 menuconfig: $(MCONF)
 	$(MCONF) Kconfig
+	mkdir -p include/
+	mkdir -p include/config include/generated
+	$(CONF) --silentoldconfig Kconfig
 
 .PHONY: nconfig
 nconfig: $(NCONF)
 	$(NCONF) Kconfig
+	mkdir -p include/
+	mkdir -p include/config include/generated
+	$(CONF) --silentoldconfig Kconfig
 
 .PHONY: xconfig
 xconfig: $(QCONF)
 	$(QCONF) Kconfig
+	mkdir -p include/
+	mkdir -p include/config include/generated
+	$(CONF) --silentoldconfig Kconfig
 
 .PHONY: gconfig
 gconfig: $(GCONF)
 	$(GCONF) Kconfig
+	mkdir -p include/
+	mkdir -p include/config include/generated
+	$(CONF) --silentoldconfig Kconfig
 
 # KCONFIG build
 $(MCONF): $(CONF)
