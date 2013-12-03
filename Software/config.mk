@@ -17,10 +17,6 @@ $(error Please run an configuration command (your_board-defconfig, alldefconfig,
 endif
 
 # clean, dirclean ,help ,doc
-else
-#TODO print error when:
-# - No device has been provided
-# - No core selected
 endif
 
 
@@ -120,6 +116,10 @@ endif
 ifeq ($(CONFIG_STM32F4XX_STDPERIPH_DRIVER),y)
 HOST_CFLAGS+=-DUSE_STDPERIPH_DRIVER
 HOST_CXXFLAGS+=-DUSE_STDPERIPH_DRIVER
+endif
+ifeq ($(CONFIG_DEBUG),y)
+HOST_CFLAGS+=-DDEBUG -DUSART_DEBUG=$(subst $(DQUOTE),,$(CONFIG_USART_DEBUG))
+HOST_CXXFLAGS+=-DDEBUG -DUSART_DEBUG=$(subst $(DQUOTE),,$(CONFIG_USART_DEBUG))
 endif
 
 HOST_CFLAGS+=-DHSE_VALUE=$(CRYSTAL_FREQUENCY)
