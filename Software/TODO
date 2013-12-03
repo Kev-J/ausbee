@@ -1,4 +1,5 @@
-- Use trunk version of stm32flash
+- Set platform dependancy on specific modules onf StdPeriph
+- Optimise System-CM3
 - Fix building for STM32F4
 - Generate doxygen documentation for STM32F4 StdPeriph and libausbee
 - Add syscalls _write and _read for printf and scanf (cout and cin)
