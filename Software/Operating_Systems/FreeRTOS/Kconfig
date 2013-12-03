@@ -1,3 +1,9 @@
+config FREERTOS_CPU_CLOCK_HZ
+    int "CPU Clock"
+    default 32000000
+    help
+        System clock in HZ.
+
 config FREERTOS_DOWNLOAD
     bool "Download FreeRTOS"
     default y

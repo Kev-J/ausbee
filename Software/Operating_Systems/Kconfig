@@ -1,14 +1,13 @@
-config USE_OPERATING_SYSTEM
-	bool "Use operating system"
-	default n
-	help
-		TODO
 
 choice
-	prompt "Operating System"
-	depends on USE_OPERATING_SYSTEM
+    prompt "Operating System"
+
 config OS_USE_FREERTOS
-	bool "FreeRTOS"
+    bool "FreeRTOS"
+
+config OS_NONE
+    bool "None"
+
 endchoice
 
 menu "Operating System Configuration"
