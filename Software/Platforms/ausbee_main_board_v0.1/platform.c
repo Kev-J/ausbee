@@ -152,6 +152,8 @@ int platform_CAN_init(CAN_TypeDef* CANx)
 {
     GPIO_InitTypeDef init_GPIO_CAN;
 
+    GPIO_StructInit(&init_GPIO_CAN);
+
     if(CANx==CAN1){
       //enable the clock to the module
       RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
