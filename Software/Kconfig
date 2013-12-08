@@ -25,6 +25,13 @@ config ARM_CORE_CORTEX_M3
 	bool "ARM Cortex-M3 core"
 endchoice
 
+config USE_FPU
+	bool "Use FPU"
+	default y
+	depends on ARM_CORE_CORTEX_M4
+	help
+		Use hardware for floating point processings.
+
 # Select Device Cortex-M4
 choice
 	prompt "Device name Cortex-M4"

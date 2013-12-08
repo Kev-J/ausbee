@@ -50,8 +50,12 @@
 /* PWM */
 #define PLATFORM_PWM_MOTOR1_PIN GPIO_Pin_5
 #define PLATFORM_PWM_MOTOR1_PORT GPIOE
+#define PLATFORM_PWM_MOTOR1_PIN_SOURCE GPIO_PinSource5
+#define PLATFORM_PWM_MOTOR1_GPIO_AF GPIO_AF_TIM9
 #define PLATFORM_PWM_MOTOR2_PIN GPIO_Pin_6
 #define PLATFORM_PWM_MOTOR2_PORT GPIOE
+#define PLATFORM_PWM_MOTOR2_PIN_SOURCE GPIO_PinSource6
+#define PLATFORM_PWM_MOTOR2_GPIO_AF GPIO_AF_TIM9
 
 void platform_init_HSE_PLL(void);
 void platform_init_LED(void);
@@ -63,5 +67,8 @@ void platform_toggle_led(uint8_t led);
 int platform_init_USART(USART_TypeDef *USARTx, uint32_t baudrate);
 
 void platform_init_io_motor1(void);
+void platform_init_io_motor2(void);
+
+int platform_CAN_init(CAN_TypeDef* CANx);
 
 #endif

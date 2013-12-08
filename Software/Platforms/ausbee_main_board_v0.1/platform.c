@@ -148,31 +148,74 @@ void platform_toggle_led(uint8_t led)
 void platform_init_io_motor1(void)
 {
     	GPIO_InitTypeDef GPIO_InitTypeDef_E;
+
 	/* Set the clock on TIM9 */
         RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM9, ENABLE);
 
-	/* Init DIR and ENABLE signals for L298 */
+	/* Init DIR signal for L298 */
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
 
 	GPIO_StructInit(&GPIO_InitTypeDef_E);
-	GPIO_InitTypeDef_E.GPIO_Pin = 	PLATFORM_ENABLE_MOTOR1_PIN |
-					PLATFORM_ENABLE_MOTOR2_PIN |
-					PLATFORM_DIR_MOTOR1_PIN |
-					PLATFORM_DIR_MOTOR2_PIN;
+	GPIO_InitTypeDef_E.GPIO_Pin = PLATFORM_DIR_MOTOR1_PIN;
 	GPIO_InitTypeDef_E.GPIO_Mode = GPIO_Mode_OUT;
 	GPIO_InitTypeDef_E.GPIO_Speed = GPIO_High_Speed;
 
-	GPIO_Init(GPIOE, &GPIO_InitTypeDef_E);
+	GPIO_Init(PLATFORM_DIR_MOTOR1_PORT, &GPIO_InitTypeDef_E);
+
+	/* Init ENABLE for L298 */
+	GPIO_StructInit(&GPIO_InitTypeDef_E);
+	GPIO_InitTypeDef_E.GPIO_Pin = PLATFORM_ENABLE_MOTOR1_PIN;
+	GPIO_InitTypeDef_E.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitTypeDef_E.GPIO_Speed = GPIO_High_Speed;
+
+	GPIO_Init(PLATFORM_ENABLE_MOTOR1_PORT, &GPIO_InitTypeDef_E);
 
 	/* Init AF output */
 	GPIO_StructInit(&GPIO_InitTypeDef_E);
-	GPIO_InitTypeDef_E.GPIO_Pin = GPIO_Pin_5;
+	GPIO_InitTypeDef_E.GPIO_Pin = PLATFORM_PWM_MOTOR1_PIN;
 	GPIO_InitTypeDef_E.GPIO_Mode = GPIO_Mode_AF;
 	GPIO_InitTypeDef_E.GPIO_Speed = GPIO_High_Speed;
 
-	GPIO_Init(GPIOE, &GPIO_InitTypeDef_E);
+	GPIO_Init(PLATFORM_PWM_MOTOR1_PORT, &GPIO_InitTypeDef_E);
 
-	GPIO_PinAFConfig(GPIOE, GPIO_PinSource5, GPIO_AF_TIM9);
+	GPIO_PinAFConfig(PLATFORM_PWM_MOTOR1_PORT, PLATFORM_PWM_MOTOR1_PIN_SOURCE, PLATFORM_PWM_MOTOR1_GPIO_AF);
+}
+
+void platform_init_io_motor2(void)
+{
+    	GPIO_InitTypeDef GPIO_InitTypeDef_E;
+
+	/* Set the clock on TIM9 */
+        RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM9, ENABLE);
+
+	/* Set clock on GPIOE */
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
+
+	/* Init DIR signal for L298 */
+	GPIO_StructInit(&GPIO_InitTypeDef_E);
+	GPIO_InitTypeDef_E.GPIO_Pin = PLATFORM_DIR_MOTOR2_PIN;
+	GPIO_InitTypeDef_E.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitTypeDef_E.GPIO_Speed = GPIO_High_Speed;
+
+	GPIO_Init(PLATFORM_DIR_MOTOR2_PORT, &GPIO_InitTypeDef_E);
+
+	/* Init ENABLE signal for l298 */
+	GPIO_StructInit(&GPIO_InitTypeDef_E);
+	GPIO_InitTypeDef_E.GPIO_Pin = PLATFORM_ENABLE_MOTOR2_PIN;
+	GPIO_InitTypeDef_E.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitTypeDef_E.GPIO_Speed = GPIO_High_Speed;
+
+	GPIO_Init(PLATFORM_ENABLE_MOTOR2_PORT, &GPIO_InitTypeDef_E);
+
+	/* Init AF output */
+	GPIO_StructInit(&GPIO_InitTypeDef_E);
+	GPIO_InitTypeDef_E.GPIO_Pin = PLATFORM_PWM_MOTOR2_PIN;
+	GPIO_InitTypeDef_E.GPIO_Mode = GPIO_Mode_AF;
+	GPIO_InitTypeDef_E.GPIO_Speed = GPIO_High_Speed;
+
+	GPIO_Init(PLATFORM_PWM_MOTOR2_PORT, &GPIO_InitTypeDef_E);
+
+	GPIO_PinAFConfig(GPIOE, PLATFORM_PWM_MOTOR2_PIN_SOURCE, PLATFORM_PWM_MOTOR2_GPIO_AF);
 }
 
 int platform_CAN_init(CAN_TypeDef* CANx)
