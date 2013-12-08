@@ -64,4 +64,6 @@ int platform_init_USART(USART_TypeDef *USARTx, uint32_t baudrate);
 
 void platform_init_io_motor1(void);
 
+int platform_CAN_init(CAN_TypeDef* CANx);
+
 #endif
