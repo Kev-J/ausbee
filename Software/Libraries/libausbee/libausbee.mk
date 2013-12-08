@@ -19,6 +19,9 @@ endif
 ifeq ($(CONFIG_LIBAUSBEE_LIDAR),y)
 #TODO FIXME LIBAUSBEE_SRC_FILES+=$(LIBAUSBEE_SRC_PATH)/lidar/piccolo-lidar.c
 endif
+ifeq ($(CONFIG_LIBAUSBEE_L298_DRIVER),y)
+LIBAUSBEE_SRC_FILES+=$(LIBAUSBEE_SRC_PATH)/l298_driver/l298_driver.c
+endif
 
 # Object files list
 LIBAUSBEE_OBJ_FILES=$(LIBAUSBEE_SRC_FILES:.c=.o)
