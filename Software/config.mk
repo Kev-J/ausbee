@@ -93,12 +93,23 @@ FLASH_LENGTH=$(subst $(DQUOTE),,$(CONFIG_FLASH_LENGTH))
 # Crystal frequency
 CRYSTAL_FREQUENCY=$(subst $(DQUOTE),,$(CONFIG_CRYSTAL_FREQUENCY)) 
 
-# Common flags
+# Common flags : Core type
 HOST_COMMON_FLAGS=-mthumb
 ifeq ($(CONFIG_ARM_CORE_CORTEX_M4),y)
-HOST_COMMON_FLAGS+=-mcpu=cortex-m4 -mfloat-abi=hard -mfpu=fpv4-sp-d16
+#HOST_COMMON_FLAGS+=-mcpu=cortex-m4 -fsingle-precision-constant -Wdouble-promotion -mfloat-abi=hard -mfpu=fpv4-sp-d16
+HOST_COMMON_FLAGS+=-mcpu=cortex-m4
 else ifeq ($(CONFIG_ARM_CORE_CORTEX_M3),y)
 HOST_COMMON_FLAGS+=-mcpu=cortex-m3
+endif
+
+#Common flags : FPU
+ifeq ($(CONFIG_USE_FPU),y)
+#-mfloat-abi=hard : Application Binary Interface type for float process. Use hard.
+#-fsingle-precision-constant : do not use double precision implicitly when you declare constant without f (example : 1.2f)
+#-Wdouble-promotion : Print warning when implicit conversion from float to double
+HOST_COMMON_FLAGS+=-mfloat-abi=hard -mfpu=fpv4-sp-d16 -fsingle-precision-constant -Wdouble-promotion
+else
+HOST_COMMON_FLAGS+=-msoft-float
 endif
 
 include config-devices.mk # get DEVICE_NAME variable
