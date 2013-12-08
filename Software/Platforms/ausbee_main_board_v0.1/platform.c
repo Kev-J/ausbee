@@ -146,3 +146,29 @@ void platform_toggle_led(uint8_t led)
     if (led & PLATFORM_LED7)
         GPIO_ToggleBits(GPIOG, GPIO_Pin_14);
 }
+
+
+int platform_CAN_init(CAN_TypeDef* CANx)
+{
+    GPIO_InitTypeDef init_GPIO_CAN;
+
+    GPIO_StructInit(&init_GPIO_CAN);
+
+    if(CANx==CAN1){
+      //enable the clock to the module
+      RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
+
+      //configure alternate function for the GPIO
+      GPIO_PinAFConfig(GPIOA, GPIO_PinSource11, GPIO_AF_CAN1); //CAN_RX
+      GPIO_PinAFConfig(GPIOA, GPIO_PinSource12, GPIO_AF_CAN1); //CAN_TX
+
+      //init the GPIO
+      init_GPIO_CAN.GPIO_Pin = GPIO_Pin_11 | GPIO_Pin_12;
+      init_GPIO_CAN.GPIO_Mode = GPIO_Mode_AF;
+      init_GPIO_CAN.GPIO_Speed = GPIO_High_Speed;
+      GPIO_init(GPIOA,&init_GPIO_CAN);
+    } else {
+      return -1;
+    }
+    return 0;
+}

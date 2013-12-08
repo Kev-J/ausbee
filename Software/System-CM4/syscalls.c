@@ -59,7 +59,7 @@ int _write(int file, char *buffer, unsigned int count)
 			while(!(USART_DEBUG->SR & USART_SR_TXE));
 			USART_DEBUG->DR = buffer[i];
 		}
-		return 0;
+		return count;
 	}
 #endif
 	return -1;
@@ -89,11 +89,11 @@ int _lseek(int file, int ptr, int dir)
 int _read(int file, char *ptr, int len)
 {
 #ifdef USART_DEBUG
-	if (file == 0) {
+	if (file == 0) { /* STDIN */
 		while(!(USART_DEBUG->SR & USART_SR_RXNE))
 			;
 		ptr[0] = (uint8_t)(USART_DEBUG->DR);
-			
+
 		return 1;
 	}
 #endif
