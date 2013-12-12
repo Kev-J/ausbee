@@ -11,3 +11,10 @@ config LIBAUSBEE_L298_DRIVER
 	depends on LIBAUSBEE
 	help
 		TODO
+
+config LIBAUSBEE_SERVO
+	bool "+ SERVO"
+	default n
+	depends on LIBAUSBEE
+	help
+		TODO
