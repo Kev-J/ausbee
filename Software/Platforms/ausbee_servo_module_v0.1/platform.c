@@ -119,11 +119,36 @@ void platform_initUsart(void)
   USART_Cmd(USART1, ENABLE);
 }
 
+
+int platform_CAN_init(CAN_TypeDef* CANx)
+{
+    GPIO_InitTypeDef init_GPIO_CAN;
+
+    GPIO_StructInit(&init_GPIO_CAN);
+
+    if(CANx==CAN1){
+      //enable the clock to the module
+      RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+      RCC_APB1PeriphClockCmd(RCC_APB1Periph_CAN1, ENABLE);
+
+      //init the GPIO
+      init_GPIO_CAN.GPIO_Pin = GPIO_Pin_11 | GPIO_Pin_12;
+      init_GPIO_CAN.GPIO_Mode = GPIO_Mode_AF_PP;
+      init_GPIO_CAN.GPIO_Speed = GPIO_Speed_50MHz;
+      GPIO_Init(GPIOA,&init_GPIO_CAN);
+    } else {
+      return -1;
+    }
+    return 0;
+}
+
 void platform_SetupHardware(void)
 {
   platform_initClock();
   platform_initPwm(TIMER_ALL);
   platform_initLeds();
   platform_initUsart();
+  platform_CAN_init(CAN1);
 }
+
 
