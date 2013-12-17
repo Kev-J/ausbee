@@ -4,3 +4,17 @@ config LIBAUSBEE_LIDAR
 	depends on LIBAUSBEE
 	help
 		TODO
+
+config LIBAUSBEE_L298_DRIVER
+	bool "+ L298 Driver"
+	default n
+	depends on LIBAUSBEE
+	help
+		TODO
+
+config LIBAUSBEE_SERVO
+	bool "+ SERVO"
+	default n
+	depends on LIBAUSBEE
+	help
+		TODO

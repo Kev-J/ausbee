@@ -2,11 +2,11 @@
 choice
     prompt "Operating System"
 
-config OS_USE_FREERTOS
-    bool "FreeRTOS"
-
 config OS_NONE
     bool "None"
+
+config OS_USE_FREERTOS
+    bool "FreeRTOS"
 
 endchoice
 
