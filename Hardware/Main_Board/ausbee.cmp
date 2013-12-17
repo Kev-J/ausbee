@@ -1,4 +1,4 @@
-Cmp-Mod V01 Created by CvPcb (2012-apr-16-27)-stable date = dim. 27 oct. 2013 09:44:59 CET
+Cmp-Mod V01 Created by CvPcb (2012-apr-16-27)-stable date = mar. 17 déc. 2013 16:53:58 CET
 
 BeginCmp
 TimeStamp = /5254FD6F/52553B25;
@@ -710,6 +710,27 @@ EndCmp
 BeginCmp
 TimeStamp = /52002A3D/5266C911;
 Reference = R23;
+ValeurCmp = 100k;
+IdModule  = SM0603_Resistor;
+EndCmp
+
+BeginCmp
+TimeStamp = /5254FD6F/52B070B1;
+Reference = R24;
+ValeurCmp = R;
+IdModule  = SM0603_Resistor;
+EndCmp
+
+BeginCmp
+TimeStamp = /5254FD6F/52B070A9;
+Reference = R25;
+ValeurCmp = R;
+IdModule  = SM0603_Resistor;
+EndCmp
+
+BeginCmp
+TimeStamp = /52002A3D/52B072B9;
+Reference = R26;
 ValeurCmp = 100k;
 IdModule  = SM0603_Resistor;
 EndCmp
