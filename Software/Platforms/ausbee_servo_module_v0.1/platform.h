@@ -51,23 +51,23 @@ int platform_CAN_init(CAN_TypeDef* CANx);
 #define TIMER_ALL TIMER2 | TIMER3
 
 // Define for Servos
-#define Serv1_TIM  TIM2
-#define Serv2_TIM  TIM2
-#define Serv3_TIM  TIM2
-#define Serv4_TIM  TIM2
-#define Serv5_TIM  TIM3
-#define Serv6_TIM  TIM3
-#define Serv7_TIM  TIM3
-#define Serv8_TIM  TIM3
+#define SERVO1_TIM  TIM2
+#define SERVO2_TIM  TIM2
+#define SERVO3_TIM  TIM2
+#define SERVO4_TIM  TIM2
+#define SERVO5_TIM  TIM3
+#define SERVO6_TIM  TIM3
+#define SERVO7_TIM  TIM3
+#define SERVO8_TIM  TIM3
 
-#define Serv1_CHAN TIM_Channel_1
-#define Serv2_CHAN TIM_Channel_2
-#define Serv3_CHAN TIM_Channel_3
-#define Serv4_CHAN TIM_Channel_4
-#define Serv5_CHAN TIM_Channel_1
-#define Serv6_CHAN TIM_Channel_2
-#define Serv7_CHAN TIM_Channel_3
-#define Serv8_CHAN TIM_Channel_4
+#define SERVO1_CHAN TIM_Channel_1
+#define SERVO2_CHAN TIM_Channel_2
+#define SERVO3_CHAN TIM_Channel_3
+#define SERVO4_CHAN TIM_Channel_4
+#define SERVO5_CHAN TIM_Channel_1
+#define SERVO6_CHAN TIM_Channel_2
+#define SERVO7_CHAN TIM_Channel_3
+#define SERVO8_CHAN TIM_Channel_4
 
 #endif
 
