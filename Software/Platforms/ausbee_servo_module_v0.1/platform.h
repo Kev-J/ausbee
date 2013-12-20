@@ -20,6 +20,7 @@ void platform_initPwm(uint8_t Timer);
 void platform_initLeds(void);
 void platform_initUsart(void);
 void platform_SetupHardware(void);
+int platform_CAN_init(CAN_TypeDef* CANx);
 
 // Define for Leds
 #define Led1 GPIO_Pin_12

@@ -27,4 +27,10 @@ config STM32F10X_STDPERIPH_DRIVER_USART
 	depends on STM32F10X_STDPERIPH_DRIVER
 	help
 		TODO
+
+config STM32F10X_STDPERIPH_DRIVER_MISC
+	bool "+ MISC"
+	depends on STM32F10X_STDPERIPH_DRIVER
+	help
+		MISC contains NVIC functions
 #TODO add others
