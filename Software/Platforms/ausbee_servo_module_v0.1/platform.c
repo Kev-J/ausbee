@@ -100,11 +100,15 @@ void platform_initUsart(void)
   
   // IO
   GPIO_StructInit(&GPIO_InitStruct_USART1);
-  GPIO_InitStruct_USART1.GPIO_Pin = GPIO_Pin_9 | GPIO_Pin_10;
+  GPIO_InitStruct_USART1.GPIO_Pin = GPIO_Pin_9;
   GPIO_InitStruct_USART1.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_InitStruct_USART1.GPIO_Mode = GPIO_Mode_AF_PP;
   GPIO_Init(GPIOA, &GPIO_InitStruct_USART1);
-  
+
+  GPIO_InitStruct_USART1.GPIO_Pin = GPIO_Pin_10;
+  GPIO_InitStruct_USART1.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+  GPIO_Init(GPIOA, &GPIO_InitStruct_USART1);
+
   // Conf
   USART_StructInit(&USART_InitStructure);
   USART_InitStructure.USART_BaudRate = 115200;
@@ -150,5 +154,4 @@ void platform_SetupHardware(void)
   platform_initUsart();
   platform_CAN_init(CAN1);
 }
-
 
