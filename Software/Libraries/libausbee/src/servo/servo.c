@@ -1,4 +1,13 @@
-/**********************************************************************
+/**
+ ********************************************************************
+ * @file    servo.c
+ * @author  Luc PRAMPOLINI <luc.prampolini@gmail.com>
+ * @version V1.0
+ * @date    20-Dec-2013
+ * @brief   This file provides functions for driving servomotors.
+ ********************************************************************
+ * @attention
+ *
  * This file is part of LIBAUSBEE.
  * 
  * LIBAUSBEE is free software: you can redistribute it and/or modify
@@ -14,13 +23,35 @@
  * You should have received a copy of the GNU General Public License
  * along with LIBAUSBEE.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2013 (C) EIRBOT
- *
- * Authors :    Luc PRAMPOLINI <luc.prampolini@gmail.com>
- *
- **********************************************************************/
+ * <h2><centor>&copy;  Copyright 2013 (C) EIRBOT </center></h2>
+ ********************************************************************
+ */
+
+/* Includes */
 #include <AUSBEE/servo.h>
 
+/**
+  * @addtogroup Libausbee
+  * @{
+  */
+
+/**
+  * @defgroup Servo
+  * @brief Servo driver modules
+  * @{
+  */
+
+/**
+  * @defgroup Servo_Private_Functions
+  * @{
+  */
+
+/**
+  * @brief  Initialize the servo parameters with default values.
+  * @param  servo: pointer to a ausbeeServo structure that contains the
+  *         configuration information for the specified servo.
+  * @retval None
+  */
 void ausbeeInitStructServo(ausbeeServo* servo)
 {
   servo->minValue = 30;
@@ -29,6 +60,12 @@ void ausbeeInitStructServo(ausbeeServo* servo)
   servo->CHANx = TIM_Channel_1;
 }
 
+/**
+  * @brief  Initialize the timer channel linked to the servo in PWM mode.
+  * @param  servo: pointer to a ausbeeServo structure that contains the
+  *         configuration information for the specified servo.
+  * @retval None
+  */
 void ausbeeInitServo(ausbeeServo* servo)
 {
   TIM_OCInitTypeDef OCInit_PWM; // Create a OCInitTypeDef for PWM
@@ -48,10 +85,18 @@ void ausbeeInitServo(ausbeeServo* servo)
     TIM_OC4Init(servo->TIMx, &OCInit_PWM); // Initialize OSC4
 }
 
+/**
+  * @brief  Set the servo angle. Note that the angle is relative to the min
+  *         and the max value set in the servo structure configuration.
+  * @param  servo: pointer to a ausbeeServo structure that contains the
+  *         configuration information for the specified servo.
+  * @param  angle: new angle value compute as if minValue is 0° and maxValue 
+  *         is 180°.
+  * @retval None
+  */
 void ausbeeSetAngleServo(ausbeeServo* servo, uint8_t angle)
 {
-
-  uint8_t newPulse = angle*75/180 + 30;  // Compute new pulse value
+  uint8_t newPulse = angle*(servo->maxValue-servo->minValue)/180 + servo->minValue;  // Compute new pulse value
   if( newPulse >= servo->minValue && newPulse <= servo->maxValue ) // Verify value
     {
       if(servo->CHANx == TIM_Channel_1)
@@ -65,14 +110,32 @@ void ausbeeSetAngleServo(ausbeeServo* servo, uint8_t angle)
     }
 }
 
+/**
+  * @brief  Return the angle value related to the specified servo.
+  * @param  servo: pointer to a ausbeeServo structure that contains the
+  *         configuration information for the specified servo.
+  * @retval The servo angle
+  */
 uint8_t ausbeeGetAngleServo(ausbeeServo* servo)
 {
   if(servo->CHANx == TIM_Channel_1)
-    return (uint8_t)( (TIM_GetCapture1(servo->TIMx)-30)*180/75 );
+    return (uint8_t)( (TIM_GetCapture1(servo->TIMx)-servo->minValue)*180/(servo->maxValue-servo->minValue));
   else if(servo->CHANx == TIM_Channel_2)
-    return (uint8_t)( (TIM_GetCapture2(servo->TIMx)-30)*180/75 );
+    return (uint8_t)( (TIM_GetCapture2(servo->TIMx)-servo->minValue)*180/(servo->maxValue-servo->minValue));
   else if(servo->CHANx == TIM_Channel_3)
-    return (uint8_t)( (TIM_GetCapture3(servo->TIMx)-30)*180/75 );
-  else
-    return (uint8_t)( (TIM_GetCapture4(servo->TIMx)-30)*180/75 );
+    return (uint8_t)( (TIM_GetCapture3(servo->TIMx)-servo->minValue)*180/(servo->maxValue-servo->minValue));
+    else
+      return (uint8_t)( (TIM_GetCapture4(servo->TIMx)-servo->minValue)*180/(servo->maxValue-servo->minValue));
 }
+
+/**
+  * @}
+  */
+/**
+  * @}
+  */
+/**
+  * @}
+  */
+
+/************** (C) COPYRIGHT 2013 Eirbot **** END OF FILE ****/
