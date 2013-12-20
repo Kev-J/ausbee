@@ -154,3 +154,4 @@ void platform_SetupHardware(void)
   platform_initUsart();
   platform_CAN_init(CAN1);
 }
+
