@@ -14,9 +14,9 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 
 #Moc generation
 file(
-	GLOB_RECURSE
-        lidar_viewer_header_files
-	tools/pc/lidar_viewer/src/*.h
+    GLOB_RECURSE
+    lidar_viewer_header_files
+    tools/pc/lidar_viewer/src/*.h
 )
 
 QT4_WRAP_CPP(lidar_viewer_moc_files ${lidar_viewer_header_files})
