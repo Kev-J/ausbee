@@ -353,17 +353,13 @@ design rules under a new name.</description>
 </pass>
 </autorouter>
 <elements>
-<element name="X1" library="con-phoenix-381_l" package="MCV2" value="MCV2" x="7.62" y="17.78" rot="R270"/>
-<element name="U$1" library="perso_lib" package="TO220V" value="LT1084CT-12" x="29.21" y="29.21"/>
-<element name="U$2" library="perso_lib" package="TO220V" value="LT1084CT-5" x="29.21" y="7.62" rot="R180"/>
+<element name="X1" library="con-phoenix-381_l" package="MCV2" value="MCV2" x="41.91" y="25.4"/>
+<element name="U$1" library="perso_lib" package="TO220V" value="LT1084CT-12" x="6.35" y="0"/>
+<element name="U$2" library="perso_lib" package="TO220V" value="LT1084CT-5" x="6.35" y="-8.89"/>
 </elements>
 <signals>
 <signal name="+15V">
 <contactref element="X1" pad="2"/>
-<contactref element="U$2" pad="3"/>
-<contactref element="U$1" pad="3"/>
-<wire x1="31.75" y1="26.67" x2="7.62" y2="15.875" width="0" layer="19" extent="1-1"/>
-<wire x1="26.67" y1="10.16" x2="31.75" y2="26.67" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="GND">
 <contactref element="X1" pad="1"/>
