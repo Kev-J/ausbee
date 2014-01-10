@@ -19,8 +19,10 @@ void platform_initClock(void);
 void platform_initPwm(uint8_t Timer);
 void platform_initLeds(void);
 void platform_initUsart(void);
+int  platform_initCAN(CAN_TypeDef* CANx);
 void platform_SetupHardware(void);
-int platform_CAN_init(CAN_TypeDef* CANx);
+void platform_printHexa(uint32_t val);
+void platform_printString(char *string, uint32_t nb);
 
 // Define for Leds
 #define Led1 GPIO_Pin_12
