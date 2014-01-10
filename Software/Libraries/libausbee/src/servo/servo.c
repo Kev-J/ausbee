@@ -42,7 +42,7 @@
   */
 
 /**
-  * @defgroup Servo_Private_Functions
+  * @defgroup Servo_Exported_Functions
   * @{
   */
 
@@ -114,7 +114,7 @@ void ausbeeSetAngleServo(ausbeeServo* servo, uint8_t angle)
   * @brief  Return the angle value related to the specified servo.
   * @param  servo: pointer to a ausbeeServo structure that contains the
   *         configuration information for the specified servo.
-  * @retval The servo angle
+  * @retval angle: the servo angle
   */
 uint8_t ausbeeGetAngleServo(ausbeeServo* servo)
 {
