@@ -2,7 +2,7 @@
  ********************************************************************
  * @file    servo.c
  * @author  Luc PRAMPOLINI <luc.prampolini@gmail.com>
- * @version V1.0
+ * @version V1.1
  * @date    20-Dec-2013
  * @brief   This file provides functions for driving servomotors.
  ********************************************************************
@@ -42,7 +42,7 @@
   */
 
 /**
-  * @defgroup Servo_Private_Functions
+  * @defgroup Servo_Exported_Functions
   * @{
   */
 
@@ -86,17 +86,17 @@ void ausbeeInitServo(ausbeeServo* servo)
 }
 
 /**
-  * @brief  Set the servo angle. Note that the angle is relative to the min
+  * @brief  Set the servo angle in %. Note that the angle is relative to the min
   *         and the max value set in the servo structure configuration.
   * @param  servo: pointer to a ausbeeServo structure that contains the
   *         configuration information for the specified servo.
-  * @param  angle: new angle value compute as if minValue is 0° and maxValue 
-  *         is 180°.
+  * @param  angle: new angle value compute as if minValue is 0% and maxValue 
+  *         is 100%.
   * @retval None
   */
 void ausbeeSetAngleServo(ausbeeServo* servo, uint8_t angle)
 {
-  uint8_t newPulse = angle*(servo->maxValue-servo->minValue)/180 + servo->minValue;  // Compute new pulse value
+  uint8_t newPulse = angle*(servo->maxValue-servo->minValue)/100 + servo->minValue;  // Compute new pulse value
   if( newPulse >= servo->minValue && newPulse <= servo->maxValue ) // Verify value
     {
       if(servo->CHANx == TIM_Channel_1)
@@ -114,18 +114,18 @@ void ausbeeSetAngleServo(ausbeeServo* servo, uint8_t angle)
   * @brief  Return the angle value related to the specified servo.
   * @param  servo: pointer to a ausbeeServo structure that contains the
   *         configuration information for the specified servo.
-  * @retval The servo angle
+  * @retval angle: the servo angle
   */
 uint8_t ausbeeGetAngleServo(ausbeeServo* servo)
 {
   if(servo->CHANx == TIM_Channel_1)
-    return (uint8_t)( (TIM_GetCapture1(servo->TIMx)-servo->minValue)*180/(servo->maxValue-servo->minValue));
+    return (uint8_t)( (TIM_GetCapture1(servo->TIMx)-servo->minValue)*100/(servo->maxValue-servo->minValue));
   else if(servo->CHANx == TIM_Channel_2)
-    return (uint8_t)( (TIM_GetCapture2(servo->TIMx)-servo->minValue)*180/(servo->maxValue-servo->minValue));
+    return (uint8_t)( (TIM_GetCapture2(servo->TIMx)-servo->minValue)*100/(servo->maxValue-servo->minValue));
   else if(servo->CHANx == TIM_Channel_3)
-    return (uint8_t)( (TIM_GetCapture3(servo->TIMx)-servo->minValue)*180/(servo->maxValue-servo->minValue));
+    return (uint8_t)( (TIM_GetCapture3(servo->TIMx)-servo->minValue)*100/(servo->maxValue-servo->minValue));
     else
-      return (uint8_t)( (TIM_GetCapture4(servo->TIMx)-servo->minValue)*180/(servo->maxValue-servo->minValue));
+      return (uint8_t)( (TIM_GetCapture4(servo->TIMx)-servo->minValue)*100/(servo->maxValue-servo->minValue));
 }
 
 /**

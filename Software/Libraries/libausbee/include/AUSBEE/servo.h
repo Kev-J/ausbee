@@ -75,6 +75,9 @@
 /**
   * @defgroup Servo_Exported_Types
   * @{
+  */
+
+/**
   * @brief Servo structure definition 
   */
 
