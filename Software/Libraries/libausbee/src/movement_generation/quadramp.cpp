@@ -1,3 +1,24 @@
+/**********************************************************************
+ * This file is part of LIBAUSBEE.
+ *
+ * LIBAUSBEE is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * LIBAUSBEE is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with LIBAUSBEE.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * Copyright 2013 (C) EIRBOT
+ *
+ * Authors :    David Bitonneau <david.bitonneau@gmail.com>
+ *
+ **********************************************************************/
 #include "quadramp.h"
 // TODO: write a function to perform sqrt
 #include <math.h>
@@ -80,7 +101,11 @@ Quadramp::Quadramp(const Vector2 &xi, const Vector2 &xf,
   B3 = mvtLength;
 }
 
-Vector2 Quadramp::getPosition(int t)
+Quadramp::~Quadramp()
+{
+}
+
+Vector2 Quadramp::update(int t)
 {
   t -= t0;
 
@@ -115,8 +140,19 @@ Vector2 Quadramp::getPosition(int t)
   return position;
 }
 
-Quadramp::~Quadramp()
+int Quadramp::getLinearPosition(void) const
 {
+  return l;
+}
+
+int Quadramp::getSpeed(void) const
+{
+  return v;
+}
+
+int Quadramp::getAcceleration(void) const
+{
+  return a;
 }
 
 };

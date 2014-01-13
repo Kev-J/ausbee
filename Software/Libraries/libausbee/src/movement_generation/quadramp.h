@@ -47,7 +47,13 @@ namespace AUSBEE {
              int maxSpeed, int maxAcceleration, int t0);
     ~Quadramp();
 
-    Vector2 getPosition(int t);
+    // Returns the position for the given time
+    Vector2 update(int time);
+
+    // The following functions returns values for the last update
+    int getLinearPosition(void) const;
+    int getSpeed(void)          const;
+    int getAcceleration(void)   const;
   private:
     // movement parameters
     Vector2 xi, xf, mvtVector;

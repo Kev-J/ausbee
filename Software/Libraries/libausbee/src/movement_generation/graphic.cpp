@@ -15,9 +15,23 @@ Graphic::~Graphic()
   }
 }
 
-void Graphic::addValue(int time, AUSBEE::Vector2 val)
+void Graphic::addAbs(int abs)
 {
   if (fp != NULL) {
-    fprintf(fp, "%d %d %d\n", time, val.x, val.y);
+    fprintf(fp, "\n%d", abs);
+  }
+}
+
+void Graphic::addValue(AUSBEE::Vector2 val)
+{
+  if (fp != NULL) {
+    fprintf(fp, " %d %d", val.x, val.y);
+  }
+}
+
+void Graphic::addValue(int val)
+{
+  if (fp != NULL) {
+    fprintf(fp, " %d", val);
   }
 }

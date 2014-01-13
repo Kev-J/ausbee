@@ -10,7 +10,11 @@ int main(void) {
     Quadramp move(xi, xf, 500, 50, 0);
 
     for (int time = 0 ; time < 100; time++) {
-        graphic.addValue(time, move.getPosition(time));
+        graphic.addAbs(time);
+        graphic.addValue(move.update(time));
+        graphic.addValue(move.getLinearPosition());
+        graphic.addValue(move.getSpeed());
+        graphic.addValue(move.getAcceleration());
     }
 
     return 0;

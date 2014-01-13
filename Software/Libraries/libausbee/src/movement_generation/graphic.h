@@ -11,7 +11,10 @@ private:
 public:
   Graphic(std::string filename);
   ~Graphic();
-  void addValue(int time, AUSBEE::Vector2 val);
+
+  void addAbs(int abs);
+  void addValue(AUSBEE::Vector2 val);
+  void addValue(int val);
 };
 
 #endif /* GRAPH_GEN_H */
