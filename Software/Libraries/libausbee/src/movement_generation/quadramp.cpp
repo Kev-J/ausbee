@@ -19,6 +19,43 @@
  * Authors :    David Bitonneau <david.bitonneau@gmail.com>
  *
  **********************************************************************/
+/**********************************************************************
+ * Movement generation with Bang Bang on acceleration.
+ * Acceleration generation:
+ *  ^
+ *  |
+ *  |___
+ *  |   |
+ *  |   |
+ *  |   |    t2   tf
+ *  +---+-----+---+-->
+ *  0   t1    |   |
+ *            |   |
+ *            |___|
+ *
+ * Speed generation:
+ *  ^
+ *  |    _____
+ *  |   /     \
+ *  |  /       \
+ *  | /         \
+ *  |/       t2  \tf
+ *  +---+-----+---+-->
+ *  0   t1
+ *
+ * Position generation:
+ *  ^
+ *  |           ___
+ *  |        _--
+ *  |      _-
+ *  |    _-
+ *  |__--      t2
+ *  +---+-----+---+-->
+ *  0   t1       tf
+ *
+ * (tf - t2 = t1)
+ *
+ **********************************************************************/
 #include "quadramp.h"
 // TODO: write a function to perform sqrt
 #include <math.h>
