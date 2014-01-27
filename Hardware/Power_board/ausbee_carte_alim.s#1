@@ -14009,10 +14009,10 @@ Wickmann</description>
 <pinref part="GND10" gate="1" pin="GND"/>
 <wire x1="99.06" y1="63.5" x2="99.06" y2="66.04" width="0.1524" layer="91"/>
 <pinref part="R4" gate="G$1" pin="1"/>
-<wire x1="99.06" y1="66.04" x2="99.06" y2="73.66" width="0.1524" layer="91"/>
 <wire x1="86.36" y1="66.04" x2="99.06" y2="66.04" width="0.1524" layer="91"/>
-<junction x="99.06" y="66.04"/>
 <pinref part="T1" gate="A" pin="S"/>
+<wire x1="99.06" y1="66.04" x2="99.06" y2="73.66" width="0.1524" layer="91"/>
+<junction x="99.06" y="66.04"/>
 </segment>
 </net>
 <net name="+5V" class="0">
@@ -14130,11 +14130,11 @@ Wickmann</description>
 <net name="N$6" class="0">
 <segment>
 <pinref part="R4" gate="G$1" pin="2"/>
-<wire x1="86.36" y1="76.2" x2="93.98" y2="76.2" width="0.1524" layer="91"/>
 <pinref part="JP1" gate="G$1" pin="1"/>
 <wire x1="86.36" y1="76.2" x2="48.26" y2="76.2" width="0.1524" layer="91"/>
-<junction x="86.36" y="76.2"/>
 <pinref part="T1" gate="A" pin="G"/>
+<wire x1="86.36" y1="76.2" x2="93.98" y2="76.2" width="0.1524" layer="91"/>
+<junction x="86.36" y="76.2"/>
 </segment>
 </net>
 <net name="OUT_FUSE" class="0">

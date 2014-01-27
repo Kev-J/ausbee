@@ -145,7 +145,7 @@ help:
 	$(ECHO_E)
 	$(ECHO_E) "This tool enable the user to build a complete STM32 binary file."
 	$(ECHO_E) "Have a look to the user manual for further informations: \"make doc\"."
-	$(ECHO_E) "You will need pdflatex. The output documentwill be provided in Documentation" #TODO fix the output
+	$(ECHO_E) "You will need pdflatex. The output document will be provided in Documentation" #TODO fix the output
 	$(ECHO_E)
 	$(ECHO_E) "  all                - build your project (only after configuring)."
 	$(ECHO_E)
