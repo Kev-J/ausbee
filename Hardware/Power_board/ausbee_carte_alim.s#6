@@ -12116,7 +12116,7 @@ Source: www.kingbright.com</description>
 <instance part="H3" gate="G$1" x="-22.86" y="76.2"/>
 <instance part="H4" gate="G$1" x="-22.86" y="83.82"/>
 <instance part="K1" gate="1" x="63.5" y="88.9"/>
-<instance part="K1" gate="2" x="86.36" y="88.9"/>
+<instance part="K1" gate="2" x="73.66" y="50.8"/>
 </instances>
 <busses>
 </busses>
@@ -12262,6 +12262,11 @@ Source: www.kingbright.com</description>
 <wire x1="10.16" y1="81.28" x2="15.24" y2="81.28" width="0.1524" layer="91"/>
 <wire x1="15.24" y1="81.28" x2="15.24" y2="99.06" width="0.1524" layer="91"/>
 <label x="15.24" y="99.06" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="K1" gate="1" pin="1"/>
+<wire x1="63.5" y1="93.98" x2="63.5" y2="106.68" width="0.1524" layer="91"/>
+<label x="55.88" y="106.68" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$1" class="0">

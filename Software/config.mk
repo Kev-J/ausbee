@@ -12,7 +12,7 @@ else ifeq ($(filter $(noconfig_goals),$(MAKECMDGOALS)),)
 ifneq ("$(wildcard .config)", "")
 include .config
 else #If the configuration file is not found and no config goals is provided, print error
-$(error Please run an configuration command (your_board-defconfig, alldefconfig, menuconfig, config, ...) \
+$(error Please run a configuration command (your_board-defconfig, alldefconfig, menuconfig, config, ...) \
  before building your project. Please, have a look in "make help".)
 endif
 
@@ -73,7 +73,7 @@ PLATFORMS_PATH=$(CURDIR)/Platforms
 # Project
 PROJECT_PATH=$(CURDIR)/Project
 
-# Documentatoin
+# Documentation
 DOCUMENTATION_PATH=$(CURDIR)/Documentation
 
 ######################################################################
