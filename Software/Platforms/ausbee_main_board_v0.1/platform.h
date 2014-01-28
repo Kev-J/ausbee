@@ -93,6 +93,19 @@
 /*********
  * Servo *
  ********/
+/* PWM */
+#define Pin_PWM1 GPIO_Pin_6 
+#define Pin_PWM2 GPIO_Pin_7
+#define Pin_PWM3 GPIO_Pin_8
+#define Pin_PWM4 GPIO_Pin_9
+#define Pin_PWM_GPIOF Pin_PWM1 | Pin_PWM2 | Pin_PWM3 | Pin_PWM3
+
+/* Timer */
+#define TIMER10 0x01
+#define TIMER11 0x02
+#define TIMER13 0x03
+#define TIMER14 0x04
+#define TIMERALL TIMER10 | TIMER11 | TIMER13 | TIMER14
 
 /* Timers */
 #define SERVO1_TIM TIM10 
@@ -109,6 +122,8 @@
 void platform_init_HSE_PLL(void);
 void platform_init_LED(void);
 
+
+void platform_initPWM(uint8_t timer);
 void platform_set_led(uint8_t led);
 void platform_reset_led(uint8_t led);
 void platform_toggle_led(uint8_t led);

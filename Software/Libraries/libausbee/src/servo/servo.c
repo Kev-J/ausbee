@@ -28,7 +28,7 @@
  */
 
 /* Includes */
-#include <AUSBEE/servo.h>
+#include <servo.h>
 
 /**
   * @addtogroup Libausbee
