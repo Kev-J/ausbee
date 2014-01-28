@@ -8,6 +8,7 @@
 #ifndef PLATFORM_H
 #define PLATFORM_H
 
+#include <stm32f4xx_tim.h>
 #include <stm32f4xx_usart.h>
 #include <stm32f4xx_gpio.h>
 #include <stm32f4xx_rcc.h>
@@ -58,7 +59,9 @@
 #define PLATFORM_PWM_MOTOR2_PIN_SOURCE GPIO_PinSource6
 #define PLATFORM_PWM_MOTOR2_GPIO_AF GPIO_AF_TIM9
 
-/* GPIO */
+/********
+ * GPIO *
+ *******/
 #define PLATFORM_GPIO1_PORT GPIOD 
 #define PLATFORM_GPIO1_PIN GPIO_Pin_14
 #define PLATFORM_GPIO2_PORT GPIOD 
@@ -77,6 +80,22 @@
 #define PLATFORM_GPIO8_PIN GPIO_Pin_7
 #define PLATFORM_GPIO9_PORT GPIOG 
 #define PLATFORM_GPIO9_PIN GPIO_Pin_8
+
+/*********
+ * Servo *
+ ********/
+
+/* Timers */
+#define SERVO1_TIM TIM10 
+#define SERVO2_TIM TIM11
+#define SERVO3_TIM TIM13
+#define SERVO4_TIM TIM14
+
+/* Channel */
+#define SERVO1_CHAN TIM_Channel_1
+#define SERVO2_CHAN TIM_Channel_1
+#define SERVO3_CHAN TIM_Channel_1
+#define SERVO4_CHAN TIM_Channel_1
 
 void platform_init_HSE_PLL(void);
 void platform_init_LED(void);
