@@ -42,6 +42,11 @@ OBJ_FILES+=$(LIBAUSBEE_OBJ_FILES)
 $(LIBAUSBEE_OBJ_FILES): %.o :%.c $(TOOLCHAIN_EXTRACTED)
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(LIBAUSBEE_INC_PATH) $(STD_PERIPH_INCLUDES_DIR) $(SYSTEM_INCLUDES_DIR) $(HOST_OPTIMISATION) -c $<
 
-.PHONY:libausbee-clean
+.PHONY: libausbee-clean libausbee-doc
+
+libausbee-doc:
+	$(CD) $(DOCUMENTATION_PATH)/libausbee ; \
+	$(DOXYGEN) $(DOCUMENTATION_PATH)/libausbee/Doxyfile
+
 libausbee-clean:
 	$(RM_RF) $(LIBAUSBEE_OBJ_FILES)
