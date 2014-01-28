@@ -59,6 +59,15 @@
 #define PLATFORM_PWM_MOTOR2_PIN_SOURCE GPIO_PinSource6
 #define PLATFORM_PWM_MOTOR2_GPIO_AF GPIO_AF_TIM9
 
+/************
+ * Encoders *
+ ************/
+#define PLATFORM_ENCODER2_A_PIN GPIO_Pin_6
+#define PLATFORM_ENCODER2_B_PIN GPIO_Pin_7
+#define PLATFORM_ENCODER2_PORT GPIOC
+#define PLATFORM_ENCODER2_GPIO_AF GPIO_AF_TIM3
+#define PLATFORM_ENCODER2_PIN_SOURCE GPIO_PinSource6
+
 /********
  * GPIO *
  *******/
@@ -108,6 +117,8 @@ int platform_init_USART(USART_TypeDef *USARTx, uint32_t baudrate);
 
 void platform_init_io_motor1(void);
 void platform_init_io_motor2(void);
+
+void platform_encoder2_init(void);
 
 int platform_CAN_init(CAN_TypeDef* CANx);
 

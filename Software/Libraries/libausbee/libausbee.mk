@@ -27,12 +27,17 @@ endif
 ifeq ($(CONFIG_LIBAUSBEE_LIDAR),y)
 #TODO FIXME LIBAUSBEE_SRC_FILES+=$(LIBAUSBEE_SRC_PATH)/lidar/piccolo-lidar.c
 endif
+
 ifeq ($(CONFIG_LIBAUSBEE_L298_DRIVER),y)
 LIBAUSBEE_SRC_FILES+=$(LIBAUSBEE_SRC_PATH)/l298_driver/l298_driver.c
 endif
 
 ifeq ($(CONFIG_LIBAUSBEE_SERVO),y)
 LIBAUSBEE_SRC_FILES+=$(LIBAUSBEE_SRC_PATH)/servo/servo.c
+endif
+
+ifeq ($(CONFIG_LIBAUSBEE_CONTROLLER),y)
+LIBAUSBEE_SRC_FILES+=$(LIBAUSBEE_SRC_PATH)/controller/pid.c
 endif
 
 # Object files list
@@ -45,6 +50,11 @@ OBJ_FILES+=$(LIBAUSBEE_OBJ_FILES)
 $(LIBAUSBEE_OBJ_FILES): %.o :%.c $(TOOLCHAIN_EXTRACTED)
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(LIBAUSBEE_INC_PATH) $(STD_PERIPH_INCLUDES_DIR) $(PLATFORMS_INCLUDES_DIR) $(SYSTEM_INCLUDES_DIR) $(HOST_OPTIMISATION) -c $<
 
-.PHONY:libausbee-clean
+.PHONY: libausbee-clean libausbee-doc
+
+libausbee-doc:
+	$(CD) $(DOCUMENTATION_PATH)/libausbee ; \
+	$(DOXYGEN) $(DOCUMENTATION_PATH)/libausbee/Doxyfile
+
 libausbee-clean:
 	$(RM_RF) $(LIBAUSBEE_OBJ_FILES)
