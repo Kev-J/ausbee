@@ -9,12 +9,17 @@
 #include "AUSBEE/device.h"
 #include "AUSBEE/pid.h"
 
-/** addtogroup Controller
-  * {
+/** \addtogroup Libausbee
+  * \{
+  */
+
+/** \defgroup Controller
+  * \brief Control engineering module.
+  * \{
   */
 
 /**
- * \fn ausbee_init_pid
+ * \fn void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd, int32_t command, int32_t max_output, int32_t min_output)
  * \brief ausbee_pid structure initialisation.
  *
  * \param pid Structure reference.
@@ -42,11 +47,11 @@ void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd,
 }
 
 /**
-  * \fn ausbee_eval_pid
+  * \fn int32_t ausbee_eval_pid(struct ausbee_pid *pid, int32_t measure)
   * \brief Compute PID control with the last measure.
   *
   * \param pid Structure reference.
-  * \param measure Current measure value.
+  * \param measure Current measured value.
   *
   * \return Output value of the controller.
   *
@@ -72,5 +77,9 @@ int32_t ausbee_eval_pid(struct ausbee_pid *pid, int32_t measure)
 }
 
 /** 
-  * }
+  * \}
+  */
+
+/** 
+  * \}
   */
