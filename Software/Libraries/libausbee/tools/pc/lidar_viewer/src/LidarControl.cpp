@@ -54,9 +54,9 @@ bool LidarControl::openTTY(QString ttyDev)
     }
 
     // set 115200 baud
-    tcgetattr( fd, &options );
-    cfsetispeed( &options, B115200 );
-    cfsetospeed( &options, B115200 );
+    tcgetattr(fd, &options);
+    cfsetispeed(&options, B115200);
+    cfsetospeed(&options, B115200);
 
     if (tcsetattr(fd, TCSANOW, &options) == -1 ) {
         QMessageBox::critical(0, "Error", "Unable to set options");
@@ -119,10 +119,10 @@ void LidarControl::receive()
             if (receivingFrame) { // Start byte reiceved
                 frame[cursor] = buffer[i]; // Copy data
 
-                if (cursor == AUSBEE::PiccoloLidar::FRAME_LENGTH - 1) { // Receive complete
+                if (cursor == AUSBEE_LIDAR_PICCOLO_FRAME_LENGTH) { // Receive complete
                     receivingFrame = false;
-                    lidar.parse(frame, data); // Parse data
-                    for (int j = 0 ; j < AUSBEE::PiccoloLidar::DATAS_PER_FRAME ; j++) {
+                    ausbee_lidar_parse_piccolo(frame, data); // Parse data
+                    for (int j = 0 ; j < AUSBEE_LIDAR_PICCOLO_DATA_LENGTH ; j++) {
                         if ((!data[j].error) && (!data[j].strengthWarning))  { //If data is valid
                             double x, y;
                             double angleRad;

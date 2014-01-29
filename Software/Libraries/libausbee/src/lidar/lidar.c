@@ -21,30 +21,32 @@
  * Based on informations of http://xv11hacking.wikispaces.com
  *
  **********************************************************************/
-//TODO cite source
-#include <AUSBEE/piccolo-lidar.h>
 
-void AUSBEE::PiccoloLidar::parse(unsigned char* frame, struct Lidar::data *data)
+#include <AUSBEE/lidar.h>
+
+void ausbee_lidar_parse_piccolo(unsigned char frame[AUSBEE_LIDAR_PICCOLO_FRAME_LENGTH], struct ausbee_lidar_data data[AUSBEE_LIDAR_PICCOLO_DATA_LENGTH])
 {
-    for (int i = 0 ; i < DATAS_PER_FRAME ; i++) {
+    int i;
+
+    for (i = 0 ; i < AUSBEE_LIDAR_PICCOLO_DATA_LENGTH ; i++) {
         data[i].angle = (frame[1] - 0xA0)*4 + i; // Get angle for each data structure in degree
         data[i].speed = ((frame[2] << 8) + frame[3]) >> 6; // Get actual rotation speed of the LIDAR
-        data[i].distance_mm = frame[4+i*4] + ((frame[5+i*4] & 0x3F) << 8); // Get the measured distance for each data structure
-        data[i].signal_strength = frame[6+i*4] + (frame[7+i*4] << 8); // Get signal strength
+        data[i].distance_mm = frame[4+i*AUSBEE_LIDAR_PICCOLO_DATA_LENGTH] + ((frame[5+i*AUSBEE_LIDAR_PICCOLO_DATA_LENGTH] & 0x3F) << 8); // Get the measured distance for each data structure
+        data[i].signal_strength = frame[6+i*AUSBEE_LIDAR_PICCOLO_DATA_LENGTH] + (frame[7+i*AUSBEE_LIDAR_PICCOLO_DATA_LENGTH] << 8); // Get signal strength
 
         // Check if no error occurs during measure
-        if (frame[5+i*4] & 0x80) {
-            data[i].error = true;
-            data[i].error_code = frame[4+i*4];
+        if (frame[5+i*AUSBEE_LIDAR_PICCOLO_DATA_LENGTH] & 0x80) {
+            data[i].error = 1;
+            data[i].error_code = frame[4+i*AUSBEE_LIDAR_PICCOLO_DATA_LENGTH];
         } else {
-            data[i].error = false;
+            data[i].error = 0;
             data[i].error_code = 0x0;
         }
 
         // Fill the strength warning flag in the data structure
-        if (frame[5+i*4] & 0x40)
-            data[i].strengthWarning = true;
+        if (frame[5+i*AUSBEE_LIDAR_PICCOLO_DATA_LENGTH] & 0x40)
+            data[i].strengthWarning = 1;
         else
-            data[i].strengthWarning = false;
+            data[i].strengthWarning = 0;
     }
 }
