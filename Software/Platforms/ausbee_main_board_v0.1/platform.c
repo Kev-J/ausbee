@@ -2,11 +2,13 @@
  *
  * \file platform.c
  * \brief Platform support implementation for AUSBEE mainboard V0.1
- * \author Kevin JOLY <joly.kevin25@gmail.com>
+ * \authors Kevin JOLY <joly.kevin25@gmail.com> Vincent FAURE <vincenr.hr.faure@gmail.com>
  *
  */
 
 #include "platform.h"
+#include <stdio.h>
+#include <stdlib.h>
 
 void platform_init_HSE_PLL(void)
 {
@@ -26,60 +28,77 @@ void platform_init_HSE_PLL(void)
 }
 
 void platform_initPWM(uint8_t timer){
+
+	// control structures
+
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE);	//give clock to the GPIO
+
 	TIM_TimeBaseInitTypeDef TimeBaseInit_PWM;
 	TIM_OCInitTypeDef OCInitTypeDef_PWM;
 	GPIO_InitTypeDef InitTypeDef_PWM;
 
-	TIM_TimeBaseStructInit(&TimeBaseInit_PWM);
+	TIM_TimeBaseStructInit(&TimeBaseInit_PWM);				//initialize the struct
 	
-	TimeBaseInit_PWM.TIM_Prescaler=3300; //168MHz/50Khz
+	TimeBaseInit_PWM.TIM_Prescaler=3360;					//168MHz/50Khz
 
-	TimeBaseInit_PWM.TIM_CounterMode = TIM_CounterMode_Up; //counter mode up
-	TimeBaseInit_PWM.TIM_Period = 1000; //50Khz/50Hz
+	TimeBaseInit_PWM.TIM_CounterMode = TIM_CounterMode_Up;	//counter mode up
+	TimeBaseInit_PWM.TIM_Period = 1000;						//50Khz/50Hz
 
-	TimeBaseInit_PWM.TIM_ClockDivision = 0x0000; //is not used
+	TimeBaseInit_PWM.TIM_ClockDivision = 0x0000;			//is not used
 
-	TimeBaseInit_PWM.TIM_RepetitionCounter = 0x0000; //is not used	 
+	TimeBaseInit_PWM.TIM_RepetitionCounter = 0x0000;		//is not used	 
 
 
-	if( (Timer & TIMER10) == TIMER10 )
+	if( (timer & TIMER10) == TIMER10 )
 	{
+		printf("timer10\n\r");
 		RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM10,ENABLE); // Enable APB2 clock on TIM10
 		TIM_TimeBaseInit(TIM10, &TimeBaseInit_PWM);          // Initialize TIM10
 		TIM_Cmd(TIM10, ENABLE);
 	}
 	
-	if( (Timer & TIMER11) == TIMER11 )
+	if( (timer & TIMER11) == TIMER11 )
 	{
+		printf("timer11\n\r");
 		RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM11,ENABLE); // Enable APB2 clock on TIM11
 		TIM_TimeBaseInit(TIM11, &TimeBaseInit_PWM);          // Initialize TIM11
 		TIM_Cmd(TIM11, ENABLE);
 	}
 	
-	if( (Timer & TIMER13) == TIMER13 )
+	if( (timer & TIMER13) == TIMER13 )
 	{
+		printf("timer13\n\r");
 		RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM13,ENABLE); // Enable APB1 clock on TIM13
 		TIM_TimeBaseInit(TIM13, &TimeBaseInit_PWM);          // Initialize TIM13
 		TIM_Cmd(TIM13, ENABLE);
 	}
 
-	if( (Timer & TIMER14) == TIMER14 )
+	if( (timer & TIMER14) == TIMER14 )
 	{
+		printf("timer14\n\r");
 		RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM14,ENABLE); // Enable APB1 clock on TIM14
 		TIM_TimeBaseInit(TIM14, &TimeBaseInit_PWM);          // Initialize TIM14
 		TIM_Cmd(TIM14, ENABLE);
 	}
 
 	// IO
+	
+	
 	GPIO_StructInit(&InitTypeDef_PWM);
 	InitTypeDef_PWM.GPIO_Pin = Pin_PWM_GPIOF;
-	InitTypeDef_PWM.GPIO_Speed = GPIO_Speed_50MHz;         // Output maximum frequency at 50MHz
-	InitTypeDef_PWM.GPIO_Mode = GPIO_Mode_AF_PP;           // Mode alternate function push-pull
-	GPIO_Init(GPIOF, &InitTypeDef_PWM);                    // Initialize PWM Pin on GPIOF
+	InitTypeDef_PWM.GPIO_Speed = GPIO_Speed_50MHz;	        // Output maximum frequency at 100MHz
+	InitTypeDef_PWM.GPIO_Mode = GPIO_Mode_AF;	            // Mode alternate function
+	//InitTypeDef_PWM.GPIO_OType = GPIO_OType_PP;			// Mode Push-Pull
+	InitTypeDef_PWM.GPIO_PuPd = GPIO_PuPd_NOPULL;			// No pull-up/ pull down
+	GPIO_Init(GPIOF, &InitTypeDef_PWM);                     // Initialize PWM Pin on GPIOF
+	GPIO_PinAFConfig(GPIOF,GPIO_PinSource6,GPIO_AF_TIM10);
+GPIO_PinAFConfig(GPIOF,GPIO_PinSource7,GPIO_AF_TIM11);
+GPIO_PinAFConfig(GPIOF,GPIO_PinSource8,GPIO_AF_TIM13);
+GPIO_PinAFConfig(GPIOF,GPIO_PinSource9,GPIO_AF_TIM14);
 }
 
 
-int platform_init_USART(USART_TypeDef *USARTx, uint32_t )
+int platform_init_USART(USART_TypeDef *USARTx, uint32_t baudrate){
     GPIO_InitTypeDef init_GPIO_USART;
     USART_InitTypeDef init_USART;
 

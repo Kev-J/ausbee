@@ -33,7 +33,22 @@
 #define _SERVO_H
 
 /* Includes */
-#include <platform.h>
+#include <AUSBEE/device.h>
+
+
+#ifdef STM32F4XX
+#include <stm32f4xx_tim.h>
+#include <stm32f4xx_gpio.h>
+#include <stm32f4xx_rcc.h>
+#else
+#ifdef STM32F10X
+#include <stm32f10x_tim.h>
+#include <stm32f10x_gpio.h>
+#include <stm32f10x_rcc.h>
+#endif
+#endif
+
+//#include <platform.h>
 
 /**
   * @addtogroup Libausbee
