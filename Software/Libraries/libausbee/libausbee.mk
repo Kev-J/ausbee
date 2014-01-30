@@ -17,7 +17,7 @@ endif
 
 # Add source files
 ifeq ($(CONFIG_LIBAUSBEE_LIDAR),y)
-#TODO FIXME LIBAUSBEE_SRC_FILES+=$(LIBAUSBEE_SRC_PATH)/lidar/piccolo-lidar.c
+LIBAUSBEE_SRC_FILES+=$(LIBAUSBEE_SRC_PATH)/lidar/lidar.c
 endif
 
 ifeq ($(CONFIG_LIBAUSBEE_L298_DRIVER),y)

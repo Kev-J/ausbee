@@ -22,23 +22,29 @@
 #ifndef LIDAR_H
 #define LIDAR_H
 
-#include <stdint.h>
+#include "AUSBEE/lidar.h"
 
-namespace AUSBEE {
-    class Lidar {
-        public:
-            struct data {
-                uint16_t angle; // Angle of the point
-                int speed; // Speed of the Lidar
-                int distance_mm; // Measured distance
-                uint8_t signal_strength; // Strength of the signal
-                bool error; // true if an error is encountered
-                bool strengthWarning; // true if the signal strength is too low
-                uint8_t error_code; // Error code in case of error
-            };
-        public:
-            virtual void parse(unsigned char *frame, struct data *data) = 0;
-    };
+#ifdef STM32F4XX
+#include <stm32f4xx.h>
+#elif STM32F10X
+#include <stm32f10x.h>
+#else
+#include <stdint.h>
+#endif
+
+#define AUSBEE_LIDAR_PICCOLO_FRAME_LENGTH 22
+#define AUSBEE_LIDAR_PICCOLO_DATA_LENGTH 4
+
+struct ausbee_lidar_data{
+	uint16_t angle; // Angle of the point
+	int speed; // Speed of the Lidar
+	int distance_mm; // Measured distance
+	uint8_t signal_strength; // Strength of the signal
+	uint8_t error; // 1 if an error is encountered
+	uint8_t strengthWarning; // 1 if the signal strength is too low
+	uint8_t error_code; // Error code in case of error
 };
+
+void ausbee_lidar_parse_piccolo(unsigned char frame[AUSBEE_LIDAR_PICCOLO_FRAME_LENGTH], struct ausbee_lidar_data data[AUSBEE_LIDAR_PICCOLO_DATA_LENGTH]);
 
 #endif
