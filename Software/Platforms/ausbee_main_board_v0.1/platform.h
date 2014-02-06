@@ -8,6 +8,7 @@
 #ifndef PLATFORM_H
 #define PLATFORM_H
 
+#include <stm32f4xx_tim.h>
 #include <stm32f4xx_usart.h>
 #include <stm32f4xx_gpio.h>
 #include <stm32f4xx_rcc.h>
@@ -58,7 +59,18 @@
 #define PLATFORM_PWM_MOTOR2_PIN_SOURCE GPIO_PinSource6
 #define PLATFORM_PWM_MOTOR2_GPIO_AF GPIO_AF_TIM9
 
-/* GPIO */
+/************
+ * Encoders *
+ ************/
+#define PLATFORM_ENCODER2_A_PIN GPIO_Pin_6
+#define PLATFORM_ENCODER2_B_PIN GPIO_Pin_7
+#define PLATFORM_ENCODER2_PORT GPIOC
+#define PLATFORM_ENCODER2_GPIO_AF GPIO_AF_TIM3
+#define PLATFORM_ENCODER2_PIN_SOURCE GPIO_PinSource6
+
+/********
+ * GPIO *
+ *******/
 #define PLATFORM_GPIO1_PORT GPIOD 
 #define PLATFORM_GPIO1_PIN GPIO_Pin_14
 #define PLATFORM_GPIO2_PORT GPIOD 
@@ -78,9 +90,40 @@
 #define PLATFORM_GPIO9_PORT GPIOG 
 #define PLATFORM_GPIO9_PIN GPIO_Pin_8
 
+/*********
+ * Servo *
+ ********/
+/* PWM */
+#define Pin_PWM1 GPIO_Pin_6 
+#define Pin_PWM2 GPIO_Pin_7
+#define Pin_PWM3 GPIO_Pin_8
+#define Pin_PWM4 GPIO_Pin_9
+#define Pin_PWM_GPIOF Pin_PWM1 | Pin_PWM2 | Pin_PWM3 | Pin_PWM3
+
+/* Timer */
+#define TIMER10 0x01
+#define TIMER11 0x02
+#define TIMER13 0x03
+#define TIMER14 0x04
+#define TIMERALL TIMER10 | TIMER11 | TIMER13 | TIMER14
+
+/* Timers */
+#define SERVO1_TIM TIM10 
+#define SERVO2_TIM TIM11
+#define SERVO3_TIM TIM13
+#define SERVO4_TIM TIM14
+
+/* Channel */
+#define SERVO1_CHAN TIM_Channel_1
+#define SERVO2_CHAN TIM_Channel_1
+#define SERVO3_CHAN TIM_Channel_1
+#define SERVO4_CHAN TIM_Channel_1
+
 void platform_init_HSE_PLL(void);
 void platform_init_LED(void);
 
+
+void platform_initPWM(uint8_t timer);
 void platform_set_led(uint8_t led);
 void platform_reset_led(uint8_t led);
 void platform_toggle_led(uint8_t led);
@@ -89,6 +132,8 @@ int platform_init_USART(USART_TypeDef *USARTx, uint32_t baudrate);
 
 void platform_init_io_motor1(void);
 void platform_init_io_motor2(void);
+
+void platform_encoder2_init(void);
 
 int platform_CAN_init(CAN_TypeDef* CANx);
 

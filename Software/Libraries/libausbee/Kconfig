@@ -1,3 +1,10 @@
+config LIBAUSBEE_CONTROLLER
+	bool "+ Controller"
+	default n
+	depends on LIBAUSBEE
+	help
+		Controller implementation for control engineering.
+
 config LIBAUSBEE_LIDAR
 	bool "+ LIDAR"
 	default n

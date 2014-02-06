@@ -25,8 +25,61 @@ void platform_init_HSE_PLL(void)
     RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
 }
 
-int platform_init_USART(USART_TypeDef *USARTx, uint32_t baudrate)
-{
+void platform_initPWM(uint8_t timer){
+	TIM_TimeBaseInitTypeDef TimeBaseInit_PWM;
+	TIM_OCInitTypeDef OCInitTypeDef_PWM;
+	GPIO_InitTypeDef InitTypeDef_PWM;
+
+	TIM_TimeBaseStructInit(&TimeBaseInit_PWM);
+	
+	TimeBaseInit_PWM.TIM_Prescaler=3300; //168MHz/50Khz
+
+	TimeBaseInit_PWM.TIM_CounterMode = TIM_CounterMode_Up; //counter mode up
+	TimeBaseInit_PWM.TIM_Period = 1000; //50Khz/50Hz
+
+	TimeBaseInit_PWM.TIM_ClockDivision = 0x0000; //is not used
+
+	TimeBaseInit_PWM.TIM_RepetitionCounter = 0x0000; //is not used	 
+
+
+	if( (Timer & TIMER10) == TIMER10 )
+	{
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM10,ENABLE); // Enable APB2 clock on TIM10
+		TIM_TimeBaseInit(TIM10, &TimeBaseInit_PWM);          // Initialize TIM10
+		TIM_Cmd(TIM10, ENABLE);
+	}
+	
+	if( (Timer & TIMER11) == TIMER11 )
+	{
+		RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM11,ENABLE); // Enable APB2 clock on TIM11
+		TIM_TimeBaseInit(TIM11, &TimeBaseInit_PWM);          // Initialize TIM11
+		TIM_Cmd(TIM11, ENABLE);
+	}
+	
+	if( (Timer & TIMER13) == TIMER13 )
+	{
+		RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM13,ENABLE); // Enable APB1 clock on TIM13
+		TIM_TimeBaseInit(TIM13, &TimeBaseInit_PWM);          // Initialize TIM13
+		TIM_Cmd(TIM13, ENABLE);
+	}
+
+	if( (Timer & TIMER14) == TIMER14 )
+	{
+		RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM14,ENABLE); // Enable APB1 clock on TIM14
+		TIM_TimeBaseInit(TIM14, &TimeBaseInit_PWM);          // Initialize TIM14
+		TIM_Cmd(TIM14, ENABLE);
+	}
+
+	// IO
+	GPIO_StructInit(&InitTypeDef_PWM);
+	InitTypeDef_PWM.GPIO_Pin = Pin_PWM_GPIOF;
+	InitTypeDef_PWM.GPIO_Speed = GPIO_Speed_50MHz;         // Output maximum frequency at 50MHz
+	InitTypeDef_PWM.GPIO_Mode = GPIO_Mode_AF_PP;           // Mode alternate function push-pull
+	GPIO_Init(GPIOF, &InitTypeDef_PWM);                    // Initialize PWM Pin on GPIOF
+}
+
+
+int platform_init_USART(USART_TypeDef *USARTx, uint32_t )
     GPIO_InitTypeDef init_GPIO_USART;
     USART_InitTypeDef init_USART;
 
@@ -218,6 +271,23 @@ void platform_init_io_motor2(void)
 	GPIO_PinAFConfig(GPIOE, PLATFORM_PWM_MOTOR2_PIN_SOURCE, PLATFORM_PWM_MOTOR2_GPIO_AF);
 }
 
+void platform_encoder2_init(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+	
+	GPIO_InitStructure.GPIO_Pin = PLATFORM_ENCODER2_A_PIN;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+	GPIO_InitStructure.GPIO_Speed = GPIO_High_Speed;
+
+	GPIO_Init(PLATFORM_ENCODER2_PORT, &GPIO_InitStructure);
+
+	GPIO_PinAFConfig(GPIOC, PLATFORM_ENCODER2_PIN_SOURCE, PLATFORM_ENCODER2_GPIO_AF);
+
+	GPIO_StructInit(&GPIO_InitStructure);
+}
+
 int platform_CAN_init(CAN_TypeDef* CANx)
 {
     GPIO_InitTypeDef init_GPIO_CAN;
@@ -242,5 +312,6 @@ int platform_CAN_init(CAN_TypeDef* CANx)
     } else {
       return -1;
     }
+
     return 0;
 }

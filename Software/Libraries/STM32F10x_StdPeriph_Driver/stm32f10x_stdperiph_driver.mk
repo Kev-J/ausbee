@@ -38,6 +38,11 @@ OBJ_FILES+=$(STM32F10X_STDPERIPH_DRIVER_OBJ_FILES)
 $(STM32F10X_STDPERIPH_DRIVER_OBJ_FILES): %.o :%.c $(TOOLCHAIN_EXTRACTED)
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(STM32F10X_STDPERIPH_DRIVER_INC_PATH) $(SYSTEM_INCLUDES_DIR) $(HOST_OPTIMISATION) -c $<
 
-.PHONY:stm32f10x_stdperiph_driver-clean
+.PHONY:stm32f10x_stdperiph_driver-clean stm32f10x_stdperiph_driver-doc
+
 stm32f10x_stdperiph_driver-clean:
 	$(RM_RF) $(STM32F10X_STDPERIPH_DRIVER_OBJ_FILES)
+
+stm32f10x_stdperiph_driver-doc:
+	$(CD) $(DOCUMENTATION_PATH)/STM32F10x_StdPeriph_Driver ; \
+	$(DOXYGEN) $(DOCUMENTATION_PATH)/STM32F10x_StdPeriph_Driver/Doxyfile

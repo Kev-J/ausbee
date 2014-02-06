@@ -123,11 +123,7 @@ clean: $(CLEAN_GOALS)
 ######################################################################
 # Documentation
 .PHONY: doc
-doc:
-	$(CD) $(DOCUMENTATION_PATH)/STM32F10x_StdPeriph_Driver ; \
-	$(DOXYGEN) $(DOCUMENTATION_PATH)/STM32F10x_StdPeriph_Driver/Doxyfile
-	$(CD) $(DOCUMENTATION_PATH)/STM32F4xx_StdPeriph_Driver ; \
-	$(DOXYGEN) $(DOCUMENTATION_PATH)/STM32F4xx_StdPeriph_Driver/Doxyfile
+doc: libraries-doc
 
 ######################################################################
 # Help

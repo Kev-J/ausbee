@@ -25,8 +25,12 @@
 #include <QGraphicsScene>
 #include <QGraphicsEllipseItem>
 #include <QTimer>
-#include <AUSBEE/piccolo-lidar.h>
 #include <QApplication>
+
+extern "C"
+{
+	#include <AUSBEE/lidar.h>
+}
 
 class LidarControl : public QObject {
     Q_OBJECT;
@@ -46,9 +50,8 @@ class LidarControl : public QObject {
         QTimer timerRecv;
         bool receivingFrame;
         int cursor;
-        struct AUSBEE::Lidar::data data[4];//XXX
-        unsigned char frame[AUSBEE::PiccoloLidar::FRAME_LENGTH];
-        AUSBEE::PiccoloLidar lidar;
+        struct ausbee_lidar_data data[AUSBEE_LIDAR_PICCOLO_DATA_LENGTH];
+        unsigned char frame[AUSBEE_LIDAR_PICCOLO_FRAME_LENGTH];
         QList<QGraphicsEllipseItem*> obstacles;
 };
 

@@ -33,9 +33,7 @@
 #define _SERVO_H
 
 /* Includes */
-#include <stm32f10x_tim.h>
-#include <stm32f10x_rcc.h>
-#include <stm32f10x_gpio.h>
+#include <platform.h>
 
 /**
   * @addtogroup Libausbee
@@ -52,22 +50,22 @@
   * @defgroup TIM_Channel_Define
   * @{
   */
+/*
+#define TIM1_Ch1 GPIO_Pin_8  //!< Timer 1 Channel 1 selected 
+#define TIM1_Ch2 GPIO_Pin_9  //!< Timer 1 Channel 2 selected 
+#define TIM1_Ch3 GPIO_Pin_10 //!< Timer 1 Channel 3 selected 
+#define TIM1_Ch4 GPIO_Pin_11 //!< Timer 1 Channel 4 selected 
 
-#define TIM1_Ch1 GPIO_Pin_8  /*!< Timer 1 Channel 1 selected */
-#define TIM1_Ch2 GPIO_Pin_9  /*!< Timer 1 Channel 2 selected */
-#define TIM1_Ch3 GPIO_Pin_10 /*!< Timer 1 Channel 3 selected */
-#define TIM1_Ch4 GPIO_Pin_11 /*!< Timer 1 Channel 4 selected */
+#define TIM2_Ch1 GPIO_Pin_0  //!< Timer 2 Channel 1 selected 
+#define TIM2_Ch2 GPIO_Pin_1  //!< Timer 2 Channel 2 selected 
+#define TIM2_Ch3 GPIO_Pin_2  //!< Timer 2 Channel 3 selected 
+#define TIM2_Ch4 GPIO_Pin_3  //!< Timer 2 Channel 4 selected 
 
-#define TIM2_Ch1 GPIO_Pin_0  /*!< Timer 2 Channel 1 selected */
-#define TIM2_Ch2 GPIO_Pin_1  /*!< Timer 2 Channel 2 selected */
-#define TIM2_Ch3 GPIO_Pin_2  /*!< Timer 2 Channel 3 selected */
-#define TIM2_Ch4 GPIO_Pin_3  /*!< Timer 2 Channel 4 selected */
-
-#define TIM3_Ch1 GPIO_Pin_6  /*!< Timer 3 Channel 1 selected */
-#define TIM3_Ch2 GPIO_Pin_7  /*!< Timer 3 Channel 2 selected */
-#define TIM3_Ch3 GPIO_Pin_0  /*!< Timer 3 Channel 3 selected */
-#define TIM3_Ch4 GPIO_Pin_1  /*!< Timer 3 Channel 4 selected */
-
+#define TIM3_Ch1 GPIO_Pin_6  //!< Timer 3 Channel 1 selected 
+#define TIM3_Ch2 GPIO_Pin_7  //!< Timer 3 Channel 2 selected 
+#define TIM3_Ch3 GPIO_Pin_0  //!< Timer 3 Channel 3 selected 
+#define TIM3_Ch4 GPIO_Pin_1  //!< Timer 3 Channel 4 selected 
+*/
 /**
   * @}
   */
