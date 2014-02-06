@@ -28,11 +28,16 @@ config STM32F4XX_STDPERIPH_DRIVER_USART
 	help
 		TODO
 
+config STM32F4XX_STDPERIPH_SPI
+	bool "+ SPI"
+	depends on STM32F4XX_STDPERIPH_DRIVER
+	help
+		TODO
+
 config STM32F4XX_STDPERIPH_MISC
 	bool "+ MISC"
 	depends on STM32F4XX_STDPERIPH_DRIVER
 	help
 		TODO
-
 
 #TODO add others

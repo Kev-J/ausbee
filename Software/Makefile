@@ -21,7 +21,7 @@ GCONF=$(KCONFIG_BUILD_PATH)/frontends/gconf/gconf
 
 ######################################################################
 # Build target
-all: $(OUTPUT_TARGET_HEX)
+all: $(OUTPUT_TARGET_BIN) $(OUTPUT_TARGET_HEX)
 
 include $(TOOLCHAIN_PATH)/toolchain.mk
 ifneq ($(SYSTEM_PATH),)

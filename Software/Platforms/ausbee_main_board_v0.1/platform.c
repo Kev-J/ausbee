@@ -25,9 +25,9 @@ void platform_init_HSE_PLL(void)
     RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
 }
 
-void platform_initPWM(uint8_t timer){
+void platform_initPWM(uint8_t Timer)
+{
 	TIM_TimeBaseInitTypeDef TimeBaseInit_PWM;
-	TIM_OCInitTypeDef OCInitTypeDef_PWM;
 	GPIO_InitTypeDef InitTypeDef_PWM;
 
 	TIM_TimeBaseStructInit(&TimeBaseInit_PWM);
@@ -74,12 +74,13 @@ void platform_initPWM(uint8_t timer){
 	GPIO_StructInit(&InitTypeDef_PWM);
 	InitTypeDef_PWM.GPIO_Pin = Pin_PWM_GPIOF;
 	InitTypeDef_PWM.GPIO_Speed = GPIO_Speed_50MHz;         // Output maximum frequency at 50MHz
-	InitTypeDef_PWM.GPIO_Mode = GPIO_Mode_AF_PP;           // Mode alternate function push-pull
+	InitTypeDef_PWM.GPIO_Mode = GPIO_Mode_AF;           // Mode alternate function push-pull
 	GPIO_Init(GPIOF, &InitTypeDef_PWM);                    // Initialize PWM Pin on GPIOF
 }
 
 
-int platform_init_USART(USART_TypeDef *USARTx, uint32_t )
+int platform_init_USART(USART_TypeDef *USARTx, uint32_t baudrate)
+{
     GPIO_InitTypeDef init_GPIO_USART;
     USART_InitTypeDef init_USART;
 

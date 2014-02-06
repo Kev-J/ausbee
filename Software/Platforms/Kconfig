@@ -10,6 +10,13 @@ choice
 
         comment "AUSBEE Main Board V0.1 require stm32f4xx_StdPeriph_Driver"
                 depends on !STM32F4XX_STDPERIPH_DRIVER
+	
+	config PLATFORM_STM32F4DISCOVERY
+		bool "STM32F4DISCOVERY"
+                depends on STM32F4XX_STDPERIPH_DRIVER
+
+        comment "STM32F4DISCOVERY require stm32f4xx_StdPeriph_Driver"
+                depends on !STM32F4XX_STDPERIPH_DRIVER
 
 	config PLATFORM_AUSBEE_SERVO_MODULE_V0.1
 		bool "AUSBEE Servo Module V0.1"
