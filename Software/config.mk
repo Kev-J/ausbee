@@ -30,7 +30,13 @@ UNZIP=unzip
 TOUCH=touch
 ECHO_E=@echo -e
 DOXYGEN=doxygen
+ifeq ($(CONFIG_PROGRAMMING_USART),y)
 STM32FLASH=stm32flash
+else
+ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
+STM32FLASH=st-flash
+endif
+endif
 
 ######################################################################
 # Path variables

@@ -102,8 +102,15 @@ $(KCONFIG_BUILD_PATH)/Makefile:
 ######################################################################
 # Program and run
 .PHONY: program
+ifeq ($(CONFIG_PROGRAMMING_USART),y)
 program: $(OUTPUT_TARGET_HEX)
 	$(STM32FLASH) -w $(<) -b $(BAUDRATE_SERIAL_INTERFACE) -v -g 0x0 $(PROGRAM_SERIAL_INTERFACE)
+else
+ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
+program: $(OUTPUT_TARGET_BIN)
+	$(STM32FLASH) --reset write $(<) 0x08000000
+endif
+endif
 
 
 ######################################################################
