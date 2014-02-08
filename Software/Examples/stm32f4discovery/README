@@ -1,0 +1,45 @@
+README: Example Code for STM32F4Discovery
+vcesson <cesson.vincent@gmail.com>
+08-February-2014
+
+About this code:
+This code is provided by Eirbot team to show how FreeRTOS and STM libraries can
+be used with the F4Discovery board.
+
+About STM32F4 programmer:
+You may need Texane/st-link tool to flash the microcontroller. This tool is available on git:
+https://github.com/texane/stlink
+Refer to the corresponding README to install it. Do not forget to update your PATH environment 
+variable!
+
+Steps:
+To try this code, do the following steps:
+1 - Copy "main.c" and "stm32f4xx_irq.c" files from Software/Examples/stm32f4discovery
+	to Software/Project/src
+
+2 - From Software/ directory, configure the project with the following command:
+	make menuconfig
+
+2 - 1 -	In menu "Build option->Programming Interface" select STLink v2
+2 - 2 -	In menu "Libraries" select everything except "libausbee"
+2 - 3 -	In menu "Operation System" select FreeRTOS
+2 - 4 -	In menu "Platform" select STM32F4DISCOVERY
+
+3 -	Quit the configuration menu and build the project with the following command:
+	make
+
+4 - Plug your board to your PC with a mini-USB cable
+
+5 - Flash the microcontroller with the following command:
+	make program
+
+6 - Press the user button of the board to switch between the two demos:
+	one is simply blinking the green LED
+	the other uses the MEMS accelerometer to control the four LEDs
+
+Troubleshooting:
+Compilation fail: 
+	Check configuration with "make menuconfig"
+
+Flash fail:
+	Is PATH correctly set?
