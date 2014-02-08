@@ -21,8 +21,9 @@ To try this code, do the following steps:
 	make menuconfig
 
 2 - 1 -	In menu "Build option->Programming Interface" select STLink v2
-2 - 2 -	In menu "Libraries" select everything except "libausbee"
-2 - 3 -	In menu "Operation System" select FreeRTOS
+2 - 2 -	In menu "Libraries" check STM32F4xx StdPeriph and select all components except "libausbee"
+2 - 3 -	In menu "Operating System" select FreeRTOS
+2 - 4 - In menu "Operating System Configuration" set frequency to 168000000
 2 - 4 -	In menu "Platform" select STM32F4DISCOVERY
 
 3 -	Quit the configuration menu and build the project with the following command:
