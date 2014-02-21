@@ -22,59 +22,39 @@
 #ifndef QUADRAMP_H
 #define QUADRAMP_H
 
-#include <iostream>
+#include "vector2.h"
 
-namespace AUSBEE {
-  struct Vector2 {
-    int x, y;
+struct quadramp {
+  // movement parameters
+  struct vector2 xi, xf, mvt_vector;
+  int max_speed, max_acceleration;
+  int mvt_length;
 
-    Vector2(): x(0), y(0) {}
-    Vector2(int x, int y): x(x), y(y) {}
-    Vector2(const Vector2 &);
+  // time slices
+  int t0, t1, t2, tf;
 
-    int norm(void) const;
+  // Constants for fast computation of new position
+  // for t in [0, t1]:  l(t) = A1 * t^2
+  int A1;
+  // for t in [t1, t2]: l(t) = A2 * t + B2
+  int A2, B2;
+  // for t in [t2, tf]: l(t) = A3 * (tf - t)^2 + B3
+  int A3, B3;
 
-    // Returns the difference between two vectors
-    Vector2 operator+(const Vector2 &) const;
-    Vector2 operator-(const Vector2 &) const;
-    Vector2 operator*(int factor) const;
-    Vector2 operator/(int factor) const;
-  };
-
-  class Quadramp {
-  public:
-    Quadramp(const Vector2 &xi, const Vector2 &xf,
-             int maxSpeed, int maxAcceleration, int t0);
-    ~Quadramp();
-
-    // Returns the position for the given time
-    Vector2 update(int time);
-
-    // The following functions returns values for the last update
-    int getLinearPosition(void) const;
-    int getSpeed(void)          const;
-    int getAcceleration(void)   const;
-  private:
-    // movement parameters
-    Vector2 xi, xf, mvtVector;
-    int maxSpeed, maxAcceleration;
-    int mvtLength;
-
-    // time slices
-    int t0, t1, t2, tf;
-
-    // Constants for fast computation of new position
-    // for t in [0, t1]:  l(t) = A1 * t^2
-    int A1;
-    // for t in [t1, t2]: l(t) = A2 * t + B2
-    int A2, B2;
-    // for t in [t2, tf]: l(t) = A3 * (tf - t)^2 + B3
-    int A3, B3;
-
-    // result of update
-    int l, v, a;
-    Vector2 position;
-  };
+  // result of update
+  int l, v, a;
+  struct vector2 position;
 };
+
+void new_quadramp(struct quadramp *qd, const struct vector2 *xi,
+    const struct vector2 *xf, int max_speed, int max_acceleration, int t0);
+
+// Returns the position for the given time
+struct vector2 * update(struct quadramp *qd, int time);
+
+// The following functions returns values for the last update
+int get_linear_position(struct quadramp *qd);
+int get_speed(struct quadramp *qd);
+int get_acceleration(struct quadramp *qd);
 
 #endif
