@@ -1,0 +1,2 @@
+The filename containing the configuration must be compliant with the following format:
+your_board_name-defconfig

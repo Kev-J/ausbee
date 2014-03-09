@@ -35,10 +35,9 @@ include $(PROJECT_PATH)/project.mk
 # Configuration tool
 
 # Load board configuration
-#TODO make something like %-defconfig
-.PHONY: main_board_v1-defconfig
-main_board_v1-defconfig: $(CONF) 
-	$(CONF) --defconfig=$(CONFIGS_PATH)/main_board_v1.config Kconfig
+.PHONY: %-defconfig
+%-defconfig: $(CONF) 
+	$(CONF) --defconfig=$(CONFIGS_PATH)/$@ Kconfig
 	mkdir -p include/
 	mkdir -p include/config include/generated
 	$(CONF) --silentoldconfig Kconfig

@@ -44,6 +44,10 @@ DQUOTE="
 # Remove highlighting problem"
 
 INCLUDE_KCONFIG_PATH=$(CURDIR)/include
+
+#Configs
+CONFIGS_PATH=$(CURDIR)/Configs
+
 # Project output files
 OUTPUT_PATH=$(CURDIR)/output
 OUTPUT_TARGET_HEX=$(subst $(DQUOTE),,$(OUTPUT_PATH)/$(CONFIG_PROJECT_NAME).hex)
