@@ -33,8 +33,11 @@
 #define _AX12_H
 
 /* Includes */
-#include <platform.h>
-
+//#include <platform.h> // WARNING no include of platform in libausbee
+#include <stdint.h>
+#include <stm32f4xx_gpio.h>
+#include <stm32f4xx_usart.h>
+#include <stm32f4xx_rcc.h>
 /**
  * @addtogroup Libausbee
  * @{

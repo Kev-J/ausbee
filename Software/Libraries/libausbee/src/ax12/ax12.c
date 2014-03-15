@@ -28,7 +28,7 @@
  */
 
 /* Includes */
-#include <ax12.h>
+#include <AUSBEE/ax12.h>
 
 /**
  * @addtogroup Libausbee
