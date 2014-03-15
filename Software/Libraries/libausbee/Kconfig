@@ -25,3 +25,10 @@ config LIBAUSBEE_SERVO
 	depends on LIBAUSBEE
 	help
 		TODO
+
+config LIBAUSBEE_AX12
+	bool "+ AX12"
+	default n
+	depends on LIBAUSBEE
+	help
+		TODO

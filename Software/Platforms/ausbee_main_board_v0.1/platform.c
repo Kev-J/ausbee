@@ -39,19 +39,18 @@ void platform_initPWM(uint8_t timer){
 
 	TIM_TimeBaseStructInit(&TimeBaseInit_PWM);				//initialize the struct
 	
-	TimeBaseInit_PWM.TIM_Prescaler=3360;					//168MHz/50Khz
+	TimeBaseInit_PWM.TIM_Prescaler=3300; //168MHz/50Khz
 
-	TimeBaseInit_PWM.TIM_CounterMode = TIM_CounterMode_Up;	//counter mode up
-	TimeBaseInit_PWM.TIM_Period = 1000;						//50Khz/50Hz
+	TimeBaseInit_PWM.TIM_CounterMode = TIM_CounterMode_Up; //counter mode up
+	TimeBaseInit_PWM.TIM_Period = 1000; //50Khz/50Hz
 
-	TimeBaseInit_PWM.TIM_ClockDivision = 0x0000;			//is not used
+	TimeBaseInit_PWM.TIM_ClockDivision = 0x0000; //is not used
 
-	TimeBaseInit_PWM.TIM_RepetitionCounter = 0x0000;		//is not used	 
+	TimeBaseInit_PWM.TIM_RepetitionCounter = 0x0000; //is not used	 
 
 
 	if( (timer & TIMER10) == TIMER10 )
 	{
-		printf("timer10\n\r");
 		RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM10,ENABLE); // Enable APB2 clock on TIM10
 		TIM_TimeBaseInit(TIM10, &TimeBaseInit_PWM);          // Initialize TIM10
 		TIM_Cmd(TIM10, ENABLE);
@@ -59,7 +58,6 @@ void platform_initPWM(uint8_t timer){
 	
 	if( (timer & TIMER11) == TIMER11 )
 	{
-		printf("timer11\n\r");
 		RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM11,ENABLE); // Enable APB2 clock on TIM11
 		TIM_TimeBaseInit(TIM11, &TimeBaseInit_PWM);          // Initialize TIM11
 		TIM_Cmd(TIM11, ENABLE);
@@ -67,7 +65,6 @@ void platform_initPWM(uint8_t timer){
 	
 	if( (timer & TIMER13) == TIMER13 )
 	{
-		printf("timer13\n\r");
 		RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM13,ENABLE); // Enable APB1 clock on TIM13
 		TIM_TimeBaseInit(TIM13, &TimeBaseInit_PWM);          // Initialize TIM13
 		TIM_Cmd(TIM13, ENABLE);
@@ -75,15 +72,12 @@ void platform_initPWM(uint8_t timer){
 
 	if( (timer & TIMER14) == TIMER14 )
 	{
-		printf("timer14\n\r");
 		RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM14,ENABLE); // Enable APB1 clock on TIM14
 		TIM_TimeBaseInit(TIM14, &TimeBaseInit_PWM);          // Initialize TIM14
 		TIM_Cmd(TIM14, ENABLE);
 	}
 
 	// IO
-	
-	
 	GPIO_StructInit(&InitTypeDef_PWM);
 	InitTypeDef_PWM.GPIO_Pin = Pin_PWM_GPIOF;
 	InitTypeDef_PWM.GPIO_Speed = GPIO_Speed_50MHz;	        // Output maximum frequency at 100MHz
@@ -98,7 +92,8 @@ GPIO_PinAFConfig(GPIOF,GPIO_PinSource9,GPIO_AF_TIM14);
 }
 
 
-int platform_init_USART(USART_TypeDef *USARTx, uint32_t baudrate){
+int platform_init_USART(USART_TypeDef *USARTx, uint32_t baudrate)
+{
     GPIO_InitTypeDef init_GPIO_USART;
     USART_InitTypeDef init_USART;
 

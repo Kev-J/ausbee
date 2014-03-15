@@ -136,16 +136,28 @@ endmenu
 ## Programming interface menu
 menu "Programming interface"
 
+choice
+	prompt "Select programmer"
+
+config PROGRAMMING_STLINK
+	bool "STLink v2"
+
+config PROGRAMMING_USART
+	bool "STM32 USART"
+endchoice
+
 # Baudrate for flashing device
 config BAUDRATE_SERIAL_INTEFACE
 	string "Baudrate of serial programming interface"
 	default "115200"
+	depends on PROGRAMMING_USART
 	help
 		TODO
 # Serial interface for flashing device
 config PROGRAM_SERIAL_INTERFACE
 	string "Serial programming interface"
 	default "/dev/ttyUSB0"
+	depends on PROGRAMMING_USART
 	help
 		TODO
 

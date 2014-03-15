@@ -21,7 +21,7 @@ GCONF=$(KCONFIG_BUILD_PATH)/frontends/gconf/gconf
 
 ######################################################################
 # Build target
-all: $(OUTPUT_TARGET_HEX)
+all: $(OUTPUT_TARGET_BIN) $(OUTPUT_TARGET_HEX)
 
 include $(TOOLCHAIN_PATH)/toolchain.mk
 ifneq ($(SYSTEM_PATH),)
@@ -35,10 +35,9 @@ include $(PROJECT_PATH)/project.mk
 # Configuration tool
 
 # Load board configuration
-#TODO make something like %-defconfig
-.PHONY: main_board_v1-defconfig
-main_board_v1-defconfig: $(CONF) 
-	$(CONF) --defconfig=$(CONFIGS_PATH)/main_board_v1.config Kconfig
+.PHONY: %-defconfig
+%-defconfig: $(CONF) 
+	$(CONF) --defconfig=$(CONFIGS_PATH)/$@ Kconfig
 	mkdir -p include/
 	mkdir -p include/config include/generated
 	$(CONF) --silentoldconfig Kconfig
@@ -102,8 +101,15 @@ $(KCONFIG_BUILD_PATH)/Makefile:
 ######################################################################
 # Program and run
 .PHONY: program
+ifeq ($(CONFIG_PROGRAMMING_USART),y)
 program: $(OUTPUT_TARGET_HEX)
 	$(STM32FLASH) -w $(<) -b $(BAUDRATE_SERIAL_INTERFACE) -v -g 0x0 $(PROGRAM_SERIAL_INTERFACE)
+else
+ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
+program: $(OUTPUT_TARGET_BIN)
+	$(STM32FLASH) --reset write $(<) 0x08000000
+endif
+endif
 
 
 ######################################################################

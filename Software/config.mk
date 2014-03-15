@@ -30,7 +30,13 @@ UNZIP=unzip
 TOUCH=touch
 ECHO_E=@echo -e
 DOXYGEN=doxygen
+ifeq ($(CONFIG_PROGRAMMING_USART),y)
 STM32FLASH=stm32flash
+else
+ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
+STM32FLASH=st-flash
+endif
+endif
 
 ######################################################################
 # Path variables
@@ -38,9 +44,14 @@ DQUOTE="
 # Remove highlighting problem"
 
 INCLUDE_KCONFIG_PATH=$(CURDIR)/include
+
+#Configs
+CONFIGS_PATH=$(CURDIR)/Configs
+
 # Project output files
 OUTPUT_PATH=$(CURDIR)/output
 OUTPUT_TARGET_HEX=$(subst $(DQUOTE),,$(OUTPUT_PATH)/$(CONFIG_PROJECT_NAME).hex)
+OUTPUT_TARGET_BIN=$(subst $(DQUOTE),,$(OUTPUT_PATH)/$(CONFIG_PROJECT_NAME).bin)
 OUTPUT_TARGET_ELF=$(subst $(DQUOTE),,$(OUTPUT_PATH)/$(CONFIG_PROJECT_NAME).elf)
 
 # Toolchain

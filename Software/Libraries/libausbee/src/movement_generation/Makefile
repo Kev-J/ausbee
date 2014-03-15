@@ -1,14 +1,20 @@
-test_quadramp: test_quadramp.o graphic.o quadramp.o
-	g++ -Wall -Wextra $^ -o $@
+LDFLAGS=-lm
+CFLAGS=-Wall -Wextra -ggdb -O0
 
-test_quadramp.o: test_quadramp.cpp graphic.h quadramp.h
-	g++ -Wall -Wextra -c $<
+test_quadramp: test_quadramp.o graphic.o quadramp.o vector2.o
+	gcc ${CFLAGS} $^ -o $@ ${LDFLAGS}
 
-quadramp.o: quadramp.cpp quadramp.h
-	g++ -Wall -Wextra -c $<
+test_quadramp.o: test_quadramp.c graphic.h quadramp.h vector2.h
+	gcc ${CFLAGS} -c $<
 
-graphic.o: graphic.cpp graphic.h quadramp.h
-	g++ -Wall -Wextra -c $<
+quadramp.o: quadramp.c quadramp.h vector2.h
+	gcc ${CFLAGS} -c $<
+
+graphic.o: graphic.c graphic.h quadramp.h
+	gcc ${CFLAGS} -c $<
+
+vector2.o: vector2.c vector2.h
+	gcc ${CFLAGS} -c $<
 
 .PHONY: clean
 clean:

@@ -1,0 +1,90 @@
+#
+# Automatically generated file; DO NOT EDIT.
+# AUSBEE Configuration
+#
+
+#
+# Build options
+#
+CONFIG_PROJECT_NAME="project"
+
+#
+# Device options
+#
+CONFIG_ARM_CORE_CORTEX_M4=y
+# CONFIG_ARM_CORE_CORTEX_M3 is not set
+CONFIG_USE_FPU=y
+CONFIG_DEVICE_STM32F40_41xxx=y
+# CONFIG_DEVICE_STM32F427_437xx is not set
+# CONFIG_DEVICE_STM32F429_439xx is not set
+# CONFIG_DEVICE_STM32F401xx is not set
+CONFIG_CRYSTAL_FREQUENCY="8000000"
+CONFIG_RAM_LENGTH="192K"
+CONFIG_FLASH_LENGTH="1M"
+
+#
+# Debug options
+#
+CONFIG_DEBUG=y
+CONFIG_USART_DEBUG="USART1"
+
+#
+# Programming interface
+#
+# CONFIG_PROGRAMMING_STLINK is not set
+CONFIG_PROGRAMMING_USART=y
+CONFIG_BAUDRATE_SERIAL_INTEFACE="115200"
+CONFIG_PROGRAM_SERIAL_INTERFACE="/dev/ttyUSB0"
+
+#
+# Misc
+#
+CONFIG_DOWNLOADS_DIR="$(CURDIR)/downloads"
+
+#
+# Toolchain
+#
+CONFIG_TOOLCHAIN_TARGET_NAME="arm-none-eabi"
+CONFIG_DOWNLOAD_TOOLCHAIN=y
+CONFIG_TOOLCHAIN_MIRROR="https://launchpad.net/gcc-arm-embedded/4.7/4.7-2013-q3-update/+download/gcc-arm-none-eabi-4_7-2013q3-20130916-linux.tar.bz2"
+
+#
+# GCC/G++ options
+#
+CONFIG_TOOLCHAIN_COMMON_FLAGS="-Wall -Wextra -ffunction-sections -fdata-sections"
+CONFIG_TOOLCHAIN_CFLAGS=""
+CONFIG_TOOLCHAIN_CXXFLAGS="-fno-rtti -fno-exceptions"
+CONFIG_TOOLCHAIN_LDFLAGS="-Wl,--gc-sections -nostartfiles"
+CONFIG_OPTIMISATION="s"
+
+#
+# Libraries
+#
+# CONFIG_STM32F4XX_STDPERIPH_DRIVER is not set
+
+#
+# LIBAUSBEE (Select StdPeriph_Driver)
+#
+
+#
+# Operating System
+#
+CONFIG_OS_NONE=y
+# CONFIG_OS_USE_FREERTOS is not set
+
+#
+# Platforms
+#
+CONFIG_PLATFORM_NONE=y
+
+#
+# AUSBEE Main Board V0.1 require stm32f4xx_StdPeriph_Driver
+#
+
+#
+# STM32F4DISCOVERY require stm32f4xx_StdPeriph_Driver
+#
+
+#
+# AUSBEE Servo Module V0.1 require stm32f10x_StdPeriph_Driver
+#
