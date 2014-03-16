@@ -34,7 +34,6 @@ enum AUSBEE_L298_DRIVER_ERROR ausbee_l298_init_chip(ausbee_l298_chip chip)
 
 #ifdef STM32F4XX
 
-	TIM_DeInit(chip.TIMx);
 
 	TIM_TimeBaseStructInit(&TIM_TimeBaseInitTypeDef_TIMx);
 	RCC_GetClocksFreq(&RCC_Clocks);
