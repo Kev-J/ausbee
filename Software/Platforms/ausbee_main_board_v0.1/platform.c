@@ -86,9 +86,9 @@ void platform_initPWM(uint8_t timer){
 	InitTypeDef_PWM.GPIO_PuPd = GPIO_PuPd_NOPULL;			// No pull-up/ pull down
 	GPIO_Init(GPIOF, &InitTypeDef_PWM);                     // Initialize PWM Pin on GPIOF
 	GPIO_PinAFConfig(GPIOF,GPIO_PinSource6,GPIO_AF_TIM10);
-GPIO_PinAFConfig(GPIOF,GPIO_PinSource7,GPIO_AF_TIM11);
-GPIO_PinAFConfig(GPIOF,GPIO_PinSource8,GPIO_AF_TIM13);
-GPIO_PinAFConfig(GPIOF,GPIO_PinSource9,GPIO_AF_TIM14);
+	GPIO_PinAFConfig(GPIOF,GPIO_PinSource7,GPIO_AF_TIM11);
+	GPIO_PinAFConfig(GPIOF,GPIO_PinSource8,GPIO_AF_TIM13);
+	GPIO_PinAFConfig(GPIOF,GPIO_PinSource9,GPIO_AF_TIM14);
 }
 
 
@@ -135,7 +135,7 @@ int platform_init_USART(USART_TypeDef *USARTx, uint32_t baudrate)
 		GPIO_PinAFConfig(GPIOA, GPIO_PinSource2, GPIO_AF_USART2);
 		GPIO_PinAFConfig(GPIOA, GPIO_PinSource3, GPIO_AF_USART2);
 
-		//Init USART1
+		//Init USART2
 		init_USART.USART_BaudRate = baudrate;
 		init_USART.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
         USART_Init(USARTx, &init_USART);
@@ -147,7 +147,7 @@ int platform_init_USART(USART_TypeDef *USARTx, uint32_t baudrate)
         RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
 		RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
 		
-		//Select AF mode USART2 for pin PB6 and PB7
+		//Select AF mode USART1 for pin PB6 and PB7
 		init_GPIO_USART.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7;
         init_GPIO_USART.GPIO_Speed = GPIO_Speed_50MHz;
         init_GPIO_USART.GPIO_Mode = GPIO_Mode_AF;
@@ -168,6 +168,248 @@ int platform_init_USART(USART_TypeDef *USARTx, uint32_t baudrate)
     }
 
     return 0;
+}
+
+/* Brief function to initialize GPIO available on the board
+ * 
+ * gpio			: GPIOX where x is 1 to 9
+ * type			: define the type of IO, could be GPIO_OType_PP (push pull) or GPIO_OType_OD (open drain)
+ * mode			: mode of the pin, could be GPIO_Mode_IN,  GPIO_Mode_OUT, GPIO_Mode_AF (alternate function), GPIO_Mode_AN (analog)
+ * speed		: speed of the gpio, could be GPIO_Low_Speed, GPIO_Medium_Speed, GPIO_Fast_Speed, GPIO_High_Speed
+ * pull_up_down	: define the type of pull up/down resistor, could be GPIO_PuPd_NOPULL, GPIO_PuPd_UP, GPIO_PuPd_DOWN
+ * */
+void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed, uint8_t pull_up_down)
+{
+	//initialize the struct
+	GPIO_InitTypeDef GPIOInitStruct;
+	GPIO_StructInit(&GPIOInitStruct);
+
+	//Give the clock to the GPIO
+	if (gpio & GPIO1 || gpio & GPIO2)
+	{
+		printf("clock GPIO1\r\n");
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
+	}
+	if (gpio & GPIO3 || gpio & GPIO4 || gpio & GPIO5 || gpio & GPIO6 || gpio & GPIO7 || gpio & GPIO8 || gpio & GPIO9 )
+	{
+		printf("clock GPIO4\r\n");
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG, ENABLE);
+	}
+
+	//initialize value of the struct
+	if (gpio & GPIO1)
+	{
+		GPIOInitStruct.GPIO_Pin = PLATFORM_GPIO1_PIN;
+		GPIOInitStruct.GPIO_Speed = speed;
+		GPIOInitStruct.GPIO_Mode = mode;
+		GPIOInitStruct.GPIO_OType = type;
+		GPIOInitStruct.GPIO_PuPd = pull_up_down;
+		GPIO_Init(GPIOD,&GPIOInitStruct);
+		printf("gpio1\r\n");
+	}
+	if (gpio & GPIO2)
+	{
+		GPIOInitStruct.GPIO_Pin = PLATFORM_GPIO2_PIN;
+		GPIOInitStruct.GPIO_Speed = speed;
+		GPIOInitStruct.GPIO_Mode = mode;
+		GPIOInitStruct.GPIO_OType = type;
+		GPIOInitStruct.GPIO_PuPd = pull_up_down;
+		GPIO_Init(GPIOD,&GPIOInitStruct);
+		printf("gpio2\r\n");
+	}
+	if (gpio & GPIO3)
+	{
+		GPIOInitStruct.GPIO_Pin = PLATFORM_GPIO3_PIN;
+		GPIOInitStruct.GPIO_Speed = speed;
+		GPIOInitStruct.GPIO_Mode = mode;
+		GPIOInitStruct.GPIO_OType = type;
+		GPIOInitStruct.GPIO_PuPd = pull_up_down;
+		GPIO_Init(GPIOG,&GPIOInitStruct);
+		printf("gpio3\r\n");
+	}
+	if (gpio & GPIO4)
+	{
+		GPIOInitStruct.GPIO_Pin = PLATFORM_GPIO4_PIN;
+		GPIOInitStruct.GPIO_Speed = speed;
+		GPIOInitStruct.GPIO_Mode = mode;
+		GPIOInitStruct.GPIO_OType = type;
+		GPIOInitStruct.GPIO_PuPd = pull_up_down;
+		GPIO_Init(GPIOG,&GPIOInitStruct);
+		printf("gpio4\r\n");
+	}
+	if (gpio & GPIO5)
+	{
+		GPIOInitStruct.GPIO_Pin = PLATFORM_GPIO5_PIN;
+		GPIOInitStruct.GPIO_Speed = speed;
+		GPIOInitStruct.GPIO_Mode = mode;
+		GPIOInitStruct.GPIO_OType = type;
+		GPIOInitStruct.GPIO_PuPd = pull_up_down;
+		GPIO_Init(GPIOG,&GPIOInitStruct);
+		printf("gpio5\r\n");
+	}
+	if (gpio & GPIO6)
+	{
+		GPIOInitStruct.GPIO_Pin = PLATFORM_GPIO6_PIN;
+		GPIOInitStruct.GPIO_Speed = speed;
+		GPIOInitStruct.GPIO_Mode = mode;
+		GPIOInitStruct.GPIO_OType = type;
+		GPIOInitStruct.GPIO_PuPd = pull_up_down;
+		GPIO_Init(GPIOG,&GPIOInitStruct);
+		printf("gpio6\r\n");
+	}
+	if (gpio & GPIO7)
+	{
+		GPIOInitStruct.GPIO_Pin = PLATFORM_GPIO7_PIN;
+		GPIOInitStruct.GPIO_Speed = speed;
+		GPIOInitStruct.GPIO_Mode = mode;
+		GPIOInitStruct.GPIO_OType = type;
+		GPIOInitStruct.GPIO_PuPd = pull_up_down;
+		GPIO_Init(GPIOG,&GPIOInitStruct);
+		printf("gpio7\r\n");
+	}
+	if (gpio & GPIO8)
+	{
+		GPIOInitStruct.GPIO_Pin = PLATFORM_GPIO8_PIN;
+		GPIOInitStruct.GPIO_Speed = speed;
+		GPIOInitStruct.GPIO_Mode = mode;
+		GPIOInitStruct.GPIO_OType = type;
+		GPIOInitStruct.GPIO_PuPd = pull_up_down;
+		GPIO_Init(GPIOG,&GPIOInitStruct);
+		printf("gpio8\r\n");
+	}
+	if (gpio & GPIO9)
+	{
+		GPIOInitStruct.GPIO_Pin = PLATFORM_GPIO9_PIN;
+		GPIOInitStruct.GPIO_Speed = speed;
+		GPIOInitStruct.GPIO_Mode = mode;
+		GPIOInitStruct.GPIO_OType = type;
+		GPIOInitStruct.GPIO_PuPd = pull_up_down;
+		GPIO_Init(GPIOG,&GPIOInitStruct);
+		printf("gpio9\r\n");
+	}
+
+}
+
+void platform_set_GPIO(uint16_t gpio)
+{
+	if ((gpio & GPIO1) == GPIO1)
+	{
+		printf("set1\r\n");
+		GPIO_SetBits(PLATFORM_GPIO1_PORT, PLATFORM_GPIO1_PIN);
+	}
+	if ((gpio & GPIO2) == GPIO2)
+	{
+		printf("set2\r\n");
+		GPIO_SetBits(PLATFORM_GPIO2_PORT, PLATFORM_GPIO2_PIN);
+	}
+	if ((gpio & GPIO3) == GPIO3)
+	{
+		printf("set3\r\n");
+		GPIO_SetBits(PLATFORM_GPIO3_PORT, PLATFORM_GPIO3_PIN);
+	}
+	if ((gpio & GPIO4) == GPIO4)
+	{
+		printf("set4\r\n");
+		GPIO_SetBits(PLATFORM_GPIO4_PORT, PLATFORM_GPIO4_PIN);
+	}
+	if ((gpio & GPIO5) == GPIO5)
+	{
+		printf("set5\r\n");
+		GPIO_SetBits(PLATFORM_GPIO5_PORT, PLATFORM_GPIO5_PIN);
+	}
+	if ((gpio & GPIO6) == GPIO6)
+	{
+		printf("set6\r\n");
+		GPIO_SetBits(PLATFORM_GPIO6_PORT, PLATFORM_GPIO6_PIN);
+	}
+	if ((gpio & GPIO7) == GPIO7)
+	{
+		printf("set7\r\n");
+		GPIO_SetBits(PLATFORM_GPIO7_PORT, PLATFORM_GPIO7_PIN);
+	}
+	if ((gpio & GPIO8) == GPIO8)
+	{
+		printf("set8\r\n");
+		GPIO_SetBits(PLATFORM_GPIO8_PORT, PLATFORM_GPIO8_PIN);
+	}
+	if ((gpio & GPIO9) == GPIO9)
+	{
+		printf("set9\r\n");
+		GPIO_SetBits(PLATFORM_GPIO9_PORT, PLATFORM_GPIO9_PIN);
+	}
+}
+
+void platform_reset_GPIO(uint16_t gpio)
+{
+	if ((gpio & GPIO1) == GPIO1)
+	{
+		printf("reset1\r\n");
+		GPIO_ResetBits(PLATFORM_GPIO1_PORT, PLATFORM_GPIO1_PIN);
+	}
+	if ((gpio & GPIO2) == GPIO2)
+	{
+		printf("reset2\r\n");
+		GPIO_ResetBits(PLATFORM_GPIO2_PORT, PLATFORM_GPIO2_PIN);
+	}
+	if ((gpio & GPIO3) == GPIO3)
+	{
+		printf("reset3\r\n");
+		GPIO_ResetBits(PLATFORM_GPIO3_PORT, PLATFORM_GPIO3_PIN);
+	}
+	if ((gpio & GPIO4) == GPIO4)
+	{
+		printf("reset4\r\n");
+		GPIO_ResetBits(PLATFORM_GPIO4_PORT, PLATFORM_GPIO4_PIN);
+	}
+	if ((gpio & GPIO5) == GPIO5)
+	{
+		printf("reset5\r\n");
+		GPIO_ResetBits(PLATFORM_GPIO5_PORT, PLATFORM_GPIO5_PIN);
+	}
+	if ((gpio & GPIO6) == GPIO6)
+	{
+		printf("reset6\r\n");
+		GPIO_ResetBits(PLATFORM_GPIO6_PORT, PLATFORM_GPIO6_PIN);
+	}
+	if ((gpio & GPIO7) == GPIO7)
+	{
+		printf("reset7\r\n");
+		GPIO_ResetBits(PLATFORM_GPIO7_PORT, PLATFORM_GPIO7_PIN);
+	}
+	if ((gpio & GPIO8) == GPIO8)
+	{
+		printf("reset8\r\n");
+		GPIO_ResetBits(PLATFORM_GPIO8_PORT, PLATFORM_GPIO8_PIN);
+	}
+	if ((gpio & GPIO9) == GPIO9)
+	{
+		printf("reset9\r\n");
+		GPIO_ResetBits(PLATFORM_GPIO9_PORT, PLATFORM_GPIO9_PIN);
+	}
+}
+
+uint8_t platform_GPIO_get_value(uint16_t gpio)
+{
+	uint8_t return_value;
+	if (gpio & GPIO1)
+		return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO1_PORT, PLATFORM_GPIO1_PIN);
+	if (gpio & GPIO2)
+		return GPIO_ReadInputDataBit(PLATFORM_GPIO2_PORT, PLATFORM_GPIO2_PIN);
+	if (gpio & GPIO3)
+		return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO3_PORT, PLATFORM_GPIO3_PIN);
+	if (gpio & GPIO4)
+		return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO4_PORT, PLATFORM_GPIO4_PIN);
+	if (gpio & GPIO5)
+		return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO5_PORT, PLATFORM_GPIO5_PIN);
+	if (gpio & GPIO6)
+		return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO6_PORT, PLATFORM_GPIO6_PIN);
+	if (gpio & GPIO7)
+		return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO7_PORT, PLATFORM_GPIO7_PIN);
+	if (gpio & GPIO8)
+		return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO8_PORT, PLATFORM_GPIO8_PIN);
+	if (gpio & GPIO9)
+		return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO9_PORT, PLATFORM_GPIO9_PIN);
+return return_value;
 }
 
 void platform_init_LED(void)
@@ -234,6 +476,7 @@ void platform_reset_led(uint8_t led)
     if (led & PLATFORM_LED7)
         GPIO_ResetBits(GPIOG, GPIO_Pin_14);
 }
+
 
 void platform_toggle_led(uint8_t led)
 {

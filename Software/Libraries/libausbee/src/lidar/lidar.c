@@ -24,7 +24,7 @@
 
 #include <AUSBEE/lidar.h>
 
-void ausbee_lidar_parse_piccolo(unsigned char frame[AUSBEE_LIDAR_PICCOLO_FRAME_LENGTH], struct ausbee_lidar_data data[AUSBEE_LIDAR_PICCOLO_DATA_LENGTH])
+void ausbee_lidar_parse_piccolo(unsigned char frame[AUSBEE_LIDAR_PICCOLO_FRAME_LENGTH], ausbee_lidar_data data[AUSBEE_LIDAR_PICCOLO_DATA_LENGTH])
 {
     int i;
 

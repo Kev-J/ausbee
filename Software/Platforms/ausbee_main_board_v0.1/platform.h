@@ -90,6 +90,19 @@
 #define PLATFORM_GPIO9_PORT GPIOG 
 #define PLATFORM_GPIO9_PIN GPIO_Pin_8
 
+#define GPIO1 0x01
+#define GPIO2 0x02
+#define GPIO3 0x04
+#define GPIO4 0x08
+#define GPIO5 0x10
+#define GPIO6 0x20
+#define GPIO7 0x40
+#define GPIO8 0x80
+#define GPIO9 0x100
+#define GPIOALL GPIO1|GPIO2|GPIO3|GPIO4|GPIO5|GPIO6|GPIO7|GPIO8|GPIO9
+
+
+
 /*********
  * Servo *
  ********/
@@ -122,11 +135,17 @@
 void platform_init_HSE_PLL(void);
 void platform_init_LED(void);
 
-
 void platform_initPWM(uint8_t timer);
 void platform_set_led(uint8_t led);
 void platform_reset_led(uint8_t led);
 void platform_toggle_led(uint8_t led);
+
+void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed, uint8_t pull_up_down);
+
+void platform_set_GPIO(uint16_t gpio);
+void platform_reset_GPIO(uint16_t gpio);
+
+uint8_t platform_GPIO_get_value(uint16_t gpio);
 
 int platform_init_USART(USART_TypeDef *USARTx, uint32_t baudrate);
 

@@ -35,7 +35,7 @@
 #define AUSBEE_LIDAR_PICCOLO_FRAME_LENGTH 22
 #define AUSBEE_LIDAR_PICCOLO_DATA_LENGTH 4
 
-struct ausbee_lidar_data{
+typedef struct{
 	uint16_t angle; // Angle of the point
 	int speed; // Speed of the Lidar
 	int distance_mm; // Measured distance
@@ -43,8 +43,8 @@ struct ausbee_lidar_data{
 	uint8_t error; // 1 if an error is encountered
 	uint8_t strengthWarning; // 1 if the signal strength is too low
 	uint8_t error_code; // Error code in case of error
-};
+}ausbee_lidar_data;
 
-void ausbee_lidar_parse_piccolo(unsigned char frame[AUSBEE_LIDAR_PICCOLO_FRAME_LENGTH], struct ausbee_lidar_data data[AUSBEE_LIDAR_PICCOLO_DATA_LENGTH]);
+void ausbee_lidar_parse_piccolo(unsigned char frame[AUSBEE_LIDAR_PICCOLO_FRAME_LENGTH], ausbee_lidar_data data[AUSBEE_LIDAR_PICCOLO_DATA_LENGTH]);
 
 #endif
