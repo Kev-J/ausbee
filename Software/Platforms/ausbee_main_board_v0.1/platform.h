@@ -106,6 +106,13 @@
 /*********
  * Servo *
  ********/
+// Servo
+#define SERVO1 0x01
+#define SERVO2 0x02
+#define SERVO3 0x04
+#define SERVO4 0x08
+#define SERVOALL SERVO1|SERVO2|SERVO3|SERVO4
+
 /* PWM */
 #define Pin_PWM1 GPIO_Pin_6 
 #define Pin_PWM2 GPIO_Pin_7
