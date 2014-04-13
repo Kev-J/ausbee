@@ -8,7 +8,7 @@ Project/src/*
 System-CM4/link.ld
 Toolchain/arm-none-eabi.extracted
 Toolchain/arm-none-eabi/
-downloads/
-include/
+downloads/*
+include/*
 kconfig-frontends/build/
-output/
+output/*
