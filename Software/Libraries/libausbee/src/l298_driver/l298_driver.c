@@ -25,7 +25,7 @@
 #include <stm32f4xx_rcc.h>
 #include <stm32f4xx_gpio.h>
 
-enum AUSBEE_L298_DRIVER_ERROR ausbee_l298_init_chip(ausbee_l298_chip chip)
+enum AUSBEE_L298_DRIVER_ERROR ausbee_l298_init_chip(struct ausbee_l298_chip chip)
 {
 	uint32_t pclk, period;
 	TIM_OCInitTypeDef TIM_OCInitTypeDef_TIMx;
@@ -94,7 +94,7 @@ enum AUSBEE_L298_DRIVER_ERROR ausbee_l298_init_chip(ausbee_l298_chip chip)
 #endif 
 }
 
-void ausbee_l298_enable_chip(ausbee_l298_chip chip, uint8_t enable)
+void ausbee_l298_enable_chip(struct ausbee_l298_chip chip, uint8_t enable)
 {
 	if (enable) {
 		GPIO_SetBits(chip.gpio_enable_port, chip.gpio_enable_pin);
@@ -103,7 +103,7 @@ void ausbee_l298_enable_chip(ausbee_l298_chip chip, uint8_t enable)
 	}
 }
 
-void ausbee_l298_invert_output(ausbee_l298_chip chip, uint8_t enable)
+void ausbee_l298_invert_output(struct ausbee_l298_chip chip, uint8_t enable)
 {
 	uint16_t polarity;
 	if (enable) {
@@ -125,7 +125,7 @@ void ausbee_l298_invert_output(ausbee_l298_chip chip, uint8_t enable)
 	}
 }
 
-void ausbee_l298_set_duty_cycle(ausbee_l298_chip chip, uint8_t duty_cycle)
+void ausbee_l298_set_duty_cycle(struct ausbee_l298_chip chip, uint8_t duty_cycle)
 {
 	uint32_t duty;
 
