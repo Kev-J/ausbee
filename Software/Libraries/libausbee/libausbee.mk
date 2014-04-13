@@ -37,7 +37,7 @@ LIBAUSBEE_SRC_FILES+=$(LIBAUSBEE_SRC_PATH)/ax12/ax12.c
 endif
 
 ifeq ($(CONFIG_LIBAUSBEE_CONTROLLER),y)
-LIBAUSBEE_SRC_FILES+=$(LIBAUSBEE_SRC_PATH)/controller/pid.c
+LIBAUSBEE_SRC_FILES+=$(LIBAUSBEE_SRC_PATH)/control_system/controller/pid.c
 endif
 
 # Object files list
