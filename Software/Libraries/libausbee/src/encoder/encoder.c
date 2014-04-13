@@ -49,6 +49,11 @@ void ausbee_init_sampling_timer(TIM_TypeDef *TIMX, int32_t prescaler, int32_t pe
 
 void ausbee_encoder_init_timer(TIM_TypeDef *TIMX)
 {
+  if (TIMX == TIM3)
+  {
+    RCC_APB1PeriphClockCmd(RCC_APB1ENR_TIM3EN, ENABLE);
+  }
+
   TIM_TimeBaseInitTypeDef timeBaseInitTypeDef;
 
   TIM_TimeBaseStructInit(&timeBaseInitTypeDef);
