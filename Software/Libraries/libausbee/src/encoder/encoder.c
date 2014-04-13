@@ -4,19 +4,12 @@
 #include <stm32f4xx.h>
 #include <stm32f4xx_tim.h>
 
-
-
-
-
-
-
-void ausbee_init_sampling_timer( TIM_TypeDef *TIMX, int32_t prescaler, int32_t period)
+void ausbee_init_sampling_timer(TIM_TypeDef *TIMX, int32_t prescaler, int32_t period)
 {
-  // TODO : Verify if another timer can be used
+  // TODO : Check if another timer can be used
 
-  if( TIMX == TIM8)
+  if (TIMX == TIM8)
   {
-
     TIM_TimeBaseInitTypeDef timeBaseInitTypeDef;
 
     RCC_APB2PeriphClockCmd(RCC_APB2ENR_TIM8EN, ENABLE);
@@ -33,7 +26,7 @@ void ausbee_init_sampling_timer( TIM_TypeDef *TIMX, int32_t prescaler, int32_t p
 
     TIM_Cmd(TIM8, ENABLE);
   }
-  else if ( TIMX == TIM1)
+  else if (TIMX == TIM1)
   {
     TIM_TimeBaseInitTypeDef timeBaseInitTypeDef;
 
@@ -53,19 +46,18 @@ void ausbee_init_sampling_timer( TIM_TypeDef *TIMX, int32_t prescaler, int32_t p
 
   }
 }
+
 void ausbee_encoder_init_timer(TIM_TypeDef *TIMX)
 {
-	TIM_TimeBaseInitTypeDef timeBaseInitTypeDef;
+  TIM_TimeBaseInitTypeDef timeBaseInitTypeDef;
 
-	TIM_TimeBaseStructInit(&timeBaseInitTypeDef);
+  TIM_TimeBaseStructInit(&timeBaseInitTypeDef);
 
-	timeBaseInitTypeDef.TIM_Period = 0xFFFF;
+  timeBaseInitTypeDef.TIM_Period = 0xFFFF;
 
-	TIM_TimeBaseInit(TIMX, &timeBaseInitTypeDef);
+  TIM_TimeBaseInit(TIMX, &timeBaseInitTypeDef);
 
-	TIM_TIxExternalClockConfig(TIMX, TIM_TS_TI1FP1, TIM_ICPolarity_Rising, 0x0);
+  TIM_TIxExternalClockConfig(TIMX, TIM_TS_TI1FP1, TIM_ICPolarity_Rising, 0x0);
 
-	TIM_Cmd(TIMX, ENABLE);
+  TIM_Cmd(TIMX, ENABLE);
 }
-
-

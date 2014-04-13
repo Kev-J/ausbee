@@ -19,6 +19,13 @@ config LIBAUSBEE_L298_DRIVER
 	help
 		TODO
 
+config LIBAUSBEE_ENCODER
+	bool "+ ENCODER"
+	default n
+	depends on LIBAUSBEE
+	help
+		Encoder init and reading module.
+
 config LIBAUSBEE_SERVO
 	bool "+ SERVO"
 	default n
