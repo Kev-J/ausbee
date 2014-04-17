@@ -50,6 +50,10 @@ CONFIGS_PATH=$(CURDIR)/Configs
 
 # Project output files
 OUTPUT_PATH=$(CURDIR)/output
+# A subdir is defined, use it as ouput directory
+ifneq ($(origin OUTPUT_SUB_PATH), undefined)
+	OUTPUT_PATH=$(CURDIR)/output/$(OUTPUT_SUB_PATH)
+endif
 OUTPUT_TARGET_HEX=$(subst $(DQUOTE),,$(OUTPUT_PATH)/$(CONFIG_PROJECT_NAME).hex)
 OUTPUT_TARGET_BIN=$(subst $(DQUOTE),,$(OUTPUT_PATH)/$(CONFIG_PROJECT_NAME).bin)
 OUTPUT_TARGET_ELF=$(subst $(DQUOTE),,$(OUTPUT_PATH)/$(CONFIG_PROJECT_NAME).elf)

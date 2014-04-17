@@ -1,9 +1,12 @@
+# Choose source files directory
+PROJECT_SRC_DIR?=src
+
 PROJECT_INCLUDES_DIR = $(FREERTOS_INCLUDES_DIR) # Add FREERTOS include files
 PROJECT_INCLUDES_DIR += $(PLATFORMS_INCLUDES_DIR)
 PROJECT_INCLUDES_DIR += $(LIBRARIES_INCLUDES_DIR)
 PROJECT_INCLUDES_DIR += $(SYSTEM_INCLUDES_DIR)
 
-PROJECT_SRC_FILES=$(wildcard $(PROJECT_PATH)/src/*.c)
+PROJECT_SRC_FILES=$(wildcard $(PROJECT_PATH)/$(PROJECT_SRC_DIR)/*.c)
 PROJECT_OBJ_FILES=$(patsubst %.c,%.o,${PROJECT_SRC_FILES})
 
 # Add project obj files to the global obj files list
