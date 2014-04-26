@@ -1,12 +1,22 @@
 # Choose source files directory
 PROJECT_SRC_DIR?=src
 
+# Get subproject configuration file if it exists
+# The main purpose of this sub config file is to provide a way to have
+# source files in subdirectories and still be able to add them in
+# PROJECT_SRC_FILES
+SUBPROJECT_CONFIG_FILE=$(PROJECT_PATH)/$(PROJECT_SRC_DIR)/subproject.mk
+ifneq ("$(wildcard $(SUBPROJECT_CONFIG_FILE))", "")
+include $(SUBPROJECT_CONFIG_FILE)
+endif
+
 PROJECT_INCLUDES_DIR = $(FREERTOS_INCLUDES_DIR) # Add FREERTOS include files
 PROJECT_INCLUDES_DIR += $(PLATFORMS_INCLUDES_DIR)
 PROJECT_INCLUDES_DIR += $(LIBRARIES_INCLUDES_DIR)
 PROJECT_INCLUDES_DIR += $(SYSTEM_INCLUDES_DIR)
 
-PROJECT_SRC_FILES=$(wildcard $(PROJECT_PATH)/$(PROJECT_SRC_DIR)/*.c)
+# Additional source files might have been defined in a subproject config file
+PROJECT_SRC_FILES+=$(wildcard $(PROJECT_PATH)/$(PROJECT_SRC_DIR)/*.c)
 PROJECT_OBJ_FILES=$(patsubst %.c,%.o,${PROJECT_SRC_FILES})
 
 # Add project obj files to the global obj files list
