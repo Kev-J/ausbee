@@ -38,7 +38,7 @@ void ausbee_cs_init(struct ausbee_cs *cs)
 }
 
 void ausbee_cs_set_controller(struct ausbee_cs *cs,
-    int32_t (*controller)(struct ausbee_pid *, int32_t),
+    int32_t (*controller)(void *, int32_t),
     void * controller_params)
 {
   cs->controller = controller;
@@ -64,10 +64,10 @@ void ausbee_cs_update(struct ausbee_cs *cs, int32_t measure)
 {
   cs->measure = measure;
 
-  struct ausbee_pid *pid = (struct ausbee_pid *)cs->controller_params;
-  cs->command = cs->controller(pid, cs->measure);
+  cs->command = cs->controller(cs->controller_params, cs->measure);
 
-  printf("pid output command: %d\r\n", cs->command);
+  // TODO: Create a printf_debug function for this kind of thing
+  printf("Controller output command: %d\r\n", cs->command);
   cs->process_command(cs->process_command_params, cs->command);
 }
 

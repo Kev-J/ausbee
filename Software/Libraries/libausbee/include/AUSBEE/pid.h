@@ -42,7 +42,7 @@ struct ausbee_pid {
 };
 
 void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd, int32_t reference, int32_t max_output, int32_t min_output);
-int32_t ausbee_eval_pid(struct ausbee_pid *pid, int32_t measure);
+int32_t ausbee_eval_pid(void *pid, int32_t measure);
 
 /** 
   * \}

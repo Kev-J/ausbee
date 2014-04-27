@@ -10,8 +10,6 @@
 #ifndef CONTROL_SYSTEM_MANAGER_H
 #define CONTROL_SYSTEM_MANAGER_H
 
-#include "AUSBEE/pid.h"
-
 /** \addtogroup Libausbee
   * \{
   */
@@ -30,7 +28,7 @@
  *
  */
 struct ausbee_cs {
-  int32_t (*controller)(struct ausbee_pid *, int32_t);
+  int32_t (*controller)(void *, int32_t);
   void * controller_params;
 
   void (*process_command)(void *, int32_t);
@@ -42,9 +40,8 @@ struct ausbee_cs {
 
 void ausbee_cs_init(struct ausbee_cs *cs);
 
-// TODO: ausbee_pid struct shouldn't appear here. To be replaced by a void *
 void ausbee_cs_set_controller(struct ausbee_cs *cs,
-    int32_t (*controller)(struct ausbee_pid *, int32_t),
+    int32_t (*controller)(void *, int32_t),
     void * controller_params);
 
 void ausbee_cs_set_process_command(struct ausbee_cs *cs,

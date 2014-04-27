@@ -50,16 +50,18 @@ void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd,
   * \fn int32_t ausbee_eval_pid(struct ausbee_pid *pid, int32_t measure)
   * \brief Compute PID control with the last measure.
   *
-  * \param pid Structure reference.
+  * \param pid Generic structure reference.
   * \param measure Current measured value.
   *
   * \return Output value of the controller (i.e. the command).
   *
   */
-int32_t ausbee_eval_pid(struct ausbee_pid *pid, int32_t measure)
+int32_t ausbee_eval_pid(void *controller, int32_t measure)
 {
   int32_t error;
   int32_t output;
+
+  struct ausbee_pid *pid = (struct ausbee_pid *)controller;
 
   error = pid->reference - measure;
 
