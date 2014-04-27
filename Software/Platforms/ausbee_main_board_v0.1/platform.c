@@ -571,6 +571,23 @@ void platform_init_io_motor2(void)
 	GPIO_PinAFConfig(GPIOE, PLATFORM_PWM_MOTOR2_PIN_SOURCE, PLATFORM_PWM_MOTOR2_GPIO_AF);
 }
 
+void platform_encoder1_init(void)
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+
+	GPIO_InitStructure.GPIO_Pin = PLATFORM_ENCODER1_A_PIN;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+	GPIO_InitStructure.GPIO_Speed = GPIO_High_Speed;
+
+	GPIO_Init(PLATFORM_ENCODER1_PORT, &GPIO_InitStructure);
+
+	GPIO_PinAFConfig(GPIOC, PLATFORM_ENCODER1_PIN_SOURCE, PLATFORM_ENCODER1_GPIO_AF);
+
+	GPIO_StructInit(&GPIO_InitStructure);
+}
+
 void platform_encoder2_init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;

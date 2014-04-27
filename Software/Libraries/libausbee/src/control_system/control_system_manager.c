@@ -71,6 +71,7 @@ void ausbee_cs_set_process_command(struct ausbee_cs *cs,
 void ausbee_cs_update(struct ausbee_cs *cs, int32_t measure)
 {
   cs->measure = measure;
+  debug_printf("[csm] Input measure: %d\r\n", measure);
 
   cs->command = cs->controller(cs->controller_params, cs->measure);
 

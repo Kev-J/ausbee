@@ -62,6 +62,12 @@
 /************
  * Encoders *
  ************/
+#define PLATFORM_ENCODER1_A_PIN GPIO_Pin_9
+#define PLATFORM_ENCODER1_B_PIN GPIO_Pin_11
+#define PLATFORM_ENCODER1_PORT GPIOE
+#define PLATFORM_ENCODER1_GPIO_AF GPIO_AF_TIM1
+#define PLATFORM_ENCODER1_PIN_SOURCE GPIO_PinSource9
+
 #define PLATFORM_ENCODER2_A_PIN GPIO_Pin_6
 #define PLATFORM_ENCODER2_B_PIN GPIO_Pin_7
 #define PLATFORM_ENCODER2_PORT GPIOC
@@ -159,6 +165,7 @@ int platform_init_USART(USART_TypeDef *USARTx, uint32_t baudrate);
 void platform_init_io_motor1(void);
 void platform_init_io_motor2(void);
 
+void platform_encoder1_init(void);
 void platform_encoder2_init(void);
 
 int platform_CAN_init(CAN_TypeDef* CANx);
