@@ -6,11 +6,19 @@
  * Control system manager implementation file.
  *
  */
-#include <stdio.h>
 #include <stdlib.h>
-#include "AUSBEE/device.h"
-#include "AUSBEE/control_system_manager.h"
+#include <AUSBEE/device.h>
 #include <AUSBEE/l298_driver.h>
+#include <AUSBEE/control_system_manager.h>
+
+#define AUSBEE_DEBUG_PRINTF 1
+
+#if AUSBEE_DEBUG_PRINTF == 1
+#include <stdio.h>
+#define debug_printf(args...) do { printf(args); } while(0)
+#else
+#define debug_printf(args...) do { } while(0)
+#endif
 
 /** \addtogroup Libausbee
   * \{
@@ -66,8 +74,7 @@ void ausbee_cs_update(struct ausbee_cs *cs, int32_t measure)
 
   cs->command = cs->controller(cs->controller_params, cs->measure);
 
-  // TODO: Create a printf_debug function for this kind of thing
-  printf("Controller output command: %d\r\n", cs->command);
+  debug_printf("[csm] Controller output command: %d\r\n", cs->command);
   cs->process_command(cs->process_command_params, cs->command);
 }
 
