@@ -7,6 +7,7 @@
  *
  */
 #include <stdlib.h>
+#include <inttypes.h>
 #include <AUSBEE/device.h>
 #include <AUSBEE/l298_driver.h>
 #include <AUSBEE/control_system_manager.h>
@@ -71,11 +72,11 @@ void ausbee_cs_set_process_command(struct ausbee_cs *cs,
 void ausbee_cs_update(struct ausbee_cs *cs, int32_t measure)
 {
   cs->measure = measure;
-  debug_printf("[csm] Input measure: %d\r\n", measure);
+  debug_printf("[csm] Input measure: %"PRId32"\r\n", measure);
 
   cs->command = cs->controller(cs->controller_params, cs->measure);
 
-  debug_printf("[csm] Controller output command: %d\r\n", cs->command);
+  debug_printf("[csm] Controller output command: %"PRId32"\r\n", cs->command);
   cs->process_command(cs->process_command_params, cs->command);
 }
 
