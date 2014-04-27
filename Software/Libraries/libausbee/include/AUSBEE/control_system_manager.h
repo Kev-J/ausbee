@@ -33,15 +33,25 @@ struct ausbee_cs {
   int32_t (*controller)(struct ausbee_pid *, int32_t);
   void * controller_params;
 
+  void (*process_command)(void *, int32_t);
+  void * process_command_params;
+
   int32_t measure; /*!< Last measured value. */
   int32_t command; /*!< Last command computed by the controller. */
 };
 
 void ausbee_cs_init(struct ausbee_cs *cs);
+
+// TODO: ausbee_pid struct shouldn't appear here. To be replaced by a void *
 void ausbee_cs_set_controller(struct ausbee_cs *cs,
     int32_t (*controller)(struct ausbee_pid *, int32_t),
     void * controller_params);
-void ausbee_cs_update(void *cs);
+
+void ausbee_cs_set_process_command(struct ausbee_cs *cs,
+    void (*process_command)(void *, int32_t),
+    void * process_command_params);
+
+void ausbee_cs_update(struct ausbee_cs *cs, int32_t measure);
 
 /**
   * \}
