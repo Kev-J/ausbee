@@ -575,7 +575,7 @@ void platform_encoder1_init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+	RCC_AHB1PeriphClockCmd(PLATFORM_ENCODER1_PERIPH_CLOCK_PORT, ENABLE);
 
 	GPIO_InitStructure.GPIO_Pin = PLATFORM_ENCODER1_A_PIN;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
@@ -583,7 +583,7 @@ void platform_encoder1_init(void)
 
 	GPIO_Init(PLATFORM_ENCODER1_PORT, &GPIO_InitStructure);
 
-	GPIO_PinAFConfig(GPIOC, PLATFORM_ENCODER1_PIN_SOURCE, PLATFORM_ENCODER1_GPIO_AF);
+	GPIO_PinAFConfig(PLATFORM_ENCODER1_PORT, PLATFORM_ENCODER1_PIN_SOURCE, PLATFORM_ENCODER1_GPIO_AF);
 
 	GPIO_StructInit(&GPIO_InitStructure);
 }
@@ -592,7 +592,7 @@ void platform_encoder2_init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+	RCC_AHB1PeriphClockCmd(PLATFORM_ENCODER2_PERIPH_CLOCK_PORT, ENABLE);
 	
 	GPIO_InitStructure.GPIO_Pin = PLATFORM_ENCODER2_A_PIN;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
@@ -600,7 +600,7 @@ void platform_encoder2_init(void)
 
 	GPIO_Init(PLATFORM_ENCODER2_PORT, &GPIO_InitStructure);
 
-	GPIO_PinAFConfig(GPIOC, PLATFORM_ENCODER2_PIN_SOURCE, PLATFORM_ENCODER2_GPIO_AF);
+	GPIO_PinAFConfig(PLATFORM_ENCODER2_PORT, PLATFORM_ENCODER2_PIN_SOURCE, PLATFORM_ENCODER2_GPIO_AF);
 
 	GPIO_StructInit(&GPIO_InitStructure);
 }
