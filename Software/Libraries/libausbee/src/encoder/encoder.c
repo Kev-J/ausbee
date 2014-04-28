@@ -1,8 +1,7 @@
-#include <stdlib.h>
-#include <stdio.h>
+#include "AUSBEE/encoder.h"
+#include "AUSBEE/device.h"
 
 #include <stm32f4xx.h>
-#include <stm32f4xx_tim.h>
 #include <stm32f4xx_rcc.h>
 
 void ausbee_init_sampling_timer(TIM_TypeDef *TIMX, int32_t prescaler, int32_t period)
@@ -44,13 +43,13 @@ void ausbee_init_sampling_timer(TIM_TypeDef *TIMX, int32_t prescaler, int32_t pe
     TIM_ITConfig(TIM1, TIM_IT_Update, ENABLE);
 
     TIM_Cmd(TIM1, ENABLE);
-
   }
 }
 
 /* TODO Add encoder type support (simple or quadrature) */
 void ausbee_encoder_init_timer(TIM_TypeDef *TIMX)
 {
+#ifdef STM32F4XX
   if (TIMX == TIM1)
   {
     RCC_APB2PeriphClockCmd(RCC_APB2ENR_TIM1EN, ENABLE);
@@ -60,6 +59,9 @@ void ausbee_encoder_init_timer(TIM_TypeDef *TIMX)
   {
     RCC_APB1PeriphClockCmd(RCC_APB1ENR_TIM3EN, ENABLE);
   }
+#else
+#error Function not supported for this device /* TODO */
+#endif
 
   TIM_TimeBaseInitTypeDef timeBaseInitTypeDef;
 
