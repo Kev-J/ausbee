@@ -13,6 +13,15 @@
 #include <sys/stat.h>
 #include <stm32f4xx.h>
 
+#ifdef UNUSED
+#elif defined(__GNUC__)
+# define UNUSED(x) UNUSED_ ## x __attribute__((unused))
+#elif defined(__LCLINT__)
+# define UNUSED(x) /*@unused@*/ x
+#else
+# define UNUSED(x) x
+#endif
+
 // Function declaration.
 void _exit(int i);
 int _open(const char *name, int flags, int mode);
@@ -44,14 +53,14 @@ static caddr_t heap = NULL;
 
 // Function definition.
 
-void _exit(int i)
+void _exit(int UNUSED(i))
 {
 	while (1);
 }
 
 int _write(int file, char *buffer, unsigned int count)
 {
-	int i;
+	unsigned int i;
 
 #ifdef USART_DEBUG
 	if (file == 1) {
@@ -65,28 +74,28 @@ int _write(int file, char *buffer, unsigned int count)
 	return -1;
 }
 
-int _close(int file)
+int _close(int UNUSED(file))
 {
 	return -1;
 }
 
-int _fstat(int file, struct stat *st)
+int _fstat(int UNUSED(file), struct stat *st)
 {
 	st->st_mode = S_IFCHR;
 	return 0;
 }
 
-int _isatty(int file)
+int _isatty(int UNUSED(file))
 {
 	return 1;
 }
 
-int _lseek(int file, int ptr, int dir)
+int _lseek(int UNUSED(file), int UNUSED(ptr), int UNUSED(dir))
 {
 	return 0;
 }
 
-int _read(int file, char *ptr, int len)
+int _read(int file, char *ptr, int UNUSED(len))
 {
 #ifdef USART_DEBUG
 	if (file == 0) { /* STDIN */
@@ -129,30 +138,30 @@ caddr_t _sbrk(int incr)
 	}
 }
 
-int _open(const char *name, int flags, int mode)
+int _open(const char *UNUSED(name), int UNUSED(flags), int UNUSED(mode))
 {
 	return -1;
 }
 
-int _link(char *old, char *new)
+int _link(char *UNUSED(old), char *UNUSED(new))
 {
 	errno = EMLINK;
 	return -1;
 }
 
-int _unlink(char *name)
+int _unlink(char *UNUSED(name))
 {
 	errno = ENOENT;
 	return -1;
 }
 
-int _stat(char *file, struct stat *st)
+int _stat(char *UNUSED(file), struct stat *st)
 {
 	st->st_mode = S_IFCHR;
 	return 0;
 }
 
-int _execve(char *name, char **argv, char **env)
+int _execve(char *UNUSED(name), char **UNUSED(argv), char **UNUSED(env))
 {
 	errno = ENOMEM;
 	return -1;
@@ -169,18 +178,18 @@ int _getpid()
 	return 1;
 }
 
-int _kill(int pid, int sig)
+int _kill(int UNUSED(pid), int UNUSED(sig))
 {
 	errno = EINVAL;
 	return (-1);
 }
 
-int times(struct tm *buf)
+int times(struct tm *UNUSED(buf))
 {
 	return -1;
 }
 
-int _wait(int *status)
+int _wait(int *UNUSED(status))
 {
 	errno = ECHILD;
 	return -1;

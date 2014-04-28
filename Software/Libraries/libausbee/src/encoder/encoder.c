@@ -3,6 +3,7 @@
 
 #include <stm32f4xx.h>
 #include <stm32f4xx_tim.h>
+#include <stm32f4xx_rcc.h>
 
 void ausbee_init_sampling_timer(TIM_TypeDef *TIMX, int32_t prescaler, int32_t period)
 {
