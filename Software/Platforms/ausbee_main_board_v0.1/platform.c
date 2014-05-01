@@ -34,7 +34,6 @@ void platform_initPWM(uint8_t timer){
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE);	//give clock to the GPIO
 
 	TIM_TimeBaseInitTypeDef TimeBaseInit_PWM;
-	TIM_OCInitTypeDef OCInitTypeDef_PWM;
 	GPIO_InitTypeDef InitTypeDef_PWM;
 
 	TIM_TimeBaseStructInit(&TimeBaseInit_PWM);				//initialize the struct
@@ -388,28 +387,37 @@ void platform_reset_GPIO(uint16_t gpio)
 	}
 }
 
+/**
+ * \fn uint8_t platform_GPIO_get_value(uint16_t gpio)
+ * \brief Get a GPIO value.
+ *
+ * \param gpio GPIO number.
+ *
+ * \return GPIO value (0 or 1); 2 is return if an invalid GPIO is given as parameter.
+ *
+ */
 uint8_t platform_GPIO_get_value(uint16_t gpio)
 {
-	uint8_t return_value;
-	if (gpio & GPIO1)
-		return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO1_PORT, PLATFORM_GPIO1_PIN);
-	if (gpio & GPIO2)
-		return GPIO_ReadInputDataBit(PLATFORM_GPIO2_PORT, PLATFORM_GPIO2_PIN);
-	if (gpio & GPIO3)
-		return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO3_PORT, PLATFORM_GPIO3_PIN);
-	if (gpio & GPIO4)
-		return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO4_PORT, PLATFORM_GPIO4_PIN);
-	if (gpio & GPIO5)
-		return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO5_PORT, PLATFORM_GPIO5_PIN);
-	if (gpio & GPIO6)
-		return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO6_PORT, PLATFORM_GPIO6_PIN);
-	if (gpio & GPIO7)
-		return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO7_PORT, PLATFORM_GPIO7_PIN);
-	if (gpio & GPIO8)
-		return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO8_PORT, PLATFORM_GPIO8_PIN);
-	if (gpio & GPIO9)
-		return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO9_PORT, PLATFORM_GPIO9_PIN);
-return return_value;
+  uint8_t return_value = 2;
+  if (gpio & GPIO1)
+    return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO1_PORT, PLATFORM_GPIO1_PIN);
+  if (gpio & GPIO2)
+    return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO2_PORT, PLATFORM_GPIO2_PIN);
+  if (gpio & GPIO3)
+    return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO3_PORT, PLATFORM_GPIO3_PIN);
+  if (gpio & GPIO4)
+    return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO4_PORT, PLATFORM_GPIO4_PIN);
+  if (gpio & GPIO5)
+    return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO5_PORT, PLATFORM_GPIO5_PIN);
+  if (gpio & GPIO6)
+    return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO6_PORT, PLATFORM_GPIO6_PIN);
+  if (gpio & GPIO7)
+    return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO7_PORT, PLATFORM_GPIO7_PIN);
+  if (gpio & GPIO8)
+    return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO8_PORT, PLATFORM_GPIO8_PIN);
+  if (gpio & GPIO9)
+    return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO9_PORT, PLATFORM_GPIO9_PIN);
+  return return_value;
 }
 
 void platform_init_LED(void)
