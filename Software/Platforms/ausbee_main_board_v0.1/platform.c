@@ -10,7 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void platform_init_HSE_PLL(void)
+void platform_HSE_PLL_init(void)
 {
     RCC_DeInit();
 
@@ -27,7 +27,7 @@ void platform_init_HSE_PLL(void)
     RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
 }
 
-void platform_initPWM(uint8_t timer){
+void platform_PWM_init(uint8_t timer){
 
 	// control structures
 
@@ -92,7 +92,7 @@ void platform_initPWM(uint8_t timer){
 }
 
 
-int platform_init_USART(USART_TypeDef *USARTx, uint32_t baudrate)
+int platform_USART_init(USART_TypeDef *USARTx, uint32_t baudrate)
 {
     GPIO_InitTypeDef init_GPIO_USART;
     USART_InitTypeDef init_USART;
@@ -178,7 +178,7 @@ int platform_init_USART(USART_TypeDef *USARTx, uint32_t baudrate)
  * speed		: speed of the gpio, could be GPIO_Low_Speed, GPIO_Medium_Speed, GPIO_Fast_Speed, GPIO_High_Speed
  * pull_up_down	: define the type of pull up/down resistor, could be GPIO_PuPd_NOPULL, GPIO_PuPd_UP, GPIO_PuPd_DOWN
  * */
-void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed, uint8_t pull_up_down)
+void platform_GPIO_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed, uint8_t pull_up_down)
 {
 	//initialize the struct
 	GPIO_InitTypeDef GPIOInitStruct;
@@ -290,7 +290,7 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 
 }
 
-void platform_set_GPIO(uint16_t gpio)
+void platform_GPIO_set(uint16_t gpio)
 {
 	if ((gpio & GPIO1) == GPIO1)
 	{
@@ -339,7 +339,7 @@ void platform_set_GPIO(uint16_t gpio)
 	}
 }
 
-void platform_reset_GPIO(uint16_t gpio)
+void platform_GPIO_reset(uint16_t gpio)
 {
 	if ((gpio & GPIO1) == GPIO1)
 	{
@@ -390,11 +390,11 @@ void platform_reset_GPIO(uint16_t gpio)
 
 uint8_t platform_GPIO_get_value(uint16_t gpio)
 {
-	uint8_t return_value;
+	uint8_t return_value=2;
 	if (gpio & GPIO1)
 		return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO1_PORT, PLATFORM_GPIO1_PIN);
 	if (gpio & GPIO2)
-		return GPIO_ReadInputDataBit(PLATFORM_GPIO2_PORT, PLATFORM_GPIO2_PIN);
+		return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO2_PORT, PLATFORM_GPIO2_PIN);
 	if (gpio & GPIO3)
 		return_value = GPIO_ReadInputDataBit(PLATFORM_GPIO3_PORT, PLATFORM_GPIO3_PIN);
 	if (gpio & GPIO4)
@@ -412,7 +412,7 @@ uint8_t platform_GPIO_get_value(uint16_t gpio)
 return return_value;
 }
 
-void platform_init_LED(void)
+void platform_LED_init(void)
 {
     GPIO_InitTypeDef GPIOInitStruct_G;
     GPIO_InitTypeDef GPIOInitStruct_D;
@@ -437,7 +437,7 @@ void platform_init_LED(void)
     GPIO_Init(GPIOG, &GPIOInitStruct_G);
 }
 
-void platform_set_led(uint8_t led)
+void platform_LED_set(uint8_t led)
 {
     if (led & PLATFORM_LED0)
         GPIO_SetBits(GPIOD, GPIO_Pin_6);
@@ -457,7 +457,7 @@ void platform_set_led(uint8_t led)
         GPIO_SetBits(GPIOG, GPIO_Pin_14);
 }
 
-void platform_reset_led(uint8_t led)
+void platform_LED_reset(uint8_t led)
 {
     if (led & PLATFORM_LED0)
         GPIO_ResetBits(GPIOD, GPIO_Pin_6);
@@ -478,7 +478,7 @@ void platform_reset_led(uint8_t led)
 }
 
 
-void platform_toggle_led(uint8_t led)
+void platform_LED_toggle(uint8_t led)
 {
     if (led & PLATFORM_LED0)
         GPIO_ToggleBits(GPIOD, GPIO_Pin_6);
@@ -498,12 +498,12 @@ void platform_toggle_led(uint8_t led)
         GPIO_ToggleBits(GPIOG, GPIO_Pin_14);
 }
 
-void platform_init_io_motor1(void)
+void platform_MOTOR1_init_io(void)
 {
-    	GPIO_InitTypeDef GPIO_InitTypeDef_E;
+  GPIO_InitTypeDef GPIO_InitTypeDef_E;
 
 	/* Set the clock on TIM9 */
-        RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM9, ENABLE);
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM9, ENABLE);
 
 	/* Init DIR signal for L298 */
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
@@ -534,12 +534,12 @@ void platform_init_io_motor1(void)
 	GPIO_PinAFConfig(PLATFORM_PWM_MOTOR1_PORT, PLATFORM_PWM_MOTOR1_PIN_SOURCE, PLATFORM_PWM_MOTOR1_GPIO_AF);
 }
 
-void platform_init_io_motor2(void)
+void platform_MOTOR2_init_io(void)
 {
-    	GPIO_InitTypeDef GPIO_InitTypeDef_E;
+  GPIO_InitTypeDef GPIO_InitTypeDef_E;
 
-	/* Set the clock on TIM9 */
-        RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM9, ENABLE);
+  /* Set the clock on TIM9 */
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM9, ENABLE);
 
 	/* Set clock on GPIOE */
 	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
@@ -571,7 +571,7 @@ void platform_init_io_motor2(void)
 	GPIO_PinAFConfig(GPIOE, PLATFORM_PWM_MOTOR2_PIN_SOURCE, PLATFORM_PWM_MOTOR2_GPIO_AF);
 }
 
-void platform_encoder1_init(void)
+void platform_ENCODER1_init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 
@@ -588,7 +588,7 @@ void platform_encoder1_init(void)
 	GPIO_StructInit(&GPIO_InitStructure);
 }
 
-void platform_encoder2_init(void)
+void platform_ENCODER2_init(void)
 {
 	GPIO_InitTypeDef GPIO_InitStructure;
 
