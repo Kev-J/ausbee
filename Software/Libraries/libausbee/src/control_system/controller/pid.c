@@ -47,7 +47,7 @@ void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd,
 }
 
 /**
-  * \fn int32_t ausbee_eval_pid(struct ausbee_pid *pid, int32_t measure)
+  * \fn int32_t ausbee_eval_pid(void *pid, int32_t measure)
   * \brief Compute PID control with the last measure.
   *
   * \param pid Generic structure reference.
@@ -78,6 +78,34 @@ int32_t ausbee_eval_pid(void *controller, int32_t measure)
     output = pid->min_output;
 
   return output;
+}
+
+/**
+  * \fn int32_t ausbee_get_pid_error(struct ausbee_pid *pid)
+  * \brief Get last computed error
+  *
+  * \param pid Structure reference.
+  *
+  * \return Error value
+  *
+  */
+int32_t ausbee_get_pid_error(struct ausbee_pid *pid)
+{
+  return pid->last_error;
+}
+
+/**
+  * \fn int32_t ausbee_get_pid_error_sum(struct ausbee_pid *pid)
+  * \brief Get last computed error_sum
+  *
+  * \param pid Structure reference.
+  *
+  * \return Error sum value
+  *
+  */
+int32_t ausbee_get_pid_error_sum(struct ausbee_pid *pid)
+{
+  return pid->error_sum;
 }
 
 /** 

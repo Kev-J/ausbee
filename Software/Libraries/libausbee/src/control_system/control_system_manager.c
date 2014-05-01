@@ -12,7 +12,7 @@
 #include <AUSBEE/l298_driver.h>
 #include <AUSBEE/control_system_manager.h>
 
-#define AUSBEE_DEBUG_PRINTF 1
+#define AUSBEE_DEBUG_PRINTF 0
 
 #if AUSBEE_DEBUG_PRINTF == 1
 #include <stdio.h>
@@ -68,8 +68,10 @@ void ausbee_cs_set_process_command(struct ausbee_cs *cs,
   *
   * \param data Control system structure reference.
   * \param measure The measure
+  *
+  * \return Command value
   */
-void ausbee_cs_update(struct ausbee_cs *cs, int32_t measure)
+int32_t ausbee_cs_update(struct ausbee_cs *cs, int32_t measure)
 {
   cs->measure = measure;
   debug_printf("[csm] Input measure: %"PRId32"\r\n", measure);
@@ -78,6 +80,8 @@ void ausbee_cs_update(struct ausbee_cs *cs, int32_t measure)
 
   debug_printf("[csm] Controller output command: %"PRId32"\r\n", cs->command);
   cs->process_command(cs->process_command_params, cs->command);
+
+  return cs->command;
 }
 
 /**

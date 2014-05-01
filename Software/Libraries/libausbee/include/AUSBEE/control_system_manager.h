@@ -48,7 +48,7 @@ void ausbee_cs_set_process_command(struct ausbee_cs *cs,
     void (*process_command)(void *, int32_t),
     void * process_command_params);
 
-void ausbee_cs_update(struct ausbee_cs *cs, int32_t measure);
+int32_t ausbee_cs_update(struct ausbee_cs *cs, int32_t measure);
 
 /**
   * \}
