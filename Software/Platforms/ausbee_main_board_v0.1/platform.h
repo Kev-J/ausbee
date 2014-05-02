@@ -148,29 +148,29 @@
 #define SERVO3_CHAN TIM_Channel_1
 #define SERVO4_CHAN TIM_Channel_1
 
-void platform_init_HSE_PLL(void);
-void platform_init_LED(void);
+void platform_hse_pll_init(void);
+void platform_led_init(void);
 
-void platform_initPWM(uint8_t timer);
-void platform_set_led(uint8_t led);
-void platform_reset_led(uint8_t led);
-void platform_toggle_led(uint8_t led);
+void platform_pwm_init(uint8_t timer);
+void platform_led_set(uint8_t led);
+void platform_led_reset(uint8_t led);
+void platform_led_toggle(uint8_t led);
 
 void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed, uint8_t pull_up_down);
 
-void platform_set_GPIO(uint16_t gpio);
-void platform_reset_GPIO(uint16_t gpio);
+void platform_gpio_set(uint16_t gpio);
+void platform_gpio_reset(uint16_t gpio);
 
-uint8_t platform_GPIO_get_value(uint16_t gpio);
+uint8_t platform_gpio_get_value(uint16_t gpio);
 
-int platform_init_USART(USART_TypeDef *USARTx, uint32_t baudrate);
+int platform_usart_init(USART_TypeDef *USARTx, uint32_t baudrate);
 
-void platform_init_io_motor1(void);
-void platform_init_io_motor2(void);
+void platform_motor1_init_io(void);
+void platform_motor2_init_io(void);
 
 void platform_encoder1_init(void);
 void platform_encoder2_init(void);
 
-int platform_CAN_init(CAN_TypeDef* CANx);
+int platform_can_init(CAN_TypeDef* CANx);
 
 #endif
