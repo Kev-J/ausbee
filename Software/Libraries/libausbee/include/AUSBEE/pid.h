@@ -41,7 +41,8 @@ struct ausbee_pid {
   int32_t min_output; /*!< Minimum saturation output value. */
 };
 
-void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd, int32_t reference, int32_t max_output, int32_t min_output);
+void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd, int32_t max_output, int32_t min_output);
+void ausbee_pid_set_ref(struct ausbee_pid *pid, int32_t reference);
 int32_t ausbee_eval_pid(void *pid, int32_t measure);
 
 int32_t ausbee_get_pid_error(struct ausbee_pid *pid);

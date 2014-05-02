@@ -19,31 +19,42 @@
   */
 
 /**
- * \fn void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd, int32_t reference, int32_t max_output, int32_t min_output)
+ * \fn void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd, int32_t max_output, int32_t min_output)
  * \brief ausbee_pid structure initialisation.
  *
  * \param pid Structure reference.
  * \param Kp Proportional value.
  * \param Ki Integral value.
  * \param Kd Derivative value.
- * \param reference Initial reference value.
  * \param max_output Maximum saturation output value.
  * \param min_output Minimum saturation output value.
  *
  */
-void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd, int32_t reference, int32_t max_output, int32_t min_output)
+void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd, int32_t max_output, int32_t min_output)
 {
   pid->Kp = Kp;
   pid->Ki = Ki;
   pid->Kd = Kd;
 
-  pid->reference = reference;
+  pid->reference = 0;
 
   pid->last_error = 0;
   pid->error_sum = 0;
 
   pid->max_output = max_output;
   pid->min_output = min_output;
+}
+
+/**
+ * \fn void ausbee_pid_set_ref(struct ausbee_pid *pid, int32_t reference)
+ * \brief Set pid reference.
+ *
+ * \param reference Reference value.
+ *
+ */
+void ausbee_pid_set_ref(struct ausbee_pid *pid, int32_t reference)
+{
+  pid->reference = reference;
 }
 
 /**
