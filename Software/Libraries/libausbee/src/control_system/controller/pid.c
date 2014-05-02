@@ -46,18 +46,6 @@ void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd,
 }
 
 /**
- * \fn void ausbee_pid_set_ref(struct ausbee_pid *pid, int32_t reference)
- * \brief Set pid reference.
- *
- * \param reference Reference value.
- *
- */
-void ausbee_pid_set_ref(struct ausbee_pid *pid, int32_t reference)
-{
-  pid->reference = reference;
-}
-
-/**
   * \fn int32_t ausbee_eval_pid(void *pid, int32_t measure)
   * \brief Compute PID control with the last measure.
   *
@@ -89,6 +77,30 @@ int32_t ausbee_eval_pid(void *controller, int32_t measure)
     output = pid->min_output;
 
   return output;
+}
+
+/**
+ * \fn void ausbee_pid_set_ref(struct ausbee_pid *pid, int32_t reference)
+ * \brief Set pid reference.
+ *
+ * \param reference Reference value.
+ *
+ */
+void ausbee_pid_set_ref(struct ausbee_pid *pid, int32_t reference)
+{
+  pid->reference = reference;
+}
+
+/**
+ * \fn int32_t ausbee_pid_get_ref(struct ausbee_pid *pid)
+ * \brief Get pid reference.
+ *
+ * \param pid Structure reference
+ *
+ */
+int32_t ausbee_pid_get_ref(struct ausbee_pid *pid)
+{
+  return pid->reference;
 }
 
 /**
