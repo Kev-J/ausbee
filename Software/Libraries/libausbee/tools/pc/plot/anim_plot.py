@@ -65,8 +65,9 @@ class Subplot:
 
         return l
 
-right_motor_subplot = Subplot(-1000, 3000, x_range, fig, 1, 2, 2)
-left_motor_subplot = Subplot(-100, 300, x_range, fig, 1, 2, 1)
+right_motor_subplot = Subplot(-1000, 3000, x_range, fig, 2, 2, 2)
+left_motor_subplot = Subplot(-100, 300, x_range, fig, 2, 2, 4)
+robot_subplot = Subplot(-100, 200, x_range, fig, 1, 2, 1)
 
 def readline_starting_with(start_string):
     c = 'a'
@@ -85,13 +86,14 @@ def readline_starting_with(start_string):
 def animate(frame_num):
     l = right_motor_subplot.update_lines(frame_num, readline_starting_with("Right"))
     l.extend(left_motor_subplot.update_lines(frame_num, readline_starting_with("Left")))
+    l.extend(robot_subplot.update_lines(frame_num, readline_starting_with("Robot")))
     return l
 
 #Reset only required for blitting to give a clean slate.
 def reset():
     l = right_motor_subplot.reset()
     l.extend(left_motor_subplot.reset())
-
+    l.extend(robot_subplot.reset())
     return l
 
 ani = animation.FuncAnimation(fig, animate, np.arange(1, 200000), init_func=reset,
