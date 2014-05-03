@@ -4,96 +4,96 @@ import matplotlib.animation as animation
 import serial
 ser = serial.Serial('/dev/ttyUSB0', 115200)
 
-x_range = 50
 
 fig = plt.figure()
+x_range = 50
 
-right_ax = fig.add_subplot(1, 2, 1)
-right_values = []
-right_lines = []
-right_lines_text = []
+class Subplot:
+    def __init__(self, _ymin, _ymax, _x_range, fig, *args, **kwargs):
+        self.ax = fig.add_subplot(*args)
+        self.values = []
+        self.lines = []
+        self.lines_text = []
+        self.num_lines = 0
+        self.ymin = _ymin
+        self.ymax = _ymax
+        self.x_range = _x_range
+        self.x = np.arange(0, x_range, 1)        # x-array
+        self.dynamic_init(1)
 
-left_ax = fig.add_subplot(1, 2, 2)
-left_values = []
-left_lines = []
-left_lines_text = []
+    def dynamic_init(self, new_size):
+        if new_size > self.num_lines:
+            for i in range(new_size - self.num_lines):
+                self.values.append([])
 
-num_lines = 1
+                line, = self.ax.plot(self.x, (self.ymax-self.ymin)/2*(np.sin(self.x))-self.ymin, 'o-')
+                self.lines.append(line)
 
-x = np.arange(0, x_range, 1)        # x-array
+                line_text = self.ax.text(0.02, 0.95 - (self.num_lines + i) * 0.05, '', transform=self.ax.transAxes)
+                self.lines_text.append(line_text)
 
-ymin = -1000
-ymax = 3000
+            self.num_lines = new_size
 
-def animate(num):
-    # Right motor
-    lineread = ser.readline().split(",")
-    for i in range(len(lineread)):
-        val_name, val, scale = lineread[i].split(":")
-        val = int(val)
-        scale = float(scale)
-        right_lines_text[i].set_text('%s = %.1f' % (val_name, val))
-        right_values[i].append(val * scale)
-        if num>x_range:
-            right_lines[i].set_ydata(right_values[i][-x_range:])  # update the measure
+    def update_lines(self, frame_num, lineread):
+        splited_read = lineread.split(",")
+        self.dynamic_init(len(splited_read))
+        for i in range(self.num_lines):
+            try:
+                val_name, val, scale = splited_read[i].split(":")
+                val = int(val)
+                scale = float(scale)
+                self.lines_text[i].set_text('%s = %.1f' % (val_name, val))
+                self.values[i].append(val * scale)
+            except ValueError:
+                self.values[i].append(0)
+                print("[ValueError] Input: \"" + splited_read[i] + "\"")
+            if frame_num > self.x_range:
+                self.lines[i].set_ydata(self.values[i][-x_range:])  # update the measure
 
-    l = right_lines[:]
-    l.extend(right_lines_text)
+        l = self.lines[:]
+        l.extend(self.lines_text)
 
-    # Left motor
-    lineread = ser.readline().split(",")
-    for i in range(len(lineread)):
-        val_name, val, scale = lineread[i].split(":")
-        val = int(val)
-        scale = float(scale)
-        left_lines_text[i].set_text('%s = %.1f' % (val_name, val))
-        left_values[i].append(val * scale)
-        if num>x_range:
-            left_lines[i].set_ydata(left_values[i][-x_range:])  # update the measure
+        return l
 
-    l.extend(left_lines[:])
-    l.extend(left_lines_text)
+    def reset(self):
+        for i in range(self.num_lines):
+            self.lines[i].set_ydata(np.ma.array(self.x, mask=True))
+            self.lines_text[i].set_text('')
 
+        l = self.lines[:]
+        l.extend(self.lines_text)
+
+        return l
+
+right_motor_subplot = Subplot(-1000, 3000, x_range, fig, 1, 2, 2)
+left_motor_subplot = Subplot(-100, 300, x_range, fig, 1, 2, 1)
+
+def readline_starting_with(start_string):
+    c = 'a'
+    line = []
+    while c != '\n':
+        c = ser.read()
+        if c != '\x00':
+            line.append(c)
+
+    line = ''.join(line)
+    if line.startswith(start_string):
+        return line
+    else:
+        return readline_starting_with(start_string)
+
+def animate(frame_num):
+    l = right_motor_subplot.update_lines(frame_num, readline_starting_with("Right"))
+    l.extend(left_motor_subplot.update_lines(frame_num, readline_starting_with("Left")))
     return l
-
-def init():
-    global num_lines
-    while not ser.readline():
-        print("")
-    for i in range(len(ser.readline().split(","))):
-        right_values.append([])
-        left_values.append([])
-
-        line, = right_ax.plot(x, (ymax-ymin)/2*(np.sin(x))-ymin, 'o-')
-        right_lines.append(line)
-        line, = left_ax.plot(x, (ymax-ymin)/2*(np.sin(x))-ymin, 'o-')
-        left_lines.append(line)
-
-        line_text = right_ax.text(0.02, 0.95-i*0.05, '', transform=right_ax.transAxes)
-        right_lines_text.append(line_text)
-        line_text = left_ax.text(0.02, 0.95-i*0.05, '', transform=left_ax.transAxes)
-        left_lines_text.append(line_text)
-
-    num_lines = i+1
 
 #Reset only required for blitting to give a clean slate.
 def reset():
-    for i in range(num_lines):
-        right_lines[i].set_ydata(np.ma.array(x, mask=True))
-        right_lines_text[i].set_text('')
-
-        left_lines[i].set_ydata(np.ma.array(x, mask=True))
-        left_lines_text[i].set_text('')
-
-    l = right_lines[:]
-    l.extend(right_lines_text)
-
-    l.extend(left_lines[:])
-    l.extend(left_lines_text)
+    l = right_motor_subplot.reset()
+    l.extend(left_motor_subplot.reset())
 
     return l
 
-init()
 ani = animation.FuncAnimation(fig, animate, np.arange(1, 200000), init_func=reset,
     interval=25, blit=True)
 plt.show()
