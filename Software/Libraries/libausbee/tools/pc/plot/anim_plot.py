@@ -35,7 +35,7 @@ class Subplot:
             self.num_lines = new_size
 
     def update_lines(self, frame_num, lineread):
-        splited_read = lineread.split(",")
+        splited_read = lineread.split(";")
         self.dynamic_init(len(splited_read))
         for i in range(self.num_lines):
             try:
@@ -66,8 +66,8 @@ class Subplot:
         return l
 
 right_motor_subplot = Subplot(-1000, 3000, x_range, fig, 2, 2, 2)
-left_motor_subplot = Subplot(-100, 300, x_range, fig, 2, 2, 4)
-robot_subplot = Subplot(-100, 200, x_range, fig, 1, 2, 1)
+left_motor_subplot = Subplot(-100, 3000, x_range, fig, 2, 2, 4)
+robot_subplot = Subplot(-200, 1200, x_range, fig, 1, 2, 1)
 
 def readline_starting_with(start_string):
     c = 'a'
