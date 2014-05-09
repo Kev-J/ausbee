@@ -40,7 +40,7 @@ class Subplot:
         for i in range(self.num_lines):
             try:
                 val_name, val, scale = splited_read[i].split(":")
-                val = int(val)
+                val = float(val)
                 scale = float(scale)
                 self.lines_text[i].set_text('%s = %.1f' % (val_name, val))
                 self.values[i].append(val * scale)
