@@ -6,5 +6,7 @@
 
 void ausbee_init_sampling_timer(TIM_TypeDef *TIMX, int32_t prescaler, int32_t period);
 void ausbee_encoder_init_timer(TIM_TypeDef *TIMX);
+void ausbee_encoder_clock_enable(TIM_TypeDef *TIMX);
+void ausbee_encoder_clock_disable(TIM_TypeDef *TIMX);
 
 #endif // ENCODER_H
