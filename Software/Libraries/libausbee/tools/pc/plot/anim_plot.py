@@ -1,9 +1,15 @@
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import serial
-ser = serial.Serial('/dev/ttyUSB0', 115200)
 
+if len(sys.argv) == 1:
+    ser = serial.Serial('/dev/ttyUSB0', 115200)
+    is_file = False
+else:
+    ser = open(sys.argv[1], 'r')
+    is_file = True
 
 fig = plt.figure()
 x_range = 50
@@ -73,7 +79,10 @@ def readline_starting_with(start_string):
     c = 'a'
     line = []
     while c != '\n':
-        c = ser.read()
+        if is_file:
+            c = ser.read(1)
+        else:
+            c = ser.read()
         if c != '\x00':
             line.append(c)
 
