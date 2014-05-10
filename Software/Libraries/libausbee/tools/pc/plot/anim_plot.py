@@ -54,7 +54,11 @@ class Subplot:
                 self.values[i].append(0)
                 print("[ValueError] Input: \"" + splited_read[i] + "\"")
             if frame_num > self.x_range:
-                self.lines[i].set_ydata(self.values[i][-x_range:])  # update the measure
+                ydata = self.values[i][-x_range:]
+            else:
+                ydata = np.zeros(x_range)
+                ydata[-frame_num:] = self.values[i][-frame_num:]
+            self.lines[i].set_ydata(ydata)  # update the measure
 
         l = self.lines[:]
         l.extend(self.lines_text)
