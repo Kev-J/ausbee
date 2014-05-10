@@ -65,10 +65,12 @@ class Subplot:
 class SubplotTable:
     def __init__(self, fig, *args, **kwargs):
         self.ax = fig.add_subplot(autoscale_on=False, xlim=(-750, 750), ylim=(-750, 750), *args)
-        self.lines_x = []
-        self.lines_y = []
+        self.lines_x = [0]
+        self.lines_y = [0]
 
-        self.line, = self.ax.plot([], [], 'o-', lw=2)
+        self.line, = self.ax.plot([], [], '-', lw=1)
+        self.line_head_slice, = self.ax.plot([], [], '-', color='red', lw=2)
+        self.line_head, = self.ax.plot([], [], color='red', marker='o', markeredgecolor='r')
         self.x_text = self.ax.text(0.05, 0.95, '', transform=self.ax.transAxes)
         self.y_text = self.ax.text(0.05, 0.9, '',  transform=self.ax.transAxes)
 
@@ -87,12 +89,16 @@ class SubplotTable:
         self.lines_y.append(y)
 
         self.line.set_data(self.lines_x, self.lines_y)
+        self.line_head_slice.set_data(self.lines_x[-2:], self.lines_y[-2:])
+        self.line_head.set_data(self.lines_x[-1], self.lines_y[-1])
 
-        return self.line, self.x_text, self.y_text
+        return self.line, self.line_head_slice, self.line_head, self.x_text, self.y_text
 
     def reset(self):
         self.line.set_data([], [])
+        self.line_head.set_data([], [])
+        self.line_head_slice.set_data([], [])
         self.x_text.set_text('')
         self.y_text.set_text('')
 
-        return self.line, self.x_text, self.y_text
+        return self.line, self.line_head_slice, self.line_head, self.x_text, self.y_text
