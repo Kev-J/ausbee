@@ -71,6 +71,37 @@ void ausbee_cs_init(struct ausbee_cs *cs)
   cs->command = 0;
 }
 
+/**
+ * @fn void ausbee_cs_set_measure_fetcher(struct ausbee_cs *cs,
+ *         int32_t (*measure_fetcher)(void *),
+ *         void * measure_fetcher_params)
+ * @brief Setting a function to get measure value used by the
+ *        control system.
+ *
+ * @param cs                     Control system structure reference.
+ * @param measure_fetcher        Function to get the measure value.
+ * @param measure_fetcher_params Parameters for the function.
+ *
+ */
+void ausbee_cs_set_measure_fetcher(struct ausbee_cs *cs,
+    int32_t (*measure_fetcher)(void *),
+    void * measure_fetcher_params)
+{
+  cs->measure_fetcher = measure_fetcher;
+  cs->measure_fetcher_params = measure_fetcher_params;
+}
+
+/**
+ * @fn void ausbee_cs_set_controller(struct ausbee_cs *cs)
+ *         int32_t (*controller)(void *, int32_t),
+ *         void * controller_params)
+ * @brief Setting the controller to use in the control system.
+ *
+ * @param cs                Control system structure reference.
+ * @param controller        Controller processing function.
+ * @param controller_params Parameters for the processing function.
+ *
+ */
 void ausbee_cs_set_controller(struct ausbee_cs *cs,
     int32_t (*controller)(void *, int32_t),
     void * controller_params)
@@ -88,25 +119,105 @@ void ausbee_cs_set_process_command(struct ausbee_cs *cs,
 }
 
 /**
-  * @fn void ausbee_cs_update(void *cs)
+  * @fn int32_t ausbee_cs_update(struct ausbee_cs *cs, int32_t ref)
   * @brief Process the control loop to compute the command.
   *
-  * @param data Control system structure reference.
-  * @param measure The measure
+  * @param cs  Control system structure reference.
+  * @param ref The reference we want to reach.
   *
   * @return Command value
   */
-int32_t ausbee_cs_update(struct ausbee_cs *cs, int32_t measure)
+int32_t ausbee_cs_update(struct ausbee_cs *cs, int32_t ref)
 {
-  cs->measure = measure;
-  debug_printf("[csm] Input measure: %"PRId32"\r\n", measure);
+  cs->reference = ref;
+  debug_printf("[csm] Input reference: %"PRId32"\r\n", cs->reference);
 
-  cs->command = cs->controller(cs->controller_params, cs->measure);
+  cs->measure = cs->measure_fetcher(cs->measure_fetcher_params);
+  debug_printf("[csm] Measure: %"PRId32"\r\n", cs->measure);
 
+  cs->error = cs->reference - cs->measure;
+  debug_printf("[csm] Error: %"PRId32"\r\n", cs->error);
+
+  cs->command = cs->controller(cs->controller_params, cs->error);
   debug_printf("[csm] Controller output command: %"PRId32"\r\n", cs->command);
+
   cs->process_command(cs->process_command_params, cs->command);
 
   return cs->command;
+}
+
+/**
+  * @fn void ausbee_cs_manage(void *cs)
+  * @brief Apply ausbee_cs_update to the structure cs.
+  *
+  * @param cs Control system structure reference.
+  *           Should be a (struct ausbee_cs *)
+  */
+void ausbee_cs_manage(void *data)
+{
+  struct ausbee_cs *cs = (struct ausbee_cs *)data;
+
+  ausbee_cs_update(cs, cs->reference);
+}
+
+/**
+ * @fn int32_t ausbee_cs_get_reference(struct ausbee_cs *cs)
+ * @brief Getting the reference we want to reach.
+ *
+ * @return Reference value.
+ *
+ */
+int32_t ausbee_cs_get_reference(struct ausbee_cs *cs)
+{
+  return cs->reference;
+}
+
+/**
+ * @fn int32_t ausbee_cs_get_measure(struct ausbee_cs *cs)
+ * @brief Getting the measure.
+ *
+ * @return Measure value.
+ *
+ */
+int32_t ausbee_cs_get_measure(struct ausbee_cs *cs)
+{
+  return cs->measure;
+}
+
+/**
+ * @fn int32_t ausbee_cs_get_error(struct ausbee_cs *cs)
+ * @brief Getting the computed error.
+ *
+ * @return Error value.
+ *
+ */
+int32_t ausbee_cs_get_error(struct ausbee_cs *cs)
+{
+  return cs->error;
+}
+
+/**
+ * @fn int32_t ausbee_cs_get_command(struct ausbee_cs *cs)
+ * @brief Getting the computed command.
+ *
+ * @return Command value.
+ *
+ */
+int32_t ausbee_cs_get_command(struct ausbee_cs *cs)
+{
+  return cs->command;
+}
+
+/**
+ * @fn void ausbee_cs_set_reference(struct ausbee_cs *cs, int32_t ref)
+ * @brief Setting the reference we want to reach.
+ *
+ * @param ref Reference value.
+ *
+ */
+void ausbee_cs_set_reference(struct ausbee_cs *cs, int32_t ref)
+{
+  cs->reference = ref;
 }
 
 /**

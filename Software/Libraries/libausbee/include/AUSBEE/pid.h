@@ -3,7 +3,7 @@
  * @file    pid.h
  * @author  Kevin JOLY
  * @author  David BITONNEAU <david.bitonneau@gmail.com>
- * @version V1.0
+ * @version V1.1
  * @date    11-Mar-2014
  * @brief   PID controller definition file. Contain controllers
  *          for control engineering.
@@ -64,8 +64,6 @@ struct ausbee_pid {
   int32_t Ki; /*!< Integral value. */
   int32_t Kd; /*!< Derivative value. */
 
-  int32_t reference; /*!< Instruction given to the process (i.e. input). */
-
   int32_t last_error; /*!< Previous error observed. */
   int32_t error_sum; /*!< Sum of previous errors. */
 
@@ -74,10 +72,9 @@ struct ausbee_pid {
 };
 
 void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd, int32_t max_output, int32_t min_output);
-int32_t ausbee_eval_pid(void *pid, int32_t measure);
 
-void    ausbee_pid_set_ref(struct ausbee_pid *pid, int32_t reference);
-int32_t ausbee_pid_get_ref(struct ausbee_pid *pid);
+int32_t ausbee_eval_pid(void *pid, int32_t error);
+
 int32_t ausbee_get_pid_error(struct ausbee_pid *pid);
 int32_t ausbee_get_pid_error_sum(struct ausbee_pid *pid);
 

@@ -2,7 +2,7 @@
  ********************************************************************
  * @file    control_system_manager.c
  * @author  David BITONNEAU <david.bitonneau@gmail.com>
- * @version V1.0
+ * @version V1.1
  * @date    11-Mar-2014
  * @brief   Controller system manager definition file.
  ********************************************************************
@@ -52,17 +52,26 @@
  *
  */
 struct ausbee_cs {
+  int32_t (*measure_fetcher)(void *);
+  void * measure_fetcher_params;
+
   int32_t (*controller)(void *, int32_t);
   void * controller_params;
 
   void (*process_command)(void *, int32_t);
   void * process_command_params;
 
-  int32_t measure; /*!< Last measured value. */
-  int32_t command; /*!< Last command computed by the controller. */
+  int32_t reference; /*!< The value we when to reach. */
+  int32_t measure;   /*!< Last measured value. */
+  int32_t error;     /*!< Last computed error. */
+  int32_t command;   /*!< Last command computed by the controller. */
 };
 
 void ausbee_cs_init(struct ausbee_cs *cs);
+
+void ausbee_cs_set_measure_fetcher(struct ausbee_cs *cs,
+    int32_t (*measure_fetcher)(void *),
+    void * measure_fetcher_params);
 
 void ausbee_cs_set_controller(struct ausbee_cs *cs,
     int32_t (*controller)(void *, int32_t),
@@ -73,6 +82,14 @@ void ausbee_cs_set_process_command(struct ausbee_cs *cs,
     void * process_command_params);
 
 int32_t ausbee_cs_update(struct ausbee_cs *cs, int32_t measure);
+void    ausbee_cs_manage(void *cs);
+
+int32_t ausbee_cs_get_reference(struct ausbee_cs *cs);
+int32_t ausbee_cs_get_measure(struct ausbee_cs *cs);
+int32_t ausbee_cs_get_error(struct ausbee_cs *cs);
+int32_t ausbee_cs_get_command(struct ausbee_cs *cs);
+
+void ausbee_cs_set_reference(struct ausbee_cs *cs, int32_t ref);
 
 #endif
 

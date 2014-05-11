@@ -68,8 +68,6 @@ void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd,
   pid->Ki = Ki;
   pid->Kd = Kd;
 
-  pid->reference = 0;
-
   pid->last_error = 0;
   pid->error_sum = 0;
 
@@ -82,19 +80,16 @@ void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd,
   * @brief Compute PID control with the last measure.
   *
   * @param pid Generic structure reference.
-  * @param measure Current measured value.
+  * @param error Current computed error value.
   *
   * @return Output value of the controller (i.e. the command).
   *
   */
-int32_t ausbee_eval_pid(void *controller, int32_t measure)
+int32_t ausbee_eval_pid(void *controller, int32_t error)
 {
-  int32_t error;
   int32_t output;
 
   struct ausbee_pid *pid = (struct ausbee_pid *)controller;
-
-  error = pid->reference - measure;
 
   pid->error_sum += error;
 
@@ -109,30 +104,6 @@ int32_t ausbee_eval_pid(void *controller, int32_t measure)
     output = pid->min_output;
 
   return output;
-}
-
-/**
- * @fn void ausbee_pid_set_ref(struct ausbee_pid *pid, int32_t reference)
- * @brief Set pid reference.
- *
- * @param reference Reference value.
- *
- */
-void ausbee_pid_set_ref(struct ausbee_pid *pid, int32_t reference)
-{
-  pid->reference = reference;
-}
-
-/**
- * @fn int32_t ausbee_pid_get_ref(struct ausbee_pid *pid)
- * @brief Get pid reference.
- *
- * @param pid Structure reference
- *
- */
-int32_t ausbee_pid_get_ref(struct ausbee_pid *pid)
-{
-  return pid->reference;
 }
 
 /**
