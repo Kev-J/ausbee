@@ -1,10 +1,30 @@
 /**
- * \file control_system_manager.c
- * \brief Control system manager implementation file.
- * \author David BITONNEAU
+ ********************************************************************
+ * @file    control_system_manager.c
+ * @author  David BITONNEAU <david.bitonneau@gmail.com>
+ * @version V1.0
+ * @date    11-Mar-2014
+ * @brief   Controller system manager implementation file.
+ ********************************************************************
+ * @attention
  *
- * Control system manager implementation file.
+ * This file is part of LIBAUSBEE.
  *
+ * LIBAUSBEE is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * LIBAUSBEE is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with LIBAUSBEE.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * <h2><centor>&copy;  Copyright 2013 (C) EIRBOT </center></h2>
+ ********************************************************************
  */
 #include <stdlib.h>
 #include <inttypes.h>
@@ -21,20 +41,25 @@
 #define debug_printf(args...) do { } while(0)
 #endif
 
-/** \addtogroup Libausbee
-  * \{
+/** @addtogroup Libausbee
+  * @{
   */
 
-/** \defgroup Control system manager
-  * \brief Control engineering module.
-  * \{
+/** @addtogroup Control_System
+  * @brief Control engineering module
+  * @{
+  */
+
+/** @addtogroup Control_System_Manager
+  * @brief Control system manager for the control engineering module.
+  * @{
   */
 
 /**
- * \fn void ausbee_cs_init(struct ausbee_cs *cs)
- * \brief ausbee_cs structure initialisation.
+ * @fn void ausbee_cs_init(struct ausbee_cs *cs)
+ * @brief ausbee_cs structure initialisation.
  *
- * \param cs The structure to initialise.
+ * @param cs The structure to initialise.
  *
  */
 void ausbee_cs_init(struct ausbee_cs *cs)
@@ -63,13 +88,13 @@ void ausbee_cs_set_process_command(struct ausbee_cs *cs,
 }
 
 /**
-  * \fn void ausbee_cs_update(void *cs)
-  * \brief Process the control loop to compute the command.
+  * @fn void ausbee_cs_update(void *cs)
+  * @brief Process the control loop to compute the command.
   *
-  * \param data Control system structure reference.
-  * \param measure The measure
+  * @param data Control system structure reference.
+  * @param measure The measure
   *
-  * \return Command value
+  * @return Command value
   */
 int32_t ausbee_cs_update(struct ausbee_cs *cs, int32_t measure)
 {
@@ -85,9 +110,15 @@ int32_t ausbee_cs_update(struct ausbee_cs *cs, int32_t measure)
 }
 
 /**
-  * \}
+  * @}
   */
 
 /**
-  * \}
+  * @}
   */
+
+/**
+  * @}
+  */
+
+/************** (C) COPYRIGHT 2013 Eirbot **** END OF FILE ****/

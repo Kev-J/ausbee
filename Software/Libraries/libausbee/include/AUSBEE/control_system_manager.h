@@ -1,27 +1,51 @@
 /**
- * \file control_system_manager.h
- * \brief Control system manager definition file.
+ ********************************************************************
+ * @file    control_system_manager.c
+ * @author  David BITONNEAU <david.bitonneau@gmail.com>
+ * @version V1.0
+ * @date    11-Mar-2014
+ * @brief   Controller system manager definition file.
+ ********************************************************************
+ * @attention
  *
- * \author David BITONNEAU
+ * This file is part of LIBAUSBEE.
  *
- * Control system definition file.
+ * LIBAUSBEE is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
+ * LIBAUSBEE is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with LIBAUSBEE.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * <h2><centor>&copy;  Copyright 2013 (C) EIRBOT </center></h2>
+ ********************************************************************
  */
 #ifndef CONTROL_SYSTEM_MANAGER_H
 #define CONTROL_SYSTEM_MANAGER_H
 
-/** \addtogroup Libausbee
-  * \{
+/** @addtogroup Libausbee
+  * @{
   */
 
-/** \defgroup Control system manager
-  * \brief Control engineering module.
-  * \{
+/** @defgroup Control_System
+  * @brief Control engineering module
+  * @{
+  */
+
+/** @defgroup Control_System_Manager
+  * @brief Control system manager for the control engineering module.
+  * @{
   */
 
 /**
- * \struct ausbee_cs
- * \brief Control system structure
+ * @struct ausbee_cs
+ * @brief Control system structure
  *
  * ausbee_cs contains all the parameters and status of the control system
  * manager.
@@ -50,12 +74,18 @@ void ausbee_cs_set_process_command(struct ausbee_cs *cs,
 
 int32_t ausbee_cs_update(struct ausbee_cs *cs, int32_t measure);
 
-/**
-  * \}
-  */
-
-/**
-  * \}
-  */
-
 #endif
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
+
+/************** (C) COPYRIGHT 2013 Eirbot **** END OF FILE ****/
