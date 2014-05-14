@@ -4,7 +4,7 @@
  * @author  Kevin JOLY
  * @author  David BITONNEAU <david.bitonneau@gmail.com>
  * @version V1.1
- * @date    13-Mar-2014
+ * @date    14-Mar-2014
  * @brief   PID controller definition file. Contain controllers
  *          for control engineering.
  ********************************************************************
@@ -73,12 +73,14 @@ struct ausbee_pid {
   float error_deadband; /*!< An error within this deadband is considered equaling zero. */
 };
 
-void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd, float min_output, float max_output, float error_deadband);
+void ausbee_pid_init(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd);
+void ausbee_pid_set_output_range(struct ausbee_pid *pid, float min_output, float max_output);
+void ausbee_pid_set_error_deadband(struct ausbee_pid *pid, float error_deadband);
 
-float ausbee_eval_pid(void *pid, float error);
+float ausbee_pid_eval(void *pid, float error);
 
-float ausbee_get_pid_error(struct ausbee_pid *pid);
-float ausbee_get_pid_error_sum(struct ausbee_pid *pid);
+float ausbee_pid_get_error(struct ausbee_pid *pid);
+float ausbee_pid_get_error_sum(struct ausbee_pid *pid);
 
 #endif
 
