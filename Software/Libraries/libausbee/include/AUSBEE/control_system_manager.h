@@ -52,44 +52,44 @@
  *
  */
 struct ausbee_cs {
-  int32_t (*measure_fetcher)(void *);
+  float (*measure_fetcher)(void *);
   void * measure_fetcher_params;
 
-  int32_t (*controller)(void *, int32_t);
+  float (*controller)(void *, float);
   void * controller_params;
 
-  void (*process_command)(void *, int32_t);
+  void (*process_command)(void *, float);
   void * process_command_params;
 
-  int32_t reference; /*!< The value we when to reach. */
-  int32_t measure;   /*!< Last measured value. */
-  int32_t error;     /*!< Last computed error. */
-  int32_t command;   /*!< Last command computed by the controller. */
+  float reference; /*!< The value we when to reach. */
+  float measure;   /*!< Last measured value. */
+  float error;     /*!< Last computed error. */
+  float command;   /*!< Last command computed by the controller. */
 };
 
 void ausbee_cs_init(struct ausbee_cs *cs);
 
 void ausbee_cs_set_measure_fetcher(struct ausbee_cs *cs,
-    int32_t (*measure_fetcher)(void *),
+    float (*measure_fetcher)(void *),
     void * measure_fetcher_params);
 
 void ausbee_cs_set_controller(struct ausbee_cs *cs,
-    int32_t (*controller)(void *, int32_t),
+    float (*controller)(void *, float),
     void * controller_params);
 
 void ausbee_cs_set_process_command(struct ausbee_cs *cs,
-    void (*process_command)(void *, int32_t),
+    void (*process_command)(void *, float),
     void * process_command_params);
 
-int32_t ausbee_cs_update(struct ausbee_cs *cs, int32_t measure);
+float ausbee_cs_update(struct ausbee_cs *cs, float measure);
 void    ausbee_cs_manage(void *cs);
 
-int32_t ausbee_cs_get_reference(struct ausbee_cs *cs);
-int32_t ausbee_cs_get_measure(struct ausbee_cs *cs);
-int32_t ausbee_cs_get_error(struct ausbee_cs *cs);
-int32_t ausbee_cs_get_command(struct ausbee_cs *cs);
+float ausbee_cs_get_reference(struct ausbee_cs *cs);
+float ausbee_cs_get_measure(struct ausbee_cs *cs);
+float ausbee_cs_get_error(struct ausbee_cs *cs);
+float ausbee_cs_get_command(struct ausbee_cs *cs);
 
-void ausbee_cs_set_reference(struct ausbee_cs *cs, int32_t ref);
+void ausbee_cs_set_reference(struct ausbee_cs *cs, float ref);
 
 #endif
 

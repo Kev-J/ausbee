@@ -73,7 +73,7 @@ void ausbee_cs_init(struct ausbee_cs *cs)
 
 /**
  * @fn void ausbee_cs_set_measure_fetcher(struct ausbee_cs *cs,
- *         int32_t (*measure_fetcher)(void *),
+ *         float (*measure_fetcher)(void *),
  *         void * measure_fetcher_params)
  * @brief Setting a function to get measure value used by the
  *        control system.
@@ -84,7 +84,7 @@ void ausbee_cs_init(struct ausbee_cs *cs)
  *
  */
 void ausbee_cs_set_measure_fetcher(struct ausbee_cs *cs,
-    int32_t (*measure_fetcher)(void *),
+    float (*measure_fetcher)(void *),
     void * measure_fetcher_params)
 {
   cs->measure_fetcher = measure_fetcher;
@@ -93,7 +93,7 @@ void ausbee_cs_set_measure_fetcher(struct ausbee_cs *cs,
 
 /**
  * @fn void ausbee_cs_set_controller(struct ausbee_cs *cs)
- *         int32_t (*controller)(void *, int32_t),
+ *         float (*controller)(void *, float),
  *         void * controller_params)
  * @brief Setting the controller to use in the control system.
  *
@@ -103,7 +103,7 @@ void ausbee_cs_set_measure_fetcher(struct ausbee_cs *cs,
  *
  */
 void ausbee_cs_set_controller(struct ausbee_cs *cs,
-    int32_t (*controller)(void *, int32_t),
+    float (*controller)(void *, float),
     void * controller_params)
 {
   cs->controller = controller;
@@ -111,7 +111,7 @@ void ausbee_cs_set_controller(struct ausbee_cs *cs,
 }
 
 void ausbee_cs_set_process_command(struct ausbee_cs *cs,
-    void (*process_command)(void *, int32_t),
+    void (*process_command)(void *, float),
     void * process_command_params)
 {
   cs->process_command = process_command;
@@ -119,7 +119,7 @@ void ausbee_cs_set_process_command(struct ausbee_cs *cs,
 }
 
 /**
-  * @fn int32_t ausbee_cs_update(struct ausbee_cs *cs, int32_t ref)
+  * @fn float ausbee_cs_update(struct ausbee_cs *cs, float ref)
   * @brief Process the control loop to compute the command.
   *
   * @param cs  Control system structure reference.
@@ -127,7 +127,7 @@ void ausbee_cs_set_process_command(struct ausbee_cs *cs,
   *
   * @return Command value
   */
-int32_t ausbee_cs_update(struct ausbee_cs *cs, int32_t ref)
+float ausbee_cs_update(struct ausbee_cs *cs, float ref)
 {
   cs->reference = ref;
   debug_printf("[csm] Input reference: %"PRId32"\r\n", cs->reference);
@@ -161,61 +161,61 @@ void ausbee_cs_manage(void *data)
 }
 
 /**
- * @fn int32_t ausbee_cs_get_reference(struct ausbee_cs *cs)
+ * @fn float ausbee_cs_get_reference(struct ausbee_cs *cs)
  * @brief Getting the reference we want to reach.
  *
  * @return Reference value.
  *
  */
-int32_t ausbee_cs_get_reference(struct ausbee_cs *cs)
+float ausbee_cs_get_reference(struct ausbee_cs *cs)
 {
   return cs->reference;
 }
 
 /**
- * @fn int32_t ausbee_cs_get_measure(struct ausbee_cs *cs)
+ * @fn float ausbee_cs_get_measure(struct ausbee_cs *cs)
  * @brief Getting the measure.
  *
  * @return Measure value.
  *
  */
-int32_t ausbee_cs_get_measure(struct ausbee_cs *cs)
+float ausbee_cs_get_measure(struct ausbee_cs *cs)
 {
   return cs->measure;
 }
 
 /**
- * @fn int32_t ausbee_cs_get_error(struct ausbee_cs *cs)
+ * @fn float ausbee_cs_get_error(struct ausbee_cs *cs)
  * @brief Getting the computed error.
  *
  * @return Error value.
  *
  */
-int32_t ausbee_cs_get_error(struct ausbee_cs *cs)
+float ausbee_cs_get_error(struct ausbee_cs *cs)
 {
   return cs->error;
 }
 
 /**
- * @fn int32_t ausbee_cs_get_command(struct ausbee_cs *cs)
+ * @fn float ausbee_cs_get_command(struct ausbee_cs *cs)
  * @brief Getting the computed command.
  *
  * @return Command value.
  *
  */
-int32_t ausbee_cs_get_command(struct ausbee_cs *cs)
+float ausbee_cs_get_command(struct ausbee_cs *cs)
 {
   return cs->command;
 }
 
 /**
- * @fn void ausbee_cs_set_reference(struct ausbee_cs *cs, int32_t ref)
+ * @fn void ausbee_cs_set_reference(struct ausbee_cs *cs, float ref)
  * @brief Setting the reference we want to reach.
  *
  * @param ref Reference value.
  *
  */
-void ausbee_cs_set_reference(struct ausbee_cs *cs, int32_t ref)
+void ausbee_cs_set_reference(struct ausbee_cs *cs, float ref)
 {
   cs->reference = ref;
 }

@@ -51,18 +51,21 @@
   */
 
 /**
- * @fn void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd, int32_t max_output, int32_t min_output)
+ * @fn void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd, float min_output, float max_output, float error_deadband)
  * @brief ausbee_pid structure initialisation.
  *
  * @param pid Structure reference.
  * @param Kp Proportional value.
  * @param Ki Integral value.
  * @param Kd Derivative value.
- * @param max_output Maximum saturation output value.
  * @param min_output Minimum saturation output value.
+ * @param max_output Maximum saturation output value.
+ * @param error_deadband Error within [-error_deadband, error_deadband] is considered equaling zero.
+ *                       Useful to avoid some problems resulting from using floats.
+ *                       Must be a positive number.
  *
  */
-void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd, int32_t max_output, int32_t min_output)
+void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd, float min_output, float max_output, float error_deadband)
 {
   pid->Kp = Kp;
   pid->Ki = Ki;
@@ -71,13 +74,15 @@ void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd,
   pid->last_error = 0;
   pid->error_sum = 0;
 
-  pid->max_output = max_output;
   pid->min_output = min_output;
+  pid->max_output = max_output;
+
+  pid->error_deadband = error_deadband;
 }
 
 /**
-  * @fn int32_t ausbee_eval_pid(void *pid, int32_t measure)
-  * @brief Compute PID control with the last measure.
+  * @fn float ausbee_eval_pid(void *pid, float error)
+  * @brief Compute PID control from the last error.
   *
   * @param pid Generic structure reference.
   * @param error Current computed error value.
@@ -85,11 +90,14 @@ void ausbee_init_pid(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd,
   * @return Output value of the controller (i.e. the command).
   *
   */
-int32_t ausbee_eval_pid(void *controller, int32_t error)
+float ausbee_eval_pid(void *controller, float error)
 {
-  int32_t output;
+  float output;
 
   struct ausbee_pid *pid = (struct ausbee_pid *)controller;
+
+  if ((error < pid->error_deadband) && (error > -pid->error_deadband))
+    error = 0;
 
   pid->error_sum += error;
 
@@ -107,7 +115,7 @@ int32_t ausbee_eval_pid(void *controller, int32_t error)
 }
 
 /**
-  * @fn int32_t ausbee_get_pid_error(struct ausbee_pid *pid)
+  * @fn float ausbee_get_pid_error(struct ausbee_pid *pid)
   * @brief Get last computed error
   *
   * @param pid Structure reference.
@@ -115,13 +123,13 @@ int32_t ausbee_eval_pid(void *controller, int32_t error)
   * @return Error value
   *
   */
-int32_t ausbee_get_pid_error(struct ausbee_pid *pid)
+float ausbee_get_pid_error(struct ausbee_pid *pid)
 {
   return pid->last_error;
 }
 
 /**
-  * @fn int32_t ausbee_get_pid_error_sum(struct ausbee_pid *pid)
+  * @fn float ausbee_get_pid_error_sum(struct ausbee_pid *pid)
   * @brief Get last computed error_sum
   *
   * @param pid Structure reference.
@@ -129,7 +137,7 @@ int32_t ausbee_get_pid_error(struct ausbee_pid *pid)
   * @return Error sum value
   *
   */
-int32_t ausbee_get_pid_error_sum(struct ausbee_pid *pid)
+float ausbee_get_pid_error_sum(struct ausbee_pid *pid)
 {
   return pid->error_sum;
 }
