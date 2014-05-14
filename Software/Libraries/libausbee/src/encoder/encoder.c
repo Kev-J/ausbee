@@ -12,8 +12,6 @@ void ausbee_init_sampling_timer(TIM_TypeDef *TIMX, int32_t prescaler, int32_t pe
   {
     TIM_TimeBaseInitTypeDef timeBaseInitTypeDef;
 
-    RCC_APB2PeriphClockCmd(RCC_APB2ENR_TIM8EN, ENABLE);
-
     TIM_TimeBaseStructInit(&timeBaseInitTypeDef);
 
     timeBaseInitTypeDef.TIM_Prescaler = prescaler;
@@ -29,8 +27,6 @@ void ausbee_init_sampling_timer(TIM_TypeDef *TIMX, int32_t prescaler, int32_t pe
   else if (TIMX == TIM1)
   {
     TIM_TimeBaseInitTypeDef timeBaseInitTypeDef;
-
-    RCC_APB2PeriphClockCmd(RCC_APB2ENR_TIM1EN, ENABLE);
 
     TIM_TimeBaseStructInit(&timeBaseInitTypeDef);
 
@@ -68,6 +64,11 @@ void ausbee_encoder_clock_cmd(TIM_TypeDef *TIMX, FunctionalState new_state)
   if (TIMX == TIM1)
   {
     RCC_APB2PeriphClockCmd(RCC_APB2ENR_TIM1EN, new_state);
+  }
+
+  if (TIMX == TIM8)
+  {
+    RCC_APB2PeriphClockCmd(RCC_APB2ENR_TIM8EN, new_state);
   }
 
   if (TIMX == TIM3)
