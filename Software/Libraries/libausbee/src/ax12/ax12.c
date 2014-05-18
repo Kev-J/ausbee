@@ -23,7 +23,7 @@
  * You should have received a copy of the GNU General Public License
  * along with LIBAUSBEE.  If not, see <http://www.gnu.org/licenses/>.
  *
- * <h2><centor>&copy;  Copyright 2013 (C) EIRBOT </center></h2>
+ * <h2><centor>&copy;  Copyright 2013-2014 (C) EIRBOT </center></h2>
  ********************************************************************
  */
 
@@ -112,4 +112,4 @@ uint8_t ausbeeGetAngleAX12()
  * @}
  */
 
-/************** (C) COPYRIGHT 2013 Eirbot **** END OF FILE ****/
+/************** (C) COPYRIGHT 2013-2014 Eirbot **** END OF FILE ****/

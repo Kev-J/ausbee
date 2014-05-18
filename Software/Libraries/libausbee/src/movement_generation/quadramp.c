@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with LIBAUSBEE.  If not, see <http://www.gnu.org/licenses/>.
  *
- * Copyright 2013 (C) EIRBOT
+ * Copyright 2013-2014 (C) EIRBOT
  *
  * Authors :    David Bitonneau <david.bitonneau@gmail.com>
  *
