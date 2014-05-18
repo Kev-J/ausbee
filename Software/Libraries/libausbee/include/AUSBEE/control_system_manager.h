@@ -1,6 +1,6 @@
 /**
  ********************************************************************
- * @file    control_system_manager.c
+ * @file    control_system_manager.h
  * @author  David BITONNEAU <david.bitonneau@gmail.com>
  * @version V1.2
  * @date    18-Mar-2014

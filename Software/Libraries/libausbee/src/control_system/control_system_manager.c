@@ -114,7 +114,7 @@ void ausbee_cs_set_measure_fetcher(struct ausbee_cs *cs,
  * @fn void ausbee_cs_set_measure_filter(struct ausbee_cs *cs,
  *         float (*measure_filter)(void *, float),
  *         void * measure_filter_params)
- * @brief Setting a function to get measure value used by the
+ * @brief Setting a function to filter the measure value used by the
  *        control system.
  *
  * @param cs                    Control system structure reference.
@@ -131,7 +131,7 @@ void ausbee_cs_set_measure_filter(struct ausbee_cs *cs,
 }
 
 /**
- * @fn void ausbee_cs_set_controller(struct ausbee_cs *cs)
+ * @fn void ausbee_cs_set_controller(struct ausbee_cs *cs,
  *         float (*controller)(void *, float),
  *         void * controller_params)
  * @brief Setting the controller to use in the control system.
@@ -149,6 +149,18 @@ void ausbee_cs_set_controller(struct ausbee_cs *cs,
   cs->controller_params = controller_params;
 }
 
+/**
+ * @fn void ausbee_cs_set_process_command(struct ausbee_cs *cs,
+    void (*process_command)(void *, float),
+    void * process_command_params)
+ * @brief Setting the processing function for the command
+ *        computed by the control system.
+ *
+ * @param cs                     Control system structure reference.
+ * @param process_command        Command processing function.
+ * @param process_command_params Parameters for the processing function.
+ *
+ */
 void ausbee_cs_set_process_command(struct ausbee_cs *cs,
     void (*process_command)(void *, float),
     void * process_command_params)
