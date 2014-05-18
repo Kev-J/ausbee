@@ -2,8 +2,8 @@
  ********************************************************************
  * @file    control_system_manager.c
  * @author  David BITONNEAU <david.bitonneau@gmail.com>
- * @version V1.1
- * @date    11-Mar-2014
+ * @version V1.2
+ * @date    18-Mar-2014
  * @brief   Controller system manager definition file.
  ********************************************************************
  * @attention
@@ -55,16 +55,20 @@ struct ausbee_cs {
   float (*measure_fetcher)(void *);
   void * measure_fetcher_params;
 
+  float (*measure_filter)(void *, float);
+  void * measure_filter_params;
+
   float (*controller)(void *, float);
   void * controller_params;
 
   void (*process_command)(void *, float);
   void * process_command_params;
 
-  float reference; /*!< The value we when to reach. */
-  float measure;   /*!< Last measured value. */
-  float error;     /*!< Last computed error. */
-  float command;   /*!< Last command computed by the controller. */
+  float reference;        /*!< The value we when to reach. */
+  float measure;          /*!< Last measured value. */
+  float filtered_measure; /*!< Last measured value filtered. */
+  float error;            /*!< Last computed error. */
+  float command;          /*!< Last command computed by the controller. */
 };
 
 void ausbee_cs_init(struct ausbee_cs *cs);
@@ -72,6 +76,10 @@ void ausbee_cs_init(struct ausbee_cs *cs);
 void ausbee_cs_set_measure_fetcher(struct ausbee_cs *cs,
     float (*measure_fetcher)(void *),
     void * measure_fetcher_params);
+
+void ausbee_cs_set_measure_filter(struct ausbee_cs *cs,
+    float (*measure_filter)(void *, float),
+    void * measure_filter_params);
 
 void ausbee_cs_set_controller(struct ausbee_cs *cs,
     float (*controller)(void *, float),
@@ -86,6 +94,7 @@ void    ausbee_cs_manage(void *cs);
 
 float ausbee_cs_get_reference(struct ausbee_cs *cs);
 float ausbee_cs_get_measure(struct ausbee_cs *cs);
+float ausbee_cs_get_filtered_measure(struct ausbee_cs *cs);
 float ausbee_cs_get_error(struct ausbee_cs *cs);
 float ausbee_cs_get_command(struct ausbee_cs *cs);
 

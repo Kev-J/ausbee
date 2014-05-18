@@ -2,8 +2,8 @@
  ********************************************************************
  * @file    control_system_manager.c
  * @author  David BITONNEAU <david.bitonneau@gmail.com>
- * @version V1.0
- * @date    11-Mar-2014
+ * @version V1.2
+ * @date    18-Mar-2014
  * @brief   Controller system manager implementation file.
  ********************************************************************
  * @attention
@@ -27,7 +27,6 @@
  ********************************************************************
  */
 #include <stdlib.h>
-#include <inttypes.h>
 #include <AUSBEE/device.h>
 #include <AUSBEE/l298_driver.h>
 #include <AUSBEE/control_system_manager.h>
@@ -55,6 +54,14 @@
   * @{
   */
 
+static float safe_filter(float (*f)(void *, float), void *params, float value)
+{
+  if (f) {
+    return f(params, value);
+  }
+  return value;
+}
+
 /**
  * @fn void ausbee_cs_init(struct ausbee_cs *cs)
  * @brief ausbee_cs structure initialisation.
@@ -64,10 +71,22 @@
  */
 void ausbee_cs_init(struct ausbee_cs *cs)
 {
+  cs->measure_fetcher = NULL;
+  cs->measure_fetcher_params = NULL;
+
+  cs->measure_filter = NULL;
+  cs->measure_filter_params = NULL;
+
   cs->controller = NULL;
   cs->controller_params = NULL;
 
+  cs->process_command = NULL;
+  cs->process_command_params = NULL;
+
+  cs->reference = 0;
   cs->measure = 0;
+  cs->filtered_measure = 0;
+  cs->error = 0;
   cs->command = 0;
 }
 
@@ -89,6 +108,26 @@ void ausbee_cs_set_measure_fetcher(struct ausbee_cs *cs,
 {
   cs->measure_fetcher = measure_fetcher;
   cs->measure_fetcher_params = measure_fetcher_params;
+}
+
+/**
+ * @fn void ausbee_cs_set_measure_filter(struct ausbee_cs *cs,
+ *         float (*measure_filter)(void *, float),
+ *         void * measure_filter_params)
+ * @brief Setting a function to get measure value used by the
+ *        control system.
+ *
+ * @param cs                    Control system structure reference.
+ * @param measure_filter        Function to filter the measure value.
+ * @param measure_filter_params Parameters for the function.
+ *
+ */
+void ausbee_cs_set_measure_filter(struct ausbee_cs *cs,
+    float (*measure_filter)(void *, float),
+    void * measure_filter_params)
+{
+  cs->measure_filter = measure_filter;
+  cs->measure_filter_params = measure_filter_params;
 }
 
 /**
@@ -130,16 +169,19 @@ void ausbee_cs_set_process_command(struct ausbee_cs *cs,
 float ausbee_cs_update(struct ausbee_cs *cs, float ref)
 {
   cs->reference = ref;
-  debug_printf("[csm] Input reference: %"PRId32"\r\n", cs->reference);
+  debug_printf("[csm] Input reference: %f\r\n", cs->reference);
 
   cs->measure = cs->measure_fetcher(cs->measure_fetcher_params);
-  debug_printf("[csm] Measure: %"PRId32"\r\n", cs->measure);
+  debug_printf("[csm] Measure: %f\r\n", cs->measure);
 
-  cs->error = cs->reference - cs->measure;
-  debug_printf("[csm] Error: %"PRId32"\r\n", cs->error);
+  cs->filtered_measure = safe_filter(cs->measure_filter, cs->measure_filter_params, cs->measure);
+  debug_printf("[csm] Filtered Measure: %f\r\n", cs->filtered_measure);
+
+  cs->error = cs->reference - cs->filtered_measure;
+  debug_printf("[csm] Error: %f\r\n", cs->error);
 
   cs->command = cs->controller(cs->controller_params, cs->error);
-  debug_printf("[csm] Controller output command: %"PRId32"\r\n", cs->command);
+  debug_printf("[csm] Controller output command: %f\r\n", cs->command);
 
   cs->process_command(cs->process_command_params, cs->command);
 
@@ -182,6 +224,18 @@ float ausbee_cs_get_reference(struct ausbee_cs *cs)
 float ausbee_cs_get_measure(struct ausbee_cs *cs)
 {
   return cs->measure;
+}
+
+/**
+ * @fn float ausbee_cs_get_filtered_measure(struct ausbee_cs *cs)
+ * @brief Getting the filtered measure.
+ *
+ * @return Filtered measure value.
+ *
+ */
+float ausbee_cs_get_filtered_measure(struct ausbee_cs *cs)
+{
+  return cs->filtered_measure;
 }
 
 /**
