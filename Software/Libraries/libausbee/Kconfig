@@ -12,6 +12,13 @@ config LIBAUSBEE_CONTROLLER
 	help
 		Controller implementation for control engineering.
 
+config LIBAUSBEE_CONTROLLER_FILTER_DIFF
+	bool "+ Diff filter"
+	default n
+	depends on LIBAUSBEE
+	help
+		Diff filter implementation for control engineering.
+
 config LIBAUSBEE_LIDAR
 	bool "+ LIDAR"
 	default n
