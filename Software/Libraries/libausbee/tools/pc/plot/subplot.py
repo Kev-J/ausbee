@@ -19,7 +19,7 @@ class Subplot:
             for i in range(new_size - self.num_lines):
                 self.values.append([])
 
-                line, = self.ax.plot(self.x, (self.ymax-self.ymin)/2*(np.sin(self.x))-self.ymin, 'o-')
+                line, = self.ax.plot(self.x, (self.ymax-self.ymin)*((np.sin(self.x)+1)/2)+self.ymin, 'o-')
                 self.lines.append(line)
 
                 line_text = self.ax.text(0.02, 0.95 - (self.num_lines + i) * 0.05, '', transform=self.ax.transAxes)
