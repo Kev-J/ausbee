@@ -2,8 +2,8 @@
  ********************************************************************
  * @file    control_system_manager.c
  * @author  David BITONNEAU <david.bitonneau@gmail.com>
- * @version V1.2
- * @date    18-Mar-2014
+ * @version V1.3
+ * @date    23-May-2014
  * @brief   Controller system manager implementation file.
  ********************************************************************
  * @attention
@@ -71,6 +71,9 @@ static float safe_filter(float (*f)(void *, float), void *params, float value)
  */
 void ausbee_cs_init(struct ausbee_cs *cs)
 {
+  cs->reference_filter = NULL;
+  cs->reference_filter_params = NULL;
+
   cs->measure_fetcher = NULL;
   cs->measure_fetcher_params = NULL;
 
@@ -84,10 +87,31 @@ void ausbee_cs_init(struct ausbee_cs *cs)
   cs->process_command_params = NULL;
 
   cs->reference = 0;
+  cs->filtered_reference = 0;
   cs->measure = 0;
   cs->filtered_measure = 0;
   cs->error = 0;
   cs->command = 0;
+}
+
+/**
+ * @fn void ausbee_cs_set_reference_filter(struct ausbee_cs *cs,
+ *         float (*reference_filter)(void *, float),
+ *         void * reference_filter_params)
+ * @brief Setting a function to filter the reference value used by the
+ *        control system.
+ *
+ * @param cs                    Control system structure reference.
+ * @param reference_filter        Function to filter the reference value.
+ * @param reference_filter_params Parameters for the function.
+ *
+ */
+void ausbee_cs_set_reference_filter(struct ausbee_cs *cs,
+    float (*reference_filter)(void *, float),
+    void * reference_filter_params)
+{
+  cs->reference_filter = reference_filter;
+  cs->reference_filter_params = reference_filter_params;
 }
 
 /**
@@ -183,13 +207,16 @@ float ausbee_cs_update(struct ausbee_cs *cs, float ref)
   cs->reference = ref;
   debug_printf("[csm] Input reference: %f\r\n", cs->reference);
 
+  cs->filtered_reference = safe_filter(cs->reference_filter, cs->reference_filter_params, cs->reference);
+  debug_printf("[csm] Filtered Reference: %f\r\n", cs->filtered_reference);
+
   cs->measure = cs->measure_fetcher(cs->measure_fetcher_params);
   debug_printf("[csm] Measure: %f\r\n", cs->measure);
 
   cs->filtered_measure = safe_filter(cs->measure_filter, cs->measure_filter_params, cs->measure);
   debug_printf("[csm] Filtered Measure: %f\r\n", cs->filtered_measure);
 
-  cs->error = cs->reference - cs->filtered_measure;
+  cs->error = cs->filtered_reference - cs->filtered_measure;
   debug_printf("[csm] Error: %f\r\n", cs->error);
 
   cs->command = cs->controller(cs->controller_params, cs->error);
@@ -224,6 +251,18 @@ void ausbee_cs_manage(void *data)
 float ausbee_cs_get_reference(struct ausbee_cs *cs)
 {
   return cs->reference;
+}
+
+/**
+ * @fn float ausbee_cs_get_filtered_reference(struct ausbee_cs *cs)
+ * @brief Getting the filtered reference.
+ *
+ * @return Filtered reference value.
+ *
+ */
+float ausbee_cs_get_filtered_reference(struct ausbee_cs *cs)
+{
+  return cs->filtered_reference;
 }
 
 /**

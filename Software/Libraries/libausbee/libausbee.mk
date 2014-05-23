@@ -44,6 +44,10 @@ ifeq ($(CONFIG_LIBAUSBEE_CONTROLLER_FILTER_DIFF),y)
 LIBAUSBEE_SRC_FILES+=$(LIBAUSBEE_SRC_PATH)/control_system/filters/diff.c
 endif
 
+ifeq ($(CONFIG_LIBAUSBEE_CONTROLLER_FILTER_QUADRAMP),y)
+LIBAUSBEE_SRC_FILES+=$(LIBAUSBEE_SRC_PATH)/control_system/filters/quadramp.c
+endif
+
 ifeq ($(CONFIG_LIBAUSBEE_CONTROL_SYSTEM_MANAGER),y)
 LIBAUSBEE_SRC_FILES+=$(LIBAUSBEE_SRC_PATH)/control_system/control_system_manager.c
 endif

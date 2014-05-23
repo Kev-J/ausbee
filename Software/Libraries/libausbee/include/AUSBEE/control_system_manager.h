@@ -2,8 +2,8 @@
  ********************************************************************
  * @file    control_system_manager.h
  * @author  David BITONNEAU <david.bitonneau@gmail.com>
- * @version V1.2
- * @date    18-Mar-2014
+ * @version V1.3
+ * @date    23-May-2014
  * @brief   Controller system manager definition file.
  ********************************************************************
  * @attention
@@ -52,6 +52,9 @@
  *
  */
 struct ausbee_cs {
+  float (*reference_filter)(void *, float);
+  void * reference_filter_params;
+
   float (*measure_fetcher)(void *);
   void * measure_fetcher_params;
 
@@ -64,14 +67,19 @@ struct ausbee_cs {
   void (*process_command)(void *, float);
   void * process_command_params;
 
-  float reference;        /*!< The value we when to reach. */
-  float measure;          /*!< Last measured value. */
-  float filtered_measure; /*!< Last measured value filtered. */
-  float error;            /*!< Last computed error. */
-  float command;          /*!< Last command computed by the controller. */
+  float reference;          /*!< The value we want to reach. */
+  float filtered_reference; /*!< The value we think we can reach now. */
+  float measure;            /*!< Last measured value. */
+  float filtered_measure;   /*!< Last measured value filtered. */
+  float error;              /*!< Last computed error. */
+  float command;            /*!< Last command computed by the controller. */
 };
 
 void ausbee_cs_init(struct ausbee_cs *cs);
+
+void ausbee_cs_set_reference_filter(struct ausbee_cs *cs,
+    float (*reference_filter)(void *, float),
+    void * reference_filter_params);
 
 void ausbee_cs_set_measure_fetcher(struct ausbee_cs *cs,
     float (*measure_fetcher)(void *),
@@ -93,6 +101,7 @@ float ausbee_cs_update(struct ausbee_cs *cs, float measure);
 void    ausbee_cs_manage(void *cs);
 
 float ausbee_cs_get_reference(struct ausbee_cs *cs);
+float ausbee_cs_get_filtered_reference(struct ausbee_cs *cs);
 float ausbee_cs_get_measure(struct ausbee_cs *cs);
 float ausbee_cs_get_filtered_measure(struct ausbee_cs *cs);
 float ausbee_cs_get_error(struct ausbee_cs *cs);

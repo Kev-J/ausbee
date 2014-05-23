@@ -19,6 +19,13 @@ config LIBAUSBEE_CONTROLLER_FILTER_DIFF
 	help
 		Diff filter implementation for control engineering.
 
+config LIBAUSBEE_CONTROLLER_FILTER_QUADRAMP
+	bool "+ Quadramp filter"
+	default n
+	depends on LIBAUSBEE
+	help
+		Quadramp filter implementation for control engineering.
+
 config LIBAUSBEE_LIDAR
 	bool "+ LIDAR"
 	default n
