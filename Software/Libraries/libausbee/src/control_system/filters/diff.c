@@ -3,7 +3,7 @@
  * @file    diff.c
  * @author  David BITONNEAU <david.bitonneau@gmail.com>
  * @version V1.0
- * @date    18-Mar-2014
+ * @date    23-May-2014
  * @brief   Diff filter implementation file.
  ********************************************************************
  * @attention

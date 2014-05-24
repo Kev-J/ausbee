@@ -3,7 +3,7 @@
  * @file    diff.h
  * @author  David BITONNEAU <david.bitonneau@gmail.com>
  * @version V1.0
- * @date    18-Mar-2014
+ * @date    23-May-2014
  * @brief   Diff filter definition file.
  ********************************************************************
  * @attention
@@ -53,7 +53,7 @@
 
 /**
  * @struct ausbee_diff
- * @brief PID controller structure
+ * @brief Diff filter structure
  *
  * ausbee_diff contains all the parameters and status of the diff
  * filter.
