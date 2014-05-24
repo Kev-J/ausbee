@@ -184,12 +184,10 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 	//Give the clock to the GPIO
 	if (gpio & GPIO1 || gpio & GPIO2)
 	{
-		printf("clock GPIO1\r\n");
 		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
 	}
 	if (gpio & GPIO3 || gpio & GPIO4 || gpio & GPIO5 || gpio & GPIO6 || gpio & GPIO7 || gpio & GPIO8 || gpio & GPIO9 )
 	{
-		printf("clock GPIO4\r\n");
 		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG, ENABLE);
 	}
 
@@ -202,7 +200,6 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 		GPIOInitStruct.GPIO_OType = type;
 		GPIOInitStruct.GPIO_PuPd = pull_up_down;
 		GPIO_Init(GPIOD,&GPIOInitStruct);
-		printf("gpio1\r\n");
 	}
 	if (gpio & GPIO2)
 	{
@@ -212,7 +209,6 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 		GPIOInitStruct.GPIO_OType = type;
 		GPIOInitStruct.GPIO_PuPd = pull_up_down;
 		GPIO_Init(GPIOD,&GPIOInitStruct);
-		printf("gpio2\r\n");
 	}
 	if (gpio & GPIO3)
 	{
@@ -222,7 +218,6 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 		GPIOInitStruct.GPIO_OType = type;
 		GPIOInitStruct.GPIO_PuPd = pull_up_down;
 		GPIO_Init(GPIOG,&GPIOInitStruct);
-		printf("gpio3\r\n");
 	}
 	if (gpio & GPIO4)
 	{
@@ -232,7 +227,6 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 		GPIOInitStruct.GPIO_OType = type;
 		GPIOInitStruct.GPIO_PuPd = pull_up_down;
 		GPIO_Init(GPIOG,&GPIOInitStruct);
-		printf("gpio4\r\n");
 	}
 	if (gpio & GPIO5)
 	{
@@ -242,7 +236,6 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 		GPIOInitStruct.GPIO_OType = type;
 		GPIOInitStruct.GPIO_PuPd = pull_up_down;
 		GPIO_Init(GPIOG,&GPIOInitStruct);
-		printf("gpio5\r\n");
 	}
 	if (gpio & GPIO6)
 	{
@@ -252,7 +245,6 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 		GPIOInitStruct.GPIO_OType = type;
 		GPIOInitStruct.GPIO_PuPd = pull_up_down;
 		GPIO_Init(GPIOG,&GPIOInitStruct);
-		printf("gpio6\r\n");
 	}
 	if (gpio & GPIO7)
 	{
@@ -262,7 +254,6 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 		GPIOInitStruct.GPIO_OType = type;
 		GPIOInitStruct.GPIO_PuPd = pull_up_down;
 		GPIO_Init(GPIOG,&GPIOInitStruct);
-		printf("gpio7\r\n");
 	}
 	if (gpio & GPIO8)
 	{
@@ -272,7 +263,6 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 		GPIOInitStruct.GPIO_OType = type;
 		GPIOInitStruct.GPIO_PuPd = pull_up_down;
 		GPIO_Init(GPIOG,&GPIOInitStruct);
-		printf("gpio8\r\n");
 	}
 	if (gpio & GPIO9)
 	{
@@ -282,7 +272,6 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 		GPIOInitStruct.GPIO_OType = type;
 		GPIOInitStruct.GPIO_PuPd = pull_up_down;
 		GPIO_Init(GPIOG,&GPIOInitStruct);
-		printf("gpio9\r\n");
 	}
 
 }
