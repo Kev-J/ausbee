@@ -2,8 +2,8 @@
  ********************************************************************
  * @file    quadramp.c
  * @author  David BITONNEAU <david.bitonneau@gmail.com>
- * @version V1.0
- * @date    23-May-2014
+ * @version V1.1
+ * @date    24-May-2014
  * @brief   Quadramp filter implementation file.
  ********************************************************************
  * @attention
@@ -31,6 +31,8 @@
 
 #include "AUSBEE/quadramp.h"
 
+#define SQUARE(x) ((x) * (x))
+
 /** @addtogroup Libausbee
   * @{
   */
@@ -53,6 +55,12 @@
 void ausbee_quadramp_init(struct ausbee_quadramp *q)
 {
 	memset(q, 0, sizeof(*q));
+	q->eval_period = 1;
+}
+
+void ausbee_quadramp_set_eval_period(struct ausbee_quadramp *q, float period)
+{
+  q->eval_period = period;
 }
 
 void ausbee_quadramp_set_2nd_order_vars(struct ausbee_quadramp * q,
@@ -89,16 +97,16 @@ float ausbee_quadramp_eval(void * data, float in)
 	float prev_var, prev_out ;
 
 	if ( q->var_1st_ord_pos )
-		var_1st_ord_pos = q->var_1st_ord_pos ;
+		var_1st_ord_pos = q->var_1st_ord_pos * q->eval_period;
 
 	if ( q->var_1st_ord_neg )
-		var_1st_ord_neg = -q->var_1st_ord_neg ;
+		var_1st_ord_neg = -q->var_1st_ord_neg * q->eval_period;
 
 	if ( q->var_2nd_ord_pos )
-		var_2nd_ord_pos = q->var_2nd_ord_pos ;
+		var_2nd_ord_pos = q->var_2nd_ord_pos * SQUARE(q->eval_period);
 
 	if ( q->var_2nd_ord_neg )
-		var_2nd_ord_neg = -q->var_2nd_ord_neg ;
+		var_2nd_ord_neg = -q->var_2nd_ord_neg * SQUARE(q->eval_period);
 
 	prev_var = q->prev_var;
 	prev_out = q->prev_out;
