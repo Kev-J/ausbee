@@ -184,12 +184,10 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 	//Give the clock to the GPIO
 	if (gpio & GPIO1 || gpio & GPIO2)
 	{
-		printf("clock GPIO1\r\n");
 		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
 	}
 	if (gpio & GPIO3 || gpio & GPIO4 || gpio & GPIO5 || gpio & GPIO6 || gpio & GPIO7 || gpio & GPIO8 || gpio & GPIO9 )
 	{
-		printf("clock GPIO4\r\n");
 		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG, ENABLE);
 	}
 
@@ -202,7 +200,6 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 		GPIOInitStruct.GPIO_OType = type;
 		GPIOInitStruct.GPIO_PuPd = pull_up_down;
 		GPIO_Init(GPIOD,&GPIOInitStruct);
-		printf("gpio1\r\n");
 	}
 	if (gpio & GPIO2)
 	{
@@ -212,7 +209,6 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 		GPIOInitStruct.GPIO_OType = type;
 		GPIOInitStruct.GPIO_PuPd = pull_up_down;
 		GPIO_Init(GPIOD,&GPIOInitStruct);
-		printf("gpio2\r\n");
 	}
 	if (gpio & GPIO3)
 	{
@@ -222,7 +218,6 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 		GPIOInitStruct.GPIO_OType = type;
 		GPIOInitStruct.GPIO_PuPd = pull_up_down;
 		GPIO_Init(GPIOG,&GPIOInitStruct);
-		printf("gpio3\r\n");
 	}
 	if (gpio & GPIO4)
 	{
@@ -232,7 +227,6 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 		GPIOInitStruct.GPIO_OType = type;
 		GPIOInitStruct.GPIO_PuPd = pull_up_down;
 		GPIO_Init(GPIOG,&GPIOInitStruct);
-		printf("gpio4\r\n");
 	}
 	if (gpio & GPIO5)
 	{
@@ -242,7 +236,6 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 		GPIOInitStruct.GPIO_OType = type;
 		GPIOInitStruct.GPIO_PuPd = pull_up_down;
 		GPIO_Init(GPIOG,&GPIOInitStruct);
-		printf("gpio5\r\n");
 	}
 	if (gpio & GPIO6)
 	{
@@ -252,7 +245,6 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 		GPIOInitStruct.GPIO_OType = type;
 		GPIOInitStruct.GPIO_PuPd = pull_up_down;
 		GPIO_Init(GPIOG,&GPIOInitStruct);
-		printf("gpio6\r\n");
 	}
 	if (gpio & GPIO7)
 	{
@@ -262,7 +254,6 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 		GPIOInitStruct.GPIO_OType = type;
 		GPIOInitStruct.GPIO_PuPd = pull_up_down;
 		GPIO_Init(GPIOG,&GPIOInitStruct);
-		printf("gpio7\r\n");
 	}
 	if (gpio & GPIO8)
 	{
@@ -272,7 +263,6 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 		GPIOInitStruct.GPIO_OType = type;
 		GPIOInitStruct.GPIO_PuPd = pull_up_down;
 		GPIO_Init(GPIOG,&GPIOInitStruct);
-		printf("gpio8\r\n");
 	}
 	if (gpio & GPIO9)
 	{
@@ -282,7 +272,6 @@ void platform_gpio_init(uint16_t gpio, uint8_t type, uint8_t mode, uint8_t speed
 		GPIOInitStruct.GPIO_OType = type;
 		GPIOInitStruct.GPIO_PuPd = pull_up_down;
 		GPIO_Init(GPIOG,&GPIOInitStruct);
-		printf("gpio9\r\n");
 	}
 
 }
@@ -291,47 +280,38 @@ void platform_gpio_set(uint16_t gpio)
 {
 	if ((gpio & GPIO1) == GPIO1)
 	{
-		printf("set1\r\n");
 		GPIO_SetBits(PLATFORM_GPIO1_PORT, PLATFORM_GPIO1_PIN);
 	}
 	if ((gpio & GPIO2) == GPIO2)
 	{
-		printf("set2\r\n");
 		GPIO_SetBits(PLATFORM_GPIO2_PORT, PLATFORM_GPIO2_PIN);
 	}
 	if ((gpio & GPIO3) == GPIO3)
 	{
-		printf("set3\r\n");
 		GPIO_SetBits(PLATFORM_GPIO3_PORT, PLATFORM_GPIO3_PIN);
 	}
 	if ((gpio & GPIO4) == GPIO4)
 	{
-		printf("set4\r\n");
 		GPIO_SetBits(PLATFORM_GPIO4_PORT, PLATFORM_GPIO4_PIN);
 	}
 	if ((gpio & GPIO5) == GPIO5)
 	{
-		printf("set5\r\n");
 		GPIO_SetBits(PLATFORM_GPIO5_PORT, PLATFORM_GPIO5_PIN);
 	}
 	if ((gpio & GPIO6) == GPIO6)
 	{
-		printf("set6\r\n");
 		GPIO_SetBits(PLATFORM_GPIO6_PORT, PLATFORM_GPIO6_PIN);
 	}
 	if ((gpio & GPIO7) == GPIO7)
 	{
-		printf("set7\r\n");
 		GPIO_SetBits(PLATFORM_GPIO7_PORT, PLATFORM_GPIO7_PIN);
 	}
 	if ((gpio & GPIO8) == GPIO8)
 	{
-		printf("set8\r\n");
 		GPIO_SetBits(PLATFORM_GPIO8_PORT, PLATFORM_GPIO8_PIN);
 	}
 	if ((gpio & GPIO9) == GPIO9)
 	{
-		printf("set9\r\n");
 		GPIO_SetBits(PLATFORM_GPIO9_PORT, PLATFORM_GPIO9_PIN);
 	}
 }
@@ -340,47 +320,38 @@ void platform_gpio_reset(uint16_t gpio)
 {
 	if ((gpio & GPIO1) == GPIO1)
 	{
-		printf("reset1\r\n");
 		GPIO_ResetBits(PLATFORM_GPIO1_PORT, PLATFORM_GPIO1_PIN);
 	}
 	if ((gpio & GPIO2) == GPIO2)
 	{
-		printf("reset2\r\n");
 		GPIO_ResetBits(PLATFORM_GPIO2_PORT, PLATFORM_GPIO2_PIN);
 	}
 	if ((gpio & GPIO3) == GPIO3)
 	{
-		printf("reset3\r\n");
 		GPIO_ResetBits(PLATFORM_GPIO3_PORT, PLATFORM_GPIO3_PIN);
 	}
 	if ((gpio & GPIO4) == GPIO4)
 	{
-		printf("reset4\r\n");
 		GPIO_ResetBits(PLATFORM_GPIO4_PORT, PLATFORM_GPIO4_PIN);
 	}
 	if ((gpio & GPIO5) == GPIO5)
 	{
-		printf("reset5\r\n");
 		GPIO_ResetBits(PLATFORM_GPIO5_PORT, PLATFORM_GPIO5_PIN);
 	}
 	if ((gpio & GPIO6) == GPIO6)
 	{
-		printf("reset6\r\n");
 		GPIO_ResetBits(PLATFORM_GPIO6_PORT, PLATFORM_GPIO6_PIN);
 	}
 	if ((gpio & GPIO7) == GPIO7)
 	{
-		printf("reset7\r\n");
 		GPIO_ResetBits(PLATFORM_GPIO7_PORT, PLATFORM_GPIO7_PIN);
 	}
 	if ((gpio & GPIO8) == GPIO8)
 	{
-		printf("reset8\r\n");
 		GPIO_ResetBits(PLATFORM_GPIO8_PORT, PLATFORM_GPIO8_PIN);
 	}
 	if ((gpio & GPIO9) == GPIO9)
 	{
-		printf("reset9\r\n");
 		GPIO_ResetBits(PLATFORM_GPIO9_PORT, PLATFORM_GPIO9_PIN);
 	}
 }
