@@ -53,7 +53,7 @@
   */
 
 /**
- * @fn void ausbee_pid_init(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd)
+ * @fn void ausbee_pid_init(struct ausbee_pid *pid, float Kp, float Ki, float Kd)
  * @brief ausbee_pid structure initialisation.
  *
  * @param pid Structure reference.
@@ -62,7 +62,7 @@
  * @param Kd Derivative value.
  *
  */
-void ausbee_pid_init(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd)
+void ausbee_pid_init(struct ausbee_pid *pid, float Kp, float Ki, float Kd)
 {
   pid->Kp = Kp;
   pid->Ki = Ki;

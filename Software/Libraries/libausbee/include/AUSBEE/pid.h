@@ -60,9 +60,9 @@
  *
  */
 struct ausbee_pid {
-  int32_t Kp; /*!< Proportional value. */
-  int32_t Ki; /*!< Integral value. */
-  int32_t Kd; /*!< Derivative value. */
+  float Kp; /*!< Proportional value. */
+  float Ki; /*!< Integral value. */
+  float Kd; /*!< Derivative value. */
 
   float last_error; /*!< Previous error observed. */
   float error_sum; /*!< Sum of previous errors. */
@@ -73,7 +73,7 @@ struct ausbee_pid {
   float error_deadband; /*!< An error within this deadband is considered equaling zero. */
 };
 
-void ausbee_pid_init(struct ausbee_pid *pid, int32_t Kp, int32_t Ki, int32_t Kd);
+void ausbee_pid_init(struct ausbee_pid *pid, float Kp, float Ki, float Kd);
 void ausbee_pid_set_output_range(struct ausbee_pid *pid, float min_output, float max_output);
 void ausbee_pid_set_error_deadband(struct ausbee_pid *pid, float error_deadband);
 
