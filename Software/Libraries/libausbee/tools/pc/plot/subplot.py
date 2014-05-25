@@ -13,6 +13,15 @@ class Subplot:
         self.x_range = _x_range
         self.x = np.arange(0, self.x_range, 1)        # x-array
         self.dynamic_init(1)
+        self.is_visible = True
+
+    def hide(self):
+        #self.ax.set_visible(False)
+        self.is_visible = False
+
+    def show(self):
+        #self.ax.set_visible(True)
+        self.is_visible = True
 
     def dynamic_init(self, new_size):
         if new_size > self.num_lines:
@@ -22,12 +31,15 @@ class Subplot:
                 line, = self.ax.plot(self.x, (self.ymax-self.ymin)*((np.sin(self.x)+1)/2)+self.ymin, 'o-')
                 self.lines.append(line)
 
-                line_text = self.ax.text(0.02, 0.95 - (self.num_lines + i) * 0.05, '', transform=self.ax.transAxes)
+                line_text = self.ax.text(0.02, 0.95 - (self.num_lines + i) * 0.10, '', transform=self.ax.transAxes)
                 self.lines_text.append(line_text)
 
             self.num_lines = new_size
 
     def update_lines(self, frame_num, lineread):
+        if not self.is_visible:
+            return []
+
         splited_read = lineread.split(";")
         self.dynamic_init(len(splited_read))
         for i in range(self.num_lines):
@@ -64,7 +76,7 @@ class Subplot:
 
 class SubplotTable:
     def __init__(self, fig, *args, **kwargs):
-        self.ax = fig.add_subplot(autoscale_on=False, xlim=(-750, 750), ylim=(-750, 750), *args)
+        self.ax = fig.add_subplot(autoscale_on=False, xlim=(-500, 200), ylim=(-200, 500), *args)
         self.lines_x = [0]
         self.lines_y = [0]
 
