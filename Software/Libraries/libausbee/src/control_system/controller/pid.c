@@ -127,16 +127,19 @@ float ausbee_pid_eval(void *controller, float error)
     error = 0;
 
   pid->error_sum += error;
+  pid->error_diff = error - pid->last_error;
 
-  output = pid->Kp * error + pid->Ki * pid->error_sum + pid->Kd * (error - pid->last_error);
+  output = pid->Kp * error + pid->Ki * pid->error_sum + pid->Kd * pid->error_diff;
 
   pid->last_error = error;
 
-  if (output > pid->max_output)
+  if (output > pid->max_output) {
     output = pid->max_output;
+  }
 
-  if (output < pid->min_output)
+  if (output < pid->min_output) {
     output = pid->min_output;
+  }
 
   return output;
 }
@@ -167,6 +170,20 @@ float ausbee_pid_get_error(struct ausbee_pid *pid)
 float ausbee_pid_get_error_sum(struct ausbee_pid *pid)
 {
   return pid->error_sum;
+}
+
+/**
+  * @fn float ausbee_pid_get_error_diff(struct ausbee_pid *pid)
+  * @brief Get last computed error_diff
+  *
+  * @param pid Structure reference.
+  *
+  * @return Error diff value
+  *
+  */
+float ausbee_pid_get_error_diff(struct ausbee_pid *pid)
+{
+  return pid->error_diff;
 }
 
 /**

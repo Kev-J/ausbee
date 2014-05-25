@@ -66,6 +66,7 @@ struct ausbee_pid {
 
   float last_error; /*!< Previous error observed. */
   float error_sum; /*!< Sum of previous errors. */
+  float error_diff; /*!< Diff with previous errors. */
 
   float min_output; /*!< Minimum saturation output value. */
   float max_output; /*!< Maximum saturation output value. */
@@ -81,6 +82,7 @@ float ausbee_pid_eval(void *pid, float error);
 
 float ausbee_pid_get_error(struct ausbee_pid *pid);
 float ausbee_pid_get_error_sum(struct ausbee_pid *pid);
+float ausbee_pid_get_error_diff(struct ausbee_pid *pid);
 
 #endif
 
