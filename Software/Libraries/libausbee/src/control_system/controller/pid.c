@@ -70,6 +70,7 @@ void ausbee_pid_init(struct ausbee_pid *pid, float Kp, float Ki, float Kd)
 
   pid->last_error = 0;
   pid->error_sum = 0;
+  pid->error_diff = 0;
 
   pid->min_output = -INFINITY;
   pid->max_output =  INFINITY;
