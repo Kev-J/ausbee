@@ -78,6 +78,14 @@ void ausbee_pid_init(struct ausbee_pid *pid, float Kp, float Ki, float Kd);
 void ausbee_pid_set_output_range(struct ausbee_pid *pid, float min_output, float max_output);
 void ausbee_pid_set_error_deadband(struct ausbee_pid *pid, float error_deadband);
 
+void ausbee_pid_set_kp(struct ausbee_pid *pid, float Kp);
+void ausbee_pid_set_ki(struct ausbee_pid *pid, float Ki);
+void ausbee_pid_set_kd(struct ausbee_pid *pid, float Kd);
+
+float ausbee_pid_get_kp(struct ausbee_pid *pid);
+float ausbee_pid_get_ki(struct ausbee_pid *pid);
+float ausbee_pid_get_kd(struct ausbee_pid *pid);
+
 float ausbee_pid_eval(void *pid, float error);
 
 float ausbee_pid_get_error(struct ausbee_pid *pid);

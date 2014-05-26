@@ -108,6 +108,36 @@ void ausbee_pid_set_error_deadband(struct ausbee_pid *pid, float error_deadband)
   pid->error_deadband = error_deadband;
 }
 
+void ausbee_pid_set_kp(struct ausbee_pid *pid, float Kp)
+{
+  pid->Kp = Kp;
+}
+
+void ausbee_pid_set_ki(struct ausbee_pid *pid, float Ki)
+{
+  pid->Ki = Ki;
+}
+
+void ausbee_pid_set_kd(struct ausbee_pid *pid, float Kd)
+{
+  pid->Kd = Kd;
+}
+
+float ausbee_pid_get_kp(struct ausbee_pid *pid)
+{
+  return pid->Kp;
+}
+
+float ausbee_pid_get_ki(struct ausbee_pid *pid)
+{
+  return pid->Ki;
+}
+
+float ausbee_pid_get_kd(struct ausbee_pid *pid)
+{
+  return pid->Kd;
+}
+
 /**
   * @fn float ausbee_pid_eval(void *pid, float error)
   * @brief Compute PID control from the last error.
