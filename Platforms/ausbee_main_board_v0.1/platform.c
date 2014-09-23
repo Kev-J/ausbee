@@ -6,9 +6,11 @@
  *
  */
 
-#include "platform.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stm32f4xx.h>
+
+#include "platform.h"
 
 void platform_hse_pll_init(void)
 {
