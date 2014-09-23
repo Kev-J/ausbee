@@ -1,1 +1,13 @@
-Insert your sources in src/
+Cet exemple permet de piloter les 8 servomoteurs de la servo_module avec la main_board en utilisant le can
+
+Copier les deux fichiers dans Software/Project/src
+make program
+
+La commande se fait grace à l'uart
+Ouvrir minicom
+
+deux requetes:
+-1: Quel servo? (1 à 8)
+-2: position? (0 à 9) 0 correspondant à 5° puis 1 10°, 2 20°, 3 30°, etc.
+
+
