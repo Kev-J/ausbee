@@ -27,10 +27,22 @@ include $(TOOLCHAIN_PATH)/toolchain.mk
 ifneq ($(SYSTEM_PATH),)
 include $(SYSTEM_PATH)/system.mk
 endif
-include $(LIBRARIES_PATH)/libraries.mk
+include $(PACKAGES_PATH)/packages.mk
 include $(PLATFORMS_PATH)/platforms.mk
 include $(OPERATING_SYSTEMS_PATH)/operating_systems.mk
 include $(PROJECT_PATH)/project.mk
+
+$(OUTPUT_TARGET_HEX): $(OUTPUT_TARGET_ELF)
+	$(HOST_OBJCPY) -O ihex $^ $@
+	$(HOST_SIZE) $@
+
+$(OUTPUT_TARGET_BIN): $(OUTPUT_TARGET_ELF)
+	$(HOST_OBJCPY) -O binary $^ $@
+
+$(OUTPUT_TARGET_ELF): $(OBJ_FILES) $(LIB_FILES) $(LINKER_SCRIPT)
+	$(MKDIR_P) $(OUTPUT_PATH)
+	$(HOST_CC) -o $@ -T$(LINKER_SCRIPT) $(OBJ_FILES) $(HOST_LDFLAGS)
+
 ######################################################################
 # Configuration tool
 
@@ -118,18 +130,14 @@ endif
 dirclean: toolchain-dirclean operating_systems-dirclean clean
 	$(RM_RF) .config .config.old $(KCONFIG_BUILD_PATH) $(BUILD_PATH)
 
-CLEAN_GOALS=libraries-clean project-clean operating_systems-clean platforms-clean
+CLEAN_GOALS=packages-clean operating_systems-clean
 ifneq ($(SYSTEM_PATH),)
 CLEAN_GOALS+=system-clean
 endif
 
 .PHONY: $(CLEAN_GOALS)
 clean: $(CLEAN_GOALS)
-
-######################################################################
-# Documentation
-.PHONY: doc
-doc: libraries-doc
+	$(RM_RF) $(OBJ_FILES)
 
 ######################################################################
 # Help
@@ -166,9 +174,6 @@ help:
 	$(ECHO_E) "Cleaning:"
 	$(ECHO_E) "  clean              - remove all object files"
 	$(ECHO_E) "  dirclean           - reset all the project (/!\\ Remove configuration)"
-	$(ECHO_E)
-	$(ECHO_E) "Documentation:"
-	$(ECHO_E) "  doc                - generate manuals and doxygen documentation in the \"Documentation folder\""
 	$(ECHO_E)
 	$(ECHO_E) "Help:"
 	$(ECHO_E) "  help               - Display this help"

@@ -49,7 +49,8 @@ INCLUDE_KCONFIG_PATH=$(CURDIR)/include
 CONFIGS_PATH=$(CURDIR)/Configs
 
 # Project output files
-OUTPUT_PATH=$(CURDIR)/output
+OUTPUT_PATH=$(CURDIR)/Output
+
 # A subdir is defined, use it as ouput directory
 ifneq ($(origin OUTPUT_SUB_PATH), undefined)
 	OUTPUT_PATH=$(CURDIR)/output/$(OUTPUT_SUB_PATH)
@@ -79,8 +80,8 @@ endif
 # OS_PATH
 OPERATING_SYSTEMS_PATH=$(CURDIR)/Operating_Systems
 
-# Libraries
-LIBRARIES_PATH=$(CURDIR)/Libraries
+# Packages
+PACKAGES_PATH=$(CURDIR)/Packages
 
 # Platforms
 PLATFORMS_PATH=$(CURDIR)/Platforms
@@ -91,9 +92,13 @@ PROJECT_PATH=$(CURDIR)/Project
 # Documentation
 DOCUMENTATION_PATH=$(CURDIR)/Documentation
 
+# Build
+BUILD_PATH=$(OUTPUT_PATH)/Build
+
 ######################################################################
 # Build variables
 HOST_AS=$(subst $(DQUOTE),,$(TOOLCHAIN_BIN_PATH)/$(CONFIG_TOOLCHAIN_TARGET_NAME)-as)
+HOST_AR=$(subst $(DQUOTE),,$(TOOLCHAIN_BIN_PATH)/$(CONFIG_TOOLCHAIN_TARGET_NAME)-ar)
 HOST_CC=$(subst $(DQUOTE),,$(TOOLCHAIN_BIN_PATH)/$(CONFIG_TOOLCHAIN_TARGET_NAME)-gcc)
 HOST_CXX=$(subst $(DQUOTE),,$(TOOLCHAIN_BIN_PATH)/$(CONFIG_TOOLCHAIN_TARGET_NAME)-g++)
 HOST_LD=$(subst $(DQUOTE),,$(TOOLCHAIN_BIN_PATH)/$(CONFIG_TOOLCHAIN_TARGET_NAME)-ld)

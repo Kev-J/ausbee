@@ -1,0 +1,55 @@
+config STM32F4XX_STDPERIPH_DRIVER_CAN
+	bool "+ CAN"
+	depends on STM32F4XX_STDPERIPH_DRIVER
+	help
+		TODO
+
+config STM32F4XX_STDPERIPH_DRIVER_RCC
+	bool "+ RCC"
+	depends on STM32F4XX_STDPERIPH_DRIVER
+	help
+		TODO
+
+config STM32F4XX_STDPERIPH_DRIVER_GPIO
+	bool "+ GPIO"
+	depends on STM32F4XX_STDPERIPH_DRIVER
+	help
+		TODO
+
+config STM32F4XX_STDPERIPH_DRIVER_TIM
+	bool "+ TIM"
+	depends on STM32F4XX_STDPERIPH_DRIVER
+	help
+		TODO
+
+config STM32F4XX_STDPERIPH_DRIVER_USART
+	bool "+ USART"
+	depends on STM32F4XX_STDPERIPH_DRIVER
+	help
+		TODO
+
+config STM32F4XX_STDPERIPH_SPI
+	bool "+ SPI"
+	depends on STM32F4XX_STDPERIPH_DRIVER
+	help
+		TODO
+
+config STM32F4XX_STDPERIPH_EXTI
+	bool "+ EXTI"
+	depends on STM32F4XX_STDPERIPH_DRIVER
+	help
+		External Interrupt functions
+
+config STM32F4XX_STDPERIPH_SYSCFG
+	bool "+ SYSCFG"
+	depends on STM32F4XX_STDPERIPH_DRIVER
+	help
+		System Configuration Controller
+
+config STM32F4XX_STDPERIPH_MISC
+	bool "+ MISC"
+	depends on STM32F4XX_STDPERIPH_DRIVER
+	help
+		TODO
+
+#TODO add others

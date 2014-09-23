@@ -1,0 +1,13 @@
+config LIBAUSBEE_CONTROL_SYSTEM
+	bool "+ Control system"
+	default n
+	depends on LIBAUSBEE
+	help
+		Control engineering.
+
+config LIBAUSBEE_DRIVERS
+	bool "+ Drivers"
+	default n
+	depends on LIBAUSBEE
+	help
+		Drivers for several devices

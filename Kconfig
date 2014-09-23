@@ -184,9 +184,9 @@ source "Toolchain/Kconfig"
 endmenu
 
 ########################################
-## Libraries menu
-menu "Libraries"
-source "Libraries/Kconfig"
+## Packages menu
+menu "Packages"
+source "Packages/Kconfig"
 endmenu
 
 ########################################
