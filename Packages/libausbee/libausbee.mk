@@ -13,7 +13,7 @@ endif
 # Include files
 LIBAUSBEE_INCLUDE_PATH=libausbee-$(LIBAUSBEE_VERSION)/include/
 
-ifeq ($(CONFIG_LIBAUSBEE_CONTROL_SYSTEM),y)
+ifeq ($(CONFIG_LIBAUSBEE_DRIVERS),y)
 LIBAUSBEE_SRC_FILES=libausbee-$(LIBAUSBEE_VERSION)/src/drivers/lidar.c \
 	libausbee-$(LIBAUSBEE_VERSION)/src/drivers/ax12.c \
 	libausbee-$(LIBAUSBEE_VERSION)/src/drivers/encoder.c \
@@ -21,7 +21,7 @@ LIBAUSBEE_SRC_FILES=libausbee-$(LIBAUSBEE_VERSION)/src/drivers/lidar.c \
 	libausbee-$(LIBAUSBEE_VERSION)/src/drivers/servo.c
 endif
 
-ifeq ($(CONFIG_LIBAUSBEE_DRIVERS),y)
+ifeq ($(CONFIG_LIBAUSBEE_CONTROL_SYSTEM),y)
 LIBAUSBEE_SRC_FILES+=libausbee-$(LIBAUSBEE_VERSION)/src/control_system/control_system_manager.c \
 	libausbee-$(LIBAUSBEE_VERSION)/src/control_system/controller/pid.c \
 	libausbee-$(LIBAUSBEE_VERSION)/src/control_system/filters/diff.c \
