@@ -12,6 +12,8 @@
 
 #include "platform.h"
 
+void platform_enable_clock_gpio(GPIO_TypeDef* GPIO_Port);
+
 void platform_hse_pll_init(void)
 {
   RCC_DeInit();
@@ -549,36 +551,38 @@ void platform_motor2_init_io(void)
   GPIO_PinAFConfig(GPIOE, PLATFORM_PWM_MOTOR2_PIN_SOURCE, PLATFORM_PWM_MOTOR2_GPIO_AF);
 }
 
-void platform_encoder1_init(void)
+void platform_encoder_init(void)
 {
+	// turn on the clocks for each of the ports needed
+	platform_enable_clock_gpio(PLATFORM_ENC1A_PORT);
+	platform_enable_clock_gpio(PLATFORM_ENC1B_PORT);
+	platform_enable_clock_gpio(PLATFORM_ENC2A_PORT);
+	platform_enable_clock_gpio(PLATFORM_ENC2B_PORT);
+
+	// General pin configuration
 	GPIO_InitTypeDef GPIO_InitStructure;
-
-	RCC_AHB1PeriphClockCmd(PLATFORM_ENCODER1_PERIPH_CLOCK_PORT, ENABLE);
-
-	GPIO_InitStructure.GPIO_Pin = PLATFORM_ENCODER1_A_PIN;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
 	GPIO_InitStructure.GPIO_Speed = GPIO_High_Speed;
 
-	GPIO_Init(PLATFORM_ENCODER1_PORT, &GPIO_InitStructure);
+	// Connect the pins to their Alternate Functions
+	GPIO_PinAFConfig(PLATFORM_ENC1A_PORT, PLATFORM_ENC1A_PIN_SOURCE,
+			PLATFORM_ENC1_GPIO_AF);
+	GPIO_PinAFConfig(PLATFORM_ENC1B_PORT, PLATFORM_ENC1B_PIN_SOURCE,
+			PLATFORM_ENC1_GPIO_AF);
+	GPIO_PinAFConfig(PLATFORM_ENC2A_PORT, PLATFORM_ENC2A_PIN_SOURCE,
+			PLATFORM_ENC2_GPIO_AF);
+	GPIO_PinAFConfig(PLATFORM_ENC2B_PORT, PLATFORM_ENC2B_PIN_SOURCE,
+			PLATFORM_ENC2_GPIO_AF);
 
-	GPIO_PinAFConfig(PLATFORM_ENCODER1_PORT, PLATFORM_ENCODER1_PIN_SOURCE, PLATFORM_ENCODER1_GPIO_AF);
-
-	GPIO_StructInit(&GPIO_InitStructure);
-}
-
-void platform_encoder2_init(void)
-{
-	GPIO_InitTypeDef GPIO_InitStructure;
-
-	RCC_AHB1PeriphClockCmd(PLATFORM_ENCODER2_PERIPH_CLOCK_PORT, ENABLE);
-	
-	GPIO_InitStructure.GPIO_Pin = PLATFORM_ENCODER2_A_PIN;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
-	GPIO_InitStructure.GPIO_Speed = GPIO_High_Speed;
-
-	GPIO_Init(PLATFORM_ENCODER2_PORT, &GPIO_InitStructure);
-
-	GPIO_PinAFConfig(PLATFORM_ENCODER2_PORT, PLATFORM_ENCODER2_PIN_SOURCE, PLATFORM_ENCODER2_GPIO_AF);
+    // Configure each pin
+	GPIO_InitStructure.GPIO_Pin = PLATFORM_ENC1A_PIN;
+	GPIO_Init(PLATFORM_ENC1A_PORT, &GPIO_InitStructure);
+	GPIO_InitStructure.GPIO_Pin = PLATFORM_ENC1B_PIN;
+	GPIO_Init(PLATFORM_ENC1B_PORT, &GPIO_InitStructure);
+	GPIO_InitStructure.GPIO_Pin = PLATFORM_ENC2A_PIN;
+	GPIO_Init(PLATFORM_ENC2A_PORT, &GPIO_InitStructure);
+	GPIO_InitStructure.GPIO_Pin = PLATFORM_ENC2B_PIN;
+	GPIO_Init(PLATFORM_ENC2B_PORT, &GPIO_InitStructure);
 
 	GPIO_StructInit(&GPIO_InitStructure);
 }
@@ -609,4 +613,26 @@ int platform_can_init(CAN_TypeDef* CANx)
   }
 
   return 0;
+}
+
+void platform_enable_clock_gpio(GPIO_TypeDef* GPIO_Port)
+{
+	if (GPIO_Port == GPIOA)
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
+	if (GPIO_Port == GPIOB)
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
+	if (GPIO_Port == GPIOC)
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+	if (GPIO_Port == GPIOD)
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
+	if (GPIO_Port == GPIOE)
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOE, ENABLE);
+	if (GPIO_Port == GPIOF)
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOF, ENABLE);
+	if (GPIO_Port == GPIOG)
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOG, ENABLE);
+	if (GPIO_Port == GPIOH)
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOH, ENABLE);
+	if (GPIO_Port == GPIOI)
+		RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOI, ENABLE);
 }

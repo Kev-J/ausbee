@@ -62,19 +62,27 @@
 /************
  * Encoders *
  ************/
-#define PLATFORM_ENCODER1_A_PIN             GPIO_Pin_9
-#define PLATFORM_ENCODER1_B_PIN             GPIO_Pin_11
-#define PLATFORM_ENCODER1_PORT              GPIOE
-#define PLATFORM_ENCODER1_PERIPH_CLOCK_PORT RCC_AHB1Periph_GPIOE
-#define PLATFORM_ENCODER1_GPIO_AF           GPIO_AF_TIM1
-#define PLATFORM_ENCODER1_PIN_SOURCE        GPIO_PinSource9
+//Encoder 1
+#define PLATFORM_ENC1A_PIN             GPIO_Pin_9
+#define PLATFORM_ENC1A_PORT            GPIOE
+#define PLATFORM_ENC1A_PIN_SOURCE      GPIO_PinSource9
 
-#define PLATFORM_ENCODER2_A_PIN             GPIO_Pin_6
-#define PLATFORM_ENCODER2_B_PIN             GPIO_Pin_7
-#define PLATFORM_ENCODER2_PORT              GPIOC
-#define PLATFORM_ENCODER2_PERIPH_CLOCK_PORT RCC_AHB1Periph_GPIOC
-#define PLATFORM_ENCODER2_GPIO_AF           GPIO_AF_TIM3
-#define PLATFORM_ENCODER2_PIN_SOURCE        GPIO_PinSource6
+#define PLATFORM_ENC1B_PIN             GPIO_Pin_11
+#define PLATFORM_ENC1B_PORT            GPIOE
+#define PLATFORM_ENC1B_PIN_SOURCE      GPIO_PinSource11
+
+#define PLATFORM_ENC1_GPIO_AF          GPIO_AF_TIM1
+
+//Encoder 2
+#define PLATFORM_ENC2A_PIN             GPIO_Pin_6
+#define PLATFORM_ENC2A_PORT            GPIOC
+#define PLATFORM_ENC2A_PIN_SOURCE      GPIO_PinSource6
+
+#define PLATFORM_ENC2B_PIN             GPIO_Pin_7
+#define PLATFORM_ENC2B_PORT            GPIOC
+#define PLATFORM_ENC2B_PIN_SOURCE      GPIO_PinSource7
+
+#define PLATFORM_ENC2_GPIO_AF          GPIO_AF_TIM3
 
 
 /********
@@ -168,8 +176,7 @@ int platform_usart_init(USART_TypeDef *USARTx, uint32_t baudrate);
 void platform_motor1_init_io(void);
 void platform_motor2_init_io(void);
 
-void platform_encoder1_init(void);
-void platform_encoder2_init(void);
+void platform_encoder_init(void);
 
 int platform_can_init(CAN_TypeDef* CANx);
 
