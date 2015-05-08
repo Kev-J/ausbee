@@ -1,4 +1,4 @@
-LIBAUSBEE_VERSION = 0.1
+LIBAUSBEE_VERSION = 1.0
 LIBAUSBEE_URL = https://github.com/Kev-J/libausbee/archive/$(LIBAUSBEE_VERSION).tar.gz
 LIBAUSBEE_ARCHIVE =libausbee-$(LIBAUSBEE_VERSION).tar.gz
 
