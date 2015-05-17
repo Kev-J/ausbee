@@ -1,4 +1,4 @@
-LIBAUSBEE_VERSION = 1.0
+LIBAUSBEE_VERSION = 1.2
 LIBAUSBEE_URL = https://github.com/Kev-J/libausbee/archive/$(LIBAUSBEE_VERSION).tar.gz
 LIBAUSBEE_ARCHIVE =libausbee-$(LIBAUSBEE_VERSION).tar.gz
 
@@ -18,7 +18,8 @@ LIBAUSBEE_SRC_FILES=libausbee-$(LIBAUSBEE_VERSION)/src/drivers/lidar.c \
 	libausbee-$(LIBAUSBEE_VERSION)/src/drivers/ax12.c \
 	libausbee-$(LIBAUSBEE_VERSION)/src/drivers/encoder.c \
 	libausbee-$(LIBAUSBEE_VERSION)/src/drivers/l298_driver.c \
-	libausbee-$(LIBAUSBEE_VERSION)/src/drivers/servo.c
+	libausbee-$(LIBAUSBEE_VERSION)/src/drivers/servo.c \
+	libausbee-$(LIBAUSBEE_VERSION)/src/drivers/gp2.c
 endif
 
 ifeq ($(CONFIG_LIBAUSBEE_CONTROL_SYSTEM),y)
