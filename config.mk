@@ -46,7 +46,7 @@ DQUOTE="
 INCLUDE_KCONFIG_PATH=$(CURDIR)/include
 
 #Configs
-CONFIGS_PATH=$(CURDIR)/Configs
+CONFIGS_PATH=$(AUSBEE_DIR)/Configs
 
 # Project output files
 OUTPUT_PATH=$(CURDIR)/Output
