@@ -7,17 +7,18 @@
 #                                                         #
 ###########################################################
 
-include config.mk
+include $(AUSBEE_DIR)/config.mk
 
 ######################################################################
 # KCONFIG variables
-KCONFIG_SOURCES_PATH=$(CURDIR)/kconfig-frontends
+KCONFIG_SOURCES_PATH=$(AUSBEE_DIR)/kconfig-frontends
 KCONFIG_BUILD_PATH=$(KCONFIG_SOURCES_PATH)/build
 CONF=$(KCONFIG_BUILD_PATH)/frontends/conf/conf
 MCONF=$(KCONFIG_BUILD_PATH)/frontends/mconf/mconf
 NCONF=$(KCONFIG_BUILD_PATH)/frontends/nconf/nconf
 QCONF=$(KCONFIG_BUILD_PATH)/frontends/qconf/qconf
 GCONF=$(KCONFIG_BUILD_PATH)/frontends/gconf/gconf
+export AUSBEE_DIR
 
 ######################################################################
 # Build target
@@ -49,53 +50,53 @@ $(OUTPUT_TARGET_ELF): $(OBJ_FILES) $(LIB_FILES) $(LINKER_SCRIPT)
 # Load board configuration
 .PHONY: %-defconfig
 %-defconfig: $(CONF) 
-	$(CONF) --defconfig=$(CONFIGS_PATH)/$@ Kconfig
+	$(CONF) --defconfig=$(CONFIGS_PATH)/$@ $(AUSBEE_DIR)/Kconfig
 	mkdir -p include/
 	mkdir -p include/config include/generated
-	$(CONF) --silentoldconfig Kconfig
+	$(CONF) --silentoldconfig $(AUSBEE_DIR)/Kconfig
 
 # Load default configuration
 .PHONY: alldefconfig
 alldefconfig: $(CONF)
-	$(CONF) --alldefconfig Kconfig
+	$(CONF) --alldefconfig $(AUSBEE_DIR)/Kconfig
 	mkdir -p include/
 	mkdir -p include/config include/generated
-	$(CONF) --silentoldconfig Kconfig
+	$(CONF) --silentoldconfig $(AUSBEE_DIR)/Kconfig
 
 .PHONY: config
 config: $(CONF)
-	$(CONF) Kconfig
+	$(CONF) $(AUSBEE_DIR)/Kconfig
 	mkdir -p include/
 	mkdir -p include/config include/generated
-	$(CONF) --silentoldconfig Kconfig
+	$(CONF) --silentoldconfig $(AUSBEE_DIR)/Kconfig
 
 .PHONY: menuconfig
 menuconfig: $(MCONF)
-	$(MCONF) Kconfig
+	$(MCONF) $(AUSBEE_DIR)/Kconfig
 	mkdir -p include/
 	mkdir -p include/config include/generated
-	$(CONF) --silentoldconfig Kconfig
+	$(CONF) --silentoldconfig $(AUSBEE_DIR)/Kconfig
 
 .PHONY: nconfig
 nconfig: $(NCONF)
-	$(NCONF) Kconfig
+	$(NCONF) $(AUSBEE_DIR)/Kconfig
 	mkdir -p include/
 	mkdir -p include/config include/generated
-	$(CONF) --silentoldconfig Kconfig
+	$(CONF) --silentoldconfig $(AUSBEE_DIR)/Kconfig
 
 .PHONY: xconfig
 xconfig: $(QCONF)
-	$(QCONF) Kconfig
+	$(QCONF) $(AUSBEE_DIR)/Kconfig
 	mkdir -p include/
 	mkdir -p include/config include/generated
-	$(CONF) --silentoldconfig Kconfig
+	$(CONF) --silentoldconfig $(AUSBEE_DIR)/Kconfig
 
 .PHONY: gconfig
 gconfig: $(GCONF)
-	$(GCONF) Kconfig
+	$(GCONF) $(AUSBEE_DIR)/Kconfig
 	mkdir -p include/
 	mkdir -p include/config include/generated
-	$(CONF) --silentoldconfig Kconfig
+	$(CONF) --silentoldconfig $(AUSBEE_DIR)/Kconfig
 
 # KCONFIG build
 $(MCONF): $(CONF)
@@ -108,7 +109,7 @@ $(CONF): $(KCONFIG_BUILD_PATH)/Makefile
 
 $(KCONFIG_BUILD_PATH)/Makefile:
 	$(MKDIR_P) $(KCONFIG_BUILD_PATH)
-	$(CD) $(KCONFIG_BUILD_PATH) ; $(KCONFIG_SOURCES_PATH)/configure
+	$(CD) $(KCONFIG_BUILD_PATH) ; ../configure
 
 ######################################################################
 # Program and run

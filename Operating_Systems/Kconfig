@@ -12,5 +12,5 @@ endchoice
 
 menu "Operating System Configuration"
 depends on OS_USE_FREERTOS
-source Operating_Systems/FreeRTOS/Kconfig
+source "$AUSBEE_DIR/Operating_Systems/FreeRTOS/Kconfig"
 endmenu

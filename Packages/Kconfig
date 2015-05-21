@@ -8,7 +8,7 @@ config STM32F10X_STDPERIPH_DRIVER
 	help
 		TODO
 
-source Packages/stm32f10x_stdperiph_driver/Kconfig
+source "$AUSBEE_DIR/Packages/stm32f10x_stdperiph_driver/Kconfig"
 
 config STM32F4XX_STDPERIPH_DRIVER
 	bool "STM32F4xx StdPeriph Driver"
@@ -18,7 +18,7 @@ config STM32F4XX_STDPERIPH_DRIVER
 	help
 		TODO
 
-source Packages/stm32f4xx_stdperiph_driver/Kconfig
+source "$AUSBEE_DIR/Packages/stm32f4xx_stdperiph_driver/Kconfig"
 
 config LIBAUSBEE
 	bool "libausbee"
@@ -30,4 +30,4 @@ config LIBAUSBEE
 comment "LIBAUSBEE (Select StdPeriph_Driver)"
 depends on !(STM32F4XX_STDPERIPH_DRIVER || STM32F10X_STDPERIPH_DRIVER)
 
-source Packages/libausbee/Kconfig
+source "$AUSBEE_DIR/Packages/libausbee/Kconfig"
