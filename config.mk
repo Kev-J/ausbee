@@ -72,9 +72,9 @@ endif
 
 # System
 ifeq ($(CONFIG_ARM_CORE_CORTEX_M4),y)
-SYSTEM_PATH=$(CURDIR)/System-CM4
+SYSTEM_PATH=$(AUSBEE_DIR)/System-CM4
 else ifeq ($(CONFIG_ARM_CORE_CORTEX_M3),y)
-SYSTEM_PATH=$(CURDIR)/System-CM3
+SYSTEM_PATH=$(AUSBEE_DIR)/System-CM3
 endif
 
 # OS_PATH

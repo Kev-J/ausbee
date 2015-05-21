@@ -1,4 +1,3 @@
-###########################################################
 # Makefile for configuring and building an AUSBEE project #
 #                                                         #
 # Author: Kevin JOLY <joly.kevin25@gmail.com>             #
@@ -6,6 +5,13 @@
 # EIRBOT ENSEIRB-MATMECA Robotics club 2013               #
 #                                                         #
 ###########################################################
+
+ifeq ($(AUSBEE_DIR),)
+MULTIPROJECT=0
+AUSBEE_DIR=.
+else
+MULTIPROJECT=1
+endif
 
 include $(AUSBEE_DIR)/config.mk
 
@@ -31,7 +37,12 @@ endif
 include $(PACKAGES_PATH)/packages.mk
 include $(PLATFORMS_PATH)/platforms.mk
 include $(OPERATING_SYSTEMS_PATH)/operating_systems.mk
+
+ifeq ($(MULTIPROJECT), 1)
+include $(PROJECT_PATH)/multiproject.mk
+else
 include $(PROJECT_PATH)/project.mk
+endif
 
 $(OUTPUT_TARGET_HEX): $(OUTPUT_TARGET_ELF)
 	$(HOST_OBJCPY) -O ihex $^ $@
