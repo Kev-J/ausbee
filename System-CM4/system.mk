@@ -18,8 +18,8 @@ endif
 SYSTEM_SRC_S_FILES+=$(CMSIS_DEVICE_SUPPORT_PATH)/Source/Templates/gcc_ride7/startup_$(shell echo $(DEVICE_NAME) | tr A-Z a-z).s
 
 # Object files list
-SYSTEM_OBJ_C_FILES=$(SYSTEM_SRC_C_FILES:.c=.o)
-SYSTEM_OBJ_S_FILES=$(SYSTEM_SRC_S_FILES:.s=.o)
+SYSTEM_OBJ_C_FILES=$(patsubst ${AUSBEE_DIR}/%.c,${OUTPUT_PATH}/%.o,${SYSTEM_SRC_C_FILES})
+SYSTEM_OBJ_S_FILES=$(patsubst ${AUSBEE_DIR}/%.s,${OUTPUT_PATH}/%.o,${SYSTEM_SRC_S_FILES})
 
 # Add object files to the global obj files list
 OBJ_FILES+=$(SYSTEM_OBJ_C_FILES) $(SYSTEM_OBJ_S_FILES)
@@ -31,10 +31,12 @@ $(LINKER_SCRIPT): $(LINKER_SCRIPT_INPUT) force
 force:
 
 # Build objects
-$(SYSTEM_OBJ_S_FILES): %.o :%.s $(TOOLCHAIN_EXTRACTED)
+$(SYSTEM_OBJ_S_FILES): ${OUTPUT_PATH}/%.o :${AUSBEE_DIR}/%.s $(TOOLCHAIN_EXTRACTED)
+	@mkdir -p $(dir $@)
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(SYSTEM_INCLUDES) -c $<
 
-$(SYSTEM_OBJ_C_FILES): %.o :%.c $(TOOLCHAIN_EXTRACTED)
+$(SYSTEM_OBJ_C_FILES): ${OUTPUT_PATH}/%.o :${AUSBEE_DIR}/%.c $(TOOLCHAIN_EXTRACTED)
+	@mkdir -p $(dir $@)
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(SYSTEM_INCLUDES) $(HOST_OPTIMISATION) -c $<
 
 .PHONY: system-clean
