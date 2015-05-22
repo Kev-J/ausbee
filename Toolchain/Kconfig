@@ -13,14 +13,23 @@ config DOWNLOAD_TOOLCHAIN
 config TOOLCHAIN_MIRROR
     string "Toolchain mirror URL"
     default "https://launchpad.net/gcc-arm-embedded/4.7/4.7-2013-q3-update/+download/gcc-arm-none-eabi-4_7-2013q3-20130916-linux.tar.bz2"
+    depends on DOWNLOAD_TOOLCHAIN
     help
         TODO
 
-config TOOLCHAIN_BIN_PATH
-	string "Toolchain /bin path"
+config TOOLCHAIN_CUSTOM_BIN_PATH
+	bool "Custom toolchain /bin path"
+  depends on !DOWNLOAD_TOOLCHAIN
+  default n
 	help
 		TODO
-        depends on !DOWNLOAD_TOOLCHAIN
+
+config TOOLCHAIN_BIN_PATH
+	string "Toolchain /bin path"
+  depends on TOOLCHAIN_CUSTOM_BIN_PATH
+  default "/usr/bin"
+	help
+		TODO
 
 comment "GCC/G++ options"
 
