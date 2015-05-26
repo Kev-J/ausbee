@@ -1,6 +1,10 @@
 #
-
 mainmenu "AUSBEE Configuration"
+
+config AUSBEE_DIR
+    string
+    option env="AUSBEE_DIR"
+
 
 ########################################
 # Build options menu
@@ -177,26 +181,27 @@ config DOWNLOADS_DIR
 endmenu
 endmenu
 
+
 ########################################
 ## Toolchain menu
 menu "Toolchain"
-source "Toolchain/Kconfig"
+source "$AUSBEE_DIR/Toolchain/Kconfig"
 endmenu
 
 ########################################
 ## Packages menu
 menu "Packages"
-source "Packages/Kconfig"
+source "$AUSBEE_DIR/Packages/Kconfig"
 endmenu
 
 ########################################
 ## FreeRTOS menu
 menu "Operating System"
-source "Operating_Systems/Kconfig"
+source "$AUSBEE_DIR/Operating_Systems/Kconfig"
 endmenu
 
 ########################################
 ## Platforms menu
 menu "Platforms"
-source "Platforms/Kconfig"
+source "$AUSBEE_DIR/Platforms/Kconfig"
 endmenu
