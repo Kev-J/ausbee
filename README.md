@@ -13,6 +13,8 @@ responsible of any direct or indirect damages.
 Usage
 =============
 
+- git clone the repository or download the snapshot of the last version.
+- If you choose the git clone method, it is recommended to use a tagged version (git checkout vX.X).
 - Configure your board (type "make help" for further informations).
 - write your source code in Project/src (headers and source files).
 - run "make"
