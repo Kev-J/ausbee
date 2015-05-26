@@ -5,3 +5,4 @@ include
 System-CM3/link.ld
 kconfig-frontends/build/
 kconfig-frontends/autom4te.cache/
+Toolchain/Build
