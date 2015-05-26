@@ -6,8 +6,8 @@ Unrealeased
 =============================
 
 # Changed
-
-- A single Ausbee repository is now able to handle multiple projects
+- A single Ausbee repository is now able to handle multiple projects.
+- All outputs files are compiled/generated under ./Output directory.
 
 # Added
 
