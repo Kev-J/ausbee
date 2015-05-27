@@ -24,4 +24,8 @@ choice
 
         comment "AUSBEE Servo Module V0.1 require stm32f10x_StdPeriph_Driver"
                 depends on !STM32F10X_STDPERIPH_DRIVER
+                  
+  config PLATFORM_ARDUINO_UNO
+		bool "Arduino Uno"
+
 endchoice
