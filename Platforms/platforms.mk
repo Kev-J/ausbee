@@ -11,5 +11,14 @@ include $(PLATFORMS_PATH)/ausbee_servo_module_v0.1/platform.mk
 PLATFORM_CLEAN_GOAL+=platform_ausbee_servo_module_v0_1-clean
 endif
 
+
+#export custom platforms Kconfig path
+ifeq ($(AUSBEE_CUSTOM_PLATFORMS_DIR), )
+AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH=$(AUSBEE_DIR)/Platforms/empty.Kconfig
+else
+AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH=$(AUSBEE_CUSTOM_PLATFORMS_DIR)/Kconfig
+endif
+export AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH
+
 .PHONY: platforms-clean
 platforms-clean: $(PLATFORM_CLEAN_GOAL)
