@@ -1,4 +1,4 @@
-#get custom platforms Kconfig patj
+#get custom platforms Kconfig path
 config AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH
     string
     option env="AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH"

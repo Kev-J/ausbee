@@ -12,13 +12,15 @@ PLATFORM_CLEAN_GOAL+=platform_ausbee_servo_module_v0_1-clean
 endif
 
 
-#export custom platforms Kconfig path
+#Generate Kconfig path and include custom platform Makefile
 ifeq ($(AUSBEE_CUSTOM_PLATFORMS_DIR), )
 AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH=$(AUSBEE_DIR)/Platforms/empty.Kconfig
 else
 AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH=$(AUSBEE_CUSTOM_PLATFORMS_DIR)/Kconfig
 include $(AUSBEE_CUSTOM_PLATFORMS_DIR)/platforms.mk
 endif
+
+#export custom platforms Kconfig path
 export AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH
 
 .PHONY: platforms-clean
