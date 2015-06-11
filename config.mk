@@ -17,6 +17,9 @@ $(error Please run a configuration command (your_board-defconfig, alldefconfig, 
 endif
 
 # clean, dirclean ,help ,doc
+else
+#include .config only if exist for menuconfig (for customs path)
+-include .config
 endif
 
 

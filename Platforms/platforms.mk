@@ -13,11 +13,18 @@ endif
 
 
 #Generate Kconfig path and include custom platform Makefile
-ifeq ($(AUSBEE_CUSTOM_PLATFORMS_DIR), )
 AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH=$(AUSBEE_DIR)/Platforms/empty.Kconfig
-else
-AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH=$(AUSBEE_CUSTOM_PLATFORMS_DIR)/Kconfig
-include $(AUSBEE_CUSTOM_PLATFORMS_DIR)/platforms.mk
+ifeq ($(CONFIG_CUSTOM_PLATFORMS),y)
+CONFIG_CUSTOM_PLATFORMS_PATH:=$(subst $(DQUOTE),,$(CONFIG_CUSTOM_PLATFORMS_PATH))
+ifeq ($(CONFIG_CUSTOM_PLATFORMS_REL_PATH), y)
+CONFIG_CUSTOM_PLATFORMS_PATH:=$(CURDIR)/$(CONFIG_CUSTOM_PLATFORMS_PATH)
+endif
+ifneq ("$(wildcard $(CONFIG_CUSTOM_PLATFORMS_PATH)/platforms.mk)", "")
+include $(CONFIG_CUSTOM_PLATFORMS_PATH)/platforms.mk
+endif
+ifneq ("$(wildcard $(CONFIG_CUSTOM_PLATFORMS_PATH)/Kconfig)", "")
+AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH=$(CONFIG_CUSTOM_PLATFORMS_PATH)/Kconfig
+endif
 endif
 
 #export custom platforms Kconfig path
