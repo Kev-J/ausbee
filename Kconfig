@@ -21,12 +21,15 @@ menu "Device options"
 
 # Select CORE
 choice
-	prompt "Select ARM core"
+	prompt "Select mcu core"
 config ARM_CORE_CORTEX_M4
 	bool "ARM Cortex-M4 core"
 
 config ARM_CORE_CORTEX_M3
 	bool "ARM Cortex-M3 core"
+
+config AVR_CORE
+	bool "Atmel AVR core"
 endchoice
 
 config USE_FPU
@@ -83,6 +86,16 @@ config DEVICE_STM32F10X_CL
 	bool "STM32F10X_CL"
 endchoice
 
+# Select Device AVR
+choice
+	prompt "Atmega name"
+	depends on AVR_CORE
+
+  config DEVICE_ATMEGA328P 
+  	bool "ATmega328P"
+endchoice
+
+
 config CRYSTAL_FREQUENCY
 	string "Crystal frenquency"
 	default "8000000"
@@ -92,6 +105,7 @@ config CRYSTAL_FREQUENCY
 # Ram length
 config RAM_LENGTH
 	string "RAM length"
+  depends on ARM_CORE_CORTEX_M4 || ARM_CORE_CORTEX_M3
 	default "10K"
 	help
 		Amount of RAM memory available on your device.
@@ -103,6 +117,7 @@ config RAM_LENGTH
 # Flash length
 config FLASH_LENGTH
 	string "FLASH length"
+  depends on ARM_CORE_CORTEX_M4 || ARM_CORE_CORTEX_M3
 	default "32K"
 	help
 		Amount of FLASH memory available on your device.
@@ -143,11 +158,14 @@ menu "Programming interface"
 choice
 	prompt "Select programmer"
 
-config PROGRAMMING_STLINK
-	bool "STLink v2"
-
-config PROGRAMMING_USART
-	bool "STM32 USART"
+  config PROGRAMMING_STLINK
+  	bool "STLink v2"
+  
+  config PROGRAMMING_USART
+  	bool "STM32 USART"
+  
+  config PROFRAMMING_AVRDUDE
+    bool "AvrDude"
 endchoice
 
 # Baudrate for flashing device

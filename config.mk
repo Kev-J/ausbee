@@ -60,6 +60,14 @@ OUTPUT_TARGET_BIN=$(subst $(DQUOTE),,$(OUTPUT_PATH)/$(CONFIG_PROJECT_NAME).bin)
 OUTPUT_TARGET_ELF=$(subst $(DQUOTE),,$(OUTPUT_PATH)/$(CONFIG_PROJECT_NAME).elf)
 
 # Toolchain
+# Handle AVR special case
+ifeq ($(CONFIG_AVR_CORE),y)
+CONFIG_TOOLCHAIN_TARGET_NAME=avr
+CONFIG_DOWNLOAD_TOOLCHAIN=n
+CONFIG_TOOLCHAIN_CUSTOM_BIN_PATH=n
+CONFIG_USE_FPU=n
+endif
+
 TOOLCHAIN_PATH=$(AUSBEE_DIR)/Toolchain
 TOOLCHAIN_BUILD_PATH=$(TOOLCHAIN_PATH)/Build
 ifeq ($(CONFIG_DOWNLOAD_TOOLCHAIN),y)
@@ -119,11 +127,13 @@ FLASH_LENGTH=$(subst $(DQUOTE),,$(CONFIG_FLASH_LENGTH))
 CRYSTAL_FREQUENCY=$(subst $(DQUOTE),,$(CONFIG_CRYSTAL_FREQUENCY)) 
 
 # Common flags : Core type
-HOST_COMMON_FLAGS=-mthumb
+HOST_COMMON_FLAGS=
 ifeq ($(CONFIG_ARM_CORE_CORTEX_M4),y)
+HOST_COMMON_FLAGS=-mthumb
 #HOST_COMMON_FLAGS+=-mcpu=cortex-m4 -fsingle-precision-constant -Wdouble-promotion -mfloat-abi=hard -mfpu=fpv4-sp-d16
 HOST_COMMON_FLAGS+=-mcpu=cortex-m4
 else ifeq ($(CONFIG_ARM_CORE_CORTEX_M3),y)
+HOST_COMMON_FLAGS=-mthumb
 HOST_COMMON_FLAGS+=-mcpu=cortex-m3
 endif
 
@@ -134,7 +144,11 @@ ifeq ($(CONFIG_USE_FPU),y)
 #-Wdouble-promotion : Print warning when implicit conversion from float to double
 HOST_COMMON_FLAGS+=-mfloat-abi=hard -mfpu=fpv4-sp-d16 -fsingle-precision-constant -Wdouble-promotion
 else
+ifeq ($(CONFIG_ARM_CORE_CORTEX_M4),y)
 HOST_COMMON_FLAGS+=-msoft-float
+else ifeq ($(CONFIG_ARM_CORE_CORTEX_M3),y)
+HOST_COMMON_FLAGS+=-msoft-float
+endif
 endif
 
 include $(AUSBEE_DIR)/config-devices.mk # get DEVICE_NAME variable

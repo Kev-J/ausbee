@@ -44,6 +44,10 @@ else
 include $(PROJECT_PATH)/project.mk
 endif
 
+ifneq ($(LINKER_SCRIPT),)
+LINKER_SCRIPT_FLAG=-T$(LINKER_SCRIPT)
+endif
+
 $(OUTPUT_TARGET_HEX): $(OUTPUT_TARGET_ELF)
 	$(HOST_OBJCPY) -O ihex $^ $@
 	$(HOST_SIZE) $@
@@ -53,7 +57,7 @@ $(OUTPUT_TARGET_BIN): $(OUTPUT_TARGET_ELF)
 
 $(OUTPUT_TARGET_ELF): $(OBJ_FILES) $(LIB_FILES) $(LINKER_SCRIPT)
 	$(MKDIR_P) $(OUTPUT_PATH)
-	$(HOST_CC) -o $@ -T$(LINKER_SCRIPT) $(OBJ_FILES) $(HOST_LDFLAGS)
+	$(HOST_CC) -o $@ $(LINKER_SCRIPT_FLAG) $(OBJ_FILES) $(HOST_LDFLAGS)
 
 ######################################################################
 # Configuration tool
