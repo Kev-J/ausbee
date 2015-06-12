@@ -1,0 +1,8 @@
+The AUSBEE project is using various open-source softwares (toolchains, RTOSes,
+scripts, ...). Please make sure that your use of AUSBEE is compliant with the
+licences of those softwares. Informations about licensing is available under
+the package or the subdirectory of the software itself.
+
+The AUSBEE project itself is licensed under GNU GPLv3 licence (see COPYING
+file or visit https://www.gnu.org/licenses/gpl-3.0.txt for further
+informations).

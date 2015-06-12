@@ -1,3 +1,42 @@
+# This file is part of AUSBEE.
+#
+# Copyright (C) 2015 AUSBEE Developers <ausbee@googlegroups.com>
+#
+# AUSBEE is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# AUSBEE is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with AUSBEE.  If not, see <http://www.gnu.org/licenses/>.
+
+#get custom platforms Kconfig path
+config AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH
+    string
+    option env="AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH"
+
+config CUSTOM_PLATFORMS
+  bool "Custom platforms"
+	default n
+
+comment "/!\\ A restart will be required for any change on custom platforms configuration"
+  depends on CUSTOM_PLATFORMS
+
+config CUSTOM_PLATFORMS_REL_PATH
+  bool "Use relative path for custom platforms"
+	default y
+  depends on CUSTOM_PLATFORMS
+
+config CUSTOM_PLATFORMS_PATH
+	string "Custom platforms path"
+  depends on CUSTOM_PLATFORMS
+
+
 choice
 	prompt "Platform select"
 
@@ -28,4 +67,5 @@ choice
   config PLATFORM_ARDUINO_UNO
 		bool "Arduino Uno"
 
+  source "$AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH"
 endchoice
