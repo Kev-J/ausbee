@@ -58,6 +58,10 @@ ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
 STM32FLASH=st-flash
 endif
 endif
+ifeq ($(CONFIG_PROGRAMMING_AVRDUDE),y)
+AVRDUDE=avrdude
+endif
+
 
 ######################################################################
 # Path variables

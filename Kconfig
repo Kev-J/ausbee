@@ -180,9 +180,21 @@ choice
   config PROGRAMMING_USART
   	bool "STM32 USART"
   
-  config PROFRAMMING_AVRDUDE
-    bool "AvrDude"
+  config PROGRAMMING_AVRDUDE
+    bool "Avrdude"
 endchoice
+
+#avrdude programmer type
+choice 
+  depends on PROGRAMMING_AVRDUDE
+  prompt "Avrdude programmer type"
+  
+  config AVRDUDE_ARDUINO
+    bool "Arduino"
+
+  config AVRDUDE_ISP_MKII
+    bool "ISP mkII"
+endchoice 
 
 # Baudrate for flashing device
 config BAUDRATE_SERIAL_INTEFACE
@@ -191,11 +203,12 @@ config BAUDRATE_SERIAL_INTEFACE
 	depends on PROGRAMMING_USART
 	help
 		TODO
+
 # Serial interface for flashing device
 config PROGRAM_SERIAL_INTERFACE
 	string "Serial programming interface"
 	default "/dev/ttyUSB0"
-	depends on PROGRAMMING_USART
+	depends on PROGRAMMING_USART || PROGRAMMING_AVRDUDE
 	help
 		TODO
 

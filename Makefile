@@ -147,6 +147,18 @@ else
 ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
 program: $(OUTPUT_TARGET_BIN)
 	$(STM32FLASH) --reset write $(<) 0x08000000
+else
+ifeq ($(CONFIG_PROGRAMMING_AVRDUDE),y)
+ifeq ($(CONFIG_AVRDUDE_ARDUINO),y)
+AVRDUDE_PROGRAMMER=arduino
+endif
+ifeq ($(CONFIG_AVRDUDE_ISP_MKII),y)
+AVRDUDE_PROGRAMMER=avrisp2
+endif
+program: $(OUTPUT_TARGET_HEX)
+	$(AVRDUDE) -p $(AVRDUDE_PART) -P $(CONFIG_PROGRAM_SERIAL_INTERFACE) -c $(AVRDUDE_PROGRAMMER) -U flash:w:$<
+
+endif
 endif
 endif
 
