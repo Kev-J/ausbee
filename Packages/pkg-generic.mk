@@ -66,6 +66,6 @@ $$($(1)_BUILD_PATH)/.cloned:
 
 $(1)-clean:
 	rm -rf $$($(1)_BUILD_PATH)/.downloaded $$($(1)_BUILD_PATH)/.extracted $$($(1)_BUILD_PATH)/.cloned
-	rm -rf $$($(1)_BUILD_PATH)
+	rm -rf $$($(1)_OBJ_FILES)
 
 endef
