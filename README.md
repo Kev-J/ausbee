@@ -7,8 +7,7 @@ This tool is provided for building automatically a complete STM32F project.
 Licence
 =============
 
-You are free to use or modify this tool. Neither EIRBOT, or the authors will be held
-responsible of any direct or indirect damages.
+See LICENCE file.
 
 Usage
 =============
