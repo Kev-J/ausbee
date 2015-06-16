@@ -51,6 +51,7 @@ UNZIP=unzip
 TOUCH=touch
 ECHO_E=@echo -e
 DOXYGEN=doxygen
+GIT_CLONE=git clone
 ifeq ($(CONFIG_PROGRAMMING_USART),y)
 STM32FLASH=stm32flash
 else
