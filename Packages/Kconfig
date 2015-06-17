@@ -20,6 +20,11 @@ config AUSBEE_CUSTOM_PACKAGES_KCONFIG_PATH
   string
   option env="AUSBEE_CUSTOM_PACKAGES_KCONFIG_PATH"
 
+config AUSBEE_CUSTOM_PACKAGES_PATH
+  string
+  option env="AUSBEE_CUSTOM_PACKAGES_PATH"
+
+
 config CUSTOM_PACKAGES
   bool "Custom packages"
 	default n
