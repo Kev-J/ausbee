@@ -1,3 +1,21 @@
+# This file is part of AUSBEE.
+#
+# Copyright (C) 2015 AUSBEE Developers <ausbee@googlegroups.com>
+#
+# AUSBEE is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# AUSBEE is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with AUSBEE.  If not, see <http://www.gnu.org/licenses/>.
+
+
 # If we are not configuring, include the configuration file
 noconfig_goals= %-defconfig config menuconfig nconfig xconfig gconfig alldefconfig
 clean_dirclean_help_doc_goals= %-clean %-dirclean dirclean clean help doc
@@ -17,6 +35,9 @@ $(error Please run a configuration command (your_board-defconfig, alldefconfig, 
 endif
 
 # clean, dirclean ,help ,doc
+else
+#include .config only if exist for menuconfig (for customs path)
+-include .config
 endif
 
 
@@ -30,6 +51,7 @@ UNZIP=unzip
 TOUCH=touch
 ECHO_E=@echo -e
 DOXYGEN=doxygen
+GIT_CLONE=git clone
 ifeq ($(CONFIG_PROGRAMMING_USART),y)
 STM32FLASH=stm32flash
 else

@@ -5,3 +5,4 @@ include
 kconfig-frontends/build/
 kconfig-frontends/autom4te.cache/
 Toolchain/Build
+Project/*/*

@@ -1,10 +1,21 @@
-# Makefile for configuring and building an AUSBEE project #
-#                                                         #
-# Author: Kevin JOLY <joly.kevin25@gmail.com>             #
-#                                                         #
-# EIRBOT ENSEIRB-MATMECA Robotics club 2013               #
-#                                                         #
-###########################################################
+# Makefile for configuring and building an AUSBEE project
+#
+# This file is part of AUSBEE.
+#
+# Copyright (C) 2015 AUSBEE Developers <ausbee@googlegroups.com>
+#
+# AUSBEE is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+# 
+# AUSBEE is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with AUSBEE.  If not, see <http://www.gnu.org/licenses/>.
 
 ifeq ($(AUSBEE_DIR),)
 MULTIPROJECT=0
@@ -46,7 +57,7 @@ endif
 
 $(OUTPUT_TARGET_HEX): $(OUTPUT_TARGET_ELF)
 	$(HOST_OBJCPY) -O ihex $^ $@
-	$(HOST_SIZE) $@
+	$(HOST_SIZE) $^
 
 $(OUTPUT_TARGET_BIN): $(OUTPUT_TARGET_ELF)
 	$(HOST_OBJCPY) -O binary $^ $@
