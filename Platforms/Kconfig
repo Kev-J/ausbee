@@ -60,10 +60,13 @@ config PLATFORM_DEVICE_STM32F10X_CL
 	bool
   default n
 
-#get custom platforms Kconfig path
-config AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH
+#get custom platform Kconfig paths
+config AUSBEE_CUSTOM_PLATFORMS_KCONFIG_CHOICE_PATH
     string
-    option env="AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH"
+    option env="AUSBEE_CUSTOM_PLATFORMS_KCONFIG_CHOICE_PATH"
+config AUSBEE_CUSTOM_PLATFORMS_KCONFIG_VALUES_PATH
+    string
+    option env="AUSBEE_CUSTOM_PLATFORMS_KCONFIG_VALUES_PATH"
 
 config CUSTOM_PLATFORMS
   bool "Custom platforms"
@@ -134,7 +137,7 @@ choice
     select STM32F10X_STDPERIPH_DRIVER_USART
     select STM32F10X_STDPERIPH_DRIVER_CAN
 
-  source "$AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH"
+  source "$AUSBEE_CUSTOM_PLATFORMS_KCONFIG_CHOICE_PATH"
 endchoice
 
 #set device RAM & FLASH
@@ -144,4 +147,16 @@ if PLATFORM_AUSBEE_MAIN_BOARD_V0_1
   config RAM_LENGTH
     default "192K"
 endif
-  
+if PLATFORM_STM32F4DISCOVERY
+  config FLASH_LENGTH
+    default "1024K"
+  config RAM_LENGTH
+    default "192K"
+endif
+if PLATFORM_AUSBEE_SERVO_MODULE_V0_1
+  config FLASH_LENGTH
+    default "16K"
+  config RAM_LENGTH
+    default "6K"
+endif
+source "$AUSBEE_CUSTOM_PLATFORMS_KCONFIG_VALUES_PATH"
