@@ -15,6 +15,51 @@
 # You should have received a copy of the GNU General Public License
 # along with AUSBEE.  If not, see <http://www.gnu.org/licenses/>.
 
+
+#add hidden config field for platform autoselect device system
+config PLATFORM_ARM_CORE_CORTEX_M4
+  bool
+  default n
+config PLATFORM_ARM_CORE_CORTEX_M3
+  bool
+  default n
+config PLATFORM_DEVICE_STM32F40_41xxx
+  bool
+  default n
+config PLATFORM_DEVICE_STM32F427_437xx
+  bool
+  default n
+config PLATFORM_DEVICE_STM32F429_439xx
+  bool
+  default n
+config PLATFORM_DEVICE_STM32F401xx 
+  bool
+  default n
+config PLATFORM_DEVICE_STM32F10X_LD
+	bool
+  default n
+config PLATFORM_DEVICE_STM32F10X_LD_VL
+	bool
+  default n
+config PLATFORM_DEVICE_STM32F10X_MD
+	bool
+  default n
+config PLATFORM_DEVICE_STM32F10X_MD_VL
+	bool
+  default n
+config PLATFORM_DEVICE_STM32F10X_HD
+	bool
+  default n
+config PLATFORM_DEVICE_STM32F10X_HD_VL
+	bool
+  default n
+config PLATFORM_DEVICE_STM32F10X_XL
+	bool
+  default n
+config PLATFORM_DEVICE_STM32F10X_CL
+	bool
+  default n
+
 #get custom platforms Kconfig path
 config AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH
     string
@@ -45,24 +90,58 @@ choice
 	
 	config PLATFORM_AUSBEE_MAIN_BOARD_V0_1
 		bool "AUSBEE Main Board V0.1"
-                depends on STM32F4XX_STDPERIPH_DRIVER
+    #select device
+    select PLATFORM_ARM_CORE_CORTEX_M4
+    select USE_FPU
+    select PLATFORM_DEVICE_STM32F40_41xxx
+    #select packages
+    select STM32F4XX_STDPERIPH_DRIVER
+    select STM32F4XX_STDPERIPH_DRIVER_TIM
+    select STM32F4XX_STDPERIPH_DRIVER_USART
+    select STM32F4XX_STDPERIPH_DRIVER_GPIO
+    select STM32F4XX_STDPERIPH_DRIVER_RCC
+    select STM32F4XX_STDPERIPH_DRIVER_CAN
 
-        comment "AUSBEE Main Board V0.1 require stm32f4xx_StdPeriph_Driver"
-                depends on !STM32F4XX_STDPERIPH_DRIVER
 	
 	config PLATFORM_STM32F4DISCOVERY
 		bool "STM32F4DISCOVERY"
-                depends on STM32F4XX_STDPERIPH_DRIVER
-
-        comment "STM32F4DISCOVERY require stm32f4xx_StdPeriph_Driver"
-                depends on !STM32F4XX_STDPERIPH_DRIVER
+    #select device
+    select PLATFORM_ARM_CORE_CORTEX_M4
+    select USE_FPU
+    select PLATFORM_DEVICE_STM32F40_41xxx
+    #select packages
+    select STM32F4XX_STDPERIPH_DRIVER
+    select STM32F4XX_STDPERIPH_DRIVER_TIM
+    select STM32F4XX_STDPERIPH_DRIVER_USART
+    select STM32F4XX_STDPERIPH_DRIVER_GPIO
+    select STM32F4XX_STDPERIPH_DRIVER_RCC
+    select STM32F4XX_STDPERIPH_DRIVER_CAN
+    select STM32F4XX_STDPERIPH_SPI
+    select STM32F4XX_STDPERIPH_EXTI
+    select STM32F4XX_STDPERIPH_SYSCFG
+    select STM32F4XX_STDPERIPH_MISC
 
 	config PLATFORM_AUSBEE_SERVO_MODULE_V0_1
 		bool "AUSBEE Servo Module V0.1"
-                depends on STM32F10X_STDPERIPH_DRIVER
-
-        comment "AUSBEE Servo Module V0.1 require stm32f10x_StdPeriph_Driver"
-                depends on !STM32F10X_STDPERIPH_DRIVER
+    #select device
+    select PLATFORM_ARM_CORE_CORTEX_M3
+    select PLATFORM_DEVICE_STM32F10X_LD
+    #select packages
+    select STM32F10X_STDPERIPH_DRIVER
+    select STM32F10X_STDPERIPH_DRIVER_TIM
+    select STM32F10X_STDPERIPH_DRIVER_RCC
+    select STM32F10X_STDPERIPH_DRIVER_GPIO
+    select STM32F10X_STDPERIPH_DRIVER_USART
+    select STM32F10X_STDPERIPH_DRIVER_CAN
 
   source "$AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH"
 endchoice
+
+#set device RAM & FLASH
+if PLATFORM_AUSBEE_MAIN_BOARD_V0_1
+  config FLASH_LENGTH
+    default "1024K"
+  config RAM_LENGTH
+    default "192K"
+endif
+  

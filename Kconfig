@@ -17,116 +17,131 @@
 
 mainmenu "AUSBEE Configuration"
 
-config AUSBEE_DIR
-    string
-    option env="AUSBEE_DIR"
+  config AUSBEE_DIR
+      string
+      option env="AUSBEE_DIR"
+
+  ########################################
+  ## Platforms menu
+  menu "Platforms"
+  source "$AUSBEE_DIR/Platforms/Kconfig"
+  endmenu
 
 
-########################################
-# Build options menu
-menu "Build options"
-  config PROJECT_NAME
-  	string "Project name"
-  	default "project"
-  	help
-  		TODO
-  
-  ## Device options menu
-  menu "Device options"
-    # Select CORE
-    choice
-    	prompt "Select ARM core"
-      config ARM_CORE_CORTEX_M4
-      	bool "ARM Cortex-M4 core"
+  ########################################
+  ## Build menu
+  menu "Build"
+    config PROJECT_NAME
+  	  string "Project name"
+  	  default "project"
+  	  help
+  		  TODO
+
+    ########################################
+    # Device menu
+    menu "Device"
+      visible if PLATFORM_NONE
+
+      # Select CORE
+      choice
+      	prompt "Select ARM core"
+        config MANUAL_ARM_CORE_CORTEX_M4
+        	bool "ARM Cortex-M4 core"
+        
+        config MANUAL_ARM_CORE_CORTEX_M3
+        	bool "ARM Cortex-M3 core"
+      endchoice
+    
+      config USE_FPU
+      	bool "Use FPU"
+      	default y
+      	depends on ARM_CORE_CORTEX_M4 || PLATFORM_ARM_CORE_CORTEX_M4
+      	help
+      		Use hardware for floating point processings.
+    
+      # Select Device Cortex-M4
+      choice
+      	prompt "Device name Cortex-M4"
+      	depends on MANUAL_ARM_CORE_CORTEX_M4
       
-      config ARM_CORE_CORTEX_M3
-      	bool "ARM Cortex-M3 core"
-    endchoice
+        config MANUAL_DEVICE_STM32F40_41xxx 
+        	bool "STM32F40_41xxx"
+        
+        config MANUAL_DEVICE_STM32F427_437xx
+        	bool "STM32F427_437xx"
+        
+        config MANUAL_DEVICE_STM32F429_439xx
+        	bool "STM32F429_439xx"
+        
+        config MANUAL_DEVICE_STM32F401xx
+        	bool "STM32F401xx"
+      endchoice
     
-    config USE_FPU
-    	bool "Use FPU"
-    	default y
-    	depends on ARM_CORE_CORTEX_M4
-    	help
-    		Use hardware for floating point processings.
-    
-    # Select Device Cortex-M4
-    choice
-    	prompt "Device name Cortex-M4"
-    	depends on ARM_CORE_CORTEX_M4
-    
-    config DEVICE_STM32F40_41xxx 
-    	bool "STM32F40_41xxx"
-    
-    config DEVICE_STM32F427_437xx
-    	bool "STM32F427_437xx"
-    
-    config DEVICE_STM32F429_439xx
-    	bool "STM32F429_439xx"
-    
-    config DEVICE_STM32F401xx
-    	bool "STM32F401xx"
-    endchoice
-    
-    # Select Device Cortex-M3
-    choice
-    	prompt "Device name Cortex-M3"
-    	depends on ARM_CORE_CORTEX_M3
-    config DEVICE_STM32F10X_LD
-    	bool "STM32F10X_LD"
-    
-    config DEVICE_STM32F10X_LD_VL
-    	bool "STM32F10X_LD_VL"
-    
-    config DEVICE_STM32F10X_MD
-    	bool "STM32F10X_MD"
-    
-    config DEVICE_STM32F10X_MD_VL
-    	bool "STM32F10X_MD_VL"
-    
-    config DEVICE_STM32F10X_HD
-    	bool "STM32F10X_HD"
-    
-    config DEVICE_STM32F10X_HD_VL
-    	bool "STM32F10X_HD_VL"
-    
-    config DEVICE_STM32F10X_XL
-    	bool "STM32F10X_XL"
-    
-    config DEVICE_STM32F10X_CL
-    	bool "STM32F10X_CL"
-    endchoice
-    
-    config CRYSTAL_FREQUENCY
-    	string "Crystal frenquency"
-    	default "8000000"
-    	help
-    		HSE Crystal frequency in Hz.
-    
-    # Ram length
-    config RAM_LENGTH
-    	string "RAM length"
-    	default "10K"
-    	help
-    		Amount of RAM memory available on your device.
-    		You can use capital letters like:
-    		K for kilobytes
-    		M for megabytes
-    		G for gigabytes
-    
-    # Flash length
-    config FLASH_LENGTH
-    	string "FLASH length"
-    	default "32K"
-    	help
-    		Amount of FLASH memory available on your device.
-    		You can use capital letters like:
-    		K for kilobytes
-    		M for megabytes
-    		G for gigabytes
-    
+      # Select Device Cortex-M3
+      choice
+      	prompt "Device name Cortex-M3"
+      	depends on MANUAL_ARM_CORE_CORTEX_M3
+        config MANUAL_DEVICE_STM32F10X_LD
+        	bool "STM32F10X_LD"
+        
+        config MANUAL_DEVICE_STM32F10X_LD_VL
+        	bool "STM32F10X_LD_VL"
+        
+        config MANUAL_DEVICE_STM32F10X_MD
+        	bool "STM32F10X_MD"
+        
+        config MANUAL_DEVICE_STM32F10X_MD_VL
+        	bool "STM32F10X_MD_VL"
+        
+        config MANUAL_DEVICE_STM32F10X_HD
+        	bool "STM32F10X_HD"
+        
+        config MANUAL_DEVICE_STM32F10X_HD_VL
+        	bool "STM32F10X_HD_VL"
+        
+        config MANUAL_DEVICE_STM32F10X_XL
+        	bool "STM32F10X_XL"
+        
+        config MANUAL_DEVICE_STM32F10X_CL
+        	bool "STM32F10X_CL"
+      endchoice
+      
+      config CRYSTAL_FREQUENCY
+      	string "Crystal frenquency"
+      	default "8000000"
+      	help
+      		HSE Crystal frequency in Hz.
+      
+      # Ram length
+      config RAM_LENGTH
+      	string "RAM length"
+      	default "10K"
+      	help
+      		Amount of RAM memory available on your device.
+      		You can use capital letters like:
+      		K for kilobytes
+      		M for megabytes
+      		G for gigabytes
+      
+      # Flash length
+      config FLASH_LENGTH
+      	string "FLASH length"
+      	default "32K"
+      	help
+      		Amount of FLASH memory available on your device.
+      		You can use capital letters like:
+      		K for kilobytes
+      		M for megabytes
+      		G for gigabytes
+      
     endmenu
     
+    ## Toolchain menu
+    menu "Toolchain"
+    source "$AUSBEE_DIR/Toolchain/Kconfig"
+    endmenu
+
+
     ## Debug menu
     menu "Debug options"
     
@@ -194,18 +209,78 @@ menu "Build options"
   endmenu
 endmenu
 
-
 ########################################
-## Toolchain menu
-menu "Toolchain"
-source "$AUSBEE_DIR/Toolchain/Kconfig"
-endmenu
-
-########################################
-## Packages menu
-menu "Packages"
-source "$AUSBEE_DIR/Packages/Kconfig"
-endmenu
+## Generate real config value for platform/manual selected choices
+config ARM_CORE_CORTEX_M4
+  bool
+  default y if MANUAL_ARM_CORE_CORTEX_M4
+  default y if PLATFORM_ARM_CORE_CORTEX_M4
+  default n
+config ARM_CORE_CORTEX_M3
+  bool
+  default y if MANUAL_ARM_CORE_CORTEX_M3
+  default y if PLATFORM_ARM_CORE_CORTEX_M3
+  default n
+config DEVICE_STM32F40_41xxx 
+  bool
+  default y if MANUAL_DEVICE_STM32F40_41xxx 
+  default y if PLATFORM_DEVICE_STM32F40_41xxx 
+  default n
+config DEVICE_STM32F427_437xx 
+  bool
+  default y if MANUAL_DEVICE_STM32F427_437xx
+  default y if PLATFORM_DEVICE_STM32F427_437xx
+  default n
+config DEVICE_STM32F429_439xx
+  bool
+  default y if MANUAL_DEVICE_STM32F429_439xx
+  default y if PLATFORM_DEVICE_STM32F429_439xx
+  default n
+config DEVICE_STM32F401xx
+  bool
+  default y if MANUAL_DEVICE_STM32F401xx
+  default y if PLATFORM_DEVICE_STM32F401xx
+  default n
+config DEVICE_STM32F10X_LD
+	bool
+  default y if MANUAL_DEVICE_STM32F10X_LD
+  default y if PLATFORM_DEVICE_STM32F10X_LD
+  default n
+config DEVICE_STM32F10X_LD_VL
+	bool
+  default y if MANUAL_DEVICE_STM32F10X_LD_VL
+  default y if PLATFORM_DEVICE_STM32F10X_LD_VL
+  default n
+config DEVICE_STM32F10X_MD
+	bool
+  default y if MANUAL_DEVICE_STM32F10X_MD
+  default y if PLATFORM_DEVICE_STM32F10X_MD
+  default n
+config DEVICE_STM32F10X_MD_VL
+	bool
+  default y if MANUAL_DEVICE_STM32F10X_MD_VL
+  default y if PLATFORM_DEVICE_STM32F10X_MD_VL
+  default n
+config DEVICE_STM32F10X_HD
+	bool
+  default y if MANUAL_DEVICE_STM32F10X_HD
+  default y if PLATFORM_DEVICE_STM32F10X_HD
+  default n
+config DEVICE_STM32F10X_HD_VL
+	bool
+  default y if MANUAL_DEVICE_STM32F10X_HD_VL
+  default y if PLATFORM_DEVICE_STM32F10X_HD_VL
+  default n
+config DEVICE_STM32F10X_XL
+	bool
+  default y if MANUAL_DEVICE_STM32F10X_XL
+  default y if PLATFORM_DEVICE_STM32F10X_XL
+  default n
+config DEVICE_STM32F10X_CL
+	bool
+  default y if MANUAL_DEVICE_STM32F10X_CL
+  default y if PLATFORM_DEVICE_STM32F10X_CL
+  default n
 
 ########################################
 ## FreeRTOS menu
@@ -214,7 +289,8 @@ source "$AUSBEE_DIR/Operating_Systems/Kconfig"
 endmenu
 
 ########################################
-## Platforms menu
-menu "Platforms"
-source "$AUSBEE_DIR/Platforms/Kconfig"
+## Packages menu
+menu "Packages"
+source "$AUSBEE_DIR/Packages/Kconfig"
 endmenu
+
