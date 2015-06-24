@@ -40,6 +40,12 @@ unzip
 tar
 stm32flash
 
+Please note that this project is using many third party programs. Please ensure
+that your setup have all the requirements before using them. For instance,
+have a look to the [GCC arm embedded README](https://launchpadlibrarian.net/209775724/readme.txt)
+and check that you have all the dependencies installed on your machine before
+trying to compile anything.
+
 Authors of the project
 =============
 
