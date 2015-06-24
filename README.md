@@ -31,14 +31,14 @@ Features
 
 Dependencies
 =============
-gperf
-flex
-bison
-libncurses-dev (for menuconfig)
-wget
-unzip
-tar
-stm32flash
+* gperf
+* flex
+* bison
+* libncurses-dev (for menuconfig)
+* wget
+* unzip
+* tar
+* stm32flash
 
 Please note that this project is using many third party programs. Please ensure
 that your setup have all the requirements before using them. For instance,
