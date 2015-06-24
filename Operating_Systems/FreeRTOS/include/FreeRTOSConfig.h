@@ -87,46 +87,274 @@
  * See http://www.freertos.org/a00110.html.
  *----------------------------------------------------------*/
 
-#define configUSE_PREEMPTION			1
-#define configUSE_IDLE_HOOK				0
-#define configUSE_TICK_HOOK				0
+#ifdef CONFIG_FREERTOS_USE_PREEMPTION
+# define configUSE_PREEMPTION			1
+#else
+# define configUSE_PREEMPTION			0
+#endif
+
+#ifdef CONFIG_FREERTOS_USE_TICKLESS_IDLE
+# define configUSE_TICKLESS_IDLE			1
+#else
+# define configUSE_TICKLESS_IDLE			0
+#endif
+
 #define configCPU_CLOCK_HZ				( CONFIG_FREERTOS_CPU_CLOCK_HZ )	
-#define configTICK_RATE_HZ				( ( portTickType ) 100UL)
-#define configMAX_PRIORITIES			( ( unsigned portBASE_TYPE ) 5 )
-#define configMINIMAL_STACK_SIZE		( ( unsigned short ) 70 )
-#define configTOTAL_HEAP_SIZE			( ( size_t ) ( 7 * 1024 ) )
-#define configMAX_TASK_NAME_LEN			( 10 )
-#define configUSE_TRACE_FACILITY		0
-#define configUSE_16_BIT_TICKS			0
-#define configIDLE_SHOULD_YIELD			1
-#define configUSE_MUTEXES				1
-#define configQUEUE_REGISTRY_SIZE		0
-#define configGENERATE_RUN_TIME_STATS	0
-#define configCHECK_FOR_STACK_OVERFLOW	0
-#define configUSE_RECURSIVE_MUTEXES		0
-#define configUSE_MALLOC_FAILED_HOOK	0
-#define configUSE_APPLICATION_TASK_TAG	0
-#define configUSE_COUNTING_SEMAPHORES	0
 
-/* Co-routine definitions. */
-#define configUSE_CO_ROUTINES 		0
-#define configMAX_CO_ROUTINE_PRIORITIES ( 2 )
+#define configTICK_RATE_HZ				( ( portTickType ) CONFIG_FREERTOS_TICK_RATE_HZ )
 
-/* Software timer definitions. */
-#define configUSE_TIMERS				1
-#define configTIMER_TASK_PRIORITY		( 3 )
-#define configTIMER_QUEUE_LENGTH		5
+#define configMAX_PRIORITIES			( ( unsigned portBASE_TYPE ) CONFIG_FREERTOS_MAX_PRIORITIES )
+
+#define configMINIMAL_STACK_SIZE		( ( unsigned short ) CONFIG_FREEROTS_MINIMAL_STACK_SIZE )
+
+#define configTOTAL_HEAP_SIZE			( ( size_t ) CONFIG_FREERTOS_TOTAL_HEAP_SIZE )
+
+#define configMAX_TASK_NAME_LEN			( CONFIG_FREERTOS_MAX_TASK_NAME_LEN )
+
+#ifdef CONFIG_FREERTOS_USE_16_BIT_TICKS
+# define configUSE_16_BIT_TICKS 1
+#else
+# define configUSE_16_BIT_TICKS 0
+#endif
+
+#ifdef CONFIG_FREERTOS_IDLE_SHOULD_YIELD
+# define configIDLE_SHOULD_YIELD 1
+#else
+# define configIDLE_SHOULD_YIELD 0
+#endif
+
+#ifdef CONFIG_FREERTOS_USE_TASK_NOTIFICATIONS
+# define configUSE_TASK_NOTIFICATIONS 1
+#else
+# define configUSE_TASK_NOTIFICATIONS 0
+#endif
+
+#ifdef CONFIG_FREERTOS_USE_MUTEXES
+# define configUSE_MUTEXES 1
+#else
+# define configUSE_MUTEXES 0
+#endif
+
+#ifdef CONFIG_FREERTOS_USE_RECURSIVE_MUTEXES
+# define configUSE_RECURSIVE_MUTEXES 1
+#else
+# define configUSE_RECURSIVE_MUTEXES 0
+#endif
+
+#ifdef CONFIG_FREERTOS_USE_COUNTING_SEMAPHORES
+# define configUSE_COUNTING_SEMAPHORES 1
+#else
+# define configUSE_COUNTING_SEMAPHORES 0
+#endif
+
+#define configUSE_ALTERNATIVE_API 0 /* Deprecated! */
+
+#define configQUEUE_REGISTRY_SIZE		( CONFIG_FREERTOS_QUEUE_REGISTRY_SIZE )
+
+#ifdef CONFIG_FREERTOS_USE_QUEUE_SETS
+# define configUSE_QUEUE_SETS 1
+#else
+# define configUSE_QUEUE_SETS 0
+#endif
+
+#ifdef CONFIG_FREERTOS_USE_TIME_SLICING
+# define configUSE_TIME_SLICING 1
+#else
+# define configUSE_TIME_SLICING 0
+#endif
+
+#ifdef CONFIG_FREERTOS_ENABLE_BACKWARD_COMPATIBILITY
+# define configENABLE_BACKWARD_COMPATIBILITY 1
+#else
+# define configENABLE_BACKWARD_COMPATIBILITY 0
+#endif
+
+#define configNUM_THREAD_LOCAL_STORAGE_POINTERS ( CONFIG_FREERTOS_NUM_THREAD_LOCAL_STORAGE_POINTERS)
+
+
+
+/* Hook function related definitions. */
+
+#ifdef CONFIG_FREERTOS_USE_IDLE_HOOK
+# define configUSE_IDLE_HOOK 1
+#else
+# define configUSE_IDLE_HOOK 0
+#endif
+
+#ifdef CONFIG_FREERTOS_USE_TICK_HOOK
+# define configUSE_TICK_HOOK 1
+#else
+# define configUSE_TICK_HOOK 0
+#endif
+
+#ifdef CONFIG_FREERTOS_CHECK_FOR_STACK_OVERFLOW
+# define configCHECK_FOR_STACK_OVERFLOW 1
+#else
+# define configCHECK_FOR_STACK_OVERFLOW 0
+#endif
+
+#ifdef CONFIG_FREEROS_USE_MALLOC_FAILED_HOOK
+# define configUSE_MALLOC_FAILED_HOOK 1
+#else
+# define configUSE_MALLOC_FAILED_HOOK 0
+#endif
+
+
+
+/* Run time and task stats gathering related definitions. */
+
+#ifdef CONFIG_FREERTOS_GENERATE_RUN_TIME_STATS
+# define configGENERATE_RUN_TIME_STATS 1
+#else
+# define configGENERATE_RUN_TIME_STATS 0
+#endif
+
+#ifdef CONFIG_FREERTOS_USE_TRACE_FACILITY
+# define configUSE_TRACE_FACILITY 1
+#else
+# define configUSE_TRACE_FACILITY 0
+#endif
+
+#ifdef CONFIG_FREERTOS_USE_STATS_FORMATTING_FUNCTIONS
+# define configUSE_STATS_FORMATTING_FUNCTION 1
+#else
+# define configUSE_STATS_FORMATTING_FUNCTION 0
+#endif
+
+
+
+/* Co-routine related definitions. */
+
+#ifdef CONFIG_FREERTOS_USE_CO_ROUTINES
+# define configUSE_CO_ROUTINES 1
+#else
+# define configUSE_CO_ROUTINES 0
+#endif
+
+#define configMAX_CO_ROUTINE_PRIORITIES ( CONFIG_FREERTOS_MAX_CO_ROUTINE_PRIORITIES )
+
+
+
+/* Software timer related definitions. */
+
+#ifdef CONFIG_FREERTOS_USE_TIMERS
+# define configUSE_TIMERS 1
+#else
+# define configUSE_TIMERS 0
+#endif
+
+#define configTIMER_TASK_PRIORITY		( CONFIG_FREERTOS_TIMER_TASK_PRIORITY )
+
+#define configTIMER_QUEUE_LENGTH		( CONFIG_FREERTOS_TIMER_QUEUE_LENGTH )
+
 #define configTIMER_TASK_STACK_DEPTH	( configMINIMAL_STACK_SIZE )
 
-/* Set the following definitions to 1 to include the API function, or zero
-to exclude the API function. */
-#define INCLUDE_vTaskPrioritySet		1
-#define INCLUDE_uxTaskPriorityGet		1
-#define INCLUDE_vTaskDelete				1
-#define INCLUDE_vTaskCleanUpResources	1
-#define INCLUDE_vTaskSuspend			1
-#define INCLUDE_vTaskDelayUntil			1
-#define INCLUDE_vTaskDelay				1
+
+
+/* FreeRTOS MPU specific definitions. */ 
+
+#ifdef CONFIG_FREERTOS_INCLUDE_APPLICATION_DEFINED_PRIVILEGED_FUNCTIONS
+# define configINCLUDE_APPLICATION_DEFINED_PRIVILEGED_FUNCTIONS 1PPLICATION_TASK_TAG
+#else
+# define configINCLUDE_APPLICATION_DEFINED_PRIVILEGED_FUNCTIONS 1
+#endif
+
+
+
+/* Optional functions - most linkers will remove unused functions anyway. */
+
+#ifdef CONFIG_FREERTOS_INCLUDE_VTASKPRIORITYSET
+# define INCLUDE_vTaskPrioritySet 1
+#else
+# define INCLUDE_vTaskPrioritySet 0
+#endif
+
+#ifdef CONFIG_FREERTOS_INCLUDE_UXTASKPRIORITYGET
+# define INCLUDE_uxTaskPriorityGet 1
+#else
+# define INCLUDE_uxTaskPriorityGet 0
+#endif
+
+#ifdef CONFIG_FREERTOS_INCLUDE_VTASKDELETE
+# define INCLUDE_vTaskDelete 1
+#else
+# define INCLUDE_vTaskDelete 0
+#endif
+
+#ifdef CONFIG_FREERTOS_INCLUDE_VTASKSUSPEND
+# define INCLUDE_vTaskSuspend 1
+#else
+# define INCLUDE_vTaskSuspend 0
+#endif
+
+#ifdef CONFIG_FREERTOS_INCLUDE_XRESUMEFROMISR
+# define INCLUDE_xResumeFromISR 1
+#else
+# define INCLUDE_xResumeFromISR 0
+#endif
+
+#ifdef CONFIG_FREERTOS_INCLUDE_VTASKDELAY
+# define INCLUDE_vTaskDelay 1
+#else
+# define INCLUDE_vTaskDelay 0
+#endif
+
+#ifdef CONFIG_FREERTOS_INCLUDE_VTASKDELAYUNTIL
+# define INCLUDE_vTaskDelayUntil 1
+#else
+# define INCLUDE_vTaskDelayUntil 0
+#endif
+
+#ifdef CONFIG_FREERTOS_INCLUDE_XTASKGETSCHEDULERSTATE
+# define INCLUDE_xTaskGetSchedulerState 1
+#else
+# define INCLUDE_vTaskGetSchedulerState 0
+#endif
+
+#ifdef CONFIG_FREERTOS_INCLUDE_VTASKGETCURRENTTASKHANDLE
+# define INCLUDE_vTaskGetCurrentTaskHandle 1
+#else
+# define INCLUDE_vTaskGetCurrentTaskHandle 0
+#endif
+
+#ifdef CONFIG_FREERTOS_INCLUDE_UXTASKGETSTACKHIGHWATERMARK
+# define INCLUDE_uxTaskGetStackHighWaterMark 1
+#else
+# define INCLUDE_uxTaskGetStackHighWaterMark 0
+#endif
+
+#ifdef CONFIG_FREERTOS_INCLUDE_PCTASKGETTASKNAME
+# define INCLUDE_pcTaskGetTaskName 1
+#else
+# define INCLUDE_pcTaskGetTaskName 0
+#endif
+
+#ifdef CONFIG_FREERTOS_INCLUDE_ETASKGETSTATE
+# define INCLUDE_eTaskGetState 1
+#else
+# define INCLUDE_eTaskGetState 0
+#endif
+
+#ifdef CONFIG_FREERTOS_INCLUDE_XEVENTGROUPSETBITFROMISR
+# define INCLUDE_xEventGroupSetBitFromISR 1
+#else
+# define INCLUDE_xEventGroupSetBitFromISR 0
+#endif
+
+#ifdef CONFIG_FREERTOS_INCLUDE_XTIMERPENDFUNCTIONCALL
+# define INCLUDE_xTimerPendFunctionCall 1
+#else
+# define INCLUDE_xTimerPendFunctionCall 0
+#endif
+
+
+
+
+
+/* --- */
+
+#define configUSE_APPLICATION_TASK_TAG	0
+
 
 /* Use the system definition, if there is one */
 #ifdef __NVIC_PRIO_BITS
