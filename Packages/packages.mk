@@ -34,3 +34,24 @@ endif
 ifeq ($(CONFIG_LIBAUSBEE),y)
 include $(PACKAGES_PATH)/libausbee/libausbee.mk
 endif
+
+#Generate Kconfig path and include custom platform Makefile
+AUSBEE_CUSTOM_PACKAGES_KCONFIG_PATH=$(AUSBEE_DIR)/Packages/empty.Kconfig
+ifeq ($(CONFIG_CUSTOM_PACKAGES),y)
+CONFIG_CUSTOM_PACKAGES_PATH:=$(subst $(DQUOTE),,$(CONFIG_CUSTOM_PACKAGES_PATH))
+ifeq ($(CONFIG_CUSTOM_PACKAGES_REL_PATH), y)
+CONFIG_CUSTOM_PACKAGES_PATH:=$(CURDIR)/$(CONFIG_CUSTOM_PACKAGES_PATH)
+endif
+ifneq ("$(wildcard $(CONFIG_CUSTOM_PACKAGES_PATH)/packages.mk)", "")
+include $(CONFIG_CUSTOM_PACKAGES_PATH)/packages.mk
+endif
+ifneq ("$(wildcard $(CONFIG_CUSTOM_PACKAGES_PATH)/Kconfig)", "")
+AUSBEE_CUSTOM_PACKAGES_KCONFIG_PATH=$(CONFIG_CUSTOM_PACKAGES_PATH)/Kconfig
+endif
+AUSBEE_CUSTOM_PACKAGES_PATH=$(CONFIG_CUSTOM_PACKAGES_PATH)
+endif
+
+#export custom pacakges Kconfig path
+export AUSBEE_CUSTOM_PACKAGES_KCONFIG_PATH
+export AUSBEE_CUSTOM_PACKAGES_PATH
+

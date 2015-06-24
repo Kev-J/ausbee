@@ -15,6 +15,16 @@
 # You should have received a copy of the GNU General Public License
 # along with AUSBEE.  If not, see <http://www.gnu.org/licenses/>.
 
+choice
+  prompt " + libausbee version"
+  depends on LIBAUSBEE
+  config LIBAUSBEE_USE_LATEST_STABLE
+    bool "Latest stable"
+
+  config LIBAUSBEE_USE_GIT
+    bool "git"
+endchoice
+
 config LIBAUSBEE_CONTROL_SYSTEM
 	bool "+ Control system"
 	default n
