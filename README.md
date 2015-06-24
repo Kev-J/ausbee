@@ -19,6 +19,8 @@ Usage
 - run "make"
 - run "make program" for downloading your code into your device.
 
+For further informations, please visit our wiki : https://github.com/Kev-J/ausbee/wiki
+
 Features
 =============
 
@@ -41,12 +43,14 @@ stm32flash
 Authors of the project
 =============
 
-Please read the file's headers.
+Please see AUTHORS
 
 Bugs, patch, requests
 =============
 
 https://github.com/Kev-J/ausbee
+or
+<ausbee@googlegroups.com>
 
 Maintainer : Kevin JOLY <joly.kevin25@gmail.com>
 
