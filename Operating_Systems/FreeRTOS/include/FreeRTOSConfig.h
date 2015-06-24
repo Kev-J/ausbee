@@ -105,7 +105,7 @@
 
 #define configMAX_PRIORITIES			( ( unsigned portBASE_TYPE ) CONFIG_FREERTOS_MAX_PRIORITIES )
 
-#define configMINIMAL_STACK_SIZE		( ( unsigned short ) CONFIG_FREEROTS_MINIMAL_STACK_SIZE )
+#define configMINIMAL_STACK_SIZE		( ( unsigned short ) CONFIG_FREERTOS_MINIMAL_STACK_SIZE )
 
 #define configTOTAL_HEAP_SIZE			( ( size_t ) CONFIG_FREERTOS_TOTAL_HEAP_SIZE )
 
