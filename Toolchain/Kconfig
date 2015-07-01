@@ -84,6 +84,7 @@ config TOOLCHAIN_CXXFLAGS
 # -nostartfiles do not use standard system startup files when linking
 config TOOLCHAIN_LDFLAGS
     string "Toolchain LDFLAGS"
+    default "-Wl,--gc-sections" if AVR_CORE
     default "-Wl,--gc-sections -nostartfiles"
     help
         TODO
