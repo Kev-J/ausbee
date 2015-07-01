@@ -19,6 +19,8 @@ Usage
 - run "make"
 - run "make program" for downloading your code into your device.
 
+For further informations, please visit our wiki : https://github.com/Kev-J/ausbee/wiki
+
 Features
 =============
 
@@ -29,24 +31,32 @@ Features
 
 Dependencies
 =============
-gperf
-flex
-bison
-libncurses-dev (for menuconfig)
-wget
-unzip
-tar
-stm32flash
+* gperf
+* flex
+* bison
+* libncurses-dev (for menuconfig)
+* wget
+* unzip
+* tar
+* stm32flash
+
+Please note that this project is using many third party programs. Please ensure
+that your setup have all the requirements before using them. For instance,
+have a look to the [GCC arm embedded README](https://launchpadlibrarian.net/209775724/readme.txt)
+and check that you have all the dependencies installed on your machine before
+trying to compile anything.
 
 Authors of the project
 =============
 
-Please read the file's headers.
+Please see AUTHORS
 
 Bugs, patch, requests
 =============
 
 https://github.com/Kev-J/ausbee
+or
+<ausbee@googlegroups.com>
 
 Maintainer : Kevin JOLY <joly.kevin25@gmail.com>
 
