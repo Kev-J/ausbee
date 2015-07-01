@@ -96,6 +96,10 @@ int _read(int file, char *ptr, int len)
 			
 		return 1;
 	}
+#else
+  //flag arguments as used 
+  (void)file;
+  (void)ptr;
 #endif
 	return 0;
 }

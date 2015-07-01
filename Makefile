@@ -61,7 +61,7 @@ endif
 
 $(OUTPUT_TARGET_HEX): $(OUTPUT_TARGET_ELF)
 	$(HOST_OBJCPY) -O ihex $^ $@
-	$(HOST_SIZE) $@
+	$(HOST_SIZE) $^
 
 $(OUTPUT_TARGET_BIN): $(OUTPUT_TARGET_ELF)
 	$(HOST_OBJCPY) -O binary $^ $@

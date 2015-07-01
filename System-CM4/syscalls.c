@@ -60,9 +60,9 @@ void _exit(int UNUSED(i))
 
 int _write(int file, char *buffer, unsigned int count)
 {
+#ifdef USART_DEBUG
 	unsigned int i;
 
-#ifdef USART_DEBUG
 	if (file == 1) {
 		for (i = 0 ; i < count ; i++) {
 			while(!(USART_DEBUG->SR & USART_SR_TXE));
@@ -70,6 +70,11 @@ int _write(int file, char *buffer, unsigned int count)
 		}
 		return count;
 	}
+#else
+  //flag arguments as used 
+  (void)file;
+  (void)buffer;
+  (void)count;
 #endif
 	return -1;
 }
@@ -105,6 +110,10 @@ int _read(int file, char *ptr, int UNUSED(len))
 
 		return 1;
 	}
+#else
+  //flag arguments as used 
+  (void)file;
+  (void)ptr;
 #endif
 	return 0;
 }
