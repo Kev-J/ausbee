@@ -109,6 +109,9 @@ choice
 
   config DEVICE_ATMEGA328P 
   	bool "ATmega328P"
+
+  config DEVICE_ATXMEGA128A1 
+  	bool "ATXmega128A1"
 endchoice
 
 
