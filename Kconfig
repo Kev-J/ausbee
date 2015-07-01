@@ -203,7 +203,7 @@ endchoice
 config BAUDRATE_SERIAL_INTEFACE
 	string "Baudrate of serial programming interface"
 	default "115200"
-	depends on PROGRAMMING_USART
+	depends on PROGRAMMING_USART && AVRDUDE_ARDUINO
 	help
 		TODO
 
