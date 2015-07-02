@@ -35,11 +35,12 @@ MCONF=$(KCONFIG_BUILD_PATH)/frontends/mconf/mconf
 NCONF=$(KCONFIG_BUILD_PATH)/frontends/nconf/nconf
 QCONF=$(KCONFIG_BUILD_PATH)/frontends/qconf/qconf
 GCONF=$(KCONFIG_BUILD_PATH)/frontends/gconf/gconf
+CONFIG_DEPS=.config
 export AUSBEE_DIR
 
 ######################################################################
 # Build target
-all: $(OUTPUT_TARGET_BIN) $(OUTPUT_TARGET_HEX)
+all: $(OUTPUT_TARGET_BIN) $(OUTPUT_TARGET_HEX) size_after_build
 
 include $(TOOLCHAIN_PATH)/toolchain.mk
 ifneq ($(SYSTEM_PATH),)
@@ -55,9 +56,11 @@ else
 include $(PROJECT_PATH)/project.mk
 endif
 
+size_after_build: $(OUTPUT_TARGET_ELF)
+	$(HOST_SIZE) $^
+
 $(OUTPUT_TARGET_HEX): $(OUTPUT_TARGET_ELF)
 	$(HOST_OBJCPY) -O ihex $^ $@
-	$(HOST_SIZE) $^
 
 $(OUTPUT_TARGET_BIN): $(OUTPUT_TARGET_ELF)
 	$(HOST_OBJCPY) -O binary $^ $@
