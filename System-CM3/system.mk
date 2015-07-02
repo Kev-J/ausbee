@@ -38,6 +38,7 @@ endif
 # Object files list
 SYSTEM_OBJ_C_FILES=$(patsubst ${AUSBEE_DIR}/%.c,${OUTPUT_PATH}/%.o,${SYSTEM_SRC_C_FILES})
 SYSTEM_OBJ_S_FILES=$(patsubst ${AUSBEE_DIR}/%.s,${OUTPUT_PATH}/%.o,${SYSTEM_SRC_S_FILES})
+SYSTEM_DEP_C_FILES=$(patsubst ${AUSBEE_DIR}/%.c,${OUTPUT_PATH}/%.d,${SYSTEM_SRC_C_FILES})
 
 # Add object files to the global obj files list
 OBJ_FILES+=$(SYSTEM_OBJ_C_FILES) $(SYSTEM_OBJ_S_FILES)
@@ -54,6 +55,12 @@ $(SYSTEM_OBJ_S_FILES): ${OUTPUT_PATH}/%.o :${AUSBEE_DIR}/%.s $(TOOLCHAIN_EXTRACT
 	$(MKDIR_P) $(dir $@)
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(SYSTEM_INCLUDES) -c $<
 
+$(SYSTEM_DEP_C_FILES): ${OUTPUT_PATH}/%.d :${AUSBEE_DIR}/%.c $(TOOLCHAIN_EXTRACTED)
+	$(MKDIR_P) $(dir $@)
+	$(HOST_CC) $(HOST_CFLAGS) $(SYSTEM_INCLUDES) -MF"$@" -MG -MM -MP -MT"$@" -MT"${OUTPUT_PATH}/$(<:.c=.o)" "$<"
+
 .PHONY: system-clean
 system-clean:
 	$(RM_RF) $(SYSTEM_OBJ_C_FILES) $(SYSTEM_OBJ_S_FILES) $(LINKER_SCRIPT)
+
+-include $(SYSTEM_DEP_C_FILES)

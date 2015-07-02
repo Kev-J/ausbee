@@ -37,6 +37,7 @@ SYSTEM_SRC_S_FILES+=$(CMSIS_DEVICE_SUPPORT_PATH)/Source/Templates/gcc_ride7/star
 # Object files list
 SYSTEM_OBJ_C_FILES=$(patsubst ${AUSBEE_DIR}/%.c,${OUTPUT_PATH}/%.o,${SYSTEM_SRC_C_FILES})
 SYSTEM_OBJ_S_FILES=$(patsubst ${AUSBEE_DIR}/%.s,${OUTPUT_PATH}/%.o,${SYSTEM_SRC_S_FILES})
+SYSTEM_DEP_C_FILES=$(patsubst ${AUSBEE_DIR}/%.c,${OUTPUT_PATH}/%.d,${SYSTEM_SRC_C_FILES})
 
 # Add object files to the global obj files list
 OBJ_FILES+=$(SYSTEM_OBJ_C_FILES) $(SYSTEM_OBJ_S_FILES)
@@ -53,6 +54,12 @@ $(SYSTEM_OBJ_C_FILES): ${OUTPUT_PATH}/%.o :${AUSBEE_DIR}/%.c $(TOOLCHAIN_EXTRACT
 	@mkdir -p $(dir $@)
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(SYSTEM_INCLUDES) $(HOST_OPTIMISATION) -c $<
 
+$(SYSTEM_DEP_C_FILES): ${OUTPUT_PATH}/%.d :${AUSBEE_DIR}/%.c $(TOOLCHAIN_EXTRACTED)
+	$(MKDIR_P) $(dir $@)
+	$(HOST_CC) $(HOST_CFLAGS) $(SYSTEM_INCLUDES) $(HOST_OPTIMISATION) -MF"$@" -MG -MM -MP -MT"$@" -MT"${OUTPUT_PATH}/$(<:.c=.o)" "$<"
+
 .PHONY: system-clean
 system-clean:
 	$(RM_RF) $(SYSTEM_OBJ_C_FILES) $(SYSTEM_OBJ_S_FILES) $(LINKER_SCRIPT)
+
+-include $(SYSTEM_DEP_C_FILES)
