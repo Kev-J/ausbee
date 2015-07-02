@@ -57,7 +57,7 @@ $(SYSTEM_OBJ_S_FILES): ${OUTPUT_PATH}/%.o :${AUSBEE_DIR}/%.s $(TOOLCHAIN_EXTRACT
 
 $(SYSTEM_DEP_C_FILES): ${OUTPUT_PATH}/%.d :${AUSBEE_DIR}/%.c $(TOOLCHAIN_EXTRACTED)
 	$(MKDIR_P) $(dir $@)
-	$(HOST_CC) $(HOST_CFLAGS) $(SYSTEM_INCLUDES) -MF"$@" -MG -MM -MP -MT"$@" -MT"${OUTPUT_PATH}/$(<:.c=.o)" "$<"
+	$(HOST_CC) $(HOST_CFLAGS) $(SYSTEM_INCLUDES) -MF"$@" -MG -MM -MP -MT"$@" -MT"$(@:.d=.o)" "$<"
 
 .PHONY: system-clean
 system-clean:
