@@ -38,6 +38,15 @@ GCONF=$(KCONFIG_BUILD_PATH)/frontends/gconf/gconf
 export AUSBEE_DIR
 
 ######################################################################
+# Print functions
+define print_build
+	$(ECHO_E) "\e[32mBuild \e[1m$1\e[0m\e[32m file: \e[1m$2\e[0m"
+endef
+define print_gen
+	$(ECHO_E) "\e[34mGenerate \e[1m$1\e[0m\e[34m file:\e[1m $2\e[0m"
+endef
+
+######################################################################
 # Build target
 all: $(OUTPUT_TARGET_BIN) $(OUTPUT_TARGET_HEX)
 
@@ -56,13 +65,16 @@ include $(PROJECT_PATH)/project.mk
 endif
 
 $(OUTPUT_TARGET_HEX): $(OUTPUT_TARGET_ELF)
+	$(call print_gen,$(CONFIG_PROJECT_NAME),$(notdir $@))
 	$(HOST_OBJCPY) -O ihex $^ $@
 	$(HOST_SIZE) $^
 
 $(OUTPUT_TARGET_BIN): $(OUTPUT_TARGET_ELF)
+	$(call print_gen,$(CONFIG_PROJECT_NAME),$(notdir $@))
 	$(HOST_OBJCPY) -O binary $^ $@
 
 $(OUTPUT_TARGET_ELF): $(OBJ_FILES) $(LIB_FILES) $(LINKER_SCRIPT)
+	$(call print_gen,$(CONFIG_PROJECT_NAME),$(notdir $@))
 	$(MKDIR_P) $(OUTPUT_PATH)
 	$(HOST_CC) -o $@ -T$(LINKER_SCRIPT) $(OBJ_FILES) $(HOST_LDFLAGS)
 

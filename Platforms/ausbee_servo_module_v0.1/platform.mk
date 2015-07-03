@@ -25,6 +25,7 @@ PLATFORM_OBJ_FILES=$(patsubst ${AUSBEE_DIR}/%.c,${OUTPUT_PATH}/%.o,${PLATFORM_SR
 OBJ_FILES+=$(PLATFORM_OBJ_FILES)
 
 $(PLATFORM_OBJ_FILES): $(OUTPUT_PATH)/%.o :$(AUSBEE_DIR)/%.c $(TOOLCHAIN_EXTRACTED)
+	$(call print_build,AUSBEE_servo_module_v0.1,$$(subst $(AUSBEE_DIR)/,,$$<))
 	@mkdir -p $(dir $@)
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(LIBRARIES_INCLUDES_DIR) $(SYSTEM_INCLUDES_DIR) $(HOST_OPTIMISATION) -c $<
 
