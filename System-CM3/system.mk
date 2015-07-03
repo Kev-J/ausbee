@@ -42,6 +42,7 @@ SYSTEM_DEP_C_FILES=$(patsubst ${AUSBEE_DIR}/%.c,${OUTPUT_PATH}/%.d,${SYSTEM_SRC_
 
 # Add object files to the global obj files list
 OBJ_FILES+=$(SYSTEM_OBJ_C_FILES) $(SYSTEM_OBJ_S_FILES)
+DEP_FILES+=$(SYSTEM_DEP_C_FILES)
 
 $(LINKER_SCRIPT): $(LINKER_SCRIPT_INPUT) $(CONFIG_DEPS)
 	$(HOST_CC) -x c -P -C -DRAM_LENGTH=$(RAM_LENGTH) -DFLASH_LENGTH=$(FLASH_LENGTH) -E $< -o $@
@@ -49,15 +50,12 @@ $(LINKER_SCRIPT): $(LINKER_SCRIPT_INPUT) $(CONFIG_DEPS)
 # Build objects
 $(SYSTEM_OBJ_C_FILES): ${OUTPUT_PATH}/%.o :${AUSBEE_DIR}/%.c $(TOOLCHAIN_EXTRACTED)
 	$(MKDIR_P) $(dir $@)
+	$(HOST_CC) $(HOST_CFLAGS) $(SYSTEM_INCLUDES) -MF"$(@:.o=.d)" -MG -MM -MP -MT"$@" "$<"
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(SYSTEM_INCLUDES) -c $<
 
 $(SYSTEM_OBJ_S_FILES): ${OUTPUT_PATH}/%.o :${AUSBEE_DIR}/%.s $(TOOLCHAIN_EXTRACTED)
 	$(MKDIR_P) $(dir $@)
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(SYSTEM_INCLUDES) -c $<
-
-$(SYSTEM_DEP_C_FILES): ${OUTPUT_PATH}/%.d :${AUSBEE_DIR}/%.c $(TOOLCHAIN_EXTRACTED)
-	$(MKDIR_P) $(dir $@)
-	$(HOST_CC) $(HOST_CFLAGS) $(SYSTEM_INCLUDES) -MF"$@" -MG -MM -MP -MT"$@" -MT"$(@:.d=.o)" "$<"
 
 .PHONY: system-clean
 system-clean:

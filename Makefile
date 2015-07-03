@@ -161,9 +161,11 @@ ifneq ($(SYSTEM_PATH),)
 CLEAN_GOALS+=system-clean
 endif
 
+CLEAN_GOALS=
+
 .PHONY: $(CLEAN_GOALS)
 clean: $(CLEAN_GOALS)
-	$(RM_RF) $(OBJ_FILES)
+	$(RM_RF) $(OBJ_FILES) $(DEP_FILES)
 
 ######################################################################
 # Help

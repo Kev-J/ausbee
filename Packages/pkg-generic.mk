@@ -33,14 +33,14 @@ $(1)_DEP_FILES=$$($(1)_SRC_FILES_BUILD:.c=.d)
 
 # Add to global dependencies
 OBJ_FILES+=$$($(1)_OBJ_FILES)
+DEP_FILES+=$$($(1)_DEP_FILES)
 
 PACKAGES_CLEAN_GOALS+=$(1)-clean
 
 $$($(1)_OBJ_FILES): %.o: %.c $(TOOLCHAIN_EXTRACTED) $(CONFIG_DEPS)
+	$(HOST_CC) $(HOST_CFLAGS) $$($(1)_INCLUDES) $$($(1)_DEPENDENCIES_INCLUDES) $(HOST_OPTIMISATION) -MF"$$(@:.o=.d)" -MG -MM -MP -MT"$$@" "$$<"
 	$(HOST_CC) -o $$@ $(HOST_CFLAGS) $$($(1)_INCLUDES) $$($(1)_DEPENDENCIES_INCLUDES) $(HOST_OPTIMISATION) -c $$<
 
-$$($(1)_DEP_FILES): %.d: %.c $(TOOLCHAIN_EXTRACTED) $(CONFIG_DEPS)
-	$(HOST_CC) $(HOST_CFLAGS) $$($(1)_INCLUDES) $$($(1)_DEPENDENCIES_INCLUDES) $(HOST_OPTIMISATION) -MF"$$@" -MG -MM -MP -MT"$$@" -MT"$$(<:.c=.o)" "$$<"
 
 ifeq ($$(CONFIG_$(1)_USE_GIT),y)
 $$($(1)_SRC_FILES_BUILD): $$($(1)_BUILD_PATH)/.cloned

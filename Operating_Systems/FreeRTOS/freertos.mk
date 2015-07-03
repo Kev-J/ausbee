@@ -50,14 +50,13 @@ FREERTOS_DEP_FILES=$(patsubst ${AUSBEE_DIR}/%.c,${OUTPUT_PATH}/%.d,${FREERTOS_SR
 
 # Add object files to the global object files list
 OBJ_FILES+=$(FREERTOS_OBJ_FILES)
+DEP_FILES+=$(FREERTOS_DEP_FILES)
 
 # Build objects
 $(FREERTOS_OBJ_FILES): ${OUTPUT_PATH}/%.o :${AUSBEE_DIR}/%.c $(TOOLCHAIN_EXTRACTED) $(CONFIG_DEPS)
 	@mkdir -p $(dir $@)
+	$(HOST_CC) $(HOST_CFLAGS) $(FREERTOS_INCLUDES_DIR) $(HOST_OPTIMISATION) -MF"$(@:.o=.d)" -MG -MM -MP -MT"$@" "$<"
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(FREERTOS_INCLUDES_DIR) $(HOST_OPTIMISATION) -c $<
-
-$(FREERTOS_DEP_FILES): ${OUTPUT_PATH}/%.d :${AUSBEE_DIR}/%.c $(TOOLCHAIN_EXTRACTED) $(CONFIG_DEPS)
-	$(HOST_CC) $(HOST_CFLAGS) $(FREERTOS_INCLUDES_DIR) $(HOST_OPTIMISATION) -MF"$@" -MG -MM -MP -MT"$@" -MT"$(@:.d=.o)" "$<"
 
 # Make sure that the archive has been extracted
 $(FREERTOS_SRC_FILES): $(FREERTOS_TOP_PATH)/.extracted
