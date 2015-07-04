@@ -68,7 +68,7 @@ $(FREERTOS_TOP_PATH)/.extracted:$(ARCHIVE_FREERTOS_PATH)
 # Download requested files
 $(ARCHIVE_FREERTOS_PATH):
 	$(MKDIR_P) $(CONFIG_DOWNLOADS_DIR)
-	$(WGET) -O $@ $(CONFIG_FREERTOS_URL_DOWNLOAD)
+	$(WGET) -O $@ $(CONFIG_FREERTOS_URL_DOWNLOAD) || $(RM_RF) $@
 
 .PHONY: freertos-clean freertos-dirclean
 freertos-clean:

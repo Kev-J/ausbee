@@ -37,6 +37,6 @@ config FREERTOS_VERSION_DOWNLOAD
 config FREERTOS_URL_DOWNLOAD
     depends on FREERTOS_DOWNLOAD
     string "FreeRTOS package to download"
-    default "http://sourceforge.net/projects/freertos/files/FreeRTOS/V7.5.3/FreeRTOSV$(CONFIG_FREERTOS_VERSION_DOWNLOAD).zip"
+    default "http://sourceforge.net/projects/freertos/files/FreeRTOS/V$(CONFIG_FREERTOS_VERSION_DOWNLOAD)/FreeRTOSV$(CONFIG_FREERTOS_VERSION_DOWNLOAD).zip"
     help
         TODO
