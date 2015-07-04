@@ -203,7 +203,7 @@ endchoice
 config BAUDRATE_SERIAL_INTEFACE
 	string "Baudrate of serial programming interface"
 	default "115200"
-	depends on PROGRAMMING_USART && AVRDUDE_ARDUINO
+	depends on PROGRAMMING_USART || AVRDUDE_ARDUINO
 	help
 		TODO
 
@@ -211,7 +211,7 @@ config BAUDRATE_SERIAL_INTEFACE
 config PROGRAM_SERIAL_INTERFACE
 	string "Serial programming interface"
 	default "/dev/ttyUSB0"
-	depends on PROGRAMMING_USART || PROGRAMMING_AVRDUDE
+	depends on PROGRAMMING_USART || AVRDUDE_ARDUINO
 	help
 		TODO
 
