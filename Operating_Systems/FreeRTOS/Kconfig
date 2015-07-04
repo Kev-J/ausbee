@@ -30,7 +30,7 @@ config FREERTOS_DOWNLOAD
 config FREERTOS_VERSION_DOWNLOAD
     depends on FREERTOS_DOWNLOAD
     string "FreeRTOS version for automatic download"
-    default "7.5.3"
+    default "8.2.1"
     help
         TODO
 
