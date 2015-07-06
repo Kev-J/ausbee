@@ -55,6 +55,10 @@ else
 include $(PROJECT_PATH)/project.mk
 endif
 
+ifneq ($(LINKER_SCRIPT),)
+LINKER_SCRIPT_FLAG=-T$(LINKER_SCRIPT)
+endif
+
 $(OUTPUT_TARGET_HEX): $(OUTPUT_TARGET_ELF)
 	$(HOST_OBJCPY) -O ihex $^ $@
 	$(HOST_SIZE) $^
@@ -64,7 +68,7 @@ $(OUTPUT_TARGET_BIN): $(OUTPUT_TARGET_ELF)
 
 $(OUTPUT_TARGET_ELF): $(OBJ_FILES) $(LIB_FILES) $(LINKER_SCRIPT)
 	$(MKDIR_P) $(OUTPUT_PATH)
-	$(HOST_CC) -o $@ -T$(LINKER_SCRIPT) $(OBJ_FILES) $(HOST_LDFLAGS)
+	$(HOST_CC) -o $@ $(LINKER_SCRIPT_FLAG) $(OBJ_FILES) $(HOST_LDFLAGS)
 
 ######################################################################
 # Configuration tool
@@ -143,6 +147,19 @@ else
 ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
 program: $(OUTPUT_TARGET_BIN)
 	$(STM32FLASH) --reset write $(<) 0x08000000
+else
+ifeq ($(CONFIG_PROGRAMMING_AVRDUDE),y)
+ifeq ($(CONFIG_AVRDUDE_ARDUINO),y)
+AVRDUDE_PROGRAMMER=arduino
+endif
+ifeq ($(CONFIG_AVRDUDE_ISP_MKII),y)
+AVRDUDE_PROGRAMMER=avrisp2
+CONFIG_PROGRAM_SERIAL_INTERFACE=usb
+endif
+program: $(OUTPUT_TARGET_HEX)
+	$(AVRDUDE) -p $(AVRDUDE_PART) -P $(CONFIG_PROGRAM_SERIAL_INTERFACE) -c $(AVRDUDE_PROGRAMMER) -U flash:w:$<
+
+endif
 endif
 endif
 

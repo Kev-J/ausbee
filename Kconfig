@@ -37,12 +37,15 @@ menu "Device options"
 
 # Select CORE
 choice
-	prompt "Select ARM core"
+	prompt "Select mcu core"
 config ARM_CORE_CORTEX_M4
 	bool "ARM Cortex-M4 core"
 
 config ARM_CORE_CORTEX_M3
 	bool "ARM Cortex-M3 core"
+
+config AVR_CORE
+	bool "Atmel AVR core"
 endchoice
 
 config USE_FPU
@@ -99,6 +102,19 @@ config DEVICE_STM32F10X_CL
 	bool "STM32F10X_CL"
 endchoice
 
+# Select Device AVR
+choice
+	prompt "Atmega name"
+	depends on AVR_CORE
+
+  config DEVICE_ATMEGA328P 
+  	bool "ATmega328P"
+
+  config DEVICE_ATXMEGA128A1 
+  	bool "ATXmega128A1"
+endchoice
+
+
 config CRYSTAL_FREQUENCY
 	string "Crystal frenquency"
 	default "8000000"
@@ -108,6 +124,7 @@ config CRYSTAL_FREQUENCY
 # Ram length
 config RAM_LENGTH
 	string "RAM length"
+  depends on ARM_CORE_CORTEX_M4 || ARM_CORE_CORTEX_M3
 	default "10K"
 	help
 		Amount of RAM memory available on your device.
@@ -119,6 +136,7 @@ config RAM_LENGTH
 # Flash length
 config FLASH_LENGTH
 	string "FLASH length"
+  depends on ARM_CORE_CORTEX_M4 || ARM_CORE_CORTEX_M3
 	default "32K"
 	help
 		Amount of FLASH memory available on your device.
@@ -159,25 +177,41 @@ menu "Programming interface"
 choice
 	prompt "Select programmer"
 
-config PROGRAMMING_STLINK
-	bool "STLink v2"
-
-config PROGRAMMING_USART
-	bool "STM32 USART"
+  config PROGRAMMING_STLINK
+  	bool "STLink v2"
+  
+  config PROGRAMMING_USART
+  	bool "STM32 USART"
+  
+  config PROGRAMMING_AVRDUDE
+    bool "Avrdude"
 endchoice
+
+#avrdude programmer type
+choice 
+  depends on PROGRAMMING_AVRDUDE
+  prompt "Avrdude programmer type"
+  
+  config AVRDUDE_ARDUINO
+    bool "Arduino"
+
+  config AVRDUDE_ISP_MKII
+    bool "ISP mkII"
+endchoice 
 
 # Baudrate for flashing device
 config BAUDRATE_SERIAL_INTEFACE
 	string "Baudrate of serial programming interface"
 	default "115200"
-	depends on PROGRAMMING_USART
+	depends on PROGRAMMING_USART || AVRDUDE_ARDUINO
 	help
 		TODO
+
 # Serial interface for flashing device
 config PROGRAM_SERIAL_INTERFACE
 	string "Serial programming interface"
 	default "/dev/ttyUSB0"
-	depends on PROGRAMMING_USART
+	depends on PROGRAMMING_USART || AVRDUDE_ARDUINO
 	help
 		TODO
 

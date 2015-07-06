@@ -27,6 +27,11 @@ ifeq ($(CONFIG_PLATFORM_AUSBEE_SERVO_MODULE_V0_1),y)
 include $(PLATFORMS_PATH)/ausbee_servo_module_v0.1/platform.mk
 PLATFORM_CLEAN_GOAL+=platform_ausbee_servo_module_v0_1-clean
 endif
+ifeq ($(CONFIG_PLATFORM_ARDUINO_UNO),y)
+include $(PLATFORMS_PATH)/arduino_uno/platform.mk
+PLATFORM_CLEAN_GOAL+=platform_arduino_uno-clean
+endif
+
 
 
 #Generate Kconfig path and include custom platform Makefile

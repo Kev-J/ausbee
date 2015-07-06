@@ -17,26 +17,29 @@
 
 config TOOLCHAIN_TARGET_NAME
 	string "Target name"
+  depends on ARM_CORE_CORTEX_M4 || ARM_CORE_CORTEX_M3
 	default "arm-none-eabi"
 	help
 		TODO
 
 config DOWNLOAD_TOOLCHAIN
-    bool "Download GCC ARM embedded toolchain"
-    default y
-    help
-        TODO
+  bool "Download GCC ARM embedded toolchain"
+  depends on ARM_CORE_CORTEX_M4 || ARM_CORE_CORTEX_M3
+  default y
+  help
+    TODO
 
 config TOOLCHAIN_MIRROR
-    string "Toolchain mirror URL"
-    default "https://launchpad.net/gcc-arm-embedded/4.7/4.7-2013-q3-update/+download/gcc-arm-none-eabi-4_7-2013q3-20130916-linux.tar.bz2"
-    depends on DOWNLOAD_TOOLCHAIN
-    help
-        TODO
+  string "Toolchain mirror URL"
+  depends on ARM_CORE_CORTEX_M4 || ARM_CORE_CORTEX_M3
+  default "https://launchpad.net/gcc-arm-embedded/4.7/4.7-2013-q3-update/+download/gcc-arm-none-eabi-4_7-2013q3-20130916-linux.tar.bz2"
+  depends on DOWNLOAD_TOOLCHAIN
+  help
+    TODO
 
 config TOOLCHAIN_CUSTOM_BIN_PATH
 	bool "Custom toolchain /bin path"
-  depends on !DOWNLOAD_TOOLCHAIN
+  depends on (!DOWNLOAD_TOOLCHAIN) && (ARM_CORE_CORTEX_M4 || ARM_CORE_CORTEX_M3)
   default n
 	help
 		TODO
@@ -81,6 +84,7 @@ config TOOLCHAIN_CXXFLAGS
 # -nostartfiles do not use standard system startup files when linking
 config TOOLCHAIN_LDFLAGS
     string "Toolchain LDFLAGS"
+    default "-Wl,--gc-sections" if AVR_CORE
     default "-Wl,--gc-sections -nostartfiles"
     help
         TODO
