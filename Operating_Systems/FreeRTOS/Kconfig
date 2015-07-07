@@ -15,11 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with AUSBEE.  If not, see <http://www.gnu.org/licenses/>.
 
-config FREERTOS_CPU_CLOCK_HZ
-    int "CPU Clock"
-    default 32000000
-    help
-        System clock in HZ.
 
 config FREERTOS_DOWNLOAD
     bool "Download FreeRTOS"
@@ -40,3 +35,340 @@ config FREERTOS_URL_DOWNLOAD
     default "http://sourceforge.net/projects/freertos/files/FreeRTOS/V7.5.3/FreeRTOSV$(CONFIG_FREERTOS_VERSION_DOWNLOAD).zip"
     help
         TODO
+
+menu "Base configuration"
+  config FREERTOS_USE_PREEMPTION
+    bool "Use preemption"
+    default y
+    help
+      Set to yes to use the preemtive RTOS scheduler, or no to use the cooperative RTOS scheduler.
+  
+  config FREERTOS_USE_TICKLESS_IDLE
+    bool "Use tickless idle"
+    default n
+    help
+      Set to yes to use the low power tickless mode, or no to keep the tick interrupt runnng at all times.
+
+  config FREERTOS_CPU_CLOCK_HZ
+    int "CPU Clock (Hz)"
+    default 32000000
+    help
+      Enter the frequency in Hz at which the internal clock that driver the peripheral used to generate the tick interrupt will be executing - this is normally the same clock that drives the internal CPU clock. This value is required in order to correctly configure timer peripherals.
+
+  config FREERTOS_TICK_RATE_HZ
+    int "Tick rate (Hz)"
+    default 250
+    help
+      The frequency of the RTOS tick interrupt.
+
+      The tick interrupt is used to measure time. Therefore a higher tick frequency means time can be measured to a higher resolution. However, a high tick frequency also means that the RTOS kernel will use more CPU time so be less efficient. The RTOS demo applications all use a tick rate of 1000Hz. This is used to test the RTOS kernel and is higher than would normally be required.
+
+      More than one task can share the same priority. The RTOS scheduler will share processor time between tasks of the same priority by switching between the tasks during each RTOS tick. A high tick rate frequency will therefore also have the effect of reducing the 'time slice' given to each task. 
+
+  config FREERTOS_MAX_PRIORITIES
+    int "Max priorities"
+    default 5
+    help
+      The number of priorities available to the application tasks. Any number of tasks can share the same priority. Co-routines are prioritised separately.
+
+      Each available priority consumes RAM within the RTOS kernel so this value should not be set any higher than actually required by your application. 
+  
+  config FREERTOS_MINIMAL_STACK_SIZE
+    int "Minimal stack size"
+    default 128
+    help
+      The size of the stack used by the idle task. Generally this should not be reduced from the value set in the FreeRTOSConfig.h file provided with the demo application for the port you are using.
+
+      Like the stack size parameter to the xTaskCreate() function, the stack size is specified in words, not bytes. If each item placed on the stack is 32-bits, then a stack size of 100 means 400 bytes (each 32-bit stack item consuming 4 bytes). 
+
+  config FREERTOS_TOTAL_HEAP_SIZE
+    int "Total heap size"
+    default 10240
+    help
+      The size of the stack used by the idle task. Generally this should not be reduced from the value set in the FreeRTOSConfig.h file provided with the demo application for the port you are using.
+
+      Like the stack size parameter to the xTaskCreate() function, the stack size is specified in words, not bytes. If each item placed on the stack is 32-bits, then a stack size of 100 means 400 bytes (each 32-bit stack item consuming 4 bytes).
+
+  config FREERTOS_MAX_TASK_NAME_LEN
+    int "Max task name len"
+    default 16
+    help
+      The maximum permissible length of the descriptive name given to a task when the task is created. The length is specified in the number of characters including the NULL termination byte.
+
+  config FREERTOS_USE_16_BIT_TICKS
+    bool "Use 16 bit ticks"
+    default n
+    help
+      Time is measured in 'ticks' - which is the number of times the tick interrupt has executed since the RTOS kernel was started. The tick count is held in a variable of type TickType_t.
+
+      Defining USE_16_BIT_TICKS as yes causes TickType_t to be defined (typedef'ed) as an unsigned 16bit type. Defining USE_16_BIT_TICKS as no causes TickType_t to be defined (typedef'ed) as an unsigned 32bit type.
+
+      Using a 16 bit type will greatly improve performance on 8 and 16 bit architectures, but limits the maximum specifiable time period to 65535 'ticks'. Therefore, assuming a tick frequency of 250Hz, the maximum time a task can delay or block when a 16bit counter is used is 262 seconds, compared to 17179869 seconds when using a 32bit counter. 
+
+  config FREERTOS_IDLE_SHOULD_YIELD
+    bool "Idle should yield"
+    default y
+    help
+      This parameter controls the behaviour of tasks at the idle priority. It only has an effect if:
+
+        - The preemptive scheduler is being used.
+        - The users application creates tasks that run at the idle priority.
+
+      Tasks that share the same priority will time slice. Assuming none of the tasks get preempted, it might be assumed that each task of at a given priority will be allocated an equal amount of processing time - and if the shared priority is above the idle priority then this is indeed the case.
+
+      When tasks share the idle priority the behaviour can be slightly different. When IDLE_SHOULD_YIELD is set to yes the idle task will yield immediately should any other task at the idle priority be ready to run. This ensures the minimum amount of time is spent in the idle task when application tasks are available for scheduling. This behaviour can however have undesirable effects (depending on the needs of your application) as depicted below:
+
+      This diagram shows the execution pattern of four tasks at the idle priority. Tasks A, B and C are application tasks. Task I is the idle task. A context switch occurs with regular period at times T0, T1, ..., T6. When the idle task yields task A starts to execute - but the idle task has already taken up some of the current time slice. This results in task I and task A effectively sharing a time slice. The application tasks B and C therefore get more processing time than the application task A.
+
+      This situation can be avoided by:
+
+        - If appropriate, using an idle hook in place of separate tasks at the idle priority.
+        - Creating all application tasks at a priority greater than the idle priority.
+        - Setting IDLE_SHOULD_YIELD to no.
+
+      Setting IDLE_SHOULD_YIELD prevents the idle task from yielding processing time until the end of its time slice. This ensure all tasks at the idle priority are allocated an equal amount of processing time - but at the cost of a greater proportion of the total processing time being allocated to the idle task. 
+
+  config FREERTOS_USE_TASK_NOTIFICATIONS
+    bool "Use task notifications"
+    default n
+    help
+      Setting USE_TASK_NOTIFICATIONS to yes will include direct to task notification functionality and its associated API in the build.
+
+      Setting USE_TASK_NOTIFICATIONS to no will exclude direct to task notification functionality and its associated API from the build.
+
+      Each task consumes 8 additional bytes of RAM when direct to task notifications are included in the build. 
+
+  config FREERTOS_USE_MUTEXES
+    bool "Use mutexes"
+    default n
+    help
+      Set to yes to include mutex functionality in the build, or no to omit mutex functionality from the build. Readers should familiarise themselves with the differences between mutexes and binary semaphores in relation to the FreeRTOS functionality. 
+
+  config FREERTOS_USE_RECURSIVE_MUTEXES
+    bool "Use recursive mutexes"
+    default n
+    help
+      Set to yes to include recursive mutex functionality in the build, or no to omit recursive mutex functionality from the build. 
+
+  config FREERTOS_USE_COUNTING_SEMAPHORES
+    bool "Use counting semaphores"
+    default n
+    help
+      Set to yes to include counting semaphore functionality in the build, or no to omit counting semaphore functionality from the build. 
+
+  config FREERTOS_QUEUE_REGISTRY_SIZE
+    int "Queue registry size"
+    default 0
+    help
+      The queue registry has two purposes, both of which are associated with RTOS kernel aware debugging:
+
+        - It allows a textual name to be associated with a queue for easy queue identification within a debugging GUI.
+        - It contains the information required by a debugger to locate each registered queue and semaphore.
+
+      The queue registry has no purpose unless you are using a RTOS kernel aware debugger.
+
+      QUEUE_REGISTRY_SIZE defines the maximum number of queues and semaphores that can be registered. Only those queues and semaphores that you want to view using a RTOS kernel aware debugger need be registered. See the API reference documentation for vQueueAddToRegistry() and vQueueUnregisterQueue() for more information. 
+
+  config FREERTOS_USE_QUEUE_SETS
+    bool "Use queue sets"
+    default n
+    help
+      Set to yes to include queue set functionality (the ability to block, or pend, on multiple queues and semaphores), or no to omit queue set functionality. 
+
+  config FREERTOS_USE_TIME_SLICING
+    bool "Use time slicing"
+    default y
+    help
+      By default (if USE_TIME_SLICING is defined as yes) FreeRTOS uses prioritised preemptive scheduling with time slicing. That means the RTOS scheduler will always run the highest priority task that is in the Ready state, and will switch between tasks of equal priority on every RTOS tick interrupt. If USE_TIME_SLICING is set to no then the RTOS scheduler will still run the highest priority task that is in the Ready state, but will not switch between tasks of equal priority just because a tick interrupt has occurred. 
+
+  config FREERTOS_ENABLE_BACKWARD_COMPATIBILITY
+    bool "Enable backward compatibility"
+    default n
+    help
+      The FreeRTOS.h header file includes a set of #define macros that map the names of data types used in versions of FreeRTOS prior to version 8.0.0 to the names used in FreeRTOS version 8.0.0. The macros allow application code to update the version of FreeRTOS they are built against from a pre 8.0.0 version to a post 8.0.0 version without modification. Setting ENABLE_BACKWARD_COMPATIBILITY to no in FreeRTOSConfig.h excludes the macors from the build, and in so doing allowing validation that no pre version 8.0.0 names are being used. 
+
+  config FREERTOS_NUM_THREAD_LOCAL_STORAGE_POINTERS
+    int "Num thread local storage pointers"
+    default 5
+    help
+      Sets the number of indexes in each task's thread local storage array. 
+
+endmenu
+
+menu "Hook configuration"
+  config FREERTOS_USE_IDLE_HOOK
+    bool "Use idle hook"
+    default n
+    help
+      Set to yes if you wish to use an idle hook, or no to omit an idle hook. 
+
+  config FREERTOS_USE_TICK_HOOK
+    bool "Use tick hook"
+    default n
+    help
+      Set to yes if you wish to use an tick hook, or no to omit an tick hook. 
+
+  config FREERTOS_CHECK_FOR_STACK_OVERFLOW
+    bool "Check for stack overflow"
+    default n
+    help
+      The stack overflow detection page describes the use of this parameter. 
+
+  config FREERTOS_USE_MALLOC_FAILED_HOOK
+    bool "Use malloc failed hook"
+    default n
+    help
+      The kernel uses a call to pvPortMalloc() to allocate memory from the heap each time a task, queue or semaphore is created. The official FreeRTOS download includes four sample memory allocation schemes for this purpose. The schemes are implemented in the heap_1.c, heap_2.c, heap_3.c, heap_4.c and heap_5.c source files respectively. USE_MALLOC_FAILED_HOOK is only relevant when one of these three sample schemes is being used.
+
+      The malloc() failed hook function is a hook (or callback) function that, if defined and configured, will be called if pvPortMalloc() ever returns NULL. NULL will be returned only if there is insufficient FreeRTOS heap memory remaining for the requested allocation to succeed.
+
+      If USE_MALLOC_FAILED_HOOK is set to yes then the application must define a malloc() failed hook function. If USE_MALLOC_FAILED_HOOK is set to no then the malloc() failed hook function will not be called, even if one is defined. Malloc() failed hook functions must have the name and prototype shown below.
+
+      void vApplicationMallocFailedHook( void );
+endmenu
+
+menu "Runtime/task statistic configuration"
+  config FREERTOS_GENERATE_RUN_TIME_STATS
+    bool "Generate run time stats"
+    default n
+    help
+      The Run Time Stats page describes the use of this parameter. 
+
+  config FREERTOS_USE_TRACE_FACILITY
+    bool "Use trace facility"
+    default n
+    help
+      Set to yes if you wish to include additional structure members and functions to assist with execution visualisation and tracing. 
+
+  config FREERTOS_USE_STATS_FORMATTING_FUNCTIONS
+    bool "Use stats formatting functions"
+    default n
+    help
+      Set USE_TRACE_FACILITY and USE_STATS_FORMATTING_FUNCTIONS to yes to include the vTaskList() and vTaskGetRunTimeStats() functions in the build. Setting either to no will omit vTaskList() and vTaskGetRunTimeStates() from the build. 
+endmenu
+
+menu "Co-routine configuration"
+  config FREERTOS_USE_CO_ROUTINES
+    bool "Use co-routines"
+    default n
+    help
+      Set to yes to include co-routine functionality in the build, or no to omit co-routine functionality from the build. To include co-routines croutine.c must be included in the project. 
+
+  config FREERTOS_MAX_CO_ROUTINE_PRIORITIES
+    int "Max co-routine priorities"
+    default 1
+    help
+      The number of priorities available to the application co-routines. Any number of co-routines can share the same priority. Tasks are prioritised separately - see MAX_PRIORITIES. 
+endmenu
+
+menu "Software timer configuration"
+  config FREERTOS_USE_TIMERS
+    bool "Use timer"
+    default y
+    help
+      Set to yes to include software timer functionality, or no to omit software timer functionality. See the FreeRTOS software timers page for a full description. 
+
+  config FREERTOS_TIMER_TASK_PRIORITY
+    int "Timer task priority"
+    default 3
+    help
+      Sets the priority of the software timer service/daemon task. See the FreeRTOS software timers page for a full description. 
+
+  config FREERTOS_TIMER_QUEUE_LENGTH
+    int "Timer queue length"
+    default 10
+    help
+      Sets the length of the software timer command queue. See the FreeRTOS software timers page for a full description. 
+endmenu
+
+menu "MPU configuration"
+  config FREERTOS_INCLUDE_APPLICATION_DEFINED_PRIVILEGED_FUNCTIONS
+    bool "Include application defined privileged functions"
+    default n
+    help
+      INCLUDE_APPLICATION_DEFINED_PRIVILEGED_FUNCTIONS is only used by FreeRTOS MPU.
+
+      If INCLUDE_APPLICATION_DEFINED_PRIVILEGED_FUNCTIONS is set to yes then the application writer must provide a header file called "application_defined_privileged_functions.h", in which functions the application writer needs to execute in privileged mode can be implemented. Note that, despite having a .h extension, the header file should contain the implementation of the C functions, not just the functions' prototypes.
+
+      Functions implemented in "application_defined_privileged_functions.h" must save and restore the processor's privilege state using the prvRaisePrivilege() function and portRESET_PRIVILEGE() macro respectively. For example, if a library provided print function accesses RAM that is outside of the control of the application writer, and therefore cannot be allocated to a memory protected user mode task, then the print function can be encapsulated in a privileged function using the following code:
+
+      void MPU_debug_printf( const char *pcMessage )
+      {
+        /* State the privilege level of the processor when the function was called. */
+        BaseType_t xRunningPrivileged = prvRaisePrivilege();
+
+        /* Call the library function, which now has access to all RAM. */
+        debug_printf( pcMessage );
+
+        /* Reset the processor privilege level to its original value. */
+        portRESET_PRIVILEGE( xRunningPrivileged );
+      }
+
+      This technique should only be use during development, and not deployment, as it circumvents the memory protection. 
+endmenu
+
+menu "Optional function configuration"
+  config FREERTOS_INCLUDE_VTASKPRIORITYSET
+    bool "Include vTaskPrioritySet"
+    default y
+    
+  config FREERTOS_INCLUDE_UXTASKPRIORITYGET
+    bool "Include uxTaskPriorityGet"
+    default y
+
+  config FREERTOS_INCLUDE_VTASKDELETE
+    bool "Include vTaskDelete"
+    default y
+
+  config FREERTOS_INCLUDE_VTASKSUSPEND
+    bool "Include vTaskSuspend"
+    default y
+
+  config FREERTOS_INCLUDE_XRESUMEFROMISR
+    bool "Include xResumeFromISR"
+    default y
+
+  config FREERTOS_INCLUDE_VTASKDELAYUNTIL
+    bool "Include vTaskDelayUntil"
+    default y
+
+  config FREERTOS_INCLUDE_VTASKDELAY
+    bool "Include vTaskDelay"
+    default y
+
+  config FREERTOS_INCLUDE_XTASKGETSCHEDULERSTATE
+    bool "Include xTaskGetSchedulerState"
+    default y
+
+  config FREERTOS_INCLUDE_XTASKGETCURRENTTASKHANDLE
+    bool "Include xTaskGetCurrentTaskHandle"
+    default y
+
+  config FREERTOS_INCLUDE_UXTASKGETSTACKHIGHWATERMARK
+    bool "Include uxTaskGetStackHighWaterMark"
+    default n
+
+  config FREERTOS_INCLUDE_XTASKGETIDLETASKHANDLE
+    bool "Include xTaskGetIdleTaskHandle"
+    default n
+
+  config FREERTOS_INCLUDE_XTIMERGETTIMERDAEMONTASKHANDLE
+    bool "Include xTimerGetTimerDaemonTaskHandle"
+    default n
+
+  config FREERTOS_INCLUDE_PCTASKGETTASKNAME
+    bool "Include pcTaskGetTaskName"
+    default n
+
+  config FREERTOS_INCLUDE_ETASKGETSTATE
+    bool "Include eTaskGetState"
+    default n
+
+  config FREERTOS_INCLUDE_XEVENTGROUPSETBITFROMISR
+    bool "Include xEventGroupSetBitFromISR"
+    default n
+
+  config FREERTOS_INCLUDE_XTIMERPENDFUNCTIONCALL
+    bool "Include xTimerPendFunctionCall"
+    default n
+endmenu
