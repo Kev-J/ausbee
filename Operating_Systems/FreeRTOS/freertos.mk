@@ -53,6 +53,7 @@ OBJ_FILES+=$(FREERTOS_OBJ_FILES)
 
 # Build objects
 $(FREERTOS_OBJ_FILES): ${OUTPUT_PATH}/%.o :${AUSBEE_DIR}/%.c $(TOOLCHAIN_EXTRACTED)
+	$(call print_build,FreeRTOS,$(subst $(FREERTOS_SRC_PATH)/,,$<))
 	@mkdir -p $(dir $@)
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(FREERTOS_INCLUDES_DIR) $(HOST_OPTIMISATION) -c $<
 

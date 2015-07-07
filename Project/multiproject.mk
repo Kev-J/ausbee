@@ -31,5 +31,6 @@ PROJECT_INCLUDES += $(SYSTEM_INCLUDES)
 
 #Generate project object files
 $(PROJECT_OBJ_FILES): ${PROJECT_OUTPUT_PATH}/%.o: %.c $(PACKAGES_EXTRACTED) $(TOOLCHAIN_EXTRACTED)
+	$(call print_build,$(CONFIG_PROJECT_NAME),$<)
 	@mkdir -p $(dir $@)
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(PROJECT_INCLUDES) $(HOST_OPTIMISATION) -c $<
