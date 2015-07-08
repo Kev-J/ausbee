@@ -38,21 +38,21 @@ endif
 # Object files list
 SYSTEM_OBJ_C_FILES=$(patsubst ${AUSBEE_DIR}/%.c,${OUTPUT_PATH}/%.o,${SYSTEM_SRC_C_FILES})
 SYSTEM_OBJ_S_FILES=$(patsubst ${AUSBEE_DIR}/%.s,${OUTPUT_PATH}/%.o,${SYSTEM_SRC_S_FILES})
+SYSTEM_DEP_C_FILES=$(patsubst ${AUSBEE_DIR}/%.c,${OUTPUT_PATH}/%.d,${SYSTEM_SRC_C_FILES})
 
 # Add object files to the global obj files list
 OBJ_FILES+=$(SYSTEM_OBJ_C_FILES) $(SYSTEM_OBJ_S_FILES)
+DEP_FILES+=$(SYSTEM_DEP_C_FILES)
 
-# Force to preprocess linker script
-#XXX but tell me if you have a better solution?
-$(LINKER_SCRIPT): $(LINKER_SCRIPT_INPUT) force
+$(LINKER_SCRIPT): $(LINKER_SCRIPT_INPUT) $(CONFIG_DEPS)
 	$(call print_gen,System-CM3,$(subst $(OUTPUT_PATH)/,,$@))
 	$(HOST_CC) -x c -P -C -DRAM_LENGTH=$(RAM_LENGTH) -DFLASH_LENGTH=$(FLASH_LENGTH) -E $< -o $@
-force:
 
 # Build objects
 $(SYSTEM_OBJ_C_FILES): ${OUTPUT_PATH}/%.o :${AUSBEE_DIR}/%.c $(TOOLCHAIN_EXTRACTED)
 	$(call print_build,System-CM3,$(subst $(AUSBEE_DIR)/System-CM3/,,$<))
 	$(MKDIR_P) $(dir $@)
+	$(HOST_CC) $(HOST_CFLAGS) $(SYSTEM_INCLUDES) -MF"$(@:.o=.d)" -MG -MM -MP -MT"$@" "$<"
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(SYSTEM_INCLUDES) -c $<
 
 $(SYSTEM_OBJ_S_FILES): ${OUTPUT_PATH}/%.o :${AUSBEE_DIR}/%.s $(TOOLCHAIN_EXTRACTED)
@@ -63,3 +63,5 @@ $(SYSTEM_OBJ_S_FILES): ${OUTPUT_PATH}/%.o :${AUSBEE_DIR}/%.s $(TOOLCHAIN_EXTRACT
 .PHONY: system-clean
 system-clean:
 	$(RM_RF) $(SYSTEM_OBJ_C_FILES) $(SYSTEM_OBJ_S_FILES) $(LINKER_SCRIPT)
+
+-include $(SYSTEM_DEP_C_FILES)

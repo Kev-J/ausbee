@@ -29,15 +29,19 @@ PACKAGES_INCLUDES+=$$($(1)_INCLUDES)
 $(1)_BUILD_PATH = $(BUILD_PATH)/$(shell echo $(1) | tr A-Z a-z)
 $(1)_SRC_FILES_BUILD = $$($(1)_SRC_FILES:%=$$($(1)_BUILD_PATH)/%)
 $(1)_OBJ_FILES+=$$($(1)_SRC_FILES_BUILD:.c=.o)
+$(1)_DEP_FILES=$$($(1)_SRC_FILES_BUILD:.c=.d)
 
 # Add to global dependencies
 OBJ_FILES+=$$($(1)_OBJ_FILES)
+DEP_FILES+=$$($(1)_DEP_FILES)
 
 PACKAGES_CLEAN_GOALS+=$(1)-clean
 
-$$($(1)_OBJ_FILES): %.o: %.c $(TOOLCHAIN_EXTRACTED)
+$$($(1)_OBJ_FILES): %.o: %.c $(TOOLCHAIN_EXTRACTED) $(CONFIG_DEPS)
 	$(call print_build,$(1),$$(subst $$($(1)_BUILD_PATH)/,,$$<))
+	$(HOST_CC) $(HOST_CFLAGS) $$($(1)_INCLUDES) $$($(1)_DEPENDENCIES_INCLUDES) $(HOST_OPTIMISATION) -MF"$$(@:.o=.d)" -MG -MM -MP -MT"$$@" "$$<"
 	$(HOST_CC) -o $$@ $(HOST_CFLAGS) $$($(1)_INCLUDES) $$($(1)_DEPENDENCIES_INCLUDES) $(HOST_OPTIMISATION) -c $$<
+
 
 ifeq ($$(CONFIG_$(1)_USE_GIT),y)
 $$($(1)_SRC_FILES_BUILD): $$($(1)_BUILD_PATH)/.cloned
@@ -68,5 +72,7 @@ $$($(1)_BUILD_PATH)/.cloned:
 $(1)-clean:
 	rm -rf $$($(1)_BUILD_PATH)/.downloaded $$($(1)_BUILD_PATH)/.extracted $$($(1)_BUILD_PATH)/.cloned
 	rm -rf $$($(1)_OBJ_FILES)
+
+-include $$($(1)_DEP_FILES)
 
 endef
