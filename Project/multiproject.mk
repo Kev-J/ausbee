@@ -19,9 +19,11 @@ PROJECT_OUTPUT_PATH=$(OUTPUT_PATH)/Project
 
 #Generate object list from project source file list
 PROJECT_OBJ_FILES=$(patsubst %.c,${PROJECT_OUTPUT_PATH}/%.o,${PROJECT_SRC_FILES})
+PROJECT_DEP_FILES=$(patsubst %.c,${PROJECT_OUTPUT_PATH}/%.d,${PROJECT_SRC_FILES})
 
 #Add project object file to global object file list
 OBJ_FILES+=$(PROJECT_OBJ_FILES)
+DEP_FILES+=$(PROJECT_DEP_FILES)
 
 #Generate special include list
 PROJECT_INCLUDES = $(PLATFORM_INCLUDES)
@@ -30,7 +32,10 @@ PROJECT_INCLUDES += $(PACKAGES_INCLUDES)
 PROJECT_INCLUDES += $(SYSTEM_INCLUDES)
 
 #Generate project object files
-$(PROJECT_OBJ_FILES): ${PROJECT_OUTPUT_PATH}/%.o: %.c $(PACKAGES_EXTRACTED) $(TOOLCHAIN_EXTRACTED)
+$(PROJECT_OBJ_FILES): ${PROJECT_OUTPUT_PATH}/%.o: %.c $(PACKAGES_EXTRACTED) $(TOOLCHAIN_EXTRACTED) $(CONFIG_DEPS)
 	$(call print_build,$(CONFIG_PROJECT_NAME),$<)
 	@mkdir -p $(dir $@)
+	$(HOST_CC) $(HOST_CFLAGS) $(PROJECT_INCLUDES) $(HOST_OPTIMISATION) -MF"$(@:.o=.d)" -MG -MM -MP -MT"$@" "$<"
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(PROJECT_INCLUDES) $(HOST_OPTIMISATION) -c $<
+
+-include $(PROJECT_DEP_FILES)

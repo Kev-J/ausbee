@@ -35,10 +35,14 @@ PROJECT_INCLUDES += $(SYSTEM_INCLUDES)
 # Additional source files might have been defined in a subproject config file
 PROJECT_SRC_FILES+=$(wildcard $(PROJECT_PATH)/$(PROJECT_SRC_DIR)/*.c)
 PROJECT_OBJ_FILES=$(patsubst %.c,%.o,${PROJECT_SRC_FILES})
+PROJECT_DEP_FILES=$(patsubst %.c,%.d,${PROJECT_SRC_FILES})
 
 # Add project obj files to the global obj files list
 OBJ_FILES+=$(PROJECT_OBJ_FILES)
 
-$(PROJECT_OBJ_FILES): %.o: %.c $(PACKAGES_EXTRACTED) $(TOOLCHAIN_EXTRACTED)
+$(PROJECT_OBJ_FILES): %.o: %.c $(PACKAGES_EXTRACTED) $(TOOLCHAIN_EXTRACTED) $(CONFIG_DEPS)
 	$(call print_build,$(CONFIG_PROJECT_NAME),$<)
+	$(HOST_CC) $(HOST_CFLAGS) $(PROJECT_INCLUDES) $(HOST_OPTIMISATION) -MF"$(@:.o=.d)" -MG -MM -MP -MT"$@" "$<"
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(PROJECT_INCLUDES) $(HOST_OPTIMISATION) -c $<
+
+-include $(PROJECT_DEP_FILES)

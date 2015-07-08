@@ -45,16 +45,18 @@ FREERTOS_SRC_FILES+=$(FREERTOS_SRC_PATH)/portable/MemMang/heap_1.c # TODO make i
 FREERTOS_SRC_FILES+=$(FREERTOS_SRC_PORT_PATH)/port.c
 
 # Object files list
-FREERTOS_OBJ_FILES=$(FREERTOS_SRC_FILES:.c=.o)
 FREERTOS_OBJ_FILES=$(patsubst ${AUSBEE_DIR}/%.c,${OUTPUT_PATH}/%.o,${FREERTOS_SRC_FILES})
+FREERTOS_DEP_FILES=$(patsubst ${AUSBEE_DIR}/%.c,${OUTPUT_PATH}/%.d,${FREERTOS_SRC_FILES})
 
 # Add object files to the global object files list
 OBJ_FILES+=$(FREERTOS_OBJ_FILES)
+DEP_FILES+=$(FREERTOS_DEP_FILES)
 
 # Build objects
-$(FREERTOS_OBJ_FILES): ${OUTPUT_PATH}/%.o :${AUSBEE_DIR}/%.c $(TOOLCHAIN_EXTRACTED)
+$(FREERTOS_OBJ_FILES): ${OUTPUT_PATH}/%.o :${AUSBEE_DIR}/%.c $(TOOLCHAIN_EXTRACTED) $(CONFIG_DEPS)
 	$(call print_build,FreeRTOS,$(subst $(FREERTOS_SRC_PATH)/,,$<))
 	@mkdir -p $(dir $@)
+	$(HOST_CC) $(HOST_CFLAGS) $(FREERTOS_INCLUDES_DIR) $(HOST_OPTIMISATION) -MF"$(@:.o=.d)" -MG -MM -MP -MT"$@" "$<"
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(FREERTOS_INCLUDES_DIR) $(HOST_OPTIMISATION) -c $<
 
 # Make sure that the archive has been extracted
@@ -77,3 +79,5 @@ freertos-clean:
 
 freertos-dirclean:
 	$(RM_RF) $(FREERTOS_TOP_PATH)
+
+-include $(FREERTOS_DEP_FILES)
