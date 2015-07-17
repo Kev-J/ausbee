@@ -103,7 +103,7 @@
 
 #define configTICK_RATE_HZ				( ( TickType_t ) CONFIG_FREERTOS_TICK_RATE_HZ )
 
-#define configMAX_PRIORITIES			( ( unsigned portBASE_TYPE ) CONFIG_FREERTOS_MAX_PRIORITIES )
+#define configMAX_PRIORITIES			( CONFIG_FREERTOS_MAX_PRIORITIES )
 
 #define configMINIMAL_STACK_SIZE		( ( unsigned short ) CONFIG_FREERTOS_MINIMAL_STACK_SIZE )
 
