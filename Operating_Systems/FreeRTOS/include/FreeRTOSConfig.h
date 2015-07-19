@@ -75,6 +75,8 @@
 
 #include <generated/autoconf.h>
 
+#include "projdefs.h" //needed to test FreeRTOS version
+
 /*-----------------------------------------------------------
  * Application specific definitions.
  *
@@ -101,7 +103,11 @@
 
 #define configCPU_CLOCK_HZ				( CONFIG_FREERTOS_CPU_CLOCK_HZ )	
 
+#ifndef pdMS_TO_TICKS //FREERTOS v7
+#define configTICK_RATE_HZ				( ( portTickType ) CONFIG_FREERTOS_TICK_RATE_HZ )
+#else //FREERTOS v8
 #define configTICK_RATE_HZ				( ( TickType_t ) CONFIG_FREERTOS_TICK_RATE_HZ )
+#endif
 
 #define configMAX_PRIORITIES			( CONFIG_FREERTOS_MAX_PRIORITIES )
 
