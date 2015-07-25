@@ -26,12 +26,6 @@ config AUSBEE_DIR
 # Build options menu
 menu "Build options"
 
-config PROJECT_NAME
-	string "Project name"
-	default "project"
-	help
-		TODO
-
 ## Device options menu
 menu "Device options"
 
