@@ -26,6 +26,12 @@ config AUSBEE_DIR
 # Build options menu
 menu "Build options"
 
+config PROJECT_NAME
+	string "Project name"
+	default "project"
+	help
+		TODO
+
 ## Device options menu
 menu "Device options"
 
@@ -98,7 +104,6 @@ config CRYSTAL_FREQUENCY
 	default "8000000"
 	help
 		HSE Crystal frequency in Hz.
-		Do not forget to call SystemCoreClockUpdate right after reset.
 
 # Ram length
 config RAM_LENGTH
