@@ -55,9 +55,9 @@ include $(TOOLCHAIN_PATH)/toolchain.mk
 ifneq ($(SYSTEM_PATH),)
 include $(SYSTEM_PATH)/system.mk
 endif
-include $(PACKAGES_PATH)/packages.mk
 include $(PLATFORMS_PATH)/platforms.mk
 include $(OPERATING_SYSTEMS_PATH)/operating_systems.mk
+include $(PACKAGES_PATH)/packages.mk
 
 ifeq ($(MULTIPROJECT), 1)
 include $(PROJECT_PATH)/multiproject.mk
