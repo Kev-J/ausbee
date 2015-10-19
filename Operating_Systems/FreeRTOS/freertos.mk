@@ -56,10 +56,11 @@ DEP_FILES+=$(FREERTOS_DEP_FILES)
 $(FREERTOS_OBJ_FILES): ${OUTPUT_PATH}/%.o :${AUSBEE_DIR}/%.c $(TOOLCHAIN_EXTRACTED) $(CONFIG_DEPS)
 	$(call print_build,FreeRTOS,$(subst $(FREERTOS_SRC_PATH)/,,$<))
 	@mkdir -p $(dir $@)
-	$(HOST_CC) $(HOST_CFLAGS) $(FREERTOS_INCLUDES_DIR) $(HOST_OPTIMISATION) -MF"$(@:.o=.d)" -MG -MM -MP -MT"$@" "$<"
-	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(FREERTOS_INCLUDES_DIR) $(HOST_OPTIMISATION) -c $<
+	$(HOST_CC) $(HOST_CFLAGS) $(OPERATING_SYSTEMS_INCLUDES) $(HOST_OPTIMISATION) -MF"$(@:.o=.d)" -MG -MM -MP -MT"$@" "$<"
+	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(OPERATING_SYSTEMS_INCLUDES) $(HOST_OPTIMISATION) -c $<
 
 # Make sure that the archive has been extracted
+OPERATING_SYSTEMS_LOAD: $(FREERTOS_TOP_PATH)/.extracted
 $(FREERTOS_SRC_FILES): $(FREERTOS_TOP_PATH)/.extracted
 
 # Extract files
