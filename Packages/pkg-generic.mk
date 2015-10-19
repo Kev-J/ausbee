@@ -43,7 +43,8 @@ PACKAGES_CLEAN_GOALS+=$(1)-clean
 $$($(1)_OBJ_FILES): %.o: %.c $(TOOLCHAIN_EXTRACTED) $$($(1)_DEPENDENCIES_DOWNLOADED) $(CONFIG_DEPS)
 	$(call print_build,$(1),$$(subst $$($(1)_BUILD_PATH)/,,$$<))
 	$$(HOST_CC) $$(HOST_CFLAGS) $$($(1)_INCLUDES) $$($(1)_DEPENDENCIES_INCLUDES) $$(HOST_OPTIMISATION) -MF"$$(@:.o=.d)" -MG -MM -MP -MT"$$@" "$$<"
-	$$(HOST_CC) -o $$@ $$(HOST_CFLAGS) $$($(1)_INCLUDES) $$(HOST_OPTIMISATION) -c $$<
+	$$(HOST_CC) -o $$@ $$(HOST_CFLAGS) $$($(1)_INCLUDES) $$($(1)_DEPENDENCIES_INCLUDES) $$(HOST_OPTIMISATION) -c $$<
+
 
 
 ifeq ($$(CONFIG_$(1)_USE_GIT),y)
