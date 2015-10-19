@@ -23,6 +23,9 @@ $(1)_INCLUDES=$$($(1)_INCLUDE_PATH:%=-I"$$($(1)_BUILD_PATH)/%")
 # Get dependencies includes
 $(1)_DEPENDENCIES_INCLUDES=$(foreach inc,$(shell echo $($(1)_DEPENDENCIES:%=%_INCLUDES) | tr a-z A-Z),$$($(inc)))
 
+# Load dependancies rule
+$(1)_DEPENDENCIES_DOWNLOADED=$(foreach dep,$(shell echo $($(1)_DEPENDENCIES) | tr a-z A-Z),$(dep)_LOAD)
+
 # Add to packages includes
 PACKAGES_INCLUDES+=$$($(1)_INCLUDES)
 
@@ -37,17 +40,19 @@ DEP_FILES+=$$($(1)_DEP_FILES)
 
 PACKAGES_CLEAN_GOALS+=$(1)-clean
 
-$$($(1)_OBJ_FILES): %.o: %.c $(TOOLCHAIN_EXTRACTED) $(CONFIG_DEPS)
+$$($(1)_OBJ_FILES): %.o: %.c $(TOOLCHAIN_EXTRACTED) $$($(1)_DEPENDENCIES_DOWNLOADED) $(CONFIG_DEPS)
 	$(call print_build,$(1),$$(subst $$($(1)_BUILD_PATH)/,,$$<))
-	$(HOST_CC) $(HOST_CFLAGS) $$($(1)_INCLUDES) $$($(1)_DEPENDENCIES_INCLUDES) $(HOST_OPTIMISATION) -MF"$$(@:.o=.d)" -MG -MM -MP -MT"$$@" "$$<"
-	$(HOST_CC) -o $$@ $(HOST_CFLAGS) $$($(1)_INCLUDES) $$($(1)_DEPENDENCIES_INCLUDES) $(HOST_OPTIMISATION) -c $$<
+	$$(HOST_CC) $$(HOST_CFLAGS) $$($(1)_INCLUDES) $$($(1)_DEPENDENCIES_INCLUDES) $$(HOST_OPTIMISATION) -MF"$$(@:.o=.d)" -MG -MM -MP -MT"$$@" "$$<"
+	$$(HOST_CC) -o $$@ $$(HOST_CFLAGS) $$($(1)_INCLUDES) $$(HOST_OPTIMISATION) -c $$<
 
 
 ifeq ($$(CONFIG_$(1)_USE_GIT),y)
+$(1)_LOAD: $$($(1)_BUILD_PATH)/.cloned
 $$($(1)_SRC_FILES_BUILD): $$($(1)_BUILD_PATH)/.cloned
 # Add to extracted list for dependencies
 PACKAGES_EXTRACTED += $$($(1)_BUILD_PATH)/.cloned
 else
+$(1)_LOAD: $$($(1)_BUILD_PATH)/.extracted
 $$($(1)_SRC_FILES_BUILD): $$($(1)_BUILD_PATH)/.extracted
 # Add to extracted list for dependencies
 PACKAGES_EXTRACTED += $$($(1)_BUILD_PATH)/.extracted
