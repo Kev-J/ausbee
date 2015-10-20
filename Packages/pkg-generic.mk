@@ -19,32 +19,47 @@ define pkg-generic =
 
 # Generate includes
 $(1)_INCLUDES=$$($(1)_INCLUDE_PATH:%=-I"$$($(1)_BUILD_PATH)/%")
-
-# Get dependencies includes
-$(1)_DEPENDENCIES_INCLUDES=$(foreach inc,$(shell echo $($(1)_DEPENDENCIES:%=%_INCLUDES) | tr a-z A-Z),$$($(inc)))
+$(1)_SIM_INCLUDES=$$($(1)_SIM_INCLUDE_PATH:%=-I"$$($(1)_BUILD_PATH)/%")
+$(1)_TARGET_INCLUDES=$$($(1)_TARGET_INCLUDE_PATH:%=-I"$$($(1)_BUILD_PATH)/%")
 
 # Load dependancies rule
 $(1)_DEPENDENCIES_DOWNLOADED=$(foreach dep,$(shell echo $($(1)_DEPENDENCIES) | tr a-z A-Z),$(dep)_LOAD)
 
 # Add to packages includes
-PACKAGES_INCLUDES+=$$($(1)_INCLUDES)
+TARGET_INCLUDES+=$$($(1)_INCLUDES) $$($(1)_TARGET_INCLUDES)
+SIM_INCLUDES+=$$($(1)_INCLUDES) $$($(1)_SIM_INCLUDES)
 
 $(1)_BUILD_PATH = $(BUILD_PATH)/$(shell echo $(1) | tr A-Z a-z)
 $(1)_SRC_FILES_BUILD = $$($(1)_SRC_FILES:%=$$($(1)_BUILD_PATH)/%)
-$(1)_OBJ_FILES+=$$($(1)_SRC_FILES_BUILD:.c=.o)
-$(1)_DEP_FILES=$$($(1)_SRC_FILES_BUILD:.c=.d)
+$(1)_TARGET_SRC_FILES_BUILD = $$($(1)_TARGET_SRC_FILES:%=$$($(1)_BUILD_PATH)/%)
+$(1)_SIM_SRC_FILES_BUILD = $$($(1)_SIM_SRC_FILES:%=$$($(1)_BUILD_PATH)/%)
+
+$(1)_TARGET_OBJ_FILES=$$($(1)_SRC_FILES_BUILD:.c=.$(TARGET_ARCH).o)
+$(1)_TARGET_DEP_FILES=$$($(1)_SRC_FILES_BUILD:.c=.$(TARGET_ARCH).d)
+$(1)_SIM_OBJ_FILES=$$($(1)_SRC_FILES_BUILD:.c=.sim.o)
+$(1)_SIM_DEP_FILES=$$($(1)_SRC_FILES_BUILD:.c=.sim.d)
+$(1)_TARGET_OBJ_FILES+=$$($(1)_TARGET_SRC_FILES_BUILD:.c=.$(TARGET_ARCH).o)
+$(1)_TARGET_DEP_FILES+=$$($(1)_TARGET_SRC_FILES_BUILD:.c=.$(TARGET_ARCH).d)
+$(1)_SIM_OBJ_FILES+=$$($(1)_SIM_SRC_FILES_BUILD:.c=.sim.o)
+$(1)_SIM_DEP_FILES+=$$($(1)_SIM_SRC_FILES_BUILD:.c=.sim.d)
 
 # Add to global dependencies
-OBJ_FILES+=$$($(1)_OBJ_FILES)
-DEP_FILES+=$$($(1)_DEP_FILES)
+TARGET_OBJ_FILES+=$$($(1)_TARGET_OBJ_FILES)
+TARGET_DEP_FILES+=$$($(1)_TARGET_DEP_FILES)
+SIM_OBJ_FILES+=$$($(1)_SIM_OBJ_FILES)
+SIM_DEP_FILES+=$$($(1)_SIM_DEP_FILES)
 
 PACKAGES_CLEAN_GOALS+=$(1)-clean
 
-$$($(1)_OBJ_FILES): %.o: %.c $(TOOLCHAIN_EXTRACTED) $$($(1)_DEPENDENCIES_DOWNLOADED) $(CONFIG_DEPS)
+$$($(1)_TARGET_OBJ_FILES): %.$(TARGET_ARCH).o: %.c $(TOOLCHAIN_EXTRACTED) $$($(1)_DEPENDENCIES_DOWNLOADED) $(CONFIG_DEPS)
 	$(call print_build,$(1),$$(subst $$($(1)_BUILD_PATH)/,,$$<))
-	$$(HOST_CC) $$(HOST_CFLAGS) $$($(1)_INCLUDES) $$($(1)_DEPENDENCIES_INCLUDES) $$(HOST_OPTIMISATION) -MF"$$(@:.o=.d)" -MG -MM -MP -MT"$$@" "$$<"
-	$$(HOST_CC) -o $$@ $$(HOST_CFLAGS) $$($(1)_INCLUDES) $$($(1)_DEPENDENCIES_INCLUDES) $$(HOST_OPTIMISATION) -c $$<
+	$$(TARGET_CC) $$(TARGET_CFLAGS) $$(GLOBAL_CFLAGS) $$(TARGET_INCLUDES) $$(GLOBAL_OPTIMISATION) -MF"$$(@:.o=.d)" -MG -MM -MP -MT"$$@" "$$<"
+	$$(TARGET_CC) -o $$@ $$(TARGET_CFLAGS) $$(GLOBAL_CFLAGS) $$(TARGET_INCLUDES) $$(GLOBAL_OPTIMISATION) -c $$<
 
+$$($(1)_SIM_OBJ_FILES): %.sim.o: %.c $(TOOLCHAIN_EXTRACTED) $$($(1)_DEPENDENCIES_DOWNLOADED) $(CONFIG_DEPS)
+	$(call print_build,$(1),$$(subst $$($(1)_BUILD_PATH)/,,$$<))
+	$$(SIM_CC) $$(SIM_CFLAGS) $$(GLOBAL_CFLAGS) $$(SIM_INCLUDES) $$(GLOBAL_OPTIMISATION) -MF"$$(@:.o=.d)" -MG -MM -MP -MT"$$@" "$$<"
+	$$(SIM_CC) -o $$@ $$(SIM_CFLAGS) $$(GLOBAL_CFLAGS) $$(SIM_INCLUDES) $$(GLOBAL_OPTIMISATION) -c $$<
 
 
 ifeq ($$(CONFIG_$(1)_USE_GIT),y)

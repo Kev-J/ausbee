@@ -50,6 +50,7 @@ endef
 ######################################################################
 # Build target
 all: $(OUTPUT_TARGET_BIN) $(OUTPUT_TARGET_HEX) size_after_build
+sim: $(OUTPUT_TARGET_SIM)
 
 include $(TOOLCHAIN_PATH)/toolchain.mk
 ifneq ($(SYSTEM_PATH),)
@@ -66,25 +67,26 @@ include $(PROJECT_PATH)/project.mk
 endif
 
 size_after_build: $(OUTPUT_TARGET_ELF)
-	$(HOST_SIZE) $^
+	$(TARGET_SIZE) $^
 
 $(OUTPUT_TARGET_HEX): $(OUTPUT_TARGET_ELF)
 	$(call print_gen,$(CONFIG_PROJECT_NAME),$(notdir $@))
-	$(HOST_OBJCPY) -O ihex $^ $@
+	$(TARGET_OBJCPY) -O ihex $^ $@
 
 $(OUTPUT_TARGET_BIN): $(OUTPUT_TARGET_ELF)
 	$(call print_gen,$(CONFIG_PROJECT_NAME),$(notdir $@))
-	$(HOST_OBJCPY) -O binary $^ $@
+	$(TARGET_OBJCPY) -O binary $^ $@
 
-$(OUTPUT_TARGET_ELF): $(OBJ_FILES) $(LIB_FILES) $(LINKER_SCRIPT)
+$(OUTPUT_TARGET_ELF): $(TARGET_OBJ_FILES) $(LIB_FILES) $(LINKER_SCRIPT)
 	$(call print_gen,$(CONFIG_PROJECT_NAME),$(notdir $@))
 	$(MKDIR_P) $(OUTPUT_PATH)
-	$(HOST_CC) -o $@ -T$(LINKER_SCRIPT) $(OBJ_FILES) $(HOST_LDFLAGS)
+	$(TARGET_CC) -o $@ -T$(LINKER_SCRIPT) $(TARGET_OBJ_FILES) $(TARGET_LDFLAGS) $(GLOBAL_LDFLAGS)
 
-$(OUTPUT_TARGET_OUT): $(OBJ_FILES) $(LIB_FILES)
+$(OUTPUT_TARGET_SIM): $(SIM_OBJ_FILES)
 	$(call print_gen,$(CONFIG_PROJECT_NAME),$(notdir $@))
 	$(MKDIR_P) $(OUTPUT_PATH)
-	$(HOST_CC) -o $@ $(OBJ_FILES) $(HOST_LDFLAGS)
+	$(SIM_CC) -o $@ $(SIM_OBJ_FILES) $(SIM_LDFLAGS) $(GLOBAL_LDFLAGS)
+
 
 ######################################################################
 # Configuration tool
@@ -182,7 +184,7 @@ CLEAN_GOALS=
 
 .PHONY: $(CLEAN_GOALS)
 clean: $(CLEAN_GOALS)
-	$(RM_RF) $(OBJ_FILES) $(DEP_FILES)
+	$(RM_RF) $(SIM_DEP_FILES) $(TARGET_OBJ_FILES) $(SIM_DEP_FILES) $(TARGET_DEP_FILES)
 
 ######################################################################
 # Help
