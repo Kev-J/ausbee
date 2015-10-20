@@ -81,6 +81,11 @@ $(OUTPUT_TARGET_ELF): $(OBJ_FILES) $(LIB_FILES) $(LINKER_SCRIPT)
 	$(MKDIR_P) $(OUTPUT_PATH)
 	$(HOST_CC) -o $@ -T$(LINKER_SCRIPT) $(OBJ_FILES) $(HOST_LDFLAGS)
 
+$(OUTPUT_TARGET_OUT): $(OBJ_FILES) $(LIB_FILES)
+	$(call print_gen,$(CONFIG_PROJECT_NAME),$(notdir $@))
+	$(MKDIR_P) $(OUTPUT_PATH)
+	$(HOST_CC) -o $@ $(OBJ_FILES) $(HOST_LDFLAGS)
+
 ######################################################################
 # Configuration tool
 

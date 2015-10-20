@@ -311,10 +311,10 @@
 # define INCLUDE_vTaskGetSchedulerState 0
 #endif
 
-#ifdef CONFIG_FREERTOS_INCLUDE_VTASKGETCURRENTTASKHANDLE
-# define INCLUDE_vTaskGetCurrentTaskHandle 1
+#ifdef CONFIG_FREERTOS_INCLUDE_XTASKGETCURRENTTASKHANDLE
+# define INCLUDE_xTaskGetCurrentTaskHandle 1
 #else
-# define INCLUDE_vTaskGetCurrentTaskHandle 0
+# define INCLUDE_xTaskGetCurrentTaskHandle 0
 #endif
 
 #ifdef CONFIG_FREERTOS_INCLUDE_UXTASKGETSTACKHIGHWATERMARK
@@ -372,9 +372,7 @@
 /* !!!! configMAX_SYSCALL_INTERRUPT_PRIORITY must not be set to zero !!!!
 See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html. */
 #define configMAX_SYSCALL_INTERRUPT_PRIORITY 	( configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY << (8 - configPRIO_BITS) )
-	
-#define configASSERT( x ) if( ( x ) == 0 ) { taskDISABLE_INTERRUPTS(); for( ;; ); }	
-	
+#define configASSERT( x ) if( ( x ) == 0 ) { taskDISABLE_INTERRUPTS(); for( ;; ); }
 #define vPortSVCHandler SVC_Handler
 #define xPortPendSVHandler PendSV_Handler
 #define xPortSysTickHandler SysTick_Handler
