@@ -19,8 +19,6 @@
 
 AUSBEE_DIR?=.
 
-include $(AUSBEE_DIR)/config.mk
-
 # If we are not configuring, include the configuration file
 noconfig_goals= %-defconfig config menuconfig nconfig xconfig gconfig alldefconfig
 clean_dirclean_help_doc_goals= %-clean %-dirclean dirclean clean help doc
@@ -45,6 +43,8 @@ else
 -include .config
 endif
 
+include $(AUSBEE_DIR)/config.mk
+
 ######################################################################
 # KCONFIG variables
 KCONFIG_SOURCES_PATH=$(AUSBEE_DIR)/kconfig-frontends
@@ -68,6 +68,7 @@ endef
 
 ######################################################################
 # Build target
+
 all: $(OUTPUT_TARGET_BIN) $(OUTPUT_TARGET_HEX) size_after_build
 
 include $(TOOLCHAIN_PATH)/toolchain.mk
@@ -77,7 +78,6 @@ endif
 include $(PACKAGES_PATH)/packages.mk
 include $(PLATFORMS_PATH)/platforms.mk
 include $(OPERATING_SYSTEMS_PATH)/operating_systems.mk
-
 include $(PROJECTS_PATH)/projects.mk
 
 size_after_build: $(OUTPUT_TARGET_ELF)
@@ -172,10 +172,38 @@ program: $(OUTPUT_TARGET_HEX)
 else
 ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
 program: $(OUTPUT_TARGET_BIN)
-	$(STM32FLASH) --reset write $(<) 0x08000000
+	$(ST_FLASH) --reset write $(<) 0x08000000
 endif
 endif
 
+######################################################################
+# Debug/Chip info
+.PHONY: chip-info debug
+chip-info:
+ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
+	@$(ECHO_E) "\e[107;30mDevice description\033[0m"
+	@$(ST_INFO) --descr
+	@$(ECHO_E)
+	@$(ECHO_E) "\e[107;30mFlash size\033[0m"
+	@$(ST_INFO) --flash
+	@x=$$($(PRINTF) "%d" `st-info --flash`) ; $(ECHO_E) $$((x/1024))K
+	@$(ECHO_E)
+	@$(ECHO_E) "\e[107;30mSRAM size\033[0m"
+	@$(ST_INFO) --sram
+	@x=$$($(PRINTF) "%d" `st-info --sram`) ; $(ECHO_E) $$((x/1024))K
+else
+	@$(ECHO_E) STLink not configured to be your programmer.
+endif
+
+debug: $(TOOLCHAIN_EXTRACTED) $(OUTPUT_TARGET_ELF)
+ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
+	@$(ECHO_E) "\e[107;30mStarting debugger\033[0m"
+	@$(ST_UTIL) & echo $$! > .debug.PID
+	@$(SLEEP) 3
+	@$(HOST_GDB) -x $(TOOLCHAIN_DEBUG_CMD_FILE) $(OUTPUT_TARGET_ELF)
+	@$(KILL2) `cat .debug.PID` && rm .debug.PID
+else
+endif
 
 ######################################################################
 # Clean, and other stuffs
@@ -223,8 +251,9 @@ help:
 	$(ECHO_E) "  xconfig            - open the config menu in GUI mode (Qt)"
 	$(ECHO_E) "  gconfig            - open the config menu in GUI mode (GTK)"
 	$(ECHO_E)
-	$(ECHO_E) "Programming:"
+	$(ECHO_E) "Programming/Debugging:"
 	$(ECHO_E) "  program            - load the output .hex file in your stm32"
+	$(ECHO_E) "  chip-info          - display chip informations (only with ST-Link)"
 	$(ECHO_E)
 	$(ECHO_E) "Cleaning:"
 	$(ECHO_E) "  clean              - remove all object files"
