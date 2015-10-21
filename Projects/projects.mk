@@ -15,9 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with AUSBEE.  If not, see <http://www.gnu.org/licenses/>.
 
-
+PROJECT_OUTPUT_PATH=$(OUTPUT_PATH)/Project
 PROJECT_LOCAL_FILE_PATH=$(CURDIR)
-PROJECT_LOCAL_INCLUDE_PATH=include .
+
+PROJECT_LOCAL_INCLUDE_PATH=. include
 
 $(eval $(call pkg-generic,PROJECT))
-

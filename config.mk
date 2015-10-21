@@ -16,31 +16,6 @@
 # along with AUSBEE.  If not, see <http://www.gnu.org/licenses/>.
 
 
-# If we are not configuring, include the configuration file
-noconfig_goals= %-defconfig config menuconfig nconfig xconfig gconfig alldefconfig
-clean_dirclean_help_doc_goals= %-clean %-dirclean dirclean clean help doc
-ifneq ($(filter $(clean_dirclean_help_doc_goals),$(MAKECMDGOALS)),)
-
-ifneq ("$(wildcard .config)", "")
-include .config
-endif
-
-else ifeq ($(filter $(noconfig_goals),$(MAKECMDGOALS)),)
-
-ifneq ("$(wildcard .config)", "")
-include .config
-else #If the configuration file is not found and no config goals is provided, print error
-$(error Please run a configuration command (your_board-defconfig, alldefconfig, menuconfig, config, ...) \
- before building your project. Please, have a look in "make help".)
-endif
-
-# clean, dirclean ,help ,doc
-else
-#include .config only if exist for menuconfig (for customs path)
--include .config
-endif
-
-
 ######################################################################
 # Shell commands
 MKDIR_P=mkdir -p
@@ -49,16 +24,17 @@ RM_RF=rm -rf
 WGET=wget
 UNZIP=unzip
 TOUCH=touch
-ECHO_E=@echo -e
+ECHO_E=echo -e
 DOXYGEN=doxygen
 GIT_CLONE=git clone
-ifeq ($(CONFIG_PROGRAMMING_USART),y)
+CP=cp
+KILL2=kill -2
+SLEEP=sleep
+PRINTF=printf
 STM32FLASH=stm32flash
-else
-ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
-STM32FLASH=st-flash
-endif
-endif
+ST_FLASH=st-flash
+ST_INFO=st-info
+ST_UTIL=st-util
 
 ######################################################################
 # Path variables
@@ -87,6 +63,7 @@ OUTPUT_TARGET_SIM=$(subst $(DQUOTE),,$(OUTPUT_PATH)/$(CONFIG_PROJECT_NAME).sim)
 # Toolchain
 TOOLCHAIN_PATH=$(AUSBEE_DIR)/Toolchain
 TOOLCHAIN_BUILD_PATH=$(TOOLCHAIN_PATH)/Build
+TOOLCHAIN_DEBUG_CMD_FILE=$(TOOLCHAIN_PATH)/debug-cmd
 ifeq ($(CONFIG_DOWNLOAD_TOOLCHAIN),y)
 TOOLCHAIN_EXTRACTED_PATH=$(subst $(DQUOTE),,$(TOOLCHAIN_BUILD_PATH)/$(CONFIG_TOOLCHAIN_TARGET_NAME))
 TOOLCHAIN_ARCHIVE_NAME=$(notdir $(subst $(DQUOTE),,$(CONFIG_TOOLCHAIN_MIRROR)))
@@ -117,7 +94,7 @@ PACKAGES_PATH=$(AUSBEE_DIR)/Packages
 PLATFORMS_PATH=$(AUSBEE_DIR)/Platforms
 
 # Project
-PROJECT_PATH=$(AUSBEE_DIR)/Project
+PROJECTS_PATH=$(AUSBEE_DIR)/Projects
 
 # Documentation
 DOCUMENTATION_PATH=$(AUSBEE_DIR)/Documentation
@@ -136,6 +113,7 @@ TARGET_LD=$(subst $(DQUOTE),,$(TOOLCHAIN_BIN_PATH)/$(CONFIG_TOOLCHAIN_TARGET_NAM
 TARGET_OBJCPY=$(subst $(DQUOTE),,$(TOOLCHAIN_BIN_PATH)/$(CONFIG_TOOLCHAIN_TARGET_NAME)-objcopy)
 TARGET_SIZE=$(subst $(DQUOTE),,$(TOOLCHAIN_BIN_PATH)/$(CONFIG_TOOLCHAIN_TARGET_NAME)-size)
 TARGET_STRIP=$(subst $(DQUOTE),,$(TOOLCHAIN_BIN_PATH)/$(CONFIG_TOOLCHAIN_TARGET_NAME)-strip)
+TARGET_GDB=$(subst $(DQUOTE),,$(TOOLCHAIN_BIN_PATH)/$(CONFIG_TOOLCHAIN_TARGET_NAME)-gdb)
 SIM_AS=as
 SIM_AR=ar
 SIM_CC=cc
@@ -144,6 +122,7 @@ SIM_LD=ld
 SIM_OBJCPY=objcopy
 SIM_SIZE=size
 SIM_STRIP=strip
+SIM_GDB=gdb
 
 
 # RAM and FLASH length for linker script preprocessing

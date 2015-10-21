@@ -17,11 +17,30 @@
 # You should have received a copy of the GNU General Public License
 # along with AUSBEE.  If not, see <http://www.gnu.org/licenses/>.
 
-ifeq ($(AUSBEE_DIR),)
-MULTIPROJECT=0
-AUSBEE_DIR=.
+AUSBEE_DIR?=.
+
+# If we are not configuring, include the configuration file
+noconfig_goals= %-defconfig config menuconfig nconfig xconfig gconfig alldefconfig
+clean_dirclean_help_doc_goals= %-clean %-dirclean dirclean clean help doc
+ifneq ($(filter $(clean_dirclean_help_doc_goals),$(MAKECMDGOALS)),)
+
+ifneq ("$(wildcard .config)", "")
+include .config
+endif
+
+else ifeq ($(filter $(noconfig_goals),$(MAKECMDGOALS)),)
+
+ifneq ("$(wildcard .config)", "")
+include .config
+else #If the configuration file is not found and no config goals is provided, print error
+$(error Please run a configuration command (your_board-defconfig, alldefconfig, menuconfig, config, ...) \
+ before building your project. Please, have a look in "make help".)
+endif
+
+# clean, dirclean ,help ,doc
 else
-MULTIPROJECT=1
+#include .config only if exist for menuconfig (for customs path)
+-include .config
 endif
 
 include $(AUSBEE_DIR)/config.mk
@@ -49,6 +68,7 @@ endef
 
 ######################################################################
 # Build target
+
 all: $(OUTPUT_TARGET_BIN) $(OUTPUT_TARGET_HEX) size_after_build
 sim: $(OUTPUT_TARGET_SIM)
 
@@ -59,28 +79,21 @@ include $(SYSTEM_PATH)/system.mk
 endif
 include $(PLATFORMS_PATH)/platforms.mk
 include $(OPERATING_SYSTEMS_PATH)/operating_systems.mk
-
-ifeq ($(MULTIPROJECT), 1)
-include $(PROJECT_PATH)/multiproject.mk
-else
-include $(PROJECT_PATH)/project.mk
-endif
-
-$(warning $(PACKAGES_EXTRACTED))
+include $(PROJECTS_PATH)/projects.mk
 
 size_after_build: $(OUTPUT_TARGET_ELF)
 	$(TARGET_SIZE) $^
 
 $(OUTPUT_TARGET_HEX): $(OUTPUT_TARGET_ELF)
-	$(call print_gen,$(CONFIG_PROJECT_NAME),$(notdir $@))
+	$(call print_gen,$(PROJECT_NAME),$(notdir $@))
 	$(TARGET_OBJCPY) -O ihex $^ $@
 
 $(OUTPUT_TARGET_BIN): $(OUTPUT_TARGET_ELF)
-	$(call print_gen,$(CONFIG_PROJECT_NAME),$(notdir $@))
+	$(call print_gen,$(PROJECT_NAME),$(notdir $@))
 	$(TARGET_OBJCPY) -O binary $^ $@
 
 $(OUTPUT_TARGET_ELF): $(PACKAGES_EXTRACTED) $(TARGET_OBJ_FILES) $(LIB_FILES) $(LINKER_SCRIPT)
-	$(call print_gen,$(CONFIG_PROJECT_NAME),$(notdir $@))
+	$(call print_gen,$(PROJECT_NAME),$(notdir $@))
 	$(MKDIR_P) $(OUTPUT_PATH)
 	$(TARGET_CC) -o $@ -T$(LINKER_SCRIPT) $(TARGET_OBJ_FILES) $(TARGET_LDFLAGS) $(GLOBAL_LDFLAGS)
 
@@ -166,10 +179,38 @@ program: $(OUTPUT_TARGET_HEX)
 else
 ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
 program: $(OUTPUT_TARGET_BIN)
-	$(STM32FLASH) --reset write $(<) 0x08000000
+	$(ST_FLASH) --reset write $(<) 0x08000000
 endif
 endif
 
+######################################################################
+# Debug/Chip info
+.PHONY: chip-info debug
+chip-info:
+ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
+	@$(ECHO_E) "\e[107;30mDevice description\033[0m"
+	@$(ST_INFO) --descr
+	@$(ECHO_E)
+	@$(ECHO_E) "\e[107;30mFlash size\033[0m"
+	@$(ST_INFO) --flash
+	@x=$$($(PRINTF) "%d" `st-info --flash`) ; $(ECHO_E) $$((x/1024))K
+	@$(ECHO_E)
+	@$(ECHO_E) "\e[107;30mSRAM size\033[0m"
+	@$(ST_INFO) --sram
+	@x=$$($(PRINTF) "%d" `st-info --sram`) ; $(ECHO_E) $$((x/1024))K
+else
+	@$(ECHO_E) STLink not configured to be your programmer.
+endif
+
+debug: $(TOOLCHAIN_EXTRACTED) $(OUTPUT_TARGET_ELF)
+ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
+	@$(ECHO_E) "\e[107;30mStarting debugger\033[0m"
+	@$(ST_UTIL) & echo $$! > .debug.PID
+	@$(SLEEP) 3
+	@$(TARGET_GDB) -x $(TOOLCHAIN_DEBUG_CMD_FILE) $(OUTPUT_TARGET_ELF)
+	@$(KILL2) `cat .debug.PID` && rm .debug.PID
+else
+endif
 
 ######################################################################
 # Clean, and other stuffs
@@ -217,8 +258,9 @@ help:
 	$(ECHO_E) "  xconfig            - open the config menu in GUI mode (Qt)"
 	$(ECHO_E) "  gconfig            - open the config menu in GUI mode (GTK)"
 	$(ECHO_E)
-	$(ECHO_E) "Programming:"
+	$(ECHO_E) "Programming/Debugging:"
 	$(ECHO_E) "  program            - load the output .hex file in your stm32"
+	$(ECHO_E) "  chip-info          - display chip informations (only with ST-Link)"
 	$(ECHO_E)
 	$(ECHO_E) "Cleaning:"
 	$(ECHO_E) "  clean              - remove all object files"
