@@ -27,7 +27,7 @@ $(4)_OBJ_FILES+=$$(PKG_GENERIC_$(PKG_GENERIC_FID)_OBJ)
 $(4)_DEP_FILES+=$$(PKG_GENERIC_$(PKG_GENERIC_FID)_DEP)
 
 $$(PKG_GENERIC_$(PKG_GENERIC_FID)_OBJ): $$(PKG_GENERIC_$(PKG_GENERIC_FID)_SRC_PATH) $(TOOLCHAIN_EXTRACTED) $(CONFIG_DEPS)
-	$(call print_build,$(1),$$(subst $$($(1)_BUILD_PATH)/,,$$<))
+	$(call print_build,$(1),$$(subst $(2)/,,$$<))
 	$$(MKDIR_P) $$(dir $$@)
 	$$($(4)_CC) $$($(4)_CFLAGS) $$(GLOBAL_CFLAGS) $$($(4)_INCLUDES) $$(GLOBAL_OPTIMISATION) -MF"$$(@:.o=.d)" -MG -MM -MP -MT"$$@" "$$<"
 	$$($(4)_CC) -o $$@ $$($(4)_CFLAGS) $$(GLOBAL_CFLAGS) $$($(4)_INCLUDES) $$(GLOBAL_OPTIMISATION) -c $$<
