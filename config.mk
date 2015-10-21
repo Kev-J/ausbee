@@ -157,6 +157,8 @@ GLOBAL_COMMON_FLAGS=$(EMPTY)
 TARGET_COMMON_FLAGS=$(EMPTY)
 SIM_COMMON_FLAGS=$(EMPTY)
 
+#SIM common flags: debug
+SIM_COMMON_FLAGS+=-g -ggdb
 
 # Common flags : Core type
 ifeq ($(CONFIG_ARM_CORE_CORTEX_M4),y)
