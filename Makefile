@@ -53,18 +53,20 @@ all: $(OUTPUT_TARGET_BIN) $(OUTPUT_TARGET_HEX) size_after_build
 sim: $(OUTPUT_TARGET_SIM)
 
 include $(TOOLCHAIN_PATH)/toolchain.mk
+include $(PACKAGES_PATH)/packages.mk
 ifneq ($(SYSTEM_PATH),)
 include $(SYSTEM_PATH)/system.mk
 endif
 include $(PLATFORMS_PATH)/platforms.mk
 include $(OPERATING_SYSTEMS_PATH)/operating_systems.mk
-include $(PACKAGES_PATH)/packages.mk
 
 ifeq ($(MULTIPROJECT), 1)
 include $(PROJECT_PATH)/multiproject.mk
 else
 include $(PROJECT_PATH)/project.mk
 endif
+
+$(warning $(PACKAGES_EXTRACTED))
 
 size_after_build: $(OUTPUT_TARGET_ELF)
 	$(TARGET_SIZE) $^
@@ -77,12 +79,12 @@ $(OUTPUT_TARGET_BIN): $(OUTPUT_TARGET_ELF)
 	$(call print_gen,$(CONFIG_PROJECT_NAME),$(notdir $@))
 	$(TARGET_OBJCPY) -O binary $^ $@
 
-$(OUTPUT_TARGET_ELF): $(TARGET_OBJ_FILES) $(LIB_FILES) $(LINKER_SCRIPT)
+$(OUTPUT_TARGET_ELF): $(PACKAGES_EXTRACTED) $(TARGET_OBJ_FILES) $(LIB_FILES) $(LINKER_SCRIPT)
 	$(call print_gen,$(CONFIG_PROJECT_NAME),$(notdir $@))
 	$(MKDIR_P) $(OUTPUT_PATH)
 	$(TARGET_CC) -o $@ -T$(LINKER_SCRIPT) $(TARGET_OBJ_FILES) $(TARGET_LDFLAGS) $(GLOBAL_LDFLAGS)
 
-$(OUTPUT_TARGET_SIM): $(SIM_OBJ_FILES)
+$(OUTPUT_TARGET_SIM): $(PACKAGES_EXTRACTED) $(SIM_OBJ_FILES)
 	$(call print_gen,$(CONFIG_PROJECT_NAME),$(notdir $@))
 	$(MKDIR_P) $(OUTPUT_PATH)
 	$(SIM_CC) -o $@ $(SIM_OBJ_FILES) $(SIM_LDFLAGS) $(GLOBAL_LDFLAGS)
@@ -184,7 +186,7 @@ CLEAN_GOALS=
 
 .PHONY: $(CLEAN_GOALS)
 clean: $(CLEAN_GOALS)
-	$(RM_RF) $(SIM_DEP_FILES) $(TARGET_OBJ_FILES) $(SIM_DEP_FILES) $(TARGET_DEP_FILES)
+	$(RM_RF) $(SIM_OBJ_FILES) $(TARGET_OBJ_FILES) $(SIM_DEP_FILES) $(TARGET_DEP_FILES)
 
 ######################################################################
 # Help
