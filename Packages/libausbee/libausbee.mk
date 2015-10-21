@@ -20,14 +20,6 @@ LIBAUSBEE_URL = https://github.com/Kev-J/libausbee/archive/$(LIBAUSBEE_VERSION).
 LIBAUSBEE_ARCHIVE =$(LIBAUSBEE_FILE_PATH).tar.gz
 LIBAUSBEE_GIT_UPSTREAM_URL = git@github.com:Kev-J/libausbee.git
 
-ifeq ($(CONFIG_STM32F4XX_STDPERIPH_DRIVER),y)
-LIBAUSBEE_DEPENDENCIES=stm32f4xx_stdperiph_driver system
-endif
-
-ifeq ($(CONFIG_STM32F10X_STDPERIPH_DRIVER),y)
-LIBAUSBEE_DEPENDENCIES=stm32f10x_stdperiph_driver system
-endif
-
 # File path
 ifeq ($(CONFIG_LIBAUSBEE_USE_GIT),y)
 LIBAUSBEE_FILE_PATH=git

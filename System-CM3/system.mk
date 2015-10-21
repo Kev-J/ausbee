@@ -15,55 +15,23 @@
 # You should have received a copy of the GNU General Public License
 # along with AUSBEE.  If not, see <http://www.gnu.org/licenses/>.
 
-CMSIS_DEVICE_SUPPORT_PATH=$(SYSTEM_PATH)/CMSIS/CM3/DeviceSupport/ST/STM32F10x
-CMSIS_CORE_SUPPORT_PATH=$(SYSTEM_PATH)/CMSIS/CM3/CoreSupport
+SYSTEM_CM3_LOCAL_FILE_PATH=$(SYSTEM_PATH)
+SYSTEM_CM3_LOCAL_INCLUDE_PATH=include CMSIS/CM3/DeviceSupport/ST/STM32F10x CMSIS/CM3/CoreSupport
+
+SYSTEM_CM3_TARGET_LOCAL_SRC_FILES=syscalls.c CMSIS/CM3/DeviceSupport/ST/STM32F10x/system_stm32f10x.c CMSIS/CM3/CoreSupport/core_cm3.c
+
+SYSTEM_CM3_TARGET_LOCAL_S_SRC_FILES=CMSIS/CM3/DeviceSupport/ST/STM32F10x/startup/gcc_ride7/startup_$(shell echo $(DEVICE_NAME) | tr A-Z a-z).s
+
+ifeq ($(CONFIG_STM32F10X_STDPERIPH_DRIVER),y)
+SYSTEM_CM4_TARGET_LOCAL_SRC_FILES=stm32f4xx_conf.c
+endif
+
+
+$(eval $(call pkg-generic,SYSTEM_CM4))
 
 LINKER_SCRIPT=$(OUTPUT_PATH)/link.ld
 LINKER_SCRIPT_INPUT=$(SYSTEM_PATH)/link.ld.in
 
-SYSTEM_INCLUDES=-I"$(CMSIS_DEVICE_SUPPORT_PATH)"
-SYSTEM_INCLUDES+=-I"$(CMSIS_CORE_SUPPORT_PATH)"
-SYSTEM_INCLUDES+=-I"$(SYSTEM_PATH)/include"
-
-SYSTEM_SRC_C_FILES=$(CMSIS_CORE_SUPPORT_PATH)/core_cm3.c
-SYSTEM_SRC_C_FILES+=$(CMSIS_DEVICE_SUPPORT_PATH)/system_stm32f10x.c
-SYSTEM_SRC_C_FILES+=$(SYSTEM_PATH)/syscalls.c
-
-SYSTEM_SRC_S_FILES+=$(CMSIS_DEVICE_SUPPORT_PATH)/startup/gcc_ride7/startup_$(shell echo $(DEVICE_NAME) | tr A-Z a-z).s
-
-ifeq ($(CONFIG_STM32F10X_STDPERIPH_DRIVER),y)
-SYSTEM_SRC_C_FILES+=$(SYSTEM_PATH)/stm32f10x_conf.c
-endif
-
-# Object files list
-SYSTEM_OBJ_C_FILES=$(patsubst ${AUSBEE_DIR}/%.c,${OUTPUT_PATH}/%.o,${SYSTEM_SRC_C_FILES})
-SYSTEM_OBJ_S_FILES=$(patsubst ${AUSBEE_DIR}/%.s,${OUTPUT_PATH}/%.o,${SYSTEM_SRC_S_FILES})
-SYSTEM_DEP_C_FILES=$(patsubst ${AUSBEE_DIR}/%.c,${OUTPUT_PATH}/%.d,${SYSTEM_SRC_C_FILES})
-
-# Add object files to the global obj files list
-OBJ_FILES+=$(SYSTEM_OBJ_C_FILES) $(SYSTEM_OBJ_S_FILES)
-DEP_FILES+=$(SYSTEM_DEP_C_FILES)
-
-$(LINKER_SCRIPT): $(LINKER_SCRIPT_INPUT) $(CONFIG_DEPS)
-	$(call print_gen,System-CM3,$(subst $(OUTPUT_PATH)/,,$@))
-	$(HOST_CC) -x c -P -C -DRAM_LENGTH=$(RAM_LENGTH) -DFLASH_LENGTH=$(FLASH_LENGTH) -E $< -o $@
-
-# Build objects
-$(SYSTEM_OBJ_C_FILES): ${OUTPUT_PATH}/%.o :${AUSBEE_DIR}/%.c $(TOOLCHAIN_EXTRACTED)
-	$(call print_build,System-CM3,$(subst $(AUSBEE_DIR)/System-CM3/,,$<))
-	$(MKDIR_P) $(dir $@)
-	$(HOST_CC) $(HOST_CFLAGS) $(SYSTEM_INCLUDES) -MF"$(@:.o=.d)" -MG -MM -MP -MT"$@" "$<"
-	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(SYSTEM_INCLUDES) -c $<
-
-$(SYSTEM_OBJ_S_FILES): ${OUTPUT_PATH}/%.o :${AUSBEE_DIR}/%.s $(TOOLCHAIN_EXTRACTED)
-	$(call print_build,System-CM3,$(subst $(AUSBEE_DIR)/System-CM3/,,$<))
-	$(MKDIR_P) $(dir $@)
-	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(SYSTEM_INCLUDES) -c $<
-
-.PHONY: system-clean
-system-clean:
-	$(RM_RF) $(SYSTEM_OBJ_C_FILES) $(SYSTEM_OBJ_S_FILES) $(LINKER_SCRIPT)
-
-SYSTEM_LOAD:
-
--include $(SYSTEM_DEP_C_FILES)
+$(LINKER_SCRIPT): $(LINKER_SCRIPT_INPUT) $(CONFIG_DEPS) $(TOOLCHAIN_EXTRACTED) 
+	$(call print_gen,System-CM4,$(subst $(OUTPUT_PATH)/,,$@))
+	$(TARGET_CC) -x c -P -C -DRAM_LENGTH=$(RAM_LENGTH) -DFLASH_LENGTH=$(FLASH_LENGTH) -E $< -o $@
