@@ -121,6 +121,14 @@ config FLASH_LENGTH
 		M for megabytes
 		G for gigabytes
 
+# Flash start
+config FLASH_START
+	string "FLASH start address"
+	default "0x08000000"
+	help
+		Flash start address in hex
+
+
 endmenu
 
 ## Debug menu
