@@ -138,7 +138,7 @@ TARGET_COMMON_FLAGS=-DAUSBEE_TARGET
 SIM_COMMON_FLAGS=-DAUSBEE_SIM
 
 #SIM common flags: debug
-SIM_COMMON_FLAGS+=-g -ggdb
+SIM_COMMON_FLAGS+=-g -ggdb -std=gnu99
 
 # Common flags : Core type
 ifeq ($(CONFIG_ARM_CORE_CORTEX_M4),y)
