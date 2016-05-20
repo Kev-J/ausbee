@@ -42,14 +42,16 @@ choice
 
 	config PLATFORM_NONE
 		bool "NONE"
-	
+
+#Ausbee Main board V0.1
 	config PLATFORM_AUSBEE_MAIN_BOARD_V0_1
 		bool "AUSBEE Main Board V0.1"
                 depends on STM32F4XX_STDPERIPH_DRIVER
 
         comment "AUSBEE Main Board V0.1 require stm32f4xx_StdPeriph_Driver"
                 depends on !STM32F4XX_STDPERIPH_DRIVER
-	
+
+#STM32F4Discovery
 	config PLATFORM_STM32F4DISCOVERY
 		bool "STM32F4DISCOVERY"
                 depends on STM32F4XX_STDPERIPH_DRIVER
@@ -57,6 +59,11 @@ choice
         comment "STM32F4DISCOVERY require stm32f4xx_StdPeriph_Driver"
                 depends on !STM32F4XX_STDPERIPH_DRIVER
 
+#STM32F7Discovery
+	config PLATFORM_STM32F7DISCOVERY
+		bool "STM32F7DISCOVERY"
+
+#Ausbee Servo Module V0.1
 	config PLATFORM_AUSBEE_SERVO_MODULE_V0_1
 		bool "AUSBEE Servo Module V0.1"
                 depends on STM32F10X_STDPERIPH_DRIVER
