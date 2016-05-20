@@ -8,16 +8,24 @@
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-# 
+#
 # AUSBEE is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with AUSBEE.  If not, see <http://www.gnu.org/licenses/>.
 
-ifeq ($(CONFIG_DEVICE_STM32F40_41xxx),y)
+#STM32F7XX Devices
+ifeq ($(CONFIG_DEVICE_STM32F756xx),y)
+DEVICE_NAME=STM32F756xx
+else ifeq ($(CONFIG_DEVICE_STM32F746xx),y)
+DEVICE_NAME=STM32F746xx
+else ifeq ($(CONFIG_DEVICE_STM32F745xx),y)
+DEVICE_NAME=STM32F745xx
+# STM32F4XX Devices
+else ifeq ($(CONFIG_DEVICE_STM32F40_41xxx),y)
 DEVICE_NAME=STM32F40_41xxx
 else ifeq ($(CONFIG_DEVICE_STM32F427_437xx),y)
 DEVICE_NAME=STM32F427_437xx
@@ -25,6 +33,7 @@ else ifeq ($(CONFIG_DEVICE_STM32F429_439xx),y)
 DEVICE_NAME=STM32F429_439xx
 else ifeq ($(CONFIG_DEVICE_STM32F401xx),y)
 DEVICE_NAME=STM32F401xx
+# STM32F1XX Devices
 else ifeq ($(CONFIG_DEVICE_STM32F10X_LD),y)
 DEVICE_NAME=STM32F10X_LD
 else ifeq ($(CONFIG_DEVICE_STM32F10X_LD_VL),y)

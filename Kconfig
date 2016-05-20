@@ -32,6 +32,9 @@ menu "Device options"
 # Select CORE
 choice
 	prompt "Select ARM core"
+config ARM_CORE_CORTEX_M7
+	bool "ARM Cortex-M7 core"
+
 config ARM_CORE_CORTEX_M4
 	bool "ARM Cortex-M4 core"
 
@@ -42,16 +45,30 @@ endchoice
 config USE_FPU
 	bool "Use FPU"
 	default y
-	depends on ARM_CORE_CORTEX_M4
+	depends on ARM_CORE_CORTEX_M4 || ARM_CORE_CORTEX_M7
 	help
 		Use hardware for floating point processings.
+#select Device Cortex-M7
+choice
+	prompt "Device name Cortex-M7"
+	depends on ARM_CORE_CORTEX_M7
+
+config DEVICE_STM32F756xx
+	bool "STM32F756xx"
+
+config DEVICE_STM32F746xx
+	bool "STM32F746xx"
+
+config DEVICE_STM32F745xx
+	bool "STM32F745xx"
+endchoice
 
 # Select Device Cortex-M4
 choice
 	prompt "Device name Cortex-M4"
 	depends on ARM_CORE_CORTEX_M4
 
-config DEVICE_STM32F40_41xxx 
+config DEVICE_STM32F40_41xxx
 	bool "STM32F40_41xxx"
 
 config DEVICE_STM32F427_437xx
