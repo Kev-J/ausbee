@@ -44,17 +44,17 @@ OBJ_FILES+=$(SYSTEM_OBJ_C_FILES) $(SYSTEM_OBJ_S_FILES)
 DEP_FILES+=$(SYSTEM_DEP_C_FILES)
 
 $(LINKER_SCRIPT): $(LINKER_SCRIPT_INPUT) $(CONFIG_DEPS)
-	$(call print_gen,System-CM4,$(subst $(OUTPUT_PATH)/,,$@))
+	$(call print_gen,System-CM7,$(subst $(OUTPUT_PATH)/,,$@))
 	$(HOST_CC) -x c -P -C -DRAM_LENGTH=$(RAM_LENGTH) -DFLASH_LENGTH=$(FLASH_LENGTH) -E $< -o $@
 
 # Build objects
 $(SYSTEM_OBJ_S_FILES): ${OUTPUT_PATH}/%.o :${AUSBEE_DIR}/%.s $(TOOLCHAIN_EXTRACTED)
-	$(call print_build,System-CM4,$(subst $(AUSBEE_DIR)/System-CM4/,,$<))
+	$(call print_build,System-CM7,$(subst $(AUSBEE_DIR)/System-CM7/,,$<))
 	@mkdir -p $(dir $@)
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(SYSTEM_INCLUDES) -c $<
 
 $(SYSTEM_OBJ_C_FILES): ${OUTPUT_PATH}/%.o :${AUSBEE_DIR}/%.c $(TOOLCHAIN_EXTRACTED)
-	$(call print_build,System-CM4,$(subst $(AUSBEE_DIR)/System-CM4/,,$<))
+	$(call print_build,System-CM7,$(subst $(AUSBEE_DIR)/System-CM7/,,$<))
 	@mkdir -p $(dir $@)
 	$(HOST_CC) $(HOST_CFLAGS) $(SYSTEM_INCLUDES) $(HOST_OPTIMISATION) -MF"$(@:.o=.d)" -MG -MM -MP -MT"$@" "$<"
 	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(SYSTEM_INCLUDES) $(HOST_OPTIMISATION) -c $<
