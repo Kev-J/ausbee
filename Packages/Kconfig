@@ -41,7 +41,7 @@ config CUSTOM_PACKAGES_PATH
 	string "Custom packages path"
   depends on CUSTOM_PACKAGES
 
-
+# STM32F10X_StdPeriph_Driver
 config STM32F10X_STDPERIPH_DRIVER
 	bool "STM32F10x StdPeriph Driver"
 	default n
@@ -54,6 +54,7 @@ config STM32F10X_STDPERIPH_DRIVER
 
 source "$AUSBEE_DIR/Packages/stm32f10x_stdperiph_driver/Kconfig"
 
+# STM32F4XX_StdPeriph_Driver
 config STM32F4XX_STDPERIPH_DRIVER
 	bool "STM32F4xx StdPeriph Driver"
 	default n
@@ -64,6 +65,14 @@ config STM32F4XX_STDPERIPH_DRIVER
 
 source "$AUSBEE_DIR/Packages/stm32f4xx_stdperiph_driver/Kconfig"
 
+# STM32F7XX_HAL_Driver
+config STM32F7XX_HAL_DRIVER
+	bool "STM32F7xx HAL Driver"
+	default n
+	depends on  DEVICE_STM32F756xx || DEVICE_STM32F746xx || \
+                    DEVICE_STM32F745xx
+
+# Libausbee
 config LIBAUSBEE
 	bool "libausbee"
 	depends on STM32F4XX_STDPERIPH_DRIVER || STM32F10X_STDPERIPH_DRIVER

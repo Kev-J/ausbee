@@ -31,6 +31,10 @@ ifeq ($(CONFIG_STM32F4XX_STDPERIPH_DRIVER),y)
 include $(PACKAGES_PATH)/stm32f4xx_stdperiph_driver/stm32f4xx_stdperiph_driver.mk
 endif
 
+ifeq ($(CONFIG_STM32F7XX_HAL_DRIVER),y)
+include $(PACKAGES_PATH)/stm32f7xx_hal_driver/stm32f7xx_hal_driver.mk
+endif
+
 ifeq ($(CONFIG_LIBAUSBEE),y)
 include $(PACKAGES_PATH)/libausbee/libausbee.mk
 endif
