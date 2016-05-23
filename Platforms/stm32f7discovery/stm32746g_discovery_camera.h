@@ -46,7 +46,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 /* Include Camera component Driver */
-#include "../Components/ov9655/ov9655.h"
+#include "Components/ov9655/ov9655.h"
 #include "stm32746g_discovery.h"
 
 /** @addtogroup BSP

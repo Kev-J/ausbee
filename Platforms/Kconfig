@@ -62,6 +62,10 @@ choice
 #STM32F7Discovery
 	config PLATFORM_STM32F7DISCOVERY
 		bool "STM32F7DISCOVERY"
+		depends on STM32F7XX_HAL_DRIVER
+	
+	comment "STM32F7DISCOVERY require stm32f7xx_hal_driver"
+		depends on !STM32F7XX_HAL_DRIVER
 
 #Ausbee Servo Module V0.1
 	config PLATFORM_AUSBEE_SERVO_MODULE_V0_1

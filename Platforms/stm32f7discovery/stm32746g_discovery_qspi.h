@@ -54,7 +54,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f7xx_hal.h"
-#include "../Components/n25q128a/n25q128a.h"
+#include "Components/n25q128a/n25q128a.h"
 
 /** @addtogroup STM32746G_DISCOVERY_QSPI
   * @{

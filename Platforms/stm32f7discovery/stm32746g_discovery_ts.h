@@ -47,7 +47,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32746g_discovery.h"
 /* Include touch screen FT5336 component Driver */
-#include "../Components/ft5336/ft5336.h"
+#include "Components/ft5336/ft5336.h"
    
 /** @addtogroup BSP
   * @{
