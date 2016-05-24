@@ -51,6 +51,14 @@ choice
         comment "AUSBEE Main Board V0.1 require stm32f4xx_StdPeriph_Driver"
                 depends on !STM32F4XX_STDPERIPH_DRIVER
 
+#STM32L053Discovery
+	config PLATFORM_STM32L053DISCOVERY
+		bool "STM32L053DISCOVERY"
+                depends on STM32L0XX_HAL_DRIVER && STM32_TOUCHSENSING_LIBRARY
+
+        comment "STM32L053DISCOVERY require stm32l0xx_hal_driver"
+                depends on !STM32L0XX_HAL_DRIVER
+
 #STM32F4Discovery
 	config PLATFORM_STM32F4DISCOVERY
 		bool "STM32F4DISCOVERY"
@@ -63,7 +71,7 @@ choice
 	config PLATFORM_STM32F7DISCOVERY
 		bool "STM32F7DISCOVERY"
 		depends on STM32F7XX_HAL_DRIVER
-	
+
 	comment "STM32F7DISCOVERY require stm32f7xx_hal_driver"
 		depends on !STM32F7XX_HAL_DRIVER
 
