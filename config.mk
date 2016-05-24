@@ -24,7 +24,7 @@ RM_RF=rm -rf
 WGET=wget
 UNZIP=unzip
 TOUCH=touch
-ECHO_E=echo -e
+ECHO_E=@echo -e
 DOXYGEN=doxygen
 GIT_CLONE=git clone
 CP=cp
@@ -81,6 +81,8 @@ else ifeq ($(CONFIG_ARM_CORE_CORTEX_M4),y)
 SYSTEM_PATH=$(AUSBEE_DIR)/System-CM4
 else ifeq ($(CONFIG_ARM_CORE_CORTEX_M3),y)
 SYSTEM_PATH=$(AUSBEE_DIR)/System-CM3
+else ifeq ($(CONFIG_ARM_CORE_CORTEX_L0),y)
+SYSTEM_PATH=$(AUSBEE_DIR)/System-CM0Plus
 endif
 
 # OS_PATH
@@ -128,6 +130,8 @@ else ifeq ($(CONFIG_ARM_CORE_CORTEX_M4),y)
 HOST_COMMON_FLAGS+=-mcpu=cortex-m4
 else ifeq ($(CONFIG_ARM_CORE_CORTEX_M3),y)
 HOST_COMMON_FLAGS+=-mcpu=cortex-m3
+else ifeq ($(CONFIG_ARM_CORE_CORTEX_M0Plus),y)
+HOST_COMMON_FLAGS+=-mcpu=cortex-m0plus
 endif
 
 #Common flags : FPU

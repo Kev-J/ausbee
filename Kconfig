@@ -40,6 +40,9 @@ config ARM_CORE_CORTEX_M4
 
 config ARM_CORE_CORTEX_M3
 	bool "ARM Cortex-M3 core"
+
+config ARM_CORE_CORTEX_M0Plus
+	bool "ARM Cortex-M0+ core"
 endchoice
 
 config USE_FPU
@@ -48,6 +51,7 @@ config USE_FPU
 	depends on ARM_CORE_CORTEX_M4 || ARM_CORE_CORTEX_M7
 	help
 		Use hardware for floating point processings.
+
 #select Device Cortex-M7
 choice
 	prompt "Device name Cortex-M7"
@@ -108,6 +112,59 @@ config DEVICE_STM32F10X_XL
 
 config DEVICE_STM32F10X_CL
 	bool "STM32F10X_CL"
+endchoice
+
+# Select Device Cortex-M0Plus
+choice
+	prompt "Device name Cortex-M0Plus"
+	depends on ARM_CORE_CORTEX_M0Plus
+config DEVICE_STM32L011xx
+	bool "STM32L011xx"
+
+config DEVICE_STM32L021xx
+	bool "STM32L021xx"
+
+config DEVICE_STM32L031xx
+	bool "STM32L031xx"
+
+config DEVICE_STM32L041xx
+	bool "STM32L041xx"
+
+config DEVICE_STM32L051xx
+	bool "STM32L051xx"
+
+config DEVICE_STM32L052xx
+	bool "STM32L052xx"
+
+config DEVICE_STM32L053xx
+	bool "STM32L053xx"
+
+config DEVICE_STM32L061xx
+	bool "STM32L061xx"
+
+config DEVICE_STM32L062xx
+	bool "STM32L062xx"
+
+config DEVICE_STM32L063xx
+	bool "STM32L063xx"
+
+config DEVICE_STM32L071xx
+	bool "STM32L071xx"
+
+config DEVICE_STM32L072xx
+	bool "STM32L072xx"
+
+config DEVICE_STM32L073xx
+	bool "STM32L073xx"
+
+config DEVICE_STM32L081xx
+	bool "STM32L081xx"
+
+config DEVICE_STM32L082xx
+	bool "STM32L082xx"
+
+config DEVICE_STM32L083xx
+	bool "STM32L083xx"
 endchoice
 
 config CRYSTAL_FREQUENCY
@@ -201,7 +258,7 @@ menu "Misc"
 # Downloads directory
 config DOWNLOADS_DIR
     string "Downloads directory"
-    default "$(CURDIR)/downloads"
+    default "$(AUSBEE_DIR)/downloads"
     help
         If you have already an AUSBEE downloads directory. Use this one to 
 	not downloading the archives again.
