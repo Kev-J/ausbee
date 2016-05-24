@@ -81,7 +81,7 @@ else ifeq ($(CONFIG_ARM_CORE_CORTEX_M4),y)
 SYSTEM_PATH=$(AUSBEE_DIR)/System-CM4
 else ifeq ($(CONFIG_ARM_CORE_CORTEX_M3),y)
 SYSTEM_PATH=$(AUSBEE_DIR)/System-CM3
-else ifeq ($(CONFIG_ARM_CORE_CORTEX_L0),y)
+else ifeq ($(CONFIG_ARM_CORE_CORTEX_M0Plus),y)
 SYSTEM_PATH=$(AUSBEE_DIR)/System-CM0Plus
 endif
 
