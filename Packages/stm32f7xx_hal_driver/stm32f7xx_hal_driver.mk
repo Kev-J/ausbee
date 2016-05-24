@@ -30,7 +30,7 @@ STM32F7XX_HAL_DRIVER_SRC_FILES+=$(wildcard $(STM32F7XX_HAL_DRIVER_SRC_PATH)/*.c)
 
 # Object files list
 STM32F7XX_HAL_DRIVER_OBJ_FILES=$(patsubst ${AUSBEE_DIR}/%.c,${OUTPUT_PATH}/%.o,${STM32F7XX_HAL_DRIVER_SRC_FILES})
-$(info "Obj files : " $(STM32F7XX_HAL_DRIVER_OBJ_FILES=))
+
 # Add the object files to the global object files list
 OBJ_FILES+=$(STM32F7XX_HAL_DRIVER_OBJ_FILES)
 
