@@ -41,6 +41,19 @@ config CUSTOM_PACKAGES_PATH
 	string "Custom packages path"
   depends on CUSTOM_PACKAGES
 
+# STM32F7XX_HAL_Driver
+config STM32L0XX_HAL_DRIVER
+	bool "STM32L0xx HAL Driver"
+	default n
+	depends on 	DEVICE_STM32L011xx || DEVICE_STM32L021xx || \
+			DEVICE_STM32L031xx || DEVICE_STM32L041xx || \
+			DEVICE_STM32L051xx || DEVICE_STM32L052xx || \
+			DEVICE_STM32L053xx || DEVICE_STM32L061xx || \
+			DEVICE_STM32L062xx || DEVICE_STM32L063xx || \
+			DEVICE_STM32L071xx || DEVICE_STM32L072xx || \
+			DEVICE_STM32L073xx || DEVICE_STM32L081xx || \
+			DEVICE_STM32L082xx || DEVICE_STM32L083xx
+
 # STM32F10X_StdPeriph_Driver
 config STM32F10X_STDPERIPH_DRIVER
 	bool "STM32F10x StdPeriph Driver"
@@ -80,6 +93,14 @@ config LIBAUSBEE
 	help
 		libausbee by EIRBOT
 		TODO
+
+#STM32 TouchSensing Library
+config STM32_TOUCHSENSING_LIBRARY
+	bool "STM32 TouchSensing Library"
+	default n
+	help
+		STM32 Touch sensitive managing library
+
 comment "LIBAUSBEE (Select StdPeriph_Driver)"
 depends on !(STM32F4XX_STDPERIPH_DRIVER || STM32F10X_STDPERIPH_DRIVER)
 

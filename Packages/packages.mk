@@ -23,6 +23,10 @@ include $(PACKAGES_PATH)/pkg-download.mk
 include $(PACKAGES_PATH)/pkg-generic.mk
 include $(PACKAGES_PATH)/pkg-extract.mk
 
+ifeq ($(CONFIG_STM32L0XX_HAL_DRIVER),y)
+include $(PACKAGES_PATH)/stm32l0xx_hal_driver/stm32l0xx_hal_driver.mk
+endif
+
 ifeq ($(CONFIG_STM32F10X_STDPERIPH_DRIVER),y)
 include $(PACKAGES_PATH)/stm32f10x_stdperiph_driver/stm32f10x_stdperiph_driver.mk
 endif
@@ -37,6 +41,10 @@ endif
 
 ifeq ($(CONFIG_LIBAUSBEE),y)
 include $(PACKAGES_PATH)/libausbee/libausbee.mk
+endif
+
+ifeq ($(CONFIG_STM32_TOUCHSENSING_LIBRARY),y)
+include $(PACKAGES_PATH)/stm32_touchsensing_library/stm32_touchsensing_library.mk
 endif
 
 #Generate Kconfig path and include custom platform Makefile
