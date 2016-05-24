@@ -8,3 +8,4 @@ Toolchain/Build
 Projects/*
 !Projects/Makefile.template
 !Projects/projects.mk
+downloads
