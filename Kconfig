@@ -206,47 +206,63 @@ config DEBUG
 	bool "Compile in debug mode"
 	default y
 	help
-		Compile with -DDEBUG. This enable you to disable/enable traces
+		Compile with -DDEBUG and enable debugging symbols.
+		This enable you to disable/enable traces
 		when you want by surrounding your code with
 		#ifdef DEBUG <CODE> #endif.
 		Note that printf and scanf is available only with that mode.
-
-# Usart debug port on target
-config USART_DEBUG
-	string "USART Debug port"
-	default "USART1"
-	depends on DEBUG
-	help
-		Define the port used for print debugging informations. This name should
-		be compliant with USARTx format as in stm32fxxx.h file.
-
 endmenu
 
 ## Programming interface menu
-menu "Programming interface"
+menu "Flashing and debugging"
+choice
+# Programming tool
+
+	prompt "Select programming tool"
+
+config PROGRAMMING_TOOL_TEXANE_STLINK
+	bool "Texane STLink driver"
+
+config PROGRAMMING_TOOL_OPENOCD
+	bool "Open-OCD"
+
+config PROGRAMMING_TOOL_SERIAL
+	bool "Serial"
+endchoice
 
 choice
 	prompt "Select programmer"
 
-config PROGRAMMING_STLINK
-	bool "STLink v2"
+config PROGRAMMER_STLINK_V2-1
+	bool "STLink v2-1"
+	depends on PROGRAMMING_TOOL_OPENOCD || PROGRAMMING_TOOL_TEXANE_STLINK
 
-config PROGRAMMING_USART
+config PROGRAMMER_USART
 	bool "STM32 USART"
+	depends on PROGRAMMING_TOOL_SERIAL
 endchoice
+
+# Open-OCD scripts dir
+config PROGRAMMING_TOOL_OPENOCD_SCRIPTS_DIR
+	string "OpenOCD scripts directory"
+	default "/usr/local/share/openocd/scripts"
+	depends on PROGRAMMING_TOOL_OPENOCD
+	help
+		Location of the OpenOCD scripts.
 
 # Baudrate for flashing device
 config BAUDRATE_SERIAL_INTEFACE
 	string "Baudrate of serial programming interface"
 	default "115200"
-	depends on PROGRAMMING_USART
+	depends on PROGRAMMER_USART
 	help
 		TODO
+
 # Serial interface for flashing device
 config PROGRAM_SERIAL_INTERFACE
 	string "Serial programming interface"
 	default "/dev/ttyUSB0"
-	depends on PROGRAMMING_USART
+	depends on PROGRAMMER_USART
 	help
 		TODO
 

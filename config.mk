@@ -35,6 +35,7 @@ STM32FLASH=stm32flash
 ST_FLASH=st-flash
 ST_INFO=st-info
 ST_UTIL=st-util
+OPENOCD=openocd
 
 ######################################################################
 # Path variables
@@ -161,8 +162,8 @@ HOST_CFLAGS+=-DUSE_STDPERIPH_DRIVER
 HOST_CXXFLAGS+=-DUSE_STDPERIPH_DRIVER
 endif
 ifeq ($(CONFIG_DEBUG),y)
-HOST_CFLAGS+=-DDEBUG -DUSART_DEBUG=$(subst $(DQUOTE),,$(CONFIG_USART_DEBUG))
-HOST_CXXFLAGS+=-DDEBUG -DUSART_DEBUG=$(subst $(DQUOTE),,$(CONFIG_USART_DEBUG))
+HOST_CFLAGS+=-g -DDEBUG
+HOST_CXXFLAGS+=-g -DDEBUG
 endif
 
 HOST_CFLAGS+=-DHSE_VALUE=$(CRYSTAL_FREQUENCY)
@@ -183,3 +184,26 @@ PROJECTS_BUILD_PATH=$(BUILD_PATH)/projects
 # Program device
 BAUDRATE_SERIAL_INTERFACE=$(subst $(DQUOTE),,$(CONFIG_BAUDRATE_SERIAL_INTEFACE))
 PROGRAM_SERIAL_INTERFACE=$(subst $(DQUOTE),,$(CONFIG_PROGRAM_SERIAL_INTERFACE))
+
+######################################################################
+# Flash/debug configuration
+
+#OpenOCD
+ifeq ($(CONFIG_PROGRAMMING_TOOL_OPENOCD),y)
+
+# Interface
+ifeq ($(CONFIG_PROGRAMMER_STLINK_V2-1),y)
+OPENOCD_INTERFACE_SCRIPT=$(CONFIG_PROGRAMMING_TOOL_OPENOCD_SCRIPTS_DIR)/interface/stlink-v2-1.cfg
+else
+$(error Unsupported openOCD interface)
+endif
+
+# Target
+ifeq ($(CONFIG_ARM_CORE_CORTEX_M0Plus),y)
+OPENOCD_TARGET_SCRIPT=$(CONFIG_PROGRAMMING_TOOL_OPENOCD_SCRIPTS_DIR)/target/stm32l0.cfg
+else
+$(error Unsupported openOCD target)
+endif
+
+
+endif

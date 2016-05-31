@@ -166,19 +166,25 @@ $(KCONFIG_BUILD_PATH)/Makefile:
 ######################################################################
 # Program and run
 .PHONY: program
+program: $(OUTPUT_TARGET_HEX) $(OUTPUT_TARGET_BIN) $(OUTPUT_TARGET_ELF)
 ifeq ($(CONFIG_PROGRAMMING_USART),y)
-program: $(OUTPUT_TARGET_HEX)
 	$(STM32FLASH) -w $(<) -b $(BAUDRATE_SERIAL_INTERFACE) -v -g 0x0 $(PROGRAM_SERIAL_INTERFACE)
-else
-ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
-program: $(OUTPUT_TARGET_BIN)
+else ifeq ($(CONFIG_PROGRAMMING_TOOL_TEXANE_STLINK),y)
 	$(ST_FLASH) --reset write $(<) 0x08000000
-endif
+else ifeq ($(CONFIG_PROGRAMMING_TOOL_OPENOCD),y)
+	@$(ECHO_E) "\e[107;30mStarting debugger\033[0m"
+	@$(OPENOCD) -f $(OPENOCD_INTERFACE_SCRIPT) -f $(OPENOCD_TARGET_SCRIPT) \
+		-c "init" -c "reset halt" -c "flash write_image erase $(OUTPUT_TARGET_ELF)" \
+		-c "reset run" -c "shutdown"
+else
+	#Add color here
+	@$(ECHO_E) Not supported. Please choose an other programming tool.
 endif
 
 ######################################################################
 # Debug/Chip info
-.PHONY: chip-info debug
+.PHONY: chip-info debug start-debug-server
+
 chip-info:
 ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
 	@$(ECHO_E) "\e[107;30mDevice description\033[0m"
@@ -195,14 +201,28 @@ else
 	@$(ECHO_E) STLink not configured to be your programmer.
 endif
 
-debug: $(TOOLCHAIN_EXTRACTED) $(OUTPUT_TARGET_ELF)
-ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
-	@$(ECHO_E) "\e[107;30mStarting debugger\033[0m"
-	@$(ST_UTIL) & echo $$! > .debug.PID
-	@$(SLEEP) 3
-	@$(HOST_GDB) -x $(TOOLCHAIN_DEBUG_CMD_FILE) $(OUTPUT_TARGET_ELF)
-	@$(KILL2) `cat .debug.PID` && rm .debug.PID
+start-debug-server:
+	@$(ECHO_E) "\e[107;30mStarting debug server\033[0m"
+ifeq ($(CONFIG_PROGRAMMING_TOOL_TEXANE_STLINK),y)
+	@$(ST_UTIL)
+else ifeq ($(CONFIG_PROGRAMMING_TOOL_OPENOCD),y)
+	@$(OPENOCD) -f $(OPENOCD_INTERFACE_SCRIPT) -f $(OPENOCD_TARGET_SCRIPT) \
+		-c "init" -c "reset halt"
 else
+	#TODO Add color here
+	@$(ECHO_E) Not supported. Please choose an other debugging tool.
+endif
+
+debug: $(TOOLCHAIN_EXTRACTED) $(OUTPUT_TARGET_ELF)
+	@$(ECHO_E) "\e[107;30mStarting debug tool\033[0m"
+ifeq ($(CONFIG_PROGRAMMING_TOOL_TEXANE_STLINK),y)
+	@$(HOST_GDB) -x $(TOOLCHAIN_DEBUG_CMD_FILE) $(OUTPUT_TARGET_ELF)
+else ifeq ($(CONFIG_PROGRAMMING_TOOL_OPENOCD),y)
+	@$(HOST_GDB) -ex "target extended-remot localhost:3333" \
+	-ex "monitor reset halt" -ex "load" $(OUTPUT_TARGET_ELF)
+else
+	#Add color here
+	@$(ECHO_E) Not supported. Please choose an other debugging tool.
 endif
 
 ######################################################################
