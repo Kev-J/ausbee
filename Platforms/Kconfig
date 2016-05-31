@@ -54,7 +54,7 @@ choice
 #STM32L053Discovery
 	config PLATFORM_STM32L053DISCOVERY
 		bool "STM32L053DISCOVERY"
-                depends on STM32L0XX_HAL_DRIVER && STM32_TOUCHSENSING_LIBRARY
+                depends on STM32L0XX_HAL_DRIVER
 
         comment "STM32L053DISCOVERY require stm32l0xx_hal_driver"
                 depends on !STM32L0XX_HAL_DRIVER
