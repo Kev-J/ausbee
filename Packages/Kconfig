@@ -94,15 +94,22 @@ config LIBAUSBEE
 		libausbee by EIRBOT
 		TODO
 
+comment "LIBAUSBEE (Select StdPeriph_Driver)"
+depends on !(STM32F4XX_STDPERIPH_DRIVER || STM32F10X_STDPERIPH_DRIVER)
+
+#STM32 USB Device Library
+config STM32_USB_DEVICE_LIBRARY
+	bool "STM32 USB Device Library"
+	default n
+	help
+		STM32 USB libray
+
 #STM32 TouchSensing Library
 config STM32_TOUCHSENSING_LIBRARY
 	bool "STM32 TouchSensing Library"
 	default n
 	help
 		STM32 Touch sensitive managing library
-
-comment "LIBAUSBEE (Select StdPeriph_Driver)"
-depends on !(STM32F4XX_STDPERIPH_DRIVER || STM32F10X_STDPERIPH_DRIVER)
 
 source "$AUSBEE_DIR/Packages/libausbee/Kconfig"
 source "$AUSBEE_CUSTOM_PACKAGES_KCONFIG_PATH"

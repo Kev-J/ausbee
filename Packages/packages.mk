@@ -47,6 +47,10 @@ ifeq ($(CONFIG_STM32_TOUCHSENSING_LIBRARY),y)
 include $(PACKAGES_PATH)/stm32_touchsensing_library/stm32_touchsensing_library.mk
 endif
 
+ifeq ($(CONFIG_STM32_USB_DEVICE_LIBRARY),y)
+include $(PACKAGES_PATH)/stm32_usb_device_library/stm32_usb_device_library.mk
+endif
+
 #Generate Kconfig path and include custom platform Makefile
 AUSBEE_CUSTOM_PACKAGES_KCONFIG_PATH=$(AUSBEE_DIR)/Packages/empty.Kconfig
 ifeq ($(CONFIG_CUSTOM_PACKAGES),y)
