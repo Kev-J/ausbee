@@ -217,6 +217,9 @@ SECTIONS
     ._usrstack :
     {
         . = ALIGN(4);
+	PROVIDE ( end = . );
+	PROVIDE ( _end = . );
+	PROVIDE ( __end__ = . );
         _susrstack = . ;
 
         . = . + _Minimum_Stack_Size ;
