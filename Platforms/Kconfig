@@ -85,3 +85,10 @@ choice
 
   source "$AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH"
 endchoice
+
+menu "Platform config"
+  depends on STM32F7XX_HAL_DRIVER
+
+  source "$AUSBEE_DIR/Platforms/stm32f7discovery/Kconfig"
+
+endmenu
