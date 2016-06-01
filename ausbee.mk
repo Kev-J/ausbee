@@ -69,7 +69,7 @@ endef
 ######################################################################
 # Build target
 
-all: $(OUTPUT_TARGET_BIN) $(OUTPUT_TARGET_HEX) size_after_build
+all: $(OUTPUT_TARGET_BIN) $(OUTPUT_TARGET_HEX)
 
 include $(TOOLCHAIN_PATH)/toolchain.mk
 ifneq ($(SYSTEM_PATH),)
@@ -79,9 +79,6 @@ include $(PACKAGES_PATH)/packages.mk
 include $(PLATFORMS_PATH)/platforms.mk
 include $(OPERATING_SYSTEMS_PATH)/operating_systems.mk
 include $(PROJECTS_PATH)/projects.mk
-
-size_after_build: $(OUTPUT_TARGET_ELF)
-	$(HOST_SIZE) $^
 
 $(OUTPUT_TARGET_HEX): $(OUTPUT_TARGET_ELF)
 	$(call print_gen,$(PROJECT_NAME),$(notdir $@))
@@ -95,6 +92,7 @@ $(OUTPUT_TARGET_ELF): $(OBJ_FILES) $(LIB_FILES) $(LINKER_SCRIPT)
 	$(call print_gen,$(PROJECT_NAME),$(notdir $@))
 	$(MKDIR_P) $(OUTPUT_PATH)
 	$(HOST_CC) -o $@ -T$(LINKER_SCRIPT) $(OBJ_FILES) $(HOST_LDFLAGS)
+	$(HOST_SIZE) $@
 
 ######################################################################
 # Configuration tool
