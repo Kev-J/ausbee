@@ -201,6 +201,8 @@ endif
 # Target
 ifeq ($(CONFIG_ARM_CORE_CORTEX_M0Plus),y)
 OPENOCD_TARGET_SCRIPT=$(CONFIG_PROGRAMMING_TOOL_OPENOCD_SCRIPTS_DIR)/target/stm32l0.cfg
+else ifeq ($(CONFIG_ARM_CORE_CORTEX_M7),y)
+OPENOCD_TARGET_SCRIPT=$(CONFIG_PROGRAMMING_TOOL_OPENOCD_SCRIPTS_DIR)/target/stm32f7x.cfg
 else
 $(error Unsupported openOCD target)
 endif
