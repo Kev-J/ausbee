@@ -1,0 +1,44 @@
+config PLATFORM_STM32F7DISCOVERY_USE_AUDIO
+  bool "Use audio"
+  default n
+
+config PLATFORM_STM32F7DISCOVERY_USE_CAMERA
+  bool "Use camera"
+  default n
+
+config PLATFORM_STM32F7DISCOVERY_USE_EEPROM
+  bool "Use AUDIO"
+  default n
+
+config PLATFORM_STM32F7DISCOVERY_USE_LCD
+  bool "Use LCD"
+  default n
+
+config PLATFORM_STM32F7DISCOVERY_USE_QSPI
+  bool "Use QSPI"
+  default n
+
+config PLATFORM_STM32F7DISCOVERY_USE_SD
+  bool "Use SD"
+  default n
+
+config PLATFORM_STM32F7DISCOVERY_USE_SDRAM
+  bool "Use SDRAM"
+  default n
+
+config PLATFORM_STM32F7DISCOVERY_USE_TS
+  bool "Use touchscreen"
+  default n
+
+config PLATFORM_STM32F7DISCOVERY_USE_SD_DRIVER
+  bool "Use SD diskio driver"
+  default n
+config PLATFORM_STM32F7DISCOVERY_USE_SDRAM_DRIVER
+  bool "Use SDRAM diskio driver"
+  default n
+config PLATFORM_STM32F7DISCOVERY_USE_SRAM_DRIVER
+  bool "Use SRAM diskio driver"
+  default n
+config PLATFORM_STM32F7DISCOVERY_USE_USBH_DRIVER
+  bool "Use USBH diskio driver"
+  default n
