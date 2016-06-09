@@ -250,6 +250,16 @@ config PROGRAMMING_TOOL_OPENOCD_SCRIPTS_DIR
 	help
 		Location of the OpenOCD scripts.
 
+#OpenOCD semihosting
+config OPENOCD_SEMIHOSTING_ENABLE
+	bool "OpenOCD semihosting"
+	default n
+	help
+	  Do not forget to call the following code:
+	  setbuf(stdout, NULL);
+	  initialise_monitor_handles();
+
+
 # Baudrate for flashing device
 config BAUDRATE_SERIAL_INTEFACE
 	string "Baudrate of serial programming interface"

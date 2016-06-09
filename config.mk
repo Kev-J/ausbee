@@ -191,6 +191,9 @@ PROGRAM_SERIAL_INTERFACE=$(subst $(DQUOTE),,$(CONFIG_PROGRAM_SERIAL_INTERFACE))
 #OpenOCD
 ifeq ($(CONFIG_PROGRAMMING_TOOL_OPENOCD),y)
 
+GDB_EX=	-ex "target extended-remot localhost:3333" \
+	-ex "monitor reset halt" -ex "load"
+
 # Interface
 ifeq ($(CONFIG_PROGRAMMER_STLINK_V2-1),y)
 OPENOCD_INTERFACE_SCRIPT=$(CONFIG_PROGRAMMING_TOOL_OPENOCD_SCRIPTS_DIR)/interface/stlink-v2-1.cfg
@@ -207,5 +210,10 @@ else
 $(error Unsupported openOCD target)
 endif
 
+#SemiHosting
+ifeq ($(CONFIG_OPENOCD_SEMIHOSTING_ENABLE),y)
+HOST_LDFLAGS+=--specs=rdimon.specs -lc -lrdimon
+GDB_EX+=-ex "mon arm semihosting enable"
+endif
 
 endif

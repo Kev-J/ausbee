@@ -216,8 +216,7 @@ debug: $(TOOLCHAIN_EXTRACTED) $(OUTPUT_TARGET_ELF)
 ifeq ($(CONFIG_PROGRAMMING_TOOL_TEXANE_STLINK),y)
 	@$(HOST_GDB) -x $(TOOLCHAIN_DEBUG_CMD_FILE) $(OUTPUT_TARGET_ELF)
 else ifeq ($(CONFIG_PROGRAMMING_TOOL_OPENOCD),y)
-	@$(HOST_GDB) -ex "target extended-remot localhost:3333" \
-	-ex "monitor reset halt" -ex "load" $(OUTPUT_TARGET_ELF)
+	@$(HOST_GDB) $(GDB_EX) $(OUTPUT_TARGET_ELF)
 else
 	#Add color here
 	@$(ECHO_E) Not supported. Please choose an other debugging tool.
