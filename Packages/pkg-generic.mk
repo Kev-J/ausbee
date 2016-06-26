@@ -35,6 +35,11 @@ $$(PKG_GENERIC_$(PKG_GENERIC_FID)_OBJ): $$(PKG_GENERIC_$(PKG_GENERIC_FID)_SRC_PA
 -include $$(PKG_GENERIC_$(PKG_GENERIC_FID)_DEP)
 endef
 
+define pkg-generic-auto-discover-common-srcs =
+$(1)_BUILD_SRC = $(BUILD_PATH)/$(shell echo $(1) | tr A-Z a-z)
+$(1)_SRC_FILES=$$(shell find $$($(1)_BUILD_SRC)/$$($(1)_FILE_PATH) -name "*.c" -printf "$$($(1)_FILE_PATH)/%P\n")
+endef
+
 define pkg-generic =
 $(1)_BUILD_SRC = $(BUILD_PATH)/$(shell echo $(1) | tr A-Z a-z)
 $(1)_INCLUDES=$$($(1)_INCLUDE_PATH:%=-I"$$($(1)_BUILD_SRC)/%") $$($(1)_LOCAL_INCLUDE_PATH:%=-I"$$($(1)_LOCAL_FILE_PATH)/%")
