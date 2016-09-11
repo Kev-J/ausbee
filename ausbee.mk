@@ -178,8 +178,10 @@ program: $(OUTPUT_TARGET_HEX)
 	$(STM32FLASH) -w $(<) -b $(BAUDRATE_SERIAL_INTERFACE) -v -g 0x0 $(PROGRAM_SERIAL_INTERFACE)
 else
 ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
-program: $(OUTPUT_TARGET_BIN)
-	$(ST_FLASH) --reset write $(<) 0x08000000
+program: $(OUTPUT_TARGET_ELF)
+	/usr/bin/openocd -f /usr/share/openocd/scripts/board/stm32f4discovery.cfg -c "program $(<) verify reset"
+#program: $(OUTPUT_TARGET_BIN)
+	#$(ST_FLASH) --reset write $(<) 0x08000000
 endif
 endif
 
