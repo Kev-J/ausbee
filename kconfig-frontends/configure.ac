@@ -201,21 +201,6 @@ AS_CASE(
 [need_qt="$enable_qconf"]
 
 
-#----------------------------------------
-# Gperf 3.1 started generating functions with size_t rather than unsigned int
-AC_MSG_CHECKING([for the type used in gperf declarations])
-echo "#include <string.h>" > conftest.gperf.c
-echo "const char * in_word_set(const char *, GPERF_LEN_TYPE);" >> conftest.gperf.c
-echo foo,bar | ${GPERF} -L ANSI-C >> conftest.gperf.c
-AS_IF([${CC} -c -o /dev/null conftest.gperf.c -DGPERF_LEN_TYPE='size_t' >/dev/null 2>&1],
-            [AC_MSG_RESULT([size_t])
-             GPERF_LEN_TYPE='size_t'],
-        [${CC} -c -o /dev/null conftest.gperf.c -DGPERF_LEN_TYPE='unsigned int' >/dev/null 2>&1],
-            [AC_MSG_RESULT([unsigned int])
-             GPERF_LEN_TYPE='unsigned int'],
-        [AC_MSG_ERROR([unable to determine gperf len type])])
-rm -f conftest.gperf.c
-AC_SUBST([GPERF_LEN_TYPE])
 
 #---------------------------------------------------------------------------
 # Now check we have the required stuff
@@ -253,6 +238,22 @@ AS_IF(
         [test -z "$YACC_IN_PATH"],
         [AC_MSG_ERROR([can not find a parser generator (such as yacc or bison)])]))
 AC_SUBST([AM_YFLAGS], ["-t -l -p zconf"])
+
+#----------------------------------------
+# Gperf 3.1 started generating functions with size_t rather than unsigned int
+AC_MSG_CHECKING([for the type used in gperf declarations])
+echo "#include <string.h>" > conftest.gperf.c
+echo "const char * in_word_set(const char *, GPERF_LEN_TYPE);" >> conftest.gperf.c
+echo foo,bar | ${GPERF} -L ANSI-C >> conftest.gperf.c
+AS_IF([${CC} -c -o /dev/null conftest.gperf.c -DGPERF_LEN_TYPE='size_t' >/dev/null 2>&1],
+            [AC_MSG_RESULT([size_t])
+             GPERF_LEN_TYPE='size_t'],
+        [${CC} -c -o /dev/null conftest.gperf.c -DGPERF_LEN_TYPE='unsigned int' >/dev/null 2>&1],
+            [AC_MSG_RESULT([unsigned int])
+             GPERF_LEN_TYPE='unsigned int'],
+        [AC_MSG_ERROR([unable to determine gperf len type])])
+rm -f conftest.gperf.c
+AC_SUBST([GPERF_LEN_TYPE])
 
 #----------------------------------------
 # Check for gettext, for the kconfig frontends
