@@ -17,7 +17,7 @@
 
 #param 1 : archive path
 #param 2 : destination directory
-define pkg-extract =
+define pkg-extract
 
 ifeq ($(suffix $(1)),.gz)
 	$(CD) $(2); \
