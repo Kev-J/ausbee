@@ -38,10 +38,12 @@ ST_UTIL=st-util
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Darwin)
 FIND=gfind
-ECHO_E=echo
+ECHO_E=@echo
+ECHO_ESC=\x1B
 else
 FIND=find
-ECHO_E=echo -e
+ECHO_E=@echo -e
+ECHO_ESC=\e
 endif
 
 ######################################################################
@@ -141,9 +143,9 @@ FLASH_START=$(subst $(DQUOTE),,$(CONFIG_FLASH_START))
 # Crystal frequency
 CRYSTAL_FREQUENCY=$(subst $(DQUOTE),,$(CONFIG_CRYSTAL_FREQUENCY)) 
 
-GLOBAL_COMMON_FLAGS=$(EMPTY) -std=gnu99
-TARGET_COMMON_FLAGS=-DAUSBEE_TARGET
-SIM_COMMON_FLAGS=-DAUSBEE_SIM
+GLOBAL_COMMON_FLAGS=$(EMPTY)
+TARGET_COMMON_FLAGS=-DAUSBEE_TARGET -std=gnu99
+SIM_COMMON_FLAGS=-DAUSBEE_SIM -std=gnu99
 
 #SIM common flags: debug
 SIM_COMMON_FLAGS+=-g -ggdb 
