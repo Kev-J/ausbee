@@ -37,11 +37,11 @@ endef
 
 define pkg-generic-auto-discover-common-srcs
 $(1)_BUILD_SRC = $(BUILD_PATH)/$(shell echo $(1) | tr A-Z a-z)
-$(1)_SRC_FILES=$$(shell find $$($(1)_BUILD_SRC)/$$($(1)_FILE_PATH) -name "*.c" -printf "$$($(1)_FILE_PATH)/%P\n")
+$(1)_SRC_FILES=$$(shell $(FIND) $$($(1)_BUILD_SRC)/$$($(1)_FILE_PATH) -name "*.c" -printf "$$($(1)_FILE_PATH)/%P\n")
 endef
 
 define pkg-generic-auto-discover-local-common-srcs
-$(1)_LOCAL_SRC_FILES=$$(shell find $$($(1)_LOCAL_FILE_PATH) -name "*.c" -printf "%P\n")
+$(1)_LOCAL_SRC_FILES=$$(shell $(FIND) $$($(1)_LOCAL_FILE_PATH) -name "*.c" -printf "%P\n")
 endef
 
 

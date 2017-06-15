@@ -60,10 +60,10 @@ export AUSBEE_DIR
 ######################################################################
 # Print functions
 define print_build
-	$(ECHO_E) "\e[32mBuild \e[1m$1\e[0m\e[32m file: \e[1m$2\e[0m"
+	$(ECHO_E) "\x1B[32mBuild \x1B[1m$1\x1B[0m\x1B[32m file: \x1B[1m$2\x1B[0m"
 endef
 define print_gen
-	$(ECHO_E) "\e[34mGenerate \e[1m$1\e[0m\e[34m file:\e[1m $2\e[0m"
+	$(ECHO_E) "\x1B[34mGenerate \x1B[1m$1\x1B[0m\x1B[34m file:\x1B[1m $2\x1B[0m"
 endef
 
 ######################################################################
@@ -190,14 +190,14 @@ endif
 .PHONY: chip-info debug
 chip-info:
 ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
-	@$(ECHO_E) "\e[107;30mDevice description\033[0m"
+	@$(ECHO_E) "\x1B[107;30mDevice description\033[0m"
 	@$(ST_INFO) --descr
 	@$(ECHO_E)
-	@$(ECHO_E) "\e[107;30mFlash size\033[0m"
+	@$(ECHO_E) "\x1B[107;30mFlash size\033[0m"
 	@$(ST_INFO) --flash
 	@x=$$($(PRINTF) "%d" `st-info --flash`) ; $(ECHO_E) $$((x/1024))K
 	@$(ECHO_E)
-	@$(ECHO_E) "\e[107;30mSRAM size\033[0m"
+	@$(ECHO_E) "\x1B[107;30mSRAM size\033[0m"
 	@$(ST_INFO) --sram
 	@x=$$($(PRINTF) "%d" `st-info --sram`) ; $(ECHO_E) $$((x/1024))K
 else
@@ -206,7 +206,7 @@ endif
 
 debug: $(TOOLCHAIN_EXTRACTED) $(OUTPUT_TARGET_ELF)
 ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
-	@$(ECHO_E) "\e[107;30mStarting debugger\033[0m"
+	@$(ECHO_E) "\x1B[107;30mStarting debugger\033[0m"
 	@$(ST_UTIL) & echo $$! > .debug.PID
 	@$(SLEEP) 3
 	@$(TARGET_GDB) -x $(TOOLCHAIN_DEBUG_CMD_FILE) $(OUTPUT_TARGET_ELF)

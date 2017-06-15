@@ -24,7 +24,6 @@ RM_RF=rm -rf
 WGET=wget
 UNZIP=unzip
 TOUCH=touch
-ECHO_E=echo -e
 DOXYGEN=doxygen
 GIT_CLONE=git clone
 CP=cp
@@ -35,6 +34,15 @@ STM32FLASH=stm32flash
 ST_FLASH=st-flash
 ST_INFO=st-info
 ST_UTIL=st-util
+
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Darwin)
+FIND=gfind
+ECHO_E=echo
+else
+FIND=find
+ECHO_E=echo -e
+endif
 
 ######################################################################
 # Path variables
