@@ -30,3 +30,16 @@ menu "Operating System Configuration"
 depends on OS_USE_FREERTOS
 source "$AUSBEE_DIR/Operating_Systems/FreeRTOS/Kconfig"
 endmenu
+
+choice
+    prompt "Simulation port used"
+    depends on OS_USE_FREERTOS
+
+config OS_LINUX_PORT
+    bool "Linux port"
+
+config OS_POSIX_PORT
+    bool "Posix port"
+
+endchoice
+
