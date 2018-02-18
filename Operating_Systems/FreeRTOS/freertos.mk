@@ -47,6 +47,8 @@ FREERTOS_SRC_FILES+=FreeRTOSV$(FREERTOS_VERSION)/FreeRTOS/Source/list.c
 FREERTOS_SRC_FILES+=FreeRTOSV$(FREERTOS_VERSION)/FreeRTOS/Source/queue.c
 FREERTOS_SRC_FILES+=FreeRTOSV$(FREERTOS_VERSION)/FreeRTOS/Source/timers.c
 FREERTOS_SRC_FILES+=FreeRTOSV$(FREERTOS_VERSION)/FreeRTOS/Source/event_groups.c
-FREERTOS_SRC_FILES+=FreeRTOSV$(FREERTOS_VERSION)/FreeRTOS/Source/portable/MemMang/heap_1.c # TODO make it configurable
+
+FREERTOS_SIM_SRC_FILES+=FreeRTOSV$(FREERTOS_VERSION)/FreeRTOS/Source/portable/MemMang/heap_1.c # TODO make it configurable
+FREERTOS_TARGET_SRC_FILES+=FreeRTOSV$(FREERTOS_VERSION)/FreeRTOS/Source/portable/MemMang/heap_4.c # TODO make it configurable
 
 $(eval $(call pkg-generic,FREERTOS))
