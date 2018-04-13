@@ -185,7 +185,7 @@ config PROGRAMMING_USART
   depends on ARM_CORE_CORTEX_M4 || ARM_CORE_CORTEX_M3
 	bool "STM32 USART"
 
-config AVRDUDE_WITH_ISP2
+config PROGRAMMING_AVRDUDE_WITH_ISP2
   depends on XMEGA_CORE
 	bool "Avrdude with isp2"
 endchoice

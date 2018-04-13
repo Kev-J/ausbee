@@ -190,6 +190,10 @@ program: $(OUTPUT_TARGET_ELF)
 #program: $(OUTPUT_TARGET_BIN)
 	#$(ST_FLASH) --reset write $(<) 0x08000000
 endif
+ifeq ($(CONFIG_PROGRAMMING_AVRDUDE_WITH_ISP2),y)
+program: $(OUTPUT_TARGET_HEX)
+	avrdude -p x128a4 -c avrisp2 -U flash:w:$(OUTPUT_TARGET_HEX)
+endif
 endif
 
 ######################################################################
