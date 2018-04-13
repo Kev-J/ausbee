@@ -228,6 +228,11 @@ menu "Toolchain"
 depends on ARM_CORE_CORTEX_M4 || ARM_CORE_CORTEX_M3
 source "$AUSBEE_DIR/Toolchain/Kconfig"
 endmenu
+menu "Toolchain"
+depends on XMEGA_CORE
+source "$AUSBEE_DIR/AVRToolchain/Kconfig"
+endmenu
+
 
 ########################################
 ## Packages menu

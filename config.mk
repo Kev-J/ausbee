@@ -165,7 +165,12 @@ ifeq ($(CONFIG_USE_FPU),y)
 #-Wdouble-promotion : Print warning when implicit conversion from float to double
 TARGET_COMMON_FLAGS+=-mfloat-abi=hard -mfpu=fpv4-sp-d16 -fsingle-precision-constant -Wdouble-promotion
 else
+ifeq ($(CONFIG_ARM_CORE_CORTEX_M4),y)
 TARGET_COMMON_FLAGS+=-msoft-float
+endif
+ifeq ($(CONFIG_ARM_CORE_CORTEX_M3),y)
+TARGET_COMMON_FLAGS+=-msoft-float
+endif
 endif
 
 include $(AUSBEE_DIR)/config-devices.mk # get DEVICE_NAME variable
