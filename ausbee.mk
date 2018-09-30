@@ -186,9 +186,9 @@ program: $(OUTPUT_TARGET_HEX)
 else
 ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
 program: $(OUTPUT_TARGET_ELF)
-	/usr/bin/openocd -f /usr/share/openocd/scripts/board/stm32f4discovery.cfg -c "program $(<) verify reset"
+	/usr/bin/openocd -f /usr/share/openocd/scripts/board/stm32f4discovery.cfg -c "program $(<) verify reset exit"
 #program: $(OUTPUT_TARGET_BIN)
-	#$(ST_FLASH) --reset write $(<) 0x08000000
+#$(ST_FLASH) --reset write $(<) 0x08000000
 endif
 endif
 
