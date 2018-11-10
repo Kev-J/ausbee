@@ -58,6 +58,10 @@ CONFIG_DEPS=.config
 export AUSBEE_DIR
 
 ######################################################################
+# AUTOGEN variables
+AUTOGEN_DEPS=include/generated/git.h
+
+######################################################################
 # Print functions
 define print_build
 	$(ECHO_E) "$(ECHO_ESC)[32mBuild $(ECHO_ESC)[1m$1$(ECHO_ESC)[0m$(ECHO_ESC)[32m file: $(ECHO_ESC)[1m$2$(ECHO_ESC)[0m"
@@ -65,6 +69,7 @@ endef
 define print_gen
 	$(ECHO_E) "$(ECHO_ESC)[34mGenerate $(ECHO_ESC)[1m$1$(ECHO_ESC)[0m$(ECHO_ESC)[34m file:$(ECHO_ESC)[1m $2$(ECHO_ESC)[0m"
 endef
+
 
 ######################################################################
 # Build target
@@ -108,6 +113,21 @@ $(OUTPUT_TARGET_SIM): $(PACKAGES_EXTRACTED) $(SIM_OBJ_FILES)
 	$(call print_gen,$(CONFIG_PROJECT_NAME),$(notdir $@))
 	$(MKDIR_P) $(OUTPUT_PATH)
 	$(SIM_CC) -o $@ $(SIM_OBJ_FILES) $(SIM_LDFLAGS) $(GLOBAL_LDFLAGS)
+
+
+######################################################################
+# Generate config files
+
+include/generated/git.h: $(GIT_PATH)/.git/COMMIT_EDITMSG $(GIT_PATH)/.git/HEAD 
+	$(call print_gen,$(PROJECT_NAME),$(notdir $@))
+	$(ECHO_E) -n "#define GIT_COMMIT_ID " > $@
+	$(ECHO_E) "\"$(shell git rev-parse HEAD)\"" >> $@
+	$(ECHO_E) -n "#define GIT_COMMIT_SHORT8_ID 0x" >> $@
+	$(ECHO_E) "$(shell git rev-parse --short=8 HEAD)" >> $@
+	$(ECHO_E) -n "#define GIT_IS_DIRTY " >> $@
+	@if [[ $$(git diff --shortstat 2> /dev/null | tail -n1) != "" ]]; then echo 1 >> $@; else echo 0 >> $@; fi
+
+
 
 
 ######################################################################
