@@ -192,7 +192,7 @@ program: $(OUTPUT_TARGET_ELF)
 endif
 ifeq ($(CONFIG_PROGRAMMING_AVRDUDE_WITH_ISP2),y)
 program: $(OUTPUT_TARGET_HEX)
-	avrdude -p x128a4 -c avrisp2 -U flash:w:$(OUTPUT_TARGET_HEX)
+	avrdude -p x16a4 -c avrisp2 -U flash:w:$(OUTPUT_TARGET_HEX)
 endif
 endif
 
