@@ -20,6 +20,14 @@ config AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH
     string
     option env="AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH"
 
+config AUSBEE_CUSTOM_PLATFORMS_OPTION_KCONFIG_PATH
+    string
+    option env="AUSBEE_CUSTOM_PLATFORMS_OPTION_KCONFIG_PATH"
+
+config AUSBEE_CUSTOM_PLATFORMS_PATH
+    string
+    option env="AUSBEE_CUSTOM_PLATFORMS_PATH"
+
 config CUSTOM_PLATFORMS
   bool "Custom platforms"
 	default n
@@ -35,7 +43,6 @@ config CUSTOM_PLATFORMS_REL_PATH
 config CUSTOM_PLATFORMS_PATH
 	string "Custom platforms path"
   depends on CUSTOM_PLATFORMS
-
 
 choice
 	prompt "Platform select"
@@ -63,6 +70,7 @@ choice
 
         comment "AUSBEE Servo Module V0.1 require stm32f10x_StdPeriph_Driver"
                 depends on !STM32F10X_STDPERIPH_DRIVER
-
   source "$AUSBEE_CUSTOM_PLATFORMS_KCONFIG_PATH"
 endchoice
+
+source "$AUSBEE_CUSTOM_PLATFORMS_OPTION_KCONFIG_PATH"
