@@ -17368,8 +17368,8 @@ fi
 if test "$need_gtk" = "yes" -o "$need_gtk" = "auto"; then :
 
 pkg_failed=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for gtk+-2.0 gmodule-2.0 libglade-2.0" >&5
-$as_echo_n "checking for gtk+-2.0 gmodule-2.0 libglade-2.0... " >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for gtk" >&5
+$as_echo_n "checking for gtk... " >&6; }
 
 if test -n "$gtk_CFLAGS"; then
     pkg_cv_gtk_CFLAGS="$gtk_CFLAGS"
@@ -17409,7 +17409,7 @@ fi
 
 
 if test $pkg_failed = yes; then
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
 
 if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
@@ -17431,7 +17431,7 @@ else
   has_gtk=no
 fi
 elif test $pkg_failed = untried; then
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
 	if test "$need_gtk" = "yes"; then :
   as_fn_error $? "could not find GTK+ headers and/or libraries (frontend: gconf)" "$LINENO" 5
@@ -17456,8 +17456,8 @@ fi
 if test "$need_qt" = "yes" -o "$need_qt" = "auto"; then :
 
 pkg_failed=no
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for QtCore QtGui Qt3Support" >&5
-$as_echo_n "checking for QtCore QtGui Qt3Support... " >&6; }
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for qt4" >&5
+$as_echo_n "checking for qt4... " >&6; }
 
 if test -n "$qt4_CFLAGS"; then
     pkg_cv_qt4_CFLAGS="$qt4_CFLAGS"
@@ -17497,7 +17497,7 @@ fi
 
 
 if test $pkg_failed = yes; then
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+   	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
 
 if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
@@ -17519,7 +17519,7 @@ else
   has_qt=no; need_moc=no
 fi
 elif test $pkg_failed = untried; then
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+     	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
 $as_echo "no" >&6; }
 	if test "$need_qt" = "yes"; then :
   as_fn_error $? "could not find QT4 headers and/or libraries (frontend: qconf)" "$LINENO" 5
