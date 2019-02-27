@@ -23,6 +23,10 @@ include $(PACKAGES_PATH)/pkg-download.mk
 include $(PACKAGES_PATH)/pkg-generic.mk
 include $(PACKAGES_PATH)/pkg-extract.mk
 
+ifneq ($(SYSTEM_PATH),)
+include $(SYSTEM_PATH)/system.mk
+endif
+
 ifeq ($(CONFIG_STM32F10X_STDPERIPH_DRIVER),y)
 include $(PACKAGES_PATH)/stm32f10x_stdperiph_driver/stm32f10x_stdperiph_driver.mk
 endif

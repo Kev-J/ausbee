@@ -79,9 +79,6 @@ sim: $(OUTPUT_TARGET_SIM)
 
 include $(TOOLCHAIN_PATH)/toolchain.mk
 include $(PACKAGES_PATH)/packages.mk
-ifneq ($(SYSTEM_PATH),)
-include $(SYSTEM_PATH)/system.mk
-endif
 include $(PLATFORMS_PATH)/platforms.mk
 include $(OPERATING_SYSTEMS_PATH)/operating_systems.mk
 include $(PROJECTS_PATH)/projects.mk
