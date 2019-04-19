@@ -94,6 +94,9 @@ ifeq ($(CONFIG_ARM_CORE_CORTEX_M4),y)
 SYSTEM_PATH=$(AUSBEE_DIR)/System-CM4
 else ifeq ($(CONFIG_ARM_CORE_CORTEX_M3),y)
 SYSTEM_PATH=$(AUSBEE_DIR)/System-CM3
+else ifeq ($(CONFIG_ARM_CORE_CORTEX_M0),y)
+SYSTEM_PATH=$(AUSBEE_DIR)/System-CM0
+
 endif
 
 # OS_PATH
@@ -157,6 +160,8 @@ TARGET_COMMON_FLAGS+=-mthumb
 TARGET_COMMON_FLAGS+=-mcpu=cortex-m4
 else ifeq ($(CONFIG_ARM_CORE_CORTEX_M3),y)
 TARGET_COMMON_FLAGS+=-mcpu=cortex-m3
+else ifeq ($(CONFIG_ARM_CORE_CORTEX_M0),y)
+TARGET_COMMON_FLAGS+=-mcpu=cortex-m0
 endif
 
 #Common flags : FPU
@@ -170,6 +175,9 @@ ifeq ($(CONFIG_ARM_CORE_CORTEX_M4),y)
 TARGET_COMMON_FLAGS+=-msoft-float
 endif
 ifeq ($(CONFIG_ARM_CORE_CORTEX_M3),y)
+TARGET_COMMON_FLAGS+=-msoft-float
+endif
+ifeq ($(CONFIG_ARM_CORE_CORTEX_M0),y)
 TARGET_COMMON_FLAGS+=-msoft-float
 endif
 endif

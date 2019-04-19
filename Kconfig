@@ -38,6 +38,9 @@ config ARM_CORE_CORTEX_M4
 config ARM_CORE_CORTEX_M3
 	bool "ARM Cortex-M3 core"
 
+config ARM_CORE_CORTEX_M0
+	bool "ARM Cortex-M0 core"
+
 config XMEGA_CORE
 	bool "AVR xmega core"
 endchoice
@@ -65,6 +68,9 @@ config DEVICE_STM32F429_439xx
 
 config DEVICE_STM32F401xx
 	bool "STM32F401xx"
+
+config DEVICE_STM32L496xx
+	bool "STM32L496xx"
 endchoice
 
 # Select Device Cortex-M3
@@ -94,6 +100,15 @@ config DEVICE_STM32F10X_XL
 
 config DEVICE_STM32F10X_CL
 	bool "STM32F10X_CL"
+endchoice
+
+# Select Device Cortex-M0
+choice
+	prompt "Device name Cortex-M0"
+	depends on ARM_CORE_CORTEX_M0
+
+config DEVICE_STM32F042x6 
+	bool "STM32F042x6"
 endchoice
 
 # Select Device Xmega
@@ -225,7 +240,7 @@ endmenu
 ########################################
 ## Toolchain menu
 menu "Toolchain"
-depends on ARM_CORE_CORTEX_M4 || ARM_CORE_CORTEX_M3
+depends on ARM_CORE_CORTEX_M4 || ARM_CORE_CORTEX_M3 || ARM_CORE_CORTEX_M0
 source "$AUSBEE_DIR/Toolchain/Kconfig"
 endmenu
 menu "Toolchain"

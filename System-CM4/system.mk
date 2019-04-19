@@ -16,13 +16,17 @@
 # along with AUSBEE.  If not, see <http://www.gnu.org/licenses/>.
 
 SYSTEM_CM4_LOCAL_FILE_PATH=$(SYSTEM_PATH)
-SYSTEM_CM4_LOCAL_INCLUDE_PATH=CMSIS/Include include CMSIS/Device/ST/STM32F4xx/Include
 
+
+ifeq ($(CONFIG_DEVICE_STM32L496xx),y)
+SYSTEM_CM4_LOCAL_INCLUDE_PATH=CMSIS/Include include CMSIS/Device/ST/STM32L4xx/Include
+SYSTEM_CM4_TARGET_LOCAL_SRC_FILES=syscalls.c CMSIS/Device/ST/STM32L4xx/Source/Templates/system_stm32l4xx.c
+SYSTEM_CM4_TARGET_LOCAL_S_SRC_FILES=CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc/startup_$(shell echo $(DEVICE_NAME) | tr A-Z a-z).s
+else
+SYSTEM_CM4_LOCAL_INCLUDE_PATH=CMSIS/Include include CMSIS/Device/ST/STM32F4xx/Include
 SYSTEM_CM4_TARGET_LOCAL_SRC_FILES=syscalls.c CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.c
-ifeq ($(CONFIG_STM32F4XX_STDPERIPH_DRIVER),y)
-SYSTEM_CM4_TARGET_LOCAL_SRC_FILES=stm32f4xx_conf.c
-endif
 SYSTEM_CM4_TARGET_LOCAL_S_SRC_FILES=CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc_ride7/startup_$(shell echo $(DEVICE_NAME) | tr A-Z a-z).s
+endif
 
 
 $(eval $(call pkg-generic,SYSTEM_CM4))
