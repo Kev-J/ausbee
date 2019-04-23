@@ -18,6 +18,7 @@
 # along with AUSBEE.  If not, see <http://www.gnu.org/licenses/>.
 
 AUSBEE_DIR?=.
+SHELL := /bin/bash
 
 # If we are not configuring, include the configuration file
 noconfig_goals= %-defconfig config menuconfig nconfig xconfig gconfig alldefconfig
