@@ -18,6 +18,7 @@
 # along with AUSBEE.  If not, see <http://www.gnu.org/licenses/>.
 
 AUSBEE_DIR?=.
+SHELL := /bin/bash
 
 # If we are not configuring, include the configuration file
 noconfig_goals= %-defconfig config menuconfig nconfig xconfig gconfig alldefconfig
@@ -58,43 +59,74 @@ CONFIG_DEPS=.config
 export AUSBEE_DIR
 
 ######################################################################
+# AUTOGEN variables
+AUTOGEN_DEPS=include/generated/git.h
+
+######################################################################
 # Print functions
 define print_build
-	$(ECHO_E) "\e[32mBuild \e[1m$1\e[0m\e[32m file: \e[1m$2\e[0m"
+	$(ECHO_E) "$(ECHO_ESC)[32mBuild $(ECHO_ESC)[1m$1$(ECHO_ESC)[0m$(ECHO_ESC)[32m file: $(ECHO_ESC)[1m$2$(ECHO_ESC)[0m"
 endef
 define print_gen
-	$(ECHO_E) "\e[34mGenerate \e[1m$1\e[0m\e[34m file:\e[1m $2\e[0m"
+	$(ECHO_E) "$(ECHO_ESC)[34mGenerate $(ECHO_ESC)[1m$1$(ECHO_ESC)[0m$(ECHO_ESC)[34m file:$(ECHO_ESC)[1m $2$(ECHO_ESC)[0m"
 endef
+
 
 ######################################################################
 # Build target
 
 all: $(OUTPUT_TARGET_BIN) $(OUTPUT_TARGET_HEX) size_after_build
+sim: $(OUTPUT_TARGET_SIM)
 
 include $(TOOLCHAIN_PATH)/toolchain.mk
-ifneq ($(SYSTEM_PATH),)
-include $(SYSTEM_PATH)/system.mk
-endif
 include $(PACKAGES_PATH)/packages.mk
 include $(PLATFORMS_PATH)/platforms.mk
 include $(OPERATING_SYSTEMS_PATH)/operating_systems.mk
 include $(PROJECTS_PATH)/projects.mk
 
 size_after_build: $(OUTPUT_TARGET_ELF)
-	$(HOST_SIZE) $^
+	$(TARGET_SIZE) $^
 
 $(OUTPUT_TARGET_HEX): $(OUTPUT_TARGET_ELF)
 	$(call print_gen,$(PROJECT_NAME),$(notdir $@))
-	$(HOST_OBJCPY) -O ihex $^ $@
+	$(TARGET_OBJCPY) -O ihex $^ $@
 
 $(OUTPUT_TARGET_BIN): $(OUTPUT_TARGET_ELF)
 	$(call print_gen,$(PROJECT_NAME),$(notdir $@))
-	$(HOST_OBJCPY) -O binary $^ $@
+	$(TARGET_OBJCPY) -O binary $^ $@
 
-$(OUTPUT_TARGET_ELF): $(OBJ_FILES) $(LIB_FILES) $(LINKER_SCRIPT)
+ifneq ($(SYSTEM_PATH),)
+$(OUTPUT_TARGET_ELF): $(PACKAGES_EXTRACTED) $(TARGET_OBJ_FILES) $(LIB_FILES) $(LINKER_SCRIPT)
 	$(call print_gen,$(PROJECT_NAME),$(notdir $@))
 	$(MKDIR_P) $(OUTPUT_PATH)
-	$(HOST_CC) -o $@ -T$(LINKER_SCRIPT) $(OBJ_FILES) $(HOST_LDFLAGS)
+	$(TARGET_CC) -o $@ -T$(LINKER_SCRIPT) $(TARGET_OBJ_FILES) $(TARGET_LDFLAGS) $(GLOBAL_LDFLAGS)
+else
+$(OUTPUT_TARGET_ELF): $(PACKAGES_EXTRACTED) $(TARGET_OBJ_FILES) $(LIB_FILES)
+	$(call print_gen,$(PROJECT_NAME),$(notdir $@))
+	$(MKDIR_P) $(OUTPUT_PATH)
+	$(TARGET_CC) -o $@ $(TARGET_OBJ_FILES) $(TARGET_LDFLAGS) $(GLOBAL_LDFLAGS)
+endif
+
+$(OUTPUT_TARGET_SIM): $(PACKAGES_EXTRACTED) $(SIM_OBJ_FILES)
+	$(call print_gen,$(CONFIG_PROJECT_NAME),$(notdir $@))
+	$(MKDIR_P) $(OUTPUT_PATH)
+	$(SIM_CC) -o $@ $(SIM_OBJ_FILES) $(SIM_LDFLAGS) $(GLOBAL_LDFLAGS)
+
+
+######################################################################
+# Generate config files
+
+include/generated/git.h: $(wildcard $(GIT_PATH)/.git/COMMIT_EDITMSG) $(GIT_PATH)/.git/HEAD 
+	$(call print_gen,$(PROJECT_NAME),$(notdir $@))
+	$(ECHO_E) -n "#define GIT_COMMIT_ID " > $@
+	$(ECHO_E) "\"$(shell git rev-parse HEAD)\"" >> $@
+	$(ECHO_E) -n "#define GIT_COMMIT_SHORT8_ID 0x" >> $@
+	$(ECHO_E) "$(shell git rev-parse --short=8 HEAD)" >> $@
+	$(ECHO_E) -n "#define GIT_IS_DIRTY " >> $@
+	@if [[ $$(git diff --shortstat 2> /dev/null | tail -n1) != "" ]]; then echo 1 >> $@; else echo 0 >> $@; fi
+
+
+
 
 ######################################################################
 # Configuration tool
@@ -171,8 +203,14 @@ program: $(OUTPUT_TARGET_HEX)
 	$(STM32FLASH) -w $(<) -b $(BAUDRATE_SERIAL_INTERFACE) -v -g 0x0 $(PROGRAM_SERIAL_INTERFACE)
 else
 ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
-program: $(OUTPUT_TARGET_BIN)
-	$(ST_FLASH) --reset write $(<) 0x08000000
+program: $(OUTPUT_TARGET_ELF)
+	/usr/bin/openocd -f /usr/share/openocd/scripts/board/stm32f4discovery.cfg -c "program $(<) verify reset exit"
+#program: $(OUTPUT_TARGET_BIN)
+#$(ST_FLASH) --reset write $(<) 0x08000000
+endif
+ifeq ($(CONFIG_PROGRAMMING_AVRDUDE_WITH_ISP2),y)
+program: $(OUTPUT_TARGET_HEX)
+	avrdude -p x16a4 -c avrisp2 -U flash:w:$(OUTPUT_TARGET_HEX)
 endif
 endif
 
@@ -181,14 +219,14 @@ endif
 .PHONY: chip-info debug
 chip-info:
 ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
-	@$(ECHO_E) "\e[107;30mDevice description\033[0m"
+	@$(ECHO_E) "$(ECHO_ESC)[107;30mDevice description\033[0m"
 	@$(ST_INFO) --descr
 	@$(ECHO_E)
-	@$(ECHO_E) "\e[107;30mFlash size\033[0m"
+	@$(ECHO_E) "$(ECHO_ESC)[107;30mFlash size\033[0m"
 	@$(ST_INFO) --flash
 	@x=$$($(PRINTF) "%d" `st-info --flash`) ; $(ECHO_E) $$((x/1024))K
 	@$(ECHO_E)
-	@$(ECHO_E) "\e[107;30mSRAM size\033[0m"
+	@$(ECHO_E) "$(ECHO_ESC)[107;30mSRAM size\033[0m"
 	@$(ST_INFO) --sram
 	@x=$$($(PRINTF) "%d" `st-info --sram`) ; $(ECHO_E) $$((x/1024))K
 else
@@ -197,10 +235,10 @@ endif
 
 debug: $(TOOLCHAIN_EXTRACTED) $(OUTPUT_TARGET_ELF)
 ifeq ($(CONFIG_PROGRAMMING_STLINK),y)
-	@$(ECHO_E) "\e[107;30mStarting debugger\033[0m"
+	@$(ECHO_E) "$(ECHO_ESC)[107;30mStarting debugger\033[0m"
 	@$(ST_UTIL) & echo $$! > .debug.PID
 	@$(SLEEP) 3
-	@$(HOST_GDB) -x $(TOOLCHAIN_DEBUG_CMD_FILE) $(OUTPUT_TARGET_ELF)
+	@$(TARGET_GDB) -x $(TOOLCHAIN_DEBUG_CMD_FILE) $(OUTPUT_TARGET_ELF)
 	@$(KILL2) `cat .debug.PID` && rm .debug.PID
 else
 endif
@@ -220,7 +258,7 @@ CLEAN_GOALS=
 
 .PHONY: $(CLEAN_GOALS)
 clean: $(CLEAN_GOALS)
-	$(RM_RF) $(OBJ_FILES) $(DEP_FILES)
+	$(RM_RF) $(SIM_OBJ_FILES) $(TARGET_OBJ_FILES) $(SIM_DEP_FILES) $(TARGET_DEP_FILES)
 
 ######################################################################
 # Help

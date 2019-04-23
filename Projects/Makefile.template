@@ -1,20 +1,5 @@
-# This file is part of AUSBEE.
+# Makefile for configuring and building an AUSBEE project
 #
-# Copyright (C) 2015 AUSBEE Developers <ausbee@googlegroups.com>
-#
-# AUSBEE is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-# 
-# AUSBEE is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with AUSBEE.  If not, see <http://www.gnu.org/licenses/>.
-
 #Set ausbee directory path. Can be relative or absolute
 AUSBEE_DIR=../..
 
@@ -22,7 +7,7 @@ AUSBEE_DIR=../..
 PROJECT_NAME=$(notdir $(patsubst i%/,%,$(lastword $(CURDIR))))
 
 #List all source files
-PROJECT_SRC_FILES=$(wildcard *.c)
+PROJECT_LOCAL_SRC_FILES=$(wildcard *.c)
 
 #Include main Makefile
 include $(AUSBEE_DIR)/ausbee.mk

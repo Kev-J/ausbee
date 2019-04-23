@@ -12,72 +12,46 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 # 
-# You should have received a copy of the GNU General Public License
-# along with AUSBEE.  If not, see <http://www.gnu.org/licenses/>.
+# You should have received a copy of the GNU General Public License# along with AUSBEE.  If not, see <http://www.gnu.org/licenses/>.
 
 # Path
-ARCHIVE_FREERTOS_PATH=$(subst $(DQUOTE),,$(CONFIG_DOWNLOADS_DIR)/FreeRTOSV$(CONFIG_FREERTOS_VERSION_DOWNLOAD).zip)
-FREERTOS_PATH=$(OPERATING_SYSTEMS_PATH)/FreeRTOS
-FREERTOS_TOP_PATH=$(subst $(DQUOTE),,$(FREERTOS_PATH)/FreeRTOSV$(CONFIG_FREERTOS_VERSION_DOWNLOAD))
-FREERTOS_SRC_PATH=$(FREERTOS_TOP_PATH)/FreeRTOS/Source
+CONFIG_FREERTOS_USE_HTTP=y
+FREERTOS_VERSION=$(subst $(DQUOTE),,$(CONFIG_FREERTOS_VERSION_DOWNLOAD))
+FREERTOS_URL=$(CONFIG_FREERTOS_URL_DOWNLOAD)
+FREERTOS_ARCHIVE=FreeRTOS_v$(FREERTOS_VERSION).zip
+FREERTOS_LOCAL_FILE_PATH=$(OPERATING_SYSTEMS_PATH)/FreeRTOS
+
+FREERTOS_INCLUDE_PATH=FreeRTOSv$(FREERTOS_VERSION)/FreeRTOS/Source/include
+FREERTOS_LOCAL_INCLUDE_PATH=include
 
 ifeq ($(CONFIG_ARM_CORE_CORTEX_M4),y)
-FREERTOS_SRC_PORT_PATH=$(FREERTOS_SRC_PATH)/portable/GCC/ARM_CM4F
+FREERTOS_TARGET_INCLUDE_PATH=FreeRTOSv$(FREERTOS_VERSION)/FreeRTOS/Source/portable/GCC/ARM_CM4F
+FREERTOS_TARGET_SRC_FILES=FreeRTOSv$(FREERTOS_VERSION)/FreeRTOS/Source/portable/GCC/ARM_CM4F/port.c
 else ifeq ($(CONFIG_ARM_CORE_CORTEX_M3),y)
-FREERTOS_SRC_PORT_PATH=$(FREERTOS_SRC_PATH)/portable/GCC/ARM_CM3
+FREERTOS_TARGET_INCLUDE_PATH=FreeRTOSv$(FREERTOS_VERSION)/FreeRTOS/Source/portable/GCC/ARM_CM3
+FREERTOS_TARGET_SRC_FILES=FreeRTOSv$(FREERTOS_VERSION)/FreeRTOS/Source/portable/GCC/ARM_CM3/port.c
+else ifeq ($(CONFIG_XMEGA_CORE),y)
+FREERTOS_TARGET_LOCAL_INCLUDE_PATH=port/xmega/
+FREERTOS_TARGET_LOCAL_SRC_FILES=port/xmega/port.c
 endif 
 
-#FreeRTOS Includes
-FREERTOS_INCLUDES_DIR=-I"$(FREERTOS_PATH)/include"
-FREERTOS_INCLUDES_DIR+=-I"$(FREERTOS_SRC_PATH)/include"
-FREERTOS_INCLUDES_DIR+=-I"$(FREERTOS_SRC_PORT_PATH)"
-FREERTOS_INCLUDES_DIR+=-I"$(INCLUDE_KCONFIG_PATH)"
-OPERATING_SYSTEMS_INCLUDES=$(FREERTOS_INCLUDES_DIR)
+ifeq ($(CONFIG_OS_POSIX_PORT), y)
+FREERTOS_SIM_LOCAL_SRC_FILES=port/originalPosix/port.c
+FREERTOS_SIM_LOCAL_INCLUDE_PATH=port/originalPosix
+else ifeq ($(CONFIG_OS_LINUX_PORT), y)
+FREERTOS_SIM_LOCAL_SRC_FILES=port/linuxPort/port.c
+FREERTOS_SIM_LOCAL_INCLUDE_PATH=port/linuxPort
+endif
+SIM_LDFLAGS+=-lpthread
 
-#TODO make choice for user to remove unnecessary files
-# Source files list
-FREERTOS_SRC_FILES=$(FREERTOS_SRC_PATH)/tasks.c
-FREERTOS_SRC_FILES+=$(FREERTOS_SRC_PATH)/croutine.c
-FREERTOS_SRC_FILES+=$(FREERTOS_SRC_PATH)/list.c
-FREERTOS_SRC_FILES+=$(FREERTOS_SRC_PATH)/queue.c
-FREERTOS_SRC_FILES+=$(FREERTOS_SRC_PATH)/timers.c
-FREERTOS_SRC_FILES+=$(FREERTOS_SRC_PATH)/portable/MemMang/heap_1.c # TODO make it configurable
-FREERTOS_SRC_FILES+=$(FREERTOS_SRC_PORT_PATH)/port.c
+FREERTOS_SRC_FILES= FreeRTOSv$(FREERTOS_VERSION)/FreeRTOS/Source/tasks.c
+FREERTOS_SRC_FILES+=FreeRTOSv$(FREERTOS_VERSION)/FreeRTOS/Source/croutine.c
+FREERTOS_SRC_FILES+=FreeRTOSv$(FREERTOS_VERSION)/FreeRTOS/Source/list.c
+FREERTOS_SRC_FILES+=FreeRTOSv$(FREERTOS_VERSION)/FreeRTOS/Source/queue.c
+FREERTOS_SRC_FILES+=FreeRTOSv$(FREERTOS_VERSION)/FreeRTOS/Source/timers.c
+FREERTOS_SRC_FILES+=FreeRTOSv$(FREERTOS_VERSION)/FreeRTOS/Source/event_groups.c
 
-# Object files list
-FREERTOS_OBJ_FILES=$(patsubst ${AUSBEE_DIR}/%.c,${OUTPUT_PATH}/%.o,${FREERTOS_SRC_FILES})
-FREERTOS_DEP_FILES=$(patsubst ${AUSBEE_DIR}/%.c,${OUTPUT_PATH}/%.d,${FREERTOS_SRC_FILES})
+FREERTOS_SIM_SRC_FILES+=FreeRTOSv$(FREERTOS_VERSION)/FreeRTOS/Source/portable/MemMang/heap_4.c # TODO make it configurable
+FREERTOS_TARGET_SRC_FILES+=FreeRTOSv$(FREERTOS_VERSION)/FreeRTOS/Source/portable/MemMang/heap_4.c # TODO make it configurable
 
-# Add object files to the global object files list
-OBJ_FILES+=$(FREERTOS_OBJ_FILES)
-DEP_FILES+=$(FREERTOS_DEP_FILES)
-
-# Build objects
-$(FREERTOS_OBJ_FILES): ${OUTPUT_PATH}/%.o :${AUSBEE_DIR}/%.c $(TOOLCHAIN_EXTRACTED) $(CONFIG_DEPS)
-	$(call print_build,FreeRTOS,$(subst $(FREERTOS_SRC_PATH)/,,$<))
-	@mkdir -p $(dir $@)
-	$(HOST_CC) $(HOST_CFLAGS) $(FREERTOS_INCLUDES_DIR) $(HOST_OPTIMISATION) -MF"$(@:.o=.d)" -MG -MM -MP -MT"$@" "$<"
-	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(FREERTOS_INCLUDES_DIR) $(HOST_OPTIMISATION) -c $<
-
-# Make sure that the archive has been extracted
-$(FREERTOS_SRC_FILES): $(FREERTOS_TOP_PATH)/.extracted
-
-# Extract files
-$(FREERTOS_TOP_PATH)/.extracted:$(ARCHIVE_FREERTOS_PATH)
-	$(UNZIP) -d $(FREERTOS_PATH) $<
-	$(TOUCH) $@
-
-#TODO ifeq for choosing if FreeRTOS must be downloaded or not
-# Download requested files
-$(ARCHIVE_FREERTOS_PATH):
-	$(MKDIR_P) $(CONFIG_DOWNLOADS_DIR)
-	$(WGET) -O $@ $(CONFIG_FREERTOS_URL_DOWNLOAD) || $(RM_RF) $@
-
-.PHONY: freertos-clean freertos-dirclean
-freertos-clean:
-	$(RM_RF) $(FREERTOS_OBJ_FILES)
-
-freertos-dirclean:
-	$(RM_RF) $(FREERTOS_TOP_PATH)
-
--include $(FREERTOS_DEP_FILES)
+$(eval $(call pkg-generic,FREERTOS))

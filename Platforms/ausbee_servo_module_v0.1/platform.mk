@@ -15,25 +15,9 @@
 # You should have received a copy of the GNU General Public License
 # along with AUSBEE.  If not, see <http://www.gnu.org/licenses/>.
 
-PLATFORM_AUSBEE_MAIN_BOARD_V0_1_PATH=$(PLATFORMS_PATH)/ausbee_servo_module_v0.1
 
-PLATFORMS_INCLUDES_DIR=-I"$(PLATFORM_AUSBEE_MAIN_BOARD_V0_1_PATH)"
+PLATFORM_AUSBEE_SERVO_MODULE_V0_1_LOCAL_FILE_PATH=$(PLATFORMS_PATH)/ausbee_servo_module_v0.1
+PLATFORM_AUSBEE_SERVO_MODULE_V0_1_LOCAL_INCLUDE_PATH=.
+PLATFORM_AUSBEE_SERVO_MODULE_V0_1_SRC_FILES=platform.c
 
-PLATFORM_SRC_FILES+=$(PLATFORM_AUSBEE_MAIN_BOARD_V0_1_PATH)/platform.c
-PLATFORM_OBJ_FILES=$(patsubst ${AUSBEE_DIR}/%.c,${OUTPUT_PATH}/%.o,${PLATFORM_SRC_FILES})
-PLATFORM_DEP_FILES=$(patsubst ${AUSBEE_DIR}/%.c,${OUTPUT_PATH}/%.d,${PLATFORM_SRC_FILES})
-
-OBJ_FILES+=$(PLATFORM_OBJ_FILES)
-DEP_FILES+=$(PLATFORM_DEP_FILES)
-
-$(PLATFORM_OBJ_FILES): $(OUTPUT_PATH)/%.o :$(AUSBEE_DIR)/%.c $(TOOLCHAIN_EXTRACTED) $(CONFIG_DEPS)
-	$(call print_build,AUSBEE_servo_module_v0.1,$$(subst $(AUSBEE_DIR)/,,$$<))
-	@mkdir -p $(dir $@)
-	$(HOST_CC) $(HOST_CFLAGS) $(LIBRARIES_INCLUDES_DIR) $(SYSTEM_INCLUDES_DIR) $(HOST_OPTIMISATION) -MF"$(@:.o=.d)" -MG -MM -MP -MT"$@" "$<"
-	$(HOST_CC) -o $@ $(HOST_CFLAGS) $(LIBRARIES_INCLUDES_DIR) $(SYSTEM_INCLUDES_DIR) $(HOST_OPTIMISATION) -c $<
-
-.PHONY:platform_ausbee_servo_module_v0_1-clean
-platform_ausbee_servo_module_v0_1-clean:
-	$(RM_RF) $(OBJ_FILES)
-
--include $(PLATFORM_DEP_FILES)
+$(eval $(call pkg-generic,PLATFORM_AUSBEE_SERVO_MODULE_V0_1))

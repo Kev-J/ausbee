@@ -9,7 +9,7 @@ dist_EXTRA_libkconfig_parser_la_SOURCES = \
 libkconfig_parser_la_CPPFLAGS = -DROOTMENU="\"$(root_menu)\""   \
                                 -DCONFIG_=\"$(config_prefix)\"  \
                                 $(intl_CPPFLAGS)
-libkconfig_parser_la_CFLAGS = $(AM_CFLAGS) $(kf_CFLAGS)
+libkconfig_parser_la_CFLAGS = $(AM_CFLAGS) $(kf_CFLAGS) -DGPERF_LEN_TYPE="$(GPERF_LEN_TYPE)"
 libkconfig_parser_la_LDFLAGS = -release $(KCONFIGPARSER_LIB_VERSION) -no-undefined
 libkconfig_parser_la_LIBADD = $(intl_LIBS)
 

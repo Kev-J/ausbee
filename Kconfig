@@ -31,12 +31,18 @@ menu "Device options"
 
 # Select CORE
 choice
-	prompt "Select ARM core"
+	prompt "Select uc core"
 config ARM_CORE_CORTEX_M4
 	bool "ARM Cortex-M4 core"
 
 config ARM_CORE_CORTEX_M3
 	bool "ARM Cortex-M3 core"
+
+config ARM_CORE_CORTEX_M0
+	bool "ARM Cortex-M0 core"
+
+config XMEGA_CORE
+	bool "AVR xmega core"
 endchoice
 
 config USE_FPU
@@ -62,6 +68,9 @@ config DEVICE_STM32F429_439xx
 
 config DEVICE_STM32F401xx
 	bool "STM32F401xx"
+
+config DEVICE_STM32L496xx
+	bool "STM32L496xx"
 endchoice
 
 # Select Device Cortex-M3
@@ -93,15 +102,34 @@ config DEVICE_STM32F10X_CL
 	bool "STM32F10X_CL"
 endchoice
 
+# Select Device Cortex-M0
+choice
+	prompt "Device name Cortex-M0"
+	depends on ARM_CORE_CORTEX_M0
+
+config DEVICE_STM32F042x6 
+	bool "STM32F042x6"
+endchoice
+
+# Select Device Xmega
+choice
+	prompt "Device name"
+	depends on XMEGA_CORE
+
+config DEVICE_XMEGA16A4 
+	bool "XMEGA16A4"
+endchoice
+
+
 config CRYSTAL_FREQUENCY
 	string "Crystal frenquency"
 	default "8000000"
 	help
 		HSE Crystal frequency in Hz.
-		Do not forget to call SystemCoreClockUpdate right after reset.
 
 # Ram length
 config RAM_LENGTH
+  depends on ARM_CORE_CORTEX_M4 || ARM_CORE_CORTEX_M3
 	string "RAM length"
 	default "10K"
 	help
@@ -113,6 +141,7 @@ config RAM_LENGTH
 
 # Flash length
 config FLASH_LENGTH
+  depends on ARM_CORE_CORTEX_M4 || ARM_CORE_CORTEX_M3
 	string "FLASH length"
 	default "32K"
 	help
@@ -121,6 +150,15 @@ config FLASH_LENGTH
 		K for kilobytes
 		M for megabytes
 		G for gigabytes
+
+# Flash start
+config FLASH_START
+  depends on ARM_CORE_CORTEX_M4 || ARM_CORE_CORTEX_M3
+	string "FLASH start address"
+	default "0x08000000"
+	help
+		Flash start address in hex
+
 
 endmenu
 
@@ -155,10 +193,16 @@ choice
 	prompt "Select programmer"
 
 config PROGRAMMING_STLINK
+  depends on ARM_CORE_CORTEX_M4 || ARM_CORE_CORTEX_M3
 	bool "STLink v2"
 
 config PROGRAMMING_USART
+  depends on ARM_CORE_CORTEX_M4 || ARM_CORE_CORTEX_M3
 	bool "STM32 USART"
+
+config PROGRAMMING_AVRDUDE_WITH_ISP2
+  depends on XMEGA_CORE
+	bool "Avrdude with isp2"
 endchoice
 
 # Baudrate for flashing device
@@ -196,8 +240,14 @@ endmenu
 ########################################
 ## Toolchain menu
 menu "Toolchain"
+depends on ARM_CORE_CORTEX_M4 || ARM_CORE_CORTEX_M3 || ARM_CORE_CORTEX_M0
 source "$AUSBEE_DIR/Toolchain/Kconfig"
 endmenu
+menu "Toolchain"
+depends on XMEGA_CORE
+source "$AUSBEE_DIR/AVRToolchain/Kconfig"
+endmenu
+
 
 ########################################
 ## Packages menu

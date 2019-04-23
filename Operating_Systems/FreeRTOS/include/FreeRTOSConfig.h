@@ -75,8 +75,6 @@
 
 #include <generated/autoconf.h>
 
-#include "projdefs.h" //needed to test FreeRTOS version
-
 /*-----------------------------------------------------------
  * Application specific definitions.
  *
@@ -103,11 +101,7 @@
 
 #define configCPU_CLOCK_HZ				( CONFIG_FREERTOS_CPU_CLOCK_HZ )	
 
-#ifndef pdMS_TO_TICKS //FREERTOS v7
-#define configTICK_RATE_HZ				( ( portTickType ) CONFIG_FREERTOS_TICK_RATE_HZ )
-#else //FREERTOS v8
 #define configTICK_RATE_HZ				( ( TickType_t ) CONFIG_FREERTOS_TICK_RATE_HZ )
-#endif
 
 #define configMAX_PRIORITIES			( CONFIG_FREERTOS_MAX_PRIORITIES )
 
@@ -317,10 +311,10 @@
 # define INCLUDE_vTaskGetSchedulerState 0
 #endif
 
-#ifdef CONFIG_FREERTOS_INCLUDE_VTASKGETCURRENTTASKHANDLE
-# define INCLUDE_vTaskGetCurrentTaskHandle 1
+#ifdef CONFIG_FREERTOS_INCLUDE_XTASKGETCURRENTTASKHANDLE
+# define INCLUDE_xTaskGetCurrentTaskHandle 1
 #else
-# define INCLUDE_vTaskGetCurrentTaskHandle 0
+# define INCLUDE_xTaskGetCurrentTaskHandle 0
 #endif
 
 #ifdef CONFIG_FREERTOS_INCLUDE_UXTASKGETSTACKHIGHWATERMARK
@@ -378,9 +372,7 @@
 /* !!!! configMAX_SYSCALL_INTERRUPT_PRIORITY must not be set to zero !!!!
 See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html. */
 #define configMAX_SYSCALL_INTERRUPT_PRIORITY 	( configLIBRARY_MAX_SYSCALL_INTERRUPT_PRIORITY << (8 - configPRIO_BITS) )
-	
-#define configASSERT( x ) if( ( x ) == 0 ) { taskDISABLE_INTERRUPTS(); for( ;; ); }	
-	
+#define configASSERT( x ) if( ( x ) == 0 ) { taskDISABLE_INTERRUPTS(); for( ;; ); }
 #define vPortSVCHandler SVC_Handler
 #define xPortPendSVHandler PendSV_Handler
 #define xPortSysTickHandler SysTick_Handler
