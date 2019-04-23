@@ -116,7 +116,7 @@ $(OUTPUT_TARGET_SIM): $(PACKAGES_EXTRACTED) $(SIM_OBJ_FILES)
 ######################################################################
 # Generate config files
 
-include/generated/git.h: $(GIT_PATH)/.git/COMMIT_EDITMSG $(GIT_PATH)/.git/HEAD 
+include/generated/git.h: $(wildcard $(GIT_PATH)/.git/COMMIT_EDITMSG) $(GIT_PATH)/.git/HEAD 
 	$(call print_gen,$(PROJECT_NAME),$(notdir $@))
 	$(ECHO_E) -n "#define GIT_COMMIT_ID " > $@
 	$(ECHO_E) "\"$(shell git rev-parse HEAD)\"" >> $@
